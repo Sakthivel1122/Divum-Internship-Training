@@ -1,0 +1,32 @@
+A tree is a nonlinear hierarchical data structure that consists of nodes connected by edges.
+
+Tree consist of :
+    > Nodes
+    > Edges
+<!-- -------------------------------------------------------------------------------------- -->
+
+Properties of tree:
+    > Height of a node
+    > Depth of a Node
+    > Height of a tree
+    > Degree of a Node
+
+Height of a node:
+    The height of a node is the number of edges from the node to the deepest leaf
+    (the longest path from the node to a leaf node).
+
+Depth of a Node:
+    The depth of a node is the number of edges from the root to the node.
+
+Height of a tree:
+    The height of a Tree is the height of the root node or the depth of the deepest node.
+
+Degree of a Node:
+    The degree of a node is the total number of branches of that node.
+<!-- -------------------------------------------------------------------------------------- -->
+
+Types of tree:
+    > Binary tree
+    > Binary Search tree
+    > AVL tree
+    > B-tree
