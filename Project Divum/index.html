@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <title>Divum clone</title>
+  </head>
+  <body>
+    <!-- Header -->
+    <header>
+      <nav class="navbar container">
+        <a href="#" class="logo"
+          ><img src="assets/images/Divum_Logo.svg" alt="Logo"
+        /></a>
+        <ul class="nav-menu">
+          <li class="nav-menu-item">
+            <a href="#" class="active item">Home</a>
+          </li>
+          <li class="nav-menu-item"><a href="#" class="item">Services</a></li>
+          <li class="nav-menu-item"><a href="#" class="item">Solutions</a></li>
+          <li class="nav-menu-item"><a href="#" class="item">Industry</a></li>
+          <li class="nav-menu-item"><a href="#" class="item">Technology</a></li>
+          <li class="nav-menu-item company-li">
+            <button class="company-item" onclick="dropdown()">
+              Company
+              <i class="fa-solid fa-sort-down"></i>
+            </button>
+            <ul class="dropdown" id="dropdown-id">
+              <li><a href="#">About Us</a></li>
+              <li><a href="#">NPD meet</a></li>
+              <li><a href="#">L&D</a></li>
+              <li><a href="#">Gallery</a></li>
+              <li><a href="#">Newsletters</a></li>
+            </ul>
+          </li>
+          <li class="nav-menu-item career">
+            <a href="#" class="career-item">Careers</a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <!-- Video Section -->
+    <section class="video-player">
+      <div class="content container">
+        <h1>
+          <span>
+            YOUR TRUSTED PARTNER FOR <br />
+            DIGITAL TRANSFORMATION & NEW PRODUCT DEVELOPMENT
+          </span>
+        </h1>
+        <video width="100%" autoplay loop muted controls>
+          <source src="assets/videos/divum-video.mp4" type="video/mp4" />
+        </video>
+      </div>
+    </section>
+    <!-- Below text Section -->
+    <section class="container below-text">
+      <div class="content">
+        <p>
+          We power digital transformation for modern enterprises and new product
+          development for visionary startups with our expertise across Design,
+          Multi Cloud, Data Engineering, Analytics, Machine Learning, AI and
+          Blockchain.
+        </p>
+        <p class="in-text">We love taking your vision to reality.</p>
+
+        <a href="#" class="contact-us-btn">CONTACT US</a>
+      </div>
+    </section>
+    <!-- Welcom to Divum Section -->
+    <section class="text-img-flex container">
+      <div class="text-content">
+        <h3>Welcome to Divum !</h3>
+        <br />
+        <p>
+          The world is seeing unprecedented Digital Transformation across all
+          businesses to improve efficiencies, enable frictionless customer
+          reachout and deliveries, provide better customer satisfaction, and
+          enable new business models. At Divum we have prepared ourselves with
+          our 14 years of experience to make this journey seamless and cost
+          effective for you. You have an existing business and are looking for
+          ways to tap into the power of Digital? Our experts will work with you
+          to identify areas of your legacy application modernization and
+          work-flow automation...
+        </p>
+        <a href="#">READ MORE...</a>
+      </div>
+      <img src="assets/images/welcome.png" alt="" class="img-content" />
+    </section>
+
+    <!-- Solution Section -->
+    <section class="text-img-flex container">
+      <img src="assets/images/solution.png" alt="" class="img-content" />
+      <div class="text-content">
+        <h3>1400+ Solutions Delivered</h3>
+        <br />
+        <p>
+          We have been there, done that. Many times over.Our vast experience
+          coupled with our Agile development methodology and Pre-built Solutions
+          strike a good balance between...
+        </p>
+        <a href="#">READ MORE...</a>
+      </div>
+    </section>
+
+    <!-- Technologies Section -->
+    <section class="text-img-flex container">
+      <div class="text-content">
+        <h3>60+ Technologies Covered</h3>
+        <br />
+        <p>
+          We embrace new technologies by partnering with OEMs/Platform owners
+          for Early Access Programs.We enable you to stay ahead of the market by
+          leveraging cutting edge technologies.
+        </p>
+        <a href="#">READ MORE...</a>
+      </div>
+      <img src="assets/images/Technology.png" alt="" class="img-content" />
+    </section>
+    <!-- Domain -->
+    <section class="text-img-flex container">
+      <img src="assets/images/domain-2.png" alt="" class="img-content" />
+      <div class="text-content">
+        <h3>20+ Domains</h3>
+        <br />
+        <p>
+          In the last 14 years, we have built Digital Solutions cutting across
+          e-Commerce, Supply Chain, Logistics, Social Networks,
+          Chat/Collaboration, Health-tech, Fintech...
+        </p>
+        <a href="#">READ MORE...</a>
+      </div>
+    </section>
+
+    <!-- Brands Build -->
+    <section class="brands-build">
+      <div class="brands-build-container">
+        <div class="left">
+          <h3>
+            <span>WE</span>
+            <span>BUILD</span>
+            <span>BRANDS</span>
+            <span>THAT</span>
+            <span>MATTER</span>
+          </h3>
+        </div>
+        <div class="brands-flex">
+          <div class="brands-flex-item">
+            <img src="assets/images/pic-1.svg" alt="" />
+            <h4><span>For Startups</span></h4>
+            <p>
+              We engage deeply with a passionate team of designers and engineers
+              right from your idea conceptualisation, user-journey- research to
+              build a right market-fit product in a record time.
+            </p>
+          </div>
+          <div class="brands-flex-item">
+            <img src="assets/images/pic-2.svg" alt="" />
+            <h4><span> For Enterprises </span></h4>
+            <p>
+              We understand enterprises need solutions, not products. Partner
+              with us to analyse your business challenges, conduct research and
+              arrive at most innovative solution before you take up any digital
+              transformation.
+            </p>
+          </div>
+          <div class="brands-flex-item">
+            <img src="assets/images/pic-3.svg" alt="" />
+            <h4><span>Expertise</span></h4>
+            <p>
+              As a team we bring our experience of delivering 1400+ design and
+              technology solutions spread across domains like E-commerce,
+              FinTech, Healthcare, Education, Business, Travel, Media,
+              Lifestyle, Enterprise, Social and Sports. Our expertise in Cloud,
+              Blockchain, IoT, Machine Learning, AI and other latest
+              technologies enable quick time to market.
+            </p>
+          </div>
+          <div class="brands-flex-item">
+            <img src="assets/images/pic-4.svg" alt="" />
+            <h4><span>Partnership</span></h4>
+            <p>
+              Our global partnerships with OEMs like Oracle, Google, Amazon,
+              SAP, Microsoft and Samsung help us participate in early access
+              programs on upcoming design and technology trends and stay ahead
+              of the curve and add value to our customer’s products leveraging
+              the latest offerings from the OEMs.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Slideshow -->
+    <section class="container slide-show-container">
+      <h3>Global Clientele</h3>
+      <div class="slide-btns">
+        <button onclick="currSlide(1)" class="slide-btn active-slide">
+          SOCIAL TECH
+        </button>
+        <button onclick="currSlide(2)" class="slide-btn">SUPPLY CHAIN</button>
+        <button onclick="currSlide(3)" class="slide-btn">
+          STREAMING/OTT | MEDIA
+        </button>
+        <button onclick="currSlide(4)" class="slide-btn">FINTECH</button>
+        <button onclick="currSlide(5)" class="slide-btn">HEALTHTECH</button>
+        <button onclick="currSlide(6)" class="slide-btn">E-COMMERCE</button>
+        <button onclick="currSlide(7)" class="slide-btn">TRAVEL</button>
+        <button onclick="currSlide(8)" class="slide-btn">EDTECH</button>
+      </div>
+      <div class="slide-img-container">
+        <img
+          src="assets/images/slide-img/Social Networks 001.jpg"
+          alt="social newtworks"
+          class="slide-img"
+        />
+        <img
+          src="assets/images/slide-img/Supply Chain 002.jpg"
+          alt="supply chain"
+          class="slide-img"
+        />
+        <img
+          src="assets/images/slide-img/Media 003.jpg"
+          alt="Media"
+          class="slide-img"
+        />
+        <img
+          src="assets/images/slide-img/Fintech 004.jpg"
+          alt="Fintech"
+          class="slide-img"
+        />
+        <img
+          src="assets/images/slide-img/Health Tech 005.jpg"
+          alt="Health Tech"
+          class="slide-img"
+        />
+        <img
+          src="assets/images/slide-img/E-commerce 006.jpg"
+          alt="E-commerce"
+          class="slide-img"
+        />
+        <img
+          src="assets/images/slide-img/Travel Tech 007.jpg"
+          alt="Travel Tech"
+          class="slide-img"
+        />
+        <img
+          src="assets/images/slide-img/Edutech 008.jpg"
+          alt="Edutech"
+          class="slide-img"
+        />
+      </div>
+    </section>
+    <!-- Engagement -->
+    <section class="engagement container">
+      <h2>Engagement Levels</h2>
+      <div class="engagement-container">
+        <div class="engagement-content">
+          <img
+            src="assets/images/engagement-img/maintain-1.svg"
+            alt=""
+            class="engagement-img"
+          />
+          <h4 class="margin-top-30">Digital Transformation</h4>
+          <p>EXISTING SOLUTIONS/PRODUCTS</p>
+        </div>
+
+        <div class="engagement-content">
+          <img
+            src="assets/images/engagement-img/build_new-2.svg"
+            alt=""
+            class="engagement-img"
+          />
+          <h4 class="margin-top-30">New product Development</h4>
+          <p>SOLUTIONS/PRODUCTS AFRESH OR RE-USE SOLUTIONS</p>
+        </div>
+      </div>
+    </section>
+    <!-- Partners Section -->
+    <section class="partners-section container">
+      <h3>Partners</h3>
+      <p>AWS | Google | Oracle | Microsoft | SAP</p>
+      <div class="partners-section-grid">
+        <div class="partners-image-container">
+          <div class="image-wrapper">
+            <img
+              class="partners-image"
+              src="assets/images/Partners/AWS-1.png"
+              alt=""
+            />
+          </div>
+          <div class="image-content">
+            <h4>AWS Partner Network</h4>
+            <p>AWS Cloud, AWS Mobility, AWS IoT and AWS Blockchain.</p>
+          </div>
+        </div>
+        <div class="partners-image-container">
+          <div class="image-wrapper">
+            <img
+              class="partners-image"
+              src="assets/images/Partners/Google cloud-2.png"
+              alt=""
+            />
+          </div>
+          <div class="image-content">
+            <h4>Certified Google Cloud Partner</h4>
+            <p>
+              App Engine, BigQuery, DataStore,TensorFlow. First 3 companies to
+              be certified under this world-wide program by Google.
+            </p>
+          </div>
+        </div>
+        <div class="partners-image-container">
+          <div class="image-wrapper">
+            <img
+              class="partners-image"
+              src="assets/images/Partners/Orcale-3.png"
+              alt=""
+            />
+          </div>
+          <div class="image-content">
+            <h4>Oracle Scale-up Ecosystem</h4>
+            <p>
+              Member of scale-up program for Cloud and Blockchain applications.
+            </p>
+          </div>
+        </div>
+      </div>
+      <!-- Partners -->
+      <div class="partners-section-flex">
+        <div class="partners-image-container">
+          <div class="image-wrapper">
+            <img
+              class="partners-image"
+              src="assets/images/Partners/Microsoft-4.png"
+              alt=""
+            />
+          </div>
+          <div class="image-content">
+            <h4>Microsoft Azure Partner</h4>
+            <p>
+              Solutions/products built with some of the leading Azure services
+              CosmoDB, Azure Active Directory, API management, Azure DevOps and
+              more.
+            </p>
+          </div>
+        </div>
+        <div class="partners-image-container">
+          <div class="image-wrapper">
+            <img
+              class="partners-image"
+              src="assets/images/Partners/SAP Partner-5.png"
+              alt=""
+            />
+          </div>
+          <div class="image-content">
+            <h4>SAP PartnerEdge Partner</h4>
+            <p>SAP PartnerEdge Partner - SAP Cloud and Mobility solutions.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- how-we-do-section -->
+    <section class="how-we-do-section">
+      <div class="how-we-do-section-container">
+        <div class="flex-1">
+          <div class="flex-1-content">
+            <h2>
+              <span>HOW</span>
+              <span>WE</span>
+              <span>DO</span>
+            </h2>
+            <button class="contact-us-btn">CONTACT US</button>
+          </div>
+        </div>
+        <div class="flex-2">
+          <div class="grid-layout">
+            <div class="grid-ele">
+              <img
+                class="grid-img"
+                src="assets/images/How to do/Fastest Technology-1.svg"
+                alt=""
+              />
+              <h4>Faster Technology Adoption</h4>
+              <p>
+                We work closely with OEMs & Platform owners such as Amazon,
+                Google, Samsung & Microsoft by signing up for the most EAP to
+                stay state-of-art on their latest offerings.
+              </p>
+            </div>
+            <div class="grid-ele">
+              <img
+                class="grid-img"
+                src="assets/images/How to do/Focus-2.svg"
+                alt=""
+              />
+              <h4>Focus on Innovation</h4>
+              <p>
+                Our unique CoE + "satellite" team model offers a right balance
+                between execution and diffuse innovations during the new product
+                development.
+              </p>
+            </div>
+            <div class="grid-ele">
+              <img
+                class="grid-img"
+                src="assets/images/How to do/Transparent-3.svg"
+                alt=""
+              />
+              <h4>Transparent Execution</h4>
+              <p>
+                Team at Divum carries enoromous passion in delivering great
+                products. We believe the only way to achieve is take ownership
+                of the product end-to-end.
+              </p>
+            </div>
+            <div class="grid-ele">
+              <img
+                class="grid-img"
+                src="assets/images/How to do/USer Centric-4.svg"
+                alt=""
+              />
+              <h4>User Experience Centric</h4>
+              <p>
+                We have a history of seeing the app market maturity over the
+                years. The importance of functionality Vs UI Vs UX and user
+                retainability of today's cluttered apps world is very hard to
+                ignore.
+              </p>
+            </div>
+            <div class="grid-ele">
+              <img
+                class="grid-img"
+                src="assets/images/How to do/Product-5.svg"
+                alt=""
+              />
+              <h4>Product Market Fit</h4>
+              <p>
+                Content marketing has flat-out become a fundamental part of
+                connecting with your target audience and educating them on your
+                offerings. To stay in touch with your audience has never been
+                more important.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Insights Section -->
+    <section id="insights-section">
+      <h1 class="container">Insights</h1>
+      <div class="container insights-flex-layout">
+        <div class="insights-flex-item">
+          <img
+            class="insights-img"
+            src="assets/images/insights/insights-1.jpg"
+            alt=""
+          />
+          <a href="">05 Apr 2022 | MUTHANNA P M</a>
+          <h4><span>ML for e-commerce demand prediction</span></h4>
+          <p>
+            Consumers’ expectations when shopping for groceries and produce are
+            straightforward they demand the freshest of stocks
+          </p>
+        </div>
+
+        <div class="insights-flex-item">
+          <img
+            class="insights-img"
+            src="assets/images/insights/insights-2.jpg"
+            alt=""
+          />
+          <a href="">24 Mar 2022 | AMAR RATNAKAR NAIK</a>
+          <h4><span> Empowering Internet Users in Rural India </span></h4>
+          <p>
+            Divum was brought in to redefine the online experience for women in
+            far-flung, and intermittent connectivity.
+          </p>
+        </div>
+
+        <div class="insights-flex-item">
+          <img
+            class="insights-img"
+            src="assets/images/insights/insights-3.jpg"
+            alt=""
+          />
+          <a href="">13 May 2022 | VIVEK B S</a>
+          <h4>
+            <span> Whatsapp-based Commerce </span>
+          </h4>
+          <p>
+            Divum builds e-commerce on Whatsapp for modern trade clients. So
+            customers can place grocery orders, via Whatsapp, based on their pin
+            code.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Regulatory Section -->
+    <section id="regulatory-section">
+      <div class="container regulatory-flex-layout">
+        <h1><span>Experience with Regulatory Compliances</span></h1>
+        <div class="regulatory-content">
+          <p class="regulatory-p-1">
+            <span> HIPAA | GDPR | ISO | PCI DSS | SOC 2 </span>
+          </p>
+          <p class="regulatory-p">
+            Compliances are a key aspect to consider when building any
+            enterprise applications to ensure all regulatory requirements are
+            met in terms of security, data privacy (PII, Payments, etc.).
+          </p>
+          <p class="regulatory-p">
+            Divum engineering teams have supported clients in building platforms
+            complying with regulatory frameworks such as HIPAA, GDPR, ISO, PCI
+            DSS and more.
+          </p>
+          <p class="regulatory-p">
+            Divum’s Information Security Management System is certified with
+            <b> ISO/IEC 27001:2013 standard. </b>
+          </p>
+          <div class="regulatory-imgs">
+            <img src="assets/images/regulatory/regulatory-1.png" alt="" />
+            <img src="assets/images/regulatory/regulatory-2.png" alt="" />
+            <img src="assets/images/regulatory/regulatory-3.png" alt="" />
+            <img src="assets/images/regulatory/regulatory-4.png" alt="" />
+            <img src="assets/images/regulatory/regulatory-5.png" alt="" />
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Contact Form Section -->
+    <section id="contact-us-section">
+      <div class="contact-us-container">
+        <div class="contact-us-content">
+          <div class="lets-talk">
+            <h2>
+              <span>
+                Transform your <br />
+                Digital Journey <br />
+                with us today.</span
+              >
+            </h2>
+            <a href="" class="contact-us-btn">LET'S TALK</a>
+          </div>
+          <div class="contact-form">
+            <h2>
+              <span
+                >To receive our <br />
+                Corporate Deck, <br />
+                submit below details
+              </span>
+            </h2>
+            <form action="">
+              <input type="text" placeholder="Name" required />
+              <input type="text" placeholder="Enter your Email ID" required />
+              <input type="submit" value="Submit" />
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Footer -->
+    <footer>
+      <div class="footer-container">
+        <div class="footer-content-1">
+          <div class="content-col">
+            <h4><span> Our Work </span></h4>
+            <div class="footer-links">
+              <a href="#">Services</a>
+              <a href="#">Solutions</a>
+              <a href="#">Industry</a>
+              <a href="#">Contact us</a>
+            </div>
+          </div>
+          <div class="content-col">
+            <h4><span> Company </span></h4>
+            <div class="footer-links">
+              <a href="#">About Us</a>
+              <a href="#">Technology</a>
+              <a href="#">Careers</a>
+              <a href="#">Privacy Policy</a>
+            </div>
+          </div>
+          <div class="content-col">
+            <h4><span> Business </span></h4>
+            <div class="footer-links">
+              <a href="#">Clients</a>
+              <a href="#">Team</a>
+              <a href="#">Offices</a>
+            </div>
+          </div>
+          <div class="content-col">
+            <h4><span> Let's Meet </span></h4>
+            <div class="footer-links">
+              <a href="#">info@divum.in</a>
+              <p>
+                Divum Corporate <br />
+                Services Pvt <br />
+                Ltd,72,73, 3rd Floor, <br />
+                Krishna Reddy <br />
+                Colony, Domlur <br />
+                Layout, Bengaluru, <br />
+                560071.
+              </p>
+              <div class="icons">
+                <i class="fa-brands fa-linkedin-in"></i>
+                <i class="fa-brands fa-facebook-f"></i>
+                <i class="fa-brands fa-instagram"></i>
+                <i class="fa-brands fa-twitter"></i>
+                <i class="fa-solid fa-location-dot"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="footer-content-2">
+          <p>Divum Corporate Service Pvt. Ltd.</p>
+          <p>© 2022</p>
+        </div>
+      </div>
+    </footer>
+    <script
+      src="https://kit.fontawesome.com/1261e2c8d5.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="assets/js/script.js"></script>
+  </body>
+</html>
