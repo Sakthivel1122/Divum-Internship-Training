@@ -3,11 +3,23 @@ import "./EmployeeDetails.css";
 import logo from "./images/logo.png";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import DeletePopUp from "./DeletePopUp";
 
 const API_LINK = "http://localhost:8088/api/v1/employee/";
-const EmployeeDetails = ({ value, setValue, employee, setEmployee }) => {
+const EmployeeDetails = ({
+  value,
+  setValue,
+  employee,
+  setEmployee,
+  showAlert,
+  setShowAlert,
+  myAlert,
+  setMyAlert,
+}) => {
+  const [deletePopUp, setDeletePopUp] = useState(false);
+  const [deleteEmployeeId, setDeleteEmployeeId] = useState();
   const navigate = useNavigate();
   useEffect(() => {
     Load();
@@ -20,17 +32,13 @@ const EmployeeDetails = ({ value, setValue, employee, setEmployee }) => {
   };
   const deleteEmployee = async (employeeId) => {
     await axios.delete(API_LINK + "deleteEmployee/" + employeeId);
-    toast.error('Deleted', {
-      position: "top-center",
-      autoClose: 2000,
-      hideProgressBar: true,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "colored",
-      closeButton:false
-      }); 
+    setMyAlert({
+      type: "error",
+      message: "Deleted",
+      closeButton: false,
+    });
+    setShowAlert(true);
+    
     Load();
   };
   const editEmployee = (employee) => {
@@ -44,6 +52,10 @@ const EmployeeDetails = ({ value, setValue, employee, setEmployee }) => {
       address: employee.address,
     });
     navigate("/form");
+  };
+  const deleteBtnHandler = (employeeId) => {
+    setDeleteEmployeeId(employeeId);
+    setDeletePopUp(true);
   };
   return (
     <div className="EmployeeDetails">
@@ -87,15 +99,15 @@ const EmployeeDetails = ({ value, setValue, employee, setEmployee }) => {
                 <td>{employee.dob}</td>
                 <td>
                   <div className="action-btns">
-                    <button 
-                    className="edit-btn"
-                    onClick={() => editEmployee(employee)}
+                    <button
+                      className="edit-btn"
+                      onClick={() => editEmployee(employee)}
                     >
-                    Edit
+                      Edit
                     </button>
                     <button
                       className="delete-btn"
-                      onClick={() => deleteEmployee(employee.employeeId)}
+                      onClick={() => deleteBtnHandler(employee.employeeId)}
                     >
                       Delete
                     </button>
@@ -106,6 +118,13 @@ const EmployeeDetails = ({ value, setValue, employee, setEmployee }) => {
           })}
         </tbody>
       </table>
+      {deletePopUp && (
+        <DeletePopUp
+          setDeletePopUp={setDeletePopUp}
+          deleteEmployee={deleteEmployee}
+          deleteEmployeeId={deleteEmployeeId}
+        />
+      )}
     </div>
   );
 };
