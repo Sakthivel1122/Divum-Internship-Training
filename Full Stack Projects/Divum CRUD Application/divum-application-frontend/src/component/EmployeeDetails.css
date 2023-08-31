@@ -1,0 +1,88 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+.EmployeeDetails{
+    width: 90%;
+    height: 97%;
+    background-color: white;
+    margin: auto;
+    border-radius: 10px;
+}
+
+.EmployeeDetails .navbar{
+    height: 3.5rem;
+    padding: 0 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    margin-top: 10px;
+}
+
+.EmployeeDetails .navbar .logo{
+    width: 5rem;
+}
+
+.EmployeeDetails .navbar .add-btn{
+    height: fit-content;
+    padding: .6rem 1rem;
+    margin-right: 1.2rem;
+    background-color: #28a745;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 14px;
+    color: white;
+    text-decoration: none;
+    font-family: 'Open Sans', sans-serif;
+}
+.EmployeeDetails .navbar .add-btn:hover{
+    background-color: #218838;
+}
+table{
+    width: 100%;
+    margin-top: 1.5rem;
+    text-align: center;
+    border-collapse: collapse;
+}
+table thead{
+    background-color: #212529;
+    color: white;
+    height: 3rem;
+    font-family: 'Montserrat', sans-serif;
+}
+table tbody{
+    font-family: 'Open Sans', sans-serif;
+}
+table tbody tr{
+    height: 3.4rem;
+}
+table tbody .action-btns{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+table tbody .edit-btn{
+    color: black;
+    text-decoration: none;
+    padding: .4rem 1rem;
+    border: none;
+    border-radius: 3px;
+    background-color: #ffc107;
+}
+
+table tbody .edit-btn:hover{
+    background-color: #E0A800;
+}
+
+table tbody .delete-btn{
+    color: white;
+    width: 5rem;
+    height: 2rem;
+    border: none;
+    padding: .4rem 1rem;
+    border-radius: 3px;
+    background-color: #dc3545;
+}
+table tbody .delete-btn:hover{
+    background-color: #C82333;
+}
