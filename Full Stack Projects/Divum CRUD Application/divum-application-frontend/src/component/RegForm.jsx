@@ -6,9 +6,19 @@ import { useNavigate } from "react-router-dom";
 import logo from "./images/logo.png";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Alert from "./Alert";
 
 const API_LINK = "http://localhost:8088/api/v1/employee/";
-const RegForm = ({ value, setValue,employee, setEmployee }) => {
+const RegForm = ({
+  value,
+  setValue,
+  employee,
+  setEmployee,
+  showAlert,
+  setShowAlert,
+  myAlert,
+  setMyAlert,
+}) => {
   const [errors, setErrors] = useState({
     emailId: "",
     firstName: "",
@@ -18,23 +28,24 @@ const RegForm = ({ value, setValue,employee, setEmployee }) => {
     address: "",
   });
   const navigate = useNavigate();
-  const allData = ["emailId","firstName","lastName","dob","mobileNo","address"];
+  const allData = [
+    "emailId",
+    "firstName",
+    "lastName",
+    "dob",
+    "mobileNo",
+    "address",
+  ];
   const add = async (e) => {
     e.preventDefault();
-    for(let i = 0;i < allData.length;i++){
-      if(!validate(allData[i]))
-      {
-        toast.warn('Invalid Form submission', {
-          position: "top-center",
-          autoClose: 2000,
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "colored",
-          closeButton:false
-          });
+    for (let i = 0; i < allData.length; i++) {
+      if (!validate(allData[i])) {
+        setMyAlert({
+          type: "warning",
+          message: "Invalid Form submission",
+          closeButton: false,
+        });
+        setShowAlert(true);
         return;
       }
     }
@@ -48,17 +59,12 @@ const RegForm = ({ value, setValue,employee, setEmployee }) => {
           mobileNumber: value.mobileNo,
           address: value.address,
         });
-        toast.success("Added", {
-          position: "top-center",
-          autoClose: 2000,
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "colored",
+        setMyAlert({
+          type: "success",
+          message: "Added",
           closeButton: false,
         });
+        setShowAlert(true);
       } catch (error) {
         alert("Error: " + error);
       }
@@ -72,17 +78,13 @@ const RegForm = ({ value, setValue,employee, setEmployee }) => {
         mobileNumber: value.mobileNo,
         address: value.address,
       });
-      toast.success("Updated", {
-        position: "top-center",
-        autoClose: 2000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "colored",
+      setMyAlert({
+        type: "success",
+        message: "Updated",
         closeButton: false,
       });
+      setShowAlert(true);
+      
     }
     setValue({
       employeeId: "",
@@ -107,35 +109,35 @@ const RegForm = ({ value, setValue,employee, setEmployee }) => {
       address: "",
     });
     navigate("/");
-  }
+  };
   // Form validation
   const validEmailregex = /^[\w\-\.\+]+\@[a-zA-Z0-9\.\-]+\.[a-zA-z0-9]{2,4}$/;
   const validNameregex = /^[A-Za-z]+$/;
   const validMobileNo = /^(\d{3})[- ]?(\d{3})[- ]?(\d{4})$/;
   const emailIdAvail = () => {
-    for(let i = 0;i < employee.length;i++){
+    for (let i = 0; i < employee.length; i++) {
       console.log(employee[i].emailId);
-      if(value.emailId == employee[i].emailId){
+      if (value.emailId == employee[i].emailId) {
         return false;
       }
     }
     return true;
-  }
-  const onBlurHandler = (e) =>{
+  };
+  const onBlurHandler = (e) => {
     validate(e.target.name);
-  }
+  };
   const validate = (name) => {
     switch (name) {
       case "emailId":
+        if (value.employeeId !== "") return true;
         if (value.emailId === "") {
           setErrors({ ...errors, emailId: "Email id is required!" });
         } else if (!validEmailregex.test(value.emailId)) {
           setErrors({ ...errors, emailId: "Invalid email id!" });
-        } else if (!emailIdAvail) {
+        } else if (!emailIdAvail(value.emailId)) {
           setErrors({ ...errors, emailId: "Email id already exist!" });
         } else {
           setErrors({ ...errors, emailId: "" });
-          console.log("emailid passed",);
           return true;
         }
         return false;
@@ -146,7 +148,6 @@ const RegForm = ({ value, setValue,employee, setEmployee }) => {
           setErrors({ ...errors, firstName: "Only alphabets to be entered!" });
         } else {
           setErrors({ ...errors, firstName: "" });
-          console.log("firstname passed",);
           return true;
         }
         return false;
@@ -202,116 +203,127 @@ const RegForm = ({ value, setValue,employee, setEmployee }) => {
   return (
     <>
       <div className="RegForm">
-        <button className="back-btn" onClick={backBtnHandle}>Back</button>
-          <div className="form-content">
-            <form>
-              <div className="navbar">
-                <img src={logo} alt="Logo" className="logo" />
-                <h1>Register</h1>
+        <button className="back-btn" onClick={backBtnHandle}>
+          Back
+        </button>
+        <div className="form-content">
+          <form>
+            <div className="navbar">
+              <img src={logo} alt="Logo" className="logo" />
+              <h1>Register</h1>
+            </div>
+            <input
+              type="text"
+              name="employeeId"
+              value={value.employeeId}
+              hidden
+            />
+            <div className="input">
+              <label htmlFor="">Email ID</label>
+              <div className="input-flex">
+                <input
+                  type="email"
+                  className="input-box"
+                  name="emailId"
+                  value={value.emailId}
+                  onChange={onChangeHandle}
+                  onBlur={onBlurHandler}
+                  disabled={value.employeeId !== ""}
+                  required
+                />
+                <p>{errors.emailId}</p>
               </div>
-              <input
-                type="text"
-                name="employeeId"
-                value={value.employeeId}
-                hidden
-              />
-              <div className="input">
-                <label htmlFor="">Email ID</label>
-                <div className="input-flex">
-                  <input
-                    type="email"
-                    className="input-box"
-                    name="emailId"
-                    value={value.emailId}
-                    onChange={onChangeHandle}
-                    onBlur={onBlurHandler}
-                    required
-                  />
-                  <p>{errors.emailId}</p>
-                </div>
+            </div>
+            <div className="input">
+              <label htmlFor="">First Name</label>
+              <div className="input-flex">
+                <input
+                  type="text"
+                  className="input-box"
+                  name="firstName"
+                  value={value.firstName}
+                  onChange={onChangeHandle}
+                  onBlur={onBlurHandler}
+                  required
+                />
+                <p>{errors.firstName}</p>
               </div>
-              <div className="input">
-                <label htmlFor="">First Name</label>
-                <div className="input-flex">
-                  <input
-                    type="text"
-                    className="input-box"
-                    name="firstName"
-                    value={value.firstName}
-                    onChange={onChangeHandle}
-                    onBlur={onBlurHandler}
-                    required
-                  />
-                  <p>{errors.firstName}</p>
-                </div>
+            </div>
+            <div className="input">
+              <label htmlFor="">Last Name</label>
+              <div className="input-flex">
+                <input
+                  type="text"
+                  className="input-box"
+                  name="lastName"
+                  value={value.lastName}
+                  onChange={onChangeHandle}
+                  onBlur={onBlurHandler}
+                  required
+                />
+                <p>{errors.lastName}</p>
               </div>
-              <div className="input">
-                <label htmlFor="">Last Name</label>
-                <div className="input-flex">
-                  <input
-                    type="text"
-                    className="input-box"
-                    name="lastName"
-                    value={value.lastName}
-                    onChange={onChangeHandle}
-                    onBlur={onBlurHandler}
-                    required
-                  />
-                  <p>{errors.lastName}</p>
-                </div>
+            </div>
+            <div className="input">
+              <label htmlFor="">DOB</label>
+              <div className="input-flex">
+                <input
+                  type="date"
+                  className="input-box"
+                  name="dob"
+                  value={value.dob}
+                  onChange={onChangeHandle}
+                  onBlur={onBlurHandler}
+                  id="dob"
+                  max={today}
+                  required
+                />
+                <p>{errors.dob}</p>
               </div>
-              <div className="input">
-                <label htmlFor="">DOB</label>
-                <div className="input-flex">
-                  <input
-                    type="date"
-                    className="input-box"
-                    name="dob"
-                    value={value.dob}
-                    onChange={onChangeHandle}
-                    onBlur={onBlurHandler}
-                    id="dob"
-                    max={today}
-                    required
-                  />
-                  <p>{errors.dob}</p>
-                </div>
+            </div>
+            <div className="input">
+              <label htmlFor="">Mobile Number</label>
+              <div className="input-flex">
+                <input
+                  type="text"
+                  className="input-box"
+                  name="mobileNo"
+                  value={value.mobileNo}
+                  onChange={onChangeHandle}
+                  onBlur={onBlurHandler}
+                  required
+                />
+                <p>{errors.mobileNo}</p>
               </div>
-              <div className="input">
-                <label htmlFor="">Mobile Number</label>
-                <div className="input-flex">
-                  <input
-                    type="text"
-                    className="input-box"
-                    name="mobileNo"
-                    value={value.mobileNo}
-                    onChange={onChangeHandle}
-                    onBlur={onBlurHandler}
-                    required
-                  />
-                  <p>{errors.mobileNo}</p>
-                </div>
+            </div>
+            <div className="input-address">
+              <label htmlFor="">Address</label>
+              <div className="input-flex">
+                <textarea
+                  name="address"
+                  className="input-box-address"
+                  value={value.address}
+                  onChange={onChangeHandle}
+                  onBlur={onBlurHandler}
+                  placeholder="Max:50char"
+                  required
+                ></textarea>
+                <p>{errors.address}</p>
               </div>
-              <div className="input-address">
-                <label htmlFor="">Address</label>
-                <div className="input-flex">
-                  <textarea
-                    name="address"
-                    className="input-box-address"
-                    value={value.address}
-                    onChange={onChangeHandle}
-                    onBlur={onBlurHandler}
-                    placeholder="Max:50char"
-                    required
-                  ></textarea>
-                  <p>{errors.address}</p>
-                </div>
-              </div>
-              <Link className="submit-btn" onClick={add}>
-                {value.employeeId === "" ? "Save" : "Update"}
-              </Link>
-            </form>
-          </div>
+            </div>
+            <Link className="submit-btn" onClick={add}>
+              {value.employeeId === "" ? "Save" : "Update"}
+            </Link>
+          </form>
+        </div>
+        {/* {showAlert && (
+          <Alert
+            type={myAlert.type}
+            message={myAlert.message}
+            closeButton={myAlert.closeButton}
+            setShowAlert={setShowAlert}
+          />
+        )} */}
       </div>
     </>
   );
