@@ -3,33 +3,34 @@ import "./EmployeeDetails.css";
 import logo from "./images/logo.png";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import DeletePopUp from "./DeletePopUp";
 
 const API_LINK = "http://localhost:8088/api/v1/employee/";
 const EmployeeDetails = ({
-  value,
-  setValue,
   employee,
   setEmployee,
   showAlert,
   setShowAlert,
   myAlert,
   setMyAlert,
+  Load,
 }) => {
+  const [value, setValue] = useState({
+    employeeId: "",
+    emailId: "",
+    firstName: "",
+    lastName: "",
+    dob: "",
+    mobileNo: "",
+    address: "",
+  });
   const [deletePopUp, setDeletePopUp] = useState(false);
   const [deleteEmployeeId, setDeleteEmployeeId] = useState();
   const navigate = useNavigate();
   useEffect(() => {
     Load();
   }, []);
-  const Load = async () => {
-    const result = await axios.get(
-      API_LINK + "getEmployeeWithPaginationAndSorting/0/10"
-    );
-    setEmployee(result.data.content);
-  };
   const deleteEmployee = async (employeeId) => {
     await axios.delete(API_LINK + "deleteEmployee/" + employeeId);
     setMyAlert({
@@ -38,20 +39,7 @@ const EmployeeDetails = ({
       closeButton: false,
     });
     setShowAlert(true);
-    
     Load();
-  };
-  const editEmployee = (employee) => {
-    setValue({
-      employeeId: employee.employeeId,
-      emailId: employee.emailId,
-      firstName: employee.firstName,
-      lastName: employee.lastName,
-      dob: employee.dob,
-      mobileNo: employee.mobileNumber,
-      address: employee.address,
-    });
-    navigate("/form");
   };
   const deleteBtnHandler = (employeeId) => {
     setDeleteEmployeeId(employeeId);
@@ -60,9 +48,24 @@ const EmployeeDetails = ({
   return (
     <div className="EmployeeDetails">
       <div className="navbar">
-        <img src={logo} alt="Logo" className="logo" />
-        <Link to="/form" className="add-btn">
+        <Link to="/">
+          <img src={logo} alt="Logo" className="logo" />
+        </Link>
+        <Link
+          to="/form"
+          className="add-btn"
+          state={{
+            employeeId: "",
+            emailId: "",
+            firstName: "",
+            lastName: "",
+            dob: "",
+            mobileNo: "",
+            address: "",
+          }}
+        >
           Add
+          <span class="material-symbols-outlined">add_circle</span>
         </Link>
       </div>
       <table>
@@ -99,12 +102,21 @@ const EmployeeDetails = ({
                 <td>{employee.dob}</td>
                 <td>
                   <div className="action-btns">
-                    <button
+                    <Link
+                      to="/form"
                       className="edit-btn"
-                      onClick={() => editEmployee(employee)}
+                      state={{
+                        employeeId: employee.employeeId,
+                        emailId: employee.emailId,
+                        firstName: employee.firstName,
+                        lastName: employee.lastName,
+                        dob: employee.dob,
+                        mobileNo: employee.mobileNumber,
+                        address: employee.address,
+                      }}
                     >
                       Edit
-                    </button>
+                    </Link>
                     <button
                       className="delete-btn"
                       onClick={() => deleteBtnHandler(employee.employeeId)}

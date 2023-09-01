@@ -1,20 +1,20 @@
 .Alert{
-    position: fixed;
+    position: absolute;
     width: 100%;
-    /* z-index: -1; */
+    z-index: -2;
     display: flex;
     justify-content: center;
 }
 
 .alert-container{
-    display: flex;   
+    display: flex;  
     height: 4rem;
     margin-top: 1.3rem;
     animation-name: bounce;
     animation-duration: 7s;
-    z-index: 10;
     font-weight: bold;
     font-family: 'Open Sans', sans-serif;
+    z-index: 70;
 }
 .symbole-container{
     display: flex;

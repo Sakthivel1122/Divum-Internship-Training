@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import "./RegForm.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -9,16 +9,26 @@ import "react-toastify/dist/ReactToastify.css";
 import Alert from "./Alert";
 
 const API_LINK = "http://localhost:8088/api/v1/employee/";
+
 const RegForm = ({
-  value,
-  setValue,
   employee,
   setEmployee,
   showAlert,
   setShowAlert,
   myAlert,
   setMyAlert,
+  Load,
 }) => {
+  const [value, setValue] = useState({
+    employeeId: "",
+    emailId: "",
+    firstName: "",
+    lastName: "",
+    dob: "",
+    mobileNo: "",
+    address: "",
+  });
+  const editValues = useLocation();
   const [errors, setErrors] = useState({
     emailId: "",
     firstName: "",
@@ -37,7 +47,14 @@ const RegForm = ({
     "address",
   ];
   const add = async (e) => {
+    debugger;
     e.preventDefault();
+    console.log("-- Start --");
+    setErrors({});
+    // return;
+    console.log(errors);
+    console.log("-- End --");
+    // return;
     for (let i = 0; i < allData.length; i++) {
       if (!validate(allData[i])) {
         setMyAlert({
@@ -46,16 +63,20 @@ const RegForm = ({
           closeButton: false,
         });
         setShowAlert(true);
+        // i = allData.length;
         return;
       }
     }
+    let arr = value.dob.split("-");
+    let dob = arr[2] + "-" + arr[1] + "-" + arr[0];
+    // console.log(dob);
     if (value.employeeId === "") {
       try {
         await axios.post(API_LINK + "addEmployee", {
           emailId: value.emailId,
           firstName: value.firstName,
           lastName: value.lastName,
-          dob: value.dob,
+          dob: dob,
           mobileNumber: value.mobileNo,
           address: value.address,
         });
@@ -74,7 +95,7 @@ const RegForm = ({
         emailId: value.emailId,
         firstName: value.firstName,
         lastName: value.lastName,
-        dob: value.dob,
+        dob: dob,
         mobileNumber: value.mobileNo,
         address: value.address,
       });
@@ -84,7 +105,6 @@ const RegForm = ({
         closeButton: false,
       });
       setShowAlert(true);
-      
     }
     setValue({
       employeeId: "",
@@ -98,6 +118,7 @@ const RegForm = ({
     navigate("/");
   };
   let today = new Date().toISOString().split("T")[0];
+  // console.log(new Date().toISOString().split("T")[0]);
   const backBtnHandle = () => {
     setValue({
       employeeId: "",
@@ -132,6 +153,7 @@ const RegForm = ({
         if (value.employeeId !== "") return true;
         if (value.emailId === "") {
           setErrors({ ...errors, emailId: "Email id is required!" });
+          return false;
         } else if (!validEmailregex.test(value.emailId)) {
           setErrors({ ...errors, emailId: "Invalid email id!" });
         } else if (!emailIdAvail(value.emailId)) {
@@ -140,6 +162,7 @@ const RegForm = ({
           setErrors({ ...errors, emailId: "" });
           return true;
         }
+        console.log("1");
         return false;
       case "firstName":
         if (value.firstName === "") {
@@ -150,6 +173,7 @@ const RegForm = ({
           setErrors({ ...errors, firstName: "" });
           return true;
         }
+        console.log("2");
         return false;
       case "lastName":
         if (value.lastName === "") {
@@ -158,8 +182,10 @@ const RegForm = ({
           setErrors({ ...errors, lastName: "Only alphabets to be entered!" });
         } else {
           setErrors({ ...errors, lastName: "" });
+
           return true;
         }
+        console.log("3");
         return false;
       case "dob":
         if (value.dob === "") {
@@ -199,7 +225,23 @@ const RegForm = ({
       setErrors({ ...errors, [e.target.name]: "" });
     }
   };
-
+  useEffect(() => {
+    console.log(errors, "ErrorsUpdate");
+  }, [errors]);
+  useEffect(() => {
+    Load();
+    let arr = editValues.state.dob.split("-");
+    let dob = arr[2] + "-" + arr[1] + "-" + arr[0];
+    setValue({
+      employeeId: editValues.state.employeeId,
+      emailId: editValues.state.emailId,
+      firstName: editValues.state.firstName,
+      lastName: editValues.state.lastName,
+      dob: dob,
+      mobileNo: editValues.state.mobileNo,
+      address: editValues.state.address,
+    });
+  }, []);
   return (
     <>
       <div className="RegForm">
@@ -209,7 +251,9 @@ const RegForm = ({
         <div className="form-content">
           <form>
             <div className="navbar">
-              <img src={logo} alt="Logo" className="logo" />
+              <Link to="/">
+                <img src={logo} alt="Logo" className="logo" />
+              </Link>
               <h1>Register</h1>
             </div>
             <input
