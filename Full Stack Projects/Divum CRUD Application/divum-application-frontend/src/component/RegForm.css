@@ -51,7 +51,9 @@
     padding: 10px;
     width: 16rem;
 }
-
+.form-content form .input-box:disabled{
+    cursor: not-allowed;
+}
 .form-content form .submit-btn{
     font: 16px;
     padding: 10px;
