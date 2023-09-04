@@ -21,6 +21,7 @@ function App() {
     const result = await axios.get(
       API_LINK + "getEmployeeWithPaginationAndSorting/0/10"
     );
+    if(result != undefined)
     setEmployee(result.data.content);
   };
   // Alert
@@ -58,6 +59,7 @@ function App() {
     <>
       <div className="App">
         <RouterProvider router={router} />
+        
         {showAlert && (
           <Alert
             type={myAlert.type}

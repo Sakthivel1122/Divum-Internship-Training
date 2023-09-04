@@ -35,12 +35,10 @@ public class EmployeeServiceIMPL implements EmployeeService{
 
     @Override
     public List<EmployeeDTO> getAllEmployee(){
-        List<Employee> list = employeeRepo.findAll(Sort.by(Sort.Direction.DESC,"lastUpdate"));
+        List<Employee> list = employeeRepo.findAll();
         List<EmployeeDTO> DTOList = new ArrayList<>();
 
-        int count = 0;
         for (Employee obj : list){
-            if(count == 10)break;
             EmployeeDTO DTO = new EmployeeDTO(
                     obj.getEmployeeId(),
                     obj.getEmailId(),
@@ -52,7 +50,6 @@ public class EmployeeServiceIMPL implements EmployeeService{
                     obj.getLastUpdate()
             );
             DTOList.add(DTO);
-            count++;
         }
         return DTOList;
     }
@@ -67,8 +64,6 @@ public class EmployeeServiceIMPL implements EmployeeService{
         employee.setDob(employeeUpdateDTO.getDob());
         employee.setMobileNumber(employeeUpdateDTO.getMobileNumber());
         employee.setAddress(employeeUpdateDTO.getAddress());
-        System.out.println(employeeUpdateDTO.getAddress());
-        System.out.println(employee.getAddress());
         employeeRepo.save(employee);
         return true;
     }

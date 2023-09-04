@@ -74,14 +74,14 @@ const Alert = ({
           }}
         >
           <div className="symbole-container">
-            <span class="material-symbols-outlined">{myStyle.symbol}</span>
+            <span className="material-symbols-outlined">{myStyle.symbol}</span>
           </div>
           <div className="message-container">
             <span className="message">{myStyle.message}</span>
           </div>
           {closeButton && (
             <button className="close-btn" onClick={() => setOpen(false)}>
-              <span class="material-symbols-outlined" style={{ color: "#fff" }}>
+              <span className="material-symbols-outlined" style={{ color: "#fff" }}>
                 close
               </span>
             </button>
