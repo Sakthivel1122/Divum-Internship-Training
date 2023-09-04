@@ -62,9 +62,10 @@ const EmployeeDetails = ({
             mobileNo: "",
             address: "",
           }}
+          data-testid="add-btn"
         >
           Add
-          <span class="material-symbols-outlined">add_circle</span>
+          <span className="material-symbols-outlined">add_circle</span>
         </Link>
       </div>
       <table>

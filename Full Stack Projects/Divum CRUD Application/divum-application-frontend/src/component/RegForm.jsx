@@ -16,6 +16,7 @@ const RegForm = ({
   setMyAlert,
   Load,
 }) => {
+  let [everyData,setEveryData] = useState([]);
   const [value, setValue] = useState({
     employeeId: "",
     emailId: "",
@@ -58,7 +59,6 @@ const RegForm = ({
     }
     let arr = value.dob.split("-");
     let dob = arr[2] + "-" + arr[1] + "-" + arr[0];
-    // console.log(dob);
     if (value.employeeId === "") {
       try {
         await axios.post(API_LINK + "addEmployee", {
@@ -107,7 +107,6 @@ const RegForm = ({
     navigate("/");
   };
   let today = new Date().toISOString().split("T")[0];
-  // console.log(new Date().toISOString().split("T")[0]);
   const backBtnHandle = () => {
     setValue({
       employeeId: "",
@@ -125,9 +124,11 @@ const RegForm = ({
   const validNameregex = /^[A-Za-z]+$/;
   const validMobileNo = /^(\d{3})[- ]?(\d{3})[- ]?(\d{4})$/;
   const emailIdAvail = () => {
-    for (let i = 0; i < employee.length; i++) {
-      console.log(employee[i].emailId);
-      if (value.emailId == employee[i].emailId) {
+    if(everyData === undefined){
+      return false;
+    }
+    for (let i = 0; i < everyData.length; i++) {
+      if (value.emailId == everyData[i].emailId) {
         return false;
       }
     }
@@ -151,7 +152,6 @@ const RegForm = ({
           setErrors({ ...errors, emailId: "" });
           return true;
         }
-        console.log("1");
         return false;
       case "firstName":
         if (value.firstName === "") {
@@ -162,7 +162,6 @@ const RegForm = ({
           setErrors({ ...errors, firstName: "" });
           return true;
         }
-        console.log("2");
         return false;
       case "lastName":
         if (value.lastName === "") {
@@ -174,10 +173,8 @@ const RegForm = ({
 
           return true;
         }
-        console.log("3");
         return false;
       case "dob":
-        console.log("HIII", value);
         if (value.dob === "") {
           setErrors({ ...errors, dob: "DOB is required!" });
         } else {
@@ -215,8 +212,14 @@ const RegForm = ({
       setErrors({ ...errors, [e.target.name]: "" });
     }
   };
+  const getAllData = async() => {
+    everyData = await axios.get(API_LINK + "getAllEmployee");
+    if(everyData !== undefined)
+    setEveryData(everyData.data);
+  }
   useEffect(() => {
-    Load();
+    // Load();
+    getAllData();
     if (editValues.state.employeeId !== "") {
       let arr = editValues.state.dob.split("-");
       let dob = arr[2] + "-" + arr[1] + "-" + arr[0];
@@ -231,6 +234,7 @@ const RegForm = ({
       });
     }
   }, []);
+  const change = ()=>{}
   return (
     <>
       <div className="RegForm">
@@ -249,6 +253,7 @@ const RegForm = ({
               type="text"
               name="employeeId"
               value={value.employeeId}
+              onChange={change}
               hidden
             />
             <div className="input">
@@ -263,9 +268,10 @@ const RegForm = ({
                   onBlur={onBlurHandler}
                   disabled={value.employeeId !== ""}
                   data-testid="emailId"
+                  placeholder="Please enter your email id"
                   required
                 />
-                <p>{errors.emailId}</p>
+                <p data-testid="emailid-error-msg">{errors.emailId}</p>
               </div>
             </div>
             <div className="input">
@@ -278,9 +284,11 @@ const RegForm = ({
                   value={value.firstName}
                   onChange={onChangeHandle}
                   onBlur={onBlurHandler}
+                  placeholder="Please enter your first name"
+                  data-testid="firstname"
                   required
                 />
-                <p>{errors.firstName}</p>
+                <p data-testid="firstname-error-msg">{errors.firstName}</p>
               </div>
             </div>
             <div className="input">
@@ -293,9 +301,11 @@ const RegForm = ({
                   value={value.lastName}
                   onChange={onChangeHandle}
                   onBlur={onBlurHandler}
+                  placeholder="Please enter your last name"
+                  data-testid="lastname"
                   required
                 />
-                <p>{errors.lastName}</p>
+                <p data-testid="lastname-error-msg">{errors.lastName}</p>
               </div>
             </div>
             <div className="input">
@@ -310,9 +320,10 @@ const RegForm = ({
                   onBlur={onBlurHandler}
                   id="dob"
                   max={today}
+                  data-testid="dob"
                   required
                 />
-                <p>{errors.dob}</p>
+                <p data-testid="dob-error-msg">{errors.dob}</p>
               </div>
             </div>
             <div className="input">
@@ -325,9 +336,11 @@ const RegForm = ({
                   value={value.mobileNo}
                   onChange={onChangeHandle}
                   onBlur={onBlurHandler}
+                  placeholder="Please enter your mobile number"
+                  data-testid="mobileno"
                   required
                 />
-                <p>{errors.mobileNo}</p>
+                <p data-testid="mobileno-error-msg">{errors.mobileNo}</p>
               </div>
             </div>
             <div className="input-address">
