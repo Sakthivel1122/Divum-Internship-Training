@@ -76,7 +76,12 @@ const RegForm = ({
         });
         setShowAlert(true);
       } catch (error) {
-        alert("Error: " + error);
+        setMyAlert({
+          type: "error",
+          message: {error},
+          closeButton: false,
+        });
+        setShowAlert(true);
       }
     } else {
       await axios.put(API_LINK + "updateEmployee", {
@@ -353,9 +358,10 @@ const RegForm = ({
                   onChange={onChangeHandle}
                   onBlur={onBlurHandler}
                   placeholder="Max:50char"
+                  data-testid="address"
                   required
                 ></textarea>
-                <p>{errors.address}</p>
+                <p data-testid="address-error-msg" >{errors.address}</p>
               </div>
             </div>
             <Link className="submit-btn" onClick={add} data-testid = "submit">

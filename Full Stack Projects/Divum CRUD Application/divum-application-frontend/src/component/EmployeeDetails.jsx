@@ -95,7 +95,7 @@ const EmployeeDetails = ({
           {employee.map((employee) => {
             return (
               <tr>
-                <td>{employee.emailId}</td>
+                <td data-testid={employee.id}>{employee.emailId}</td>
                 <td>{employee.firstName}</td>
                 <td>{employee.lastName}</td>
                 <td>{employee.mobileNumber}</td>
