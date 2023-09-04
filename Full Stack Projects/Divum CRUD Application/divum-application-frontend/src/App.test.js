@@ -1,8 +1,12 @@
-import { render, screen } from '@testing-library/react';
-import App from './App';
+import { fireEvent, render, screen } from "@testing-library/react";
+import App from "./App";
+import RegForm from "./component/RegForm";
 
-test('renders learn react link', () => {
+test("Email validation", () => {
   render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+  render(<RegForm />);
+  const emailid = screen.getByTestId("emailid");
+  const submit = screen.getByTestId("submit");
+  fireEvent.change(emailid, { target: { value: "asakthivel@gmail.com" } });
+  fireEvent.click(submit);
 });

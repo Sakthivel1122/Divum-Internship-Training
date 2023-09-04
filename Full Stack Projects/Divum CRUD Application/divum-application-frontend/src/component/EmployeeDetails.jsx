@@ -3,7 +3,6 @@ import "./EmployeeDetails.css";
 import logo from "./images/logo.png";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import "react-toastify/dist/ReactToastify.css";
 import DeletePopUp from "./DeletePopUp";
 
 const API_LINK = "http://localhost:8088/api/v1/employee/";

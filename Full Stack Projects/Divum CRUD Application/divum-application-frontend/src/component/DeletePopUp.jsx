@@ -1,6 +1,5 @@
 import React from "react";
 import "./DeletePopUp.css";
-import { calculateNewValue } from "@testing-library/user-event/dist/utils";
 const DeletePopUp = ({ setDeletePopUp, deleteEmployee, deleteEmployeeId }) => {
   const cancelHandler = () => {
     setDeletePopUp(false);

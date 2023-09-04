@@ -4,9 +4,6 @@ import "./RegForm.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import logo from "./images/logo.png";
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import Alert from "./Alert";
 
 const API_LINK = "http://localhost:8088/api/v1/employee/";
 
@@ -47,14 +44,7 @@ const RegForm = ({
     "address",
   ];
   const add = async (e) => {
-    debugger;
     e.preventDefault();
-    console.log("-- Start --");
-    setErrors({});
-    // return;
-    console.log(errors);
-    console.log("-- End --");
-    // return;
     for (let i = 0; i < allData.length; i++) {
       if (!validate(allData[i])) {
         setMyAlert({
@@ -63,7 +53,6 @@ const RegForm = ({
           closeButton: false,
         });
         setShowAlert(true);
-        // i = allData.length;
         return;
       }
     }
@@ -188,6 +177,7 @@ const RegForm = ({
         console.log("3");
         return false;
       case "dob":
+        console.log("HIII", value);
         if (value.dob === "") {
           setErrors({ ...errors, dob: "DOB is required!" });
         } else {
@@ -226,21 +216,20 @@ const RegForm = ({
     }
   };
   useEffect(() => {
-    console.log(errors, "ErrorsUpdate");
-  }, [errors]);
-  useEffect(() => {
     Load();
-    let arr = editValues.state.dob.split("-");
-    let dob = arr[2] + "-" + arr[1] + "-" + arr[0];
-    setValue({
-      employeeId: editValues.state.employeeId,
-      emailId: editValues.state.emailId,
-      firstName: editValues.state.firstName,
-      lastName: editValues.state.lastName,
-      dob: dob,
-      mobileNo: editValues.state.mobileNo,
-      address: editValues.state.address,
-    });
+    if (editValues.state.employeeId !== "") {
+      let arr = editValues.state.dob.split("-");
+      let dob = arr[2] + "-" + arr[1] + "-" + arr[0];
+      setValue({
+        employeeId: editValues.state.employeeId,
+        emailId: editValues.state.emailId,
+        firstName: editValues.state.firstName,
+        lastName: editValues.state.lastName,
+        dob: dob,
+        mobileNo: editValues.state.mobileNo,
+        address: editValues.state.address,
+      });
+    }
   }, []);
   return (
     <>
@@ -273,6 +262,7 @@ const RegForm = ({
                   onChange={onChangeHandle}
                   onBlur={onBlurHandler}
                   disabled={value.employeeId !== ""}
+                  data-testid="emailId"
                   required
                 />
                 <p>{errors.emailId}</p>
@@ -355,19 +345,11 @@ const RegForm = ({
                 <p>{errors.address}</p>
               </div>
             </div>
-            <Link className="submit-btn" onClick={add}>
+            <Link className="submit-btn" onClick={add} data-testid = "submit">
               {value.employeeId === "" ? "Save" : "Update"}
             </Link>
           </form>
         </div>
-        {/* {showAlert && (
-          <Alert
-            type={myAlert.type}
-            message={myAlert.message}
-            closeButton={myAlert.closeButton}
-            setShowAlert={setShowAlert}
-          />
-        )} */}
       </div>
     </>
   );

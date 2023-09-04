@@ -3,8 +3,6 @@ import "./App.css";
 import EmployeeDetails from "./component/EmployeeDetails";
 import RegForm from "./component/RegForm";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import "react-toastify/dist/ReactToastify.css";
-import DeletePopUp from "./component/DeletePopUp";
 import Alert from "./component/Alert";
 import axios from "axios";
 
@@ -57,37 +55,19 @@ function App() {
     },
   ]);
   return (
-    <div className="App">
-      <RouterProvider router={router} />
-      {/* <ToastContainer
-          position="top-center"
-          autoClose={5000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-          theme="colored"
-        /> */}
-      {showAlert && (
-        <Alert
-          type={myAlert.type}
-          message={myAlert.message}
-          closeButton={myAlert.closeButton}
-          setShowAlert={setShowAlert}
-        />
-      )}
-      {/* {true && (
+    <>
+      <div className="App">
+        <RouterProvider router={router} />
+        {showAlert && (
           <Alert
-            type="success"
-            message="Message"
-            closeButton={true}
+            type={myAlert.type}
+            message={myAlert.message}
+            closeButton={myAlert.closeButton}
             setShowAlert={setShowAlert}
           />
-        )} */}
-    </div>
+        )}
+      </div>
+    </>
   );
 }
 
