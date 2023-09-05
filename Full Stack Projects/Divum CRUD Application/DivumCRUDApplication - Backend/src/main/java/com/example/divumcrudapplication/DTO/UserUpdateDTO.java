@@ -19,6 +19,9 @@ public class UserUpdateDTO {
         this.mobileNumber = mobileNumber;
         this.address = address;
     }
+    public UserUpdateDTO(){
+
+    }
 
     public int getUserId() {
         return userId;

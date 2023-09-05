@@ -3,20 +3,15 @@ import { Link, useLocation } from "react-router-dom";
 import "./RegForm.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import logo from "./images/logo.png";
-
-const API_LINK = "http://localhost:8088/api/v1/user/";
+import logo from "../../assets/images/logo.png"
+import API_LINKS from "../../constants/ApiConstants";
 
 const RegForm = ({
-  allUsers,
-  setAllUsers,
-  showAlert,
   setShowAlert,
-  myAlert,
   setMyAlert,
   Load,
 }) => {
-  let [everyData,setEveryData] = useState([]);
+  let [everyData, setEveryData] = useState([]);
   const [value, setValue] = useState({
     userId: "",
     emailId: "",
@@ -59,9 +54,25 @@ const RegForm = ({
     }
     let arr = value.dob.split("-");
     let dob = arr[2] + "-" + arr[1] + "-" + arr[0];
-    if (value.userId === "") {
+    if (
+      value.emailId != "" &&
+      editValues.state.emailId === value.emailId &&
+      editValues.state.firstName === value.firstName &&
+      editValues.state.lastName === value.lastName &&
+      editValues.state.dob === dob &&
+      editValues.state.mobileNo === value.mobileNo &&
+      editValues.state.address === value.address
+    ) {
+      setMyAlert({
+        type: "info",
+        message: "No Changes",
+        closeButton: false,
+      });
+      setShowAlert(true);
+    }
+    else if (value.userId === "") {
       try {
-        await axios.post(API_LINK + "addUser", {
+        await axios.post(API_LINKS.POST_API_LINK , {
           emailId: value.emailId,
           firstName: value.firstName,
           lastName: value.lastName,
@@ -78,13 +89,13 @@ const RegForm = ({
       } catch (error) {
         setMyAlert({
           type: "error",
-          message: {error},
+          message: { error },
           closeButton: false,
         });
         setShowAlert(true);
       }
     } else {
-      await axios.put(API_LINK + "updateUser", {
+      await axios.put(API_LINKS.PUT_API_LINK, {
         userId: value.userId,
         emailId: value.emailId,
         firstName: value.firstName,
@@ -129,7 +140,7 @@ const RegForm = ({
   const validNameregex = /^[A-Za-z]+$/;
   const validMobileNo = /^(\d{3})[- ]?(\d{3})[- ]?(\d{4})$/;
   const emailIdAvail = () => {
-    if(everyData === undefined){
+    if (everyData === undefined) {
       return false;
     }
     for (let i = 0; i < everyData.length; i++) {
@@ -217,11 +228,10 @@ const RegForm = ({
       setErrors({ ...errors, [e.target.name]: "" });
     }
   };
-  const getAllData = async() => {
-    everyData = await axios.get(API_LINK + "getAllUser");
-    if(everyData !== undefined)
-    setEveryData(everyData.data);
-  }
+  const getAllData = async () => {
+    everyData = await axios.get(API_LINKS.GET_ALL_USER_API_LINK);
+    if (everyData !== undefined) setEveryData(everyData.data);
+  };
   useEffect(() => {
     // Load();
     getAllData();
@@ -239,7 +249,7 @@ const RegForm = ({
       });
     }
   }, []);
-  const change = ()=>{}
+  const change = () => {};
   return (
     <>
       <div className="RegForm">
@@ -361,10 +371,10 @@ const RegForm = ({
                   data-testid="address"
                   required
                 ></textarea>
-                <p data-testid="address-error-msg" >{errors.address}</p>
+                <p data-testid="address-error-msg">{errors.address}</p>
               </div>
             </div>
-            <Link className="submit-btn" onClick={add} data-testid = "submit">
+            <Link className="submit-btn" onClick={add} data-testid="submit">
               {value.userId === "" ? "Save" : "Update"}
             </Link>
           </form>

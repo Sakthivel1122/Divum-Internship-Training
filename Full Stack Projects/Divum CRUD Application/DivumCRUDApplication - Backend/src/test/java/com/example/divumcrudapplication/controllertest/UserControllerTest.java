@@ -57,7 +57,7 @@ public class UserControllerTest {
     @Test
     public void checkGetUserWithPaginationAndSorting(){
         Page<User> users = null;
-        when(userController.getUserWithPaginationAndSorting(0,10)).thenReturn(new ResponseEntity<>(users,HttpStatus.OK));
+        when(userService.getUserWithPaginationAndSorting(0, 10)).thenReturn(new ResponseEntity<>(users,HttpStatus.OK));
         ResponseEntity<Page<User>>  response = userController.getUserWithPaginationAndSorting(0,10);
         Assert.assertEquals(HttpStatus.OK,response.getStatusCode());
     }
@@ -65,14 +65,14 @@ public class UserControllerTest {
     @Test
     public void checkAddUser(){
         UserAddDTO user = null;
-        when(userController.addUser(user)).thenReturn("Added Successfully");
+        when(userService.addUser(user)).thenReturn("Added Successfully");
         String response = userController.addUser(user);
         Assert.assertEquals("Added Successfully",response);
     }
 
     @Test
     public void checkDeleteUser(){
-        when(userController.deleteUser(10)).thenReturn("Deleted");
+        when(userService.deleteUser(10)).thenReturn("Deleted");
         String response = userController.deleteUser(10);
         Assert.assertEquals("Deleted",response);
     }
@@ -80,7 +80,7 @@ public class UserControllerTest {
     @Test
     public void checkUpdateUser(){
         UserUpdateDTO user = null;
-        when(userController.updateUser(user)).thenReturn("Updated");
+        when(userService.updateUser(user)).thenReturn("Updated");
         String response = userController.updateUser(user);
         Assert.assertEquals("Updated",response);
     }
