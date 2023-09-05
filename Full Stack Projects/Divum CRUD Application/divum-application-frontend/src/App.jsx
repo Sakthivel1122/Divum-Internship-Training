@@ -1,14 +1,15 @@
 import { useState } from "react";
 import "./App.css";
-import EmployeeDetails from "./component/EmployeeDetails";
+import UserDetails from "./component/UserDetails";
 import RegForm from "./component/RegForm";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Alert from "./component/Alert";
 import axios from "axios";
 
-const API_LINK = "http://localhost:8088/api/v1/employee/";
+const API_LINK = "http://localhost:8088/api/v1/user/";
+
 function App() {
-  const [employee, setEmployee] = useState([]);
+  const [allUsers, setAllUsers] = useState([]);
   // For Alert
   // showAlert, setShowAlert, myAlert, setMyAlert
   const [showAlert, setShowAlert] = useState(false);
@@ -19,19 +20,18 @@ function App() {
   });
   const Load = async () => {
     const result = await axios.get(
-      API_LINK + "getEmployeeWithPaginationAndSorting/0/10"
+      API_LINK + "getUserWithPaginationAndSorting/0/10"
     );
-    if(result != undefined)
-    setEmployee(result.data.content);
+    if (result != undefined) setAllUsers(result.data.content);
   };
   // Alert
   const router = createBrowserRouter([
     {
       path: "/",
       element: (
-        <EmployeeDetails
-          employee={employee}
-          setEmployee={setEmployee}
+        <UserDetails
+        allUsers={allUsers}
+        setAllUsers={setAllUsers}
           showAlert={showAlert}
           setShowAlert={setShowAlert}
           myAlert={myAlert}
@@ -44,8 +44,8 @@ function App() {
       path: "/form",
       element: (
         <RegForm
-          employee={employee}
-          setEmployee={setEmployee}
+        allUsers={allUsers}
+        setAllUsers={setAllUsers}
           showAlert={showAlert}
           setShowAlert={setShowAlert}
           myAlert={myAlert}
@@ -59,7 +59,7 @@ function App() {
     <>
       <div className="App">
         <RouterProvider router={router} />
-        
+
         {showAlert && (
           <Alert
             type={myAlert.type}

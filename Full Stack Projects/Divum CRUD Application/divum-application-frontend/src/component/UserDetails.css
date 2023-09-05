@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
 
-.EmployeeDetails{
+.UserDetails{
     width: 90%;
     height: 97%;
     background-color: white;
@@ -10,7 +10,7 @@
     z-index: 0;
 }
 
-.EmployeeDetails .navbar{
+.UserDetails .navbar{
     height: 3.5rem;
     padding: 0 2rem;
     display: flex;
@@ -19,11 +19,11 @@
     margin-top: 10px;
 }
 
-.EmployeeDetails .navbar .logo{
+.UserDetails .navbar .logo{
     width: 5rem;
 }
 
-.EmployeeDetails .navbar .add-btn{
+.UserDetails .navbar .add-btn{
     height: fit-content;
     padding: .6rem 1rem;
     margin-right: 1.2rem;
@@ -41,10 +41,10 @@
     font-weight: bold;
     gap: 5px;
 }
-.EmployeeDetails .navbar .add-btn span{
+.UserDetails .navbar .add-btn span{
     font-size: 19px;
 }
-.EmployeeDetails .navbar .add-btn:hover{
+.UserDetails .navbar .add-btn:hover{
     background-color: #218838;
 }
 table{

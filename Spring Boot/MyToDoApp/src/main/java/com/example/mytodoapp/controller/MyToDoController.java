@@ -18,7 +18,7 @@ public class MyToDoController {
     @GetMapping("/getToDoList")
     @ResponseBody
     public List<ToDo> viewPage(){
-        return repo.findAll();
+            return repo.findAll();
     }
 
     @PostMapping("/addToDoItem")

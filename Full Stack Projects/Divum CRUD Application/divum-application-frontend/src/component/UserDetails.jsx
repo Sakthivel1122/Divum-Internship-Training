@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
-import "./EmployeeDetails.css";
+import "./UserDetails.css";
 import logo from "./images/logo.png";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import DeletePopUp from "./DeletePopUp";
 
-const API_LINK = "http://localhost:8088/api/v1/employee/";
-const EmployeeDetails = ({
-  employee,
-  setEmployee,
+const API_LINK = "http://localhost:8088/api/v1/user/";
+const UserDetails = ({
+  allUsers,
+  setAllUsers,
   showAlert,
   setShowAlert,
   myAlert,
@@ -16,7 +16,7 @@ const EmployeeDetails = ({
   Load,
 }) => {
   const [value, setValue] = useState({
-    employeeId: "",
+    userId: "",
     emailId: "",
     firstName: "",
     lastName: "",
@@ -25,13 +25,13 @@ const EmployeeDetails = ({
     address: "",
   });
   const [deletePopUp, setDeletePopUp] = useState(false);
-  const [deleteEmployeeId, setDeleteEmployeeId] = useState();
+  const [deleteUserId, setDeleteUserId] = useState();
   const navigate = useNavigate();
   useEffect(() => {
     Load();
   }, []);
-  const deleteEmployee = async (employeeId) => {
-    await axios.delete(API_LINK + "deleteEmployee/" + employeeId);
+  const deleteUser = async (userId) => {
+    await axios.delete(API_LINK + "deleteUser/" + userId);
     setMyAlert({
       type: "error",
       message: "Deleted",
@@ -40,12 +40,12 @@ const EmployeeDetails = ({
     setShowAlert(true);
     Load();
   };
-  const deleteBtnHandler = (employeeId) => {
-    setDeleteEmployeeId(employeeId);
+  const deleteBtnHandler = (userId) => {
+    setDeleteUserId(userId);
     setDeletePopUp(true);
   };
   return (
-    <div className="EmployeeDetails">
+    <div className="UserDetails">
       <div className="navbar">
         <Link to="/">
           <img src={logo} alt="Logo" className="logo" />
@@ -54,7 +54,7 @@ const EmployeeDetails = ({
           to="/form"
           className="add-btn"
           state={{
-            employeeId: "",
+            userId: "",
             emailId: "",
             firstName: "",
             lastName: "",
@@ -92,34 +92,34 @@ const EmployeeDetails = ({
           </tr>
         </thead>
         <tbody>
-          {employee.map((employee) => {
+          {allUsers.map((user) => {
             return (
               <tr>
-                <td data-testid={employee.id}>{employee.emailId}</td>
-                <td>{employee.firstName}</td>
-                <td>{employee.lastName}</td>
-                <td>{employee.mobileNumber}</td>
-                <td>{employee.dob}</td>
+                <td data-testid={user.id}>{user.emailId}</td>
+                <td>{user.firstName}</td>
+                <td>{user.lastName}</td>
+                <td>{user.mobileNumber}</td>
+                <td>{user.dob}</td>
                 <td>
                   <div className="action-btns">
                     <Link
                       to="/form"
                       className="edit-btn"
                       state={{
-                        employeeId: employee.employeeId,
-                        emailId: employee.emailId,
-                        firstName: employee.firstName,
-                        lastName: employee.lastName,
-                        dob: employee.dob,
-                        mobileNo: employee.mobileNumber,
-                        address: employee.address,
+                        userId: user.userId,
+                        emailId: user.emailId,
+                        firstName: user.firstName,
+                        lastName: user.lastName,
+                        dob: user.dob,
+                        mobileNo: user.mobileNumber,
+                        address: user.address,
                       }}
                     >
                       Edit
                     </Link>
                     <button
                       className="delete-btn"
-                      onClick={() => deleteBtnHandler(employee.employeeId)}
+                      onClick={() => deleteBtnHandler(user.userId)}
                     >
                       Delete
                     </button>
@@ -133,12 +133,12 @@ const EmployeeDetails = ({
       {deletePopUp && (
         <DeletePopUp
           setDeletePopUp={setDeletePopUp}
-          deleteEmployee={deleteEmployee}
-          deleteEmployeeId={deleteEmployeeId}
+          deleteUser={deleteUser}
+          deleteUserId={deleteUserId}
         />
       )}
     </div>
   );
 };
 
-export default EmployeeDetails;
+export default UserDetails;

@@ -5,11 +5,11 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import logo from "./images/logo.png";
 
-const API_LINK = "http://localhost:8088/api/v1/employee/";
+const API_LINK = "http://localhost:8088/api/v1/user/";
 
 const RegForm = ({
-  employee,
-  setEmployee,
+  allUsers,
+  setAllUsers,
   showAlert,
   setShowAlert,
   myAlert,
@@ -18,7 +18,7 @@ const RegForm = ({
 }) => {
   let [everyData,setEveryData] = useState([]);
   const [value, setValue] = useState({
-    employeeId: "",
+    userId: "",
     emailId: "",
     firstName: "",
     lastName: "",
@@ -59,9 +59,9 @@ const RegForm = ({
     }
     let arr = value.dob.split("-");
     let dob = arr[2] + "-" + arr[1] + "-" + arr[0];
-    if (value.employeeId === "") {
+    if (value.userId === "") {
       try {
-        await axios.post(API_LINK + "addEmployee", {
+        await axios.post(API_LINK + "addUser", {
           emailId: value.emailId,
           firstName: value.firstName,
           lastName: value.lastName,
@@ -84,8 +84,8 @@ const RegForm = ({
         setShowAlert(true);
       }
     } else {
-      await axios.put(API_LINK + "updateEmployee", {
-        employeeId: value.employeeId,
+      await axios.put(API_LINK + "updateUser", {
+        userId: value.userId,
         emailId: value.emailId,
         firstName: value.firstName,
         lastName: value.lastName,
@@ -101,7 +101,7 @@ const RegForm = ({
       setShowAlert(true);
     }
     setValue({
-      employeeId: "",
+      userId: "",
       emailId: "",
       firstName: "",
       lastName: "",
@@ -114,7 +114,7 @@ const RegForm = ({
   let today = new Date().toISOString().split("T")[0];
   const backBtnHandle = () => {
     setValue({
-      employeeId: "",
+      userId: "",
       emailId: "",
       firstName: "",
       lastName: "",
@@ -145,7 +145,7 @@ const RegForm = ({
   const validate = (name) => {
     switch (name) {
       case "emailId":
-        if (value.employeeId !== "") return true;
+        if (value.userId !== "") return true;
         if (value.emailId === "") {
           setErrors({ ...errors, emailId: "Email id is required!" });
           return false;
@@ -218,18 +218,18 @@ const RegForm = ({
     }
   };
   const getAllData = async() => {
-    everyData = await axios.get(API_LINK + "getAllEmployee");
+    everyData = await axios.get(API_LINK + "getAllUser");
     if(everyData !== undefined)
     setEveryData(everyData.data);
   }
   useEffect(() => {
     // Load();
     getAllData();
-    if (editValues.state.employeeId !== "") {
+    if (editValues.state.userId !== "") {
       let arr = editValues.state.dob.split("-");
       let dob = arr[2] + "-" + arr[1] + "-" + arr[0];
       setValue({
-        employeeId: editValues.state.employeeId,
+        userId: editValues.state.userId,
         emailId: editValues.state.emailId,
         firstName: editValues.state.firstName,
         lastName: editValues.state.lastName,
@@ -256,8 +256,8 @@ const RegForm = ({
             </div>
             <input
               type="text"
-              name="employeeId"
-              value={value.employeeId}
+              name="userId"
+              value={value.userId}
               onChange={change}
               hidden
             />
@@ -271,7 +271,7 @@ const RegForm = ({
                   value={value.emailId}
                   onChange={onChangeHandle}
                   onBlur={onBlurHandler}
-                  disabled={value.employeeId !== ""}
+                  disabled={value.userId !== ""}
                   data-testid="emailId"
                   placeholder="Please enter your email id"
                   required
@@ -365,7 +365,7 @@ const RegForm = ({
               </div>
             </div>
             <Link className="submit-btn" onClick={add} data-testid = "submit">
-              {value.employeeId === "" ? "Save" : "Update"}
+              {value.userId === "" ? "Save" : "Update"}
             </Link>
           </form>
         </div>

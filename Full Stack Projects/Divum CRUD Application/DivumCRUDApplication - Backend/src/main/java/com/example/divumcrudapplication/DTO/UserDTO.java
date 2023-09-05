@@ -1,15 +1,11 @@
 package com.example.divumcrudapplication.DTO;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import org.hibernate.annotations.UpdateTimestamp;
-
 import java.util.Date;
 
-public class EmployeeDTO {
-    private int employeeId;
+public class UserDTO {
+
+
+    private int userId;
     private String emailId;
     private String firstName;
     private String lastName;
@@ -18,8 +14,8 @@ public class EmployeeDTO {
     private String address;
     private Date lastUpdate;
 
-    public EmployeeDTO(int employeeId, String emailId, String firstName, String lastName, String dob, String mobileNumber, String address, Date lastUpdate) {
-        this.employeeId = employeeId;
+    public UserDTO(int userId, String emailId, String firstName, String lastName, String dob, String mobileNumber, String address, Date lastUpdate) {
+        this.userId = userId;
         this.emailId = emailId;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -29,16 +25,16 @@ public class EmployeeDTO {
         this.lastUpdate = lastUpdate;
     }
 
-    public EmployeeDTO() {
+    public UserDTO() {
 
     }
 
-    public int getEmployeeId() {
-        return employeeId;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setEmployeeId(int employeeId) {
-        this.employeeId = employeeId;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public String getEmailId() {
@@ -99,8 +95,8 @@ public class EmployeeDTO {
 
     @Override
     public String toString() {
-        return "Employee{" +
-                "employeeId=" + employeeId +
+        return "UserDTO{" +
+                "userId=" + userId +
                 ", emailId='" + emailId + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +

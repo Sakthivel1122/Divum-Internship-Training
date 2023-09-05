@@ -1,11 +1,11 @@
 import React from "react";
 import "./DeletePopUp.css";
-const DeletePopUp = ({ setDeletePopUp, deleteEmployee, deleteEmployeeId }) => {
+const DeletePopUp = ({ setDeletePopUp, deleteUser, deleteUserId }) => {
   const cancelHandler = () => {
     setDeletePopUp(false);
   };
   const deleteHandler = () => {
-    deleteEmployee(deleteEmployeeId);
+    deleteUser(deleteUserId);
     setDeletePopUp(false);
   };
   return (

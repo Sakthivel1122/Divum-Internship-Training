@@ -1,24 +1,31 @@
 package com.example.divumcrudapplication.DTO;
-public class EmployeeAddDTO {
 
+public class UserUpdateDTO {
+
+    private int userId;
     private String emailId;
     private String firstName;
-
     private String lastName;
-
     private String dob;
-
     private String mobileNumber;
-
     private String address;
 
-    public EmployeeAddDTO(String emailId, String firstName, String lastName, String dob, String mobileNumber, String address) {
+    public UserUpdateDTO(int userId, String emailId, String firstName, String lastName, String dob, String mobileNumber, String address) {
+        this.userId = userId;
         this.emailId = emailId;
         this.firstName = firstName;
         this.lastName = lastName;
         this.dob = dob;
         this.mobileNumber = mobileNumber;
         this.address = address;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public String getEmailId() {
@@ -28,6 +35,7 @@ public class EmployeeAddDTO {
     public void setEmailId(String emailId) {
         this.emailId = emailId;
     }
+
     public String getFirstName() {
         return firstName;
     }
@@ -70,8 +78,9 @@ public class EmployeeAddDTO {
 
     @Override
     public String toString() {
-        return "EmployeeAddDTO{" +
-                "emailId='" + emailId + '\'' +
+        return "UserUpdateDTO{" +
+                "userId=" + userId +
+                ", emailId='" + emailId + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", dob='" + dob + '\'' +

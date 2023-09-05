@@ -1,7 +1,5 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import App from "./App";
-import RegForm from "./component/RegForm";
-
 
 describe("Form Validation", () => {
   test("Email id validation", () => {
