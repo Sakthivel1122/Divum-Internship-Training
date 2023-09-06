@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./UserDetails.css";
 import logo from "../../assets/images/logo.png";
+import add_btn from "../../assets/images/add-btn.svg";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import DeletePopUp from "../DeletePopUp";
@@ -52,7 +53,8 @@ const UserDetails = ({
           data-testid="add-btn"
         >
           Add
-          <span className="material-symbols-outlined">add_circle</span>
+          <img src={add_btn} alt="" className="add-btn-img" />
+          {/* <span className="material-symbols-outlined">add_circle</span> */}
         </Link>
       </div>
       <table>

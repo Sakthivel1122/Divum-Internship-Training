@@ -18,9 +18,6 @@ public interface UserService {
 
     String deleteUser(int id);
 
-    Page<User> getUserWithPagination(int offset, int pageSize);
-
     ResponseEntity<Page<User>> getUserWithPaginationAndSorting(int offset, int pageSize);
 
-    boolean checkEmailId(String emailid);
 }
