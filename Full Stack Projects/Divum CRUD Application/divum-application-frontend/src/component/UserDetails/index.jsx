@@ -1,37 +1,24 @@
 import React, { useEffect, useState } from "react";
 import "./UserDetails.css";
-import logo from "./images/logo.png";
-import { Link, useNavigate } from "react-router-dom";
+import logo from "../../assets/images/logo.png";
+import { Link } from "react-router-dom";
 import axios from "axios";
-import DeletePopUp from "./DeletePopUp";
+import DeletePopUp from "../DeletePopUp";
+import API_LINKS from "../../constants/ApiConstants";
 
-const API_LINK = "http://localhost:8088/api/v1/user/";
 const UserDetails = ({
   allUsers,
-  setAllUsers,
-  showAlert,
   setShowAlert,
-  myAlert,
   setMyAlert,
   Load,
 }) => {
-  const [value, setValue] = useState({
-    userId: "",
-    emailId: "",
-    firstName: "",
-    lastName: "",
-    dob: "",
-    mobileNo: "",
-    address: "",
-  });
   const [deletePopUp, setDeletePopUp] = useState(false);
   const [deleteUserId, setDeleteUserId] = useState();
-  const navigate = useNavigate();
   useEffect(() => {
     Load();
   }, []);
   const deleteUser = async (userId) => {
-    await axios.delete(API_LINK + "deleteUser/" + userId);
+    await axios.delete(API_LINKS.DELETE_API_LINK + userId);
     setMyAlert({
       type: "error",
       message: "Deleted",

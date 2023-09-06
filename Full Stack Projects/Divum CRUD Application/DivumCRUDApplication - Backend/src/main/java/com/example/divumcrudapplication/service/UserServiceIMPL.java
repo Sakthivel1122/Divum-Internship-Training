@@ -80,9 +80,14 @@ public class UserServiceIMPL implements UserService {
     }
 
     @Override
-    public Page<User> getUserWithPagination(int offset, int pageSize){
-        return userRepo.findAll(PageRequest.of(offset, pageSize));
+    public Page<User> getUserWithPagination(int offset, int pageSize) {
+        return null;
     }
+
+//    @Override
+//    public Page<User> getUserWithPagination(int offset, int pageSize){
+//        return userRepo.findAll(PageRequest.of(offset, pageSize));
+//    }
 
     @Override
     public ResponseEntity<Page<User>> getUserWithPaginationAndSorting(int offset, int pageSize){
