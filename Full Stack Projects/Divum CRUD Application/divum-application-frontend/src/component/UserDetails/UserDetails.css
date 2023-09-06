@@ -31,18 +31,19 @@
     border: none;
     border-radius: 3px;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 15.5px;
     color: white;
     text-decoration: none;
     font-family: 'Open Sans', sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-weight: bold;
+    font-weight: 600;
+    /* font-weight: bold; */
     gap: 5px;
 }
-.UserDetails .navbar .add-btn span{
-    font-size: 19px;
+.UserDetails .navbar .add-btn .add-btn-img{
+    width: 16px;
 }
 .UserDetails .navbar .add-btn:hover{
     background-color: #218838;
@@ -63,13 +64,17 @@ table tbody{
     font-family: 'Open Sans', sans-serif;
 }
 table tbody tr{
-    height: 3.4rem;
+    height: 4.5rem;
+}
+table tbody tr:nth-child(even){
+    background-color: rgb(237, 231, 231);
+    /* background-color: #d6d8db; */
 }
 table tbody .action-btns{
     width: 100%;
     display: flex;
     justify-content: center;
-    gap: 10px;
+    gap: 20px;
 }
 table tbody .edit-btn{
     color: black;

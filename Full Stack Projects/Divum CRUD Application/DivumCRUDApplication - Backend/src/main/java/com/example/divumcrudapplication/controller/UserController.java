@@ -30,20 +30,11 @@ public class UserController {
         ResponseEntity<List<UserDTO>> list = userService.getAllUser();
         return list;
     }
-//    @GetMapping("/getUserWithPagination/{offset}/{pageSize}")
-//    public ResponseEntity<Page<User>> getUserWithPagination(@PathVariable("offset") int offset, @PathVariable("pageSize") int pageSize){
-//        return userService.getUserWithPagination(offset, pageSize);
-//    }
 
     @GetMapping("/getUserWithPaginationAndSorting/{offset}/{pageSize}")
     public ResponseEntity<Page<User>> getUserWithPaginationAndSorting(@PathVariable("offset") int offset, @PathVariable("pageSize") int pageSize){
         return userService.getUserWithPaginationAndSorting(offset, pageSize);
     }
-//
-//    @GetMapping("/checkEmailId/{emailId}")
-//    public boolean checkEmailId(@PathVariable("emailId") String emailId){
-//        return userService.checkEmailId(emailId);
-//    }
 
     @PutMapping("/updateUser")
     public String updateUser(@RequestBody UserUpdateDTO userUpdateDTO){

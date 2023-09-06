@@ -18,7 +18,7 @@ function App() {
   });
   const Load = async () => {
     const result = await axios.get(API_LINKS.GET_API_LINK_WITH_PAGINATION + "0/10");
-    if (result != undefined) setAllUsers(result.data.content);
+    if (result !== undefined) setAllUsers(result.data.content);
   };
   // Alert
   const router = createBrowserRouter([
@@ -44,9 +44,6 @@ function App() {
       ),
     },
   ]);
-  useEffect(()=>{
-    console.log(API_LINKS);
-  },[]);
   return (
     <>
       <div className="App">

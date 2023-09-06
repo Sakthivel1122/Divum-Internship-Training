@@ -55,7 +55,7 @@ const RegForm = ({
     let arr = value.dob.split("-");
     let dob = arr[2] + "-" + arr[1] + "-" + arr[0];
     if (
-      value.emailId != "" &&
+      value.emailId !== "" &&
       editValues.state.emailId === value.emailId &&
       editValues.state.firstName === value.firstName &&
       editValues.state.lastName === value.lastName &&
@@ -144,7 +144,7 @@ const RegForm = ({
       return false;
     }
     for (let i = 0; i < everyData.length; i++) {
-      if (value.emailId == everyData[i].emailId) {
+      if (value.emailId === everyData[i].emailId) {
         return false;
       }
     }
@@ -353,6 +353,7 @@ const RegForm = ({
                   onBlur={onBlurHandler}
                   placeholder="Please enter your mobile number"
                   data-testid="mobileno"
+                  maxLength={10}
                   required
                 />
                 <p data-testid="mobileno-error-msg">{errors.mobileNo}</p>

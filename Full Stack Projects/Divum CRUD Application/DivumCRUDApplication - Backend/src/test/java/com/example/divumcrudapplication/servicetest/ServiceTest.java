@@ -78,11 +78,4 @@ public class ServiceTest {
         ResponseEntity<Page<User>> response = userServiceIMPL.getUserWithPaginationAndSorting(0,10);
         Assert.assertEquals(HttpStatus.OK,response.getStatusCode());
     }
-
-    @Test
-    public void checkCheckEmail(){
-        when(userRepo.findByEmailId("")).thenReturn(null);
-        boolean response = userServiceIMPL.checkEmailId("");
-        Assert.assertTrue(response);
-    }
 }

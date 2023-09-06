@@ -65,7 +65,7 @@ const Alert = ({
   }, []);
   if (open) {
     return (
-      <div className="Alert">
+      // <div className="Alert">
         <div
           className="alert-container"
           style={{
@@ -87,7 +87,7 @@ const Alert = ({
             </button>
           )}
         </div>
-      </div>
+      // </div>
     );
   }
 };

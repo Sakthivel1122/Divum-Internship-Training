@@ -79,23 +79,9 @@ public class UserServiceIMPL implements UserService {
         return "Not found";
     }
 
-    @Override
-    public Page<User> getUserWithPagination(int offset, int pageSize) {
-        return null;
-    }
-
-//    @Override
-//    public Page<User> getUserWithPagination(int offset, int pageSize){
-//        return userRepo.findAll(PageRequest.of(offset, pageSize));
-//    }
 
     @Override
     public ResponseEntity<Page<User>> getUserWithPaginationAndSorting(int offset, int pageSize){
         return new ResponseEntity<>(userRepo.findAll(PageRequest.of(offset, pageSize).withSort(Sort.by(Sort.Direction.DESC,"lastUpdate"))), HttpStatus.OK);
-    }
-
-    @Override
-    public boolean checkEmailId(String emailid){
-        return userRepo.findByEmailId(emailid) == null;
     }
 }
