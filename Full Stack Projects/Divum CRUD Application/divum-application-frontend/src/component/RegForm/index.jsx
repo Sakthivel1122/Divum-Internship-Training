@@ -9,7 +9,6 @@ import API_LINKS from "../../constants/ApiConstants";
 const RegForm = ({
   setShowAlert,
   setMyAlert,
-  Load,
 }) => {
   let [everyData, setEveryData] = useState([]);
   const [value, setValue] = useState({

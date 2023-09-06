@@ -8,7 +8,6 @@ import axios from "axios";
 import API_LINKS from "./constants/ApiConstants"
 
 function App() {
-  const [allUsers, setAllUsers] = useState([]);
   // For Alert
   const [showAlert, setShowAlert] = useState(false);
   const [myAlert, setMyAlert] = useState({
@@ -16,20 +15,14 @@ function App() {
     message: "",
     closeButton: false,
   });
-  const Load = async () => {
-    const result = await axios.get(API_LINKS.GET_API_LINK_WITH_PAGINATION + "0/10");
-    if (result !== undefined) setAllUsers(result.data.content);
-  };
   // Alert
   const router = createBrowserRouter([
     {
       path: "/",
       element: (
         <UserDetails
-          allUsers={allUsers}
           setShowAlert={setShowAlert}
           setMyAlert={setMyAlert}
-          Load={Load}
         />
       ),
     },
@@ -39,7 +32,6 @@ function App() {
         <RegForm
           setShowAlert={setShowAlert}
           setMyAlert={setMyAlert}
-          Load={Load}
         />
       ),
     },

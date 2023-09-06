@@ -7,17 +7,42 @@ import axios from "axios";
 import DeletePopUp from "../DeletePopUp";
 import API_LINKS from "../../constants/ApiConstants";
 
-const UserDetails = ({
-  allUsers,
-  setShowAlert,
-  setMyAlert,
-  Load,
-}) => {
+const UserDetails = ({ setShowAlert, setMyAlert }) => {
+  const [allUsers, setAllUsers] = useState([]);
   const [deletePopUp, setDeletePopUp] = useState(false);
   const [deleteUserId, setDeleteUserId] = useState();
+  const [currentPage, setCurrentPage] = useState(0);
+  const [numberOfRecord, setNumberOfRecord] = useState(10);
+  const [isLastPage, setIsLastPage] = useState(false);
+  const [totalPage, setTotalPage] = useState();
+  const [pageNo, setPageNo] = useState([]);
+  const Load = async () => {
+    const result = await axios.get(
+      API_LINKS.GET_API_LINK_WITH_PAGINATION +
+        currentPage +
+        "/" +
+        numberOfRecord
+    );
+    if (result !== undefined) {
+      setAllUsers(result.data.content);
+      setIsLastPage(result.data.last);
+      setTotalPage(result.data.totalPages);
+      setPageNo([...Array(result.data.totalPages).keys()].map((i) => i + 1));
+    }
+  };
   useEffect(() => {
     Load();
-  }, []);
+  }, [currentPage]);
+
+  const prevPage = () => {
+    if (currentPage != 0) setCurrentPage(currentPage - 1);
+  };
+  const nextPage = () => {
+    if (!isLastPage) setCurrentPage(currentPage + 1);
+  };
+  const changePage = (pageNo) => {
+    setCurrentPage(pageNo - 1);
+  };
   const deleteUser = async (userId) => {
     await axios.delete(API_LINKS.DELETE_API_LINK + userId);
     setMyAlert({
@@ -80,7 +105,7 @@ const UserDetails = ({
             </th>
           </tr>
         </thead>
-        <tbody>
+        <tbody className="table-body">
           {allUsers.map((user) => {
             return (
               <tr>
@@ -126,6 +151,31 @@ const UserDetails = ({
           deleteUserId={deleteUserId}
         />
       )}
+      <div className="table-bottom">
+        <div className="table-bottom-content">
+          <button onClick={prevPage} className="prev-btn">
+            <span className="material-symbols-outlined">keyboard_arrow_left</span>
+          </button>
+          <div className="page-numbers">
+            {pageNo.map((page) => {
+              return (
+                <button
+                  className={`page-btn-${page} 
+                  ${currentPage + 1 === page ? "active-page" : ""}`}
+                  onClick={() => changePage(page)}
+                >
+                  {page}
+                </button>
+              );
+            })}
+          </div>
+          <button onClick={nextPage} className="next-btn">
+            <span className="material-symbols-outlined">
+              keyboard_arrow_right
+            </span>
+          </button>
+        </div>
+      </div>
     </div>
   );
 };
