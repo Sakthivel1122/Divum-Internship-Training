@@ -232,6 +232,7 @@ const RegForm = ({
     if (everyData !== undefined) setEveryData(everyData.data);
   };
   useEffect(() => {
+    console.log("HIIII", document.getElementById("hii").innerText);
     // Load();
     getAllData();
     if (editValues.state.userId !== "") {
@@ -362,6 +363,7 @@ const RegForm = ({
               <label htmlFor="">Address</label>
               <div className="input-flex">
                 <textarea
+                id="hii"
                   name="address"
                   className="input-box-address"
                   value={value.address}
