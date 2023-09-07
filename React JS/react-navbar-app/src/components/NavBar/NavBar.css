@@ -1,6 +1,3 @@
-*{
-    scroll-behavior: smooth;
-}
 .NavBar{
     width: 100%;
     height: 4rem;
@@ -22,13 +19,14 @@
     gap: 2rem;
 }
 
-#home,#service,#about{
+.section{
     width: 100%;
-    height: 100vh;
+    height: 110vh;
     font-size: 32px;
     display: flex;
     justify-content: center;
     align-items: center;
+    /* border: 1px solid; */
 }
 .nav-link{
     cursor: pointer;

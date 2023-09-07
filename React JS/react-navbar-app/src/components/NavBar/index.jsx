@@ -6,13 +6,37 @@ const NavBar = () => {
     <div className="NavBar">
       <h2 className="logo">Logo</h2>
       <div className="nav-links">
-        <Link to="home" className="nav-link active-navbar">
+        <Link
+          to="home"
+          activeClass="active-navbar"
+          spy={true}
+          offset={0}
+          smooth={true}
+          duration={500}
+          className="nav-link"
+        >
           Home
         </Link>
-        <Link to="service" className="nav-link">
+        <Link
+          to="service"
+          activeClass="active-navbar"
+          spy={true}
+          offset={0}
+          smooth={true}
+          duration={500}
+          className="nav-link"
+        >
           Service
         </Link>
-        <Link to="about" className="nav-link">
+        <Link
+          to="about"
+          activeClass="active-navbar"
+          spy={true}
+          offset={0}
+          smooth={true}
+          duration={500}
+          className="nav-link"
+        >
           About
         </Link>
       </div>
