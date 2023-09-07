@@ -261,7 +261,7 @@ const RegForm = ({
               <Link to="/">
                 <img src={logo} alt="Logo" className="logo" />
               </Link>
-              <h1>Register</h1>
+              <h1>{value.userId === "" ? "Register" : "Edit Details"}</h1>
             </div>
             <input
               type="text"
@@ -344,8 +344,8 @@ const RegForm = ({
               <label htmlFor="">Mobile Number</label>
               <div className="input-flex">
                 <input
-                  type="text"
-                  className="input-box"
+                  type="number"
+                  className="input-box input-box-mobile-no"
                   name="mobileNo"
                   value={value.mobileNo}
                   onChange={onChangeHandle}

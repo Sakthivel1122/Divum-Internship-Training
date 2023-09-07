@@ -51,6 +51,28 @@
     font: 16px;
     padding: 10px;
     width: 16rem;
+    border: none;
+    border: 1px solid gray;
+    border-radius: 3px;
+}
+.form-content form .input-box:focus{
+    outline: none;
+    border: 2px solid black;
+}
+.input-box:-webkit-autofill,
+.input-box:-webkit-autofill:hover,
+.input-box:-webkit-autofill:focus,
+.input-box:-webkit-autofill:active{
+    -webkit-box-shadow: 0 0 0px 1000px white inset;
+    border: none;
+    border: 2px solid black;
+    border-radius: 3px;
+}
+.input-box:-webkit-autofill:hover{
+    border: 1px solid gray;
+}
+.input-box-mobile-no::-webkit-inner-spin-button{
+    -webkit-appearance: none;
 }
 .form-content form .input-box:disabled{
     cursor: not-allowed;
@@ -85,6 +107,7 @@
     padding: 10px;
     resize: vertical;
     text-align: start;
+    max-height: 20rem;
 }
 .form-content form .input-box-address::placeholder{
     position: absolute;

@@ -14,7 +14,6 @@ const UserDetails = ({ setShowAlert, setMyAlert }) => {
   const [currentPage, setCurrentPage] = useState(0);
   const [numberOfRecord, setNumberOfRecord] = useState(10);
   const [isLastPage, setIsLastPage] = useState(false);
-  const [totalPage, setTotalPage] = useState();
   const [pageNo, setPageNo] = useState([]);
   const Load = async () => {
     const result = await axios.get(
@@ -26,7 +25,6 @@ const UserDetails = ({ setShowAlert, setMyAlert }) => {
     if (result !== undefined) {
       setAllUsers(result.data.content);
       setIsLastPage(result.data.last);
-      setTotalPage(result.data.totalPages);
       setPageNo([...Array(result.data.totalPages).keys()].map((i) => i + 1));
     }
   };
@@ -79,7 +77,6 @@ const UserDetails = ({ setShowAlert, setMyAlert }) => {
         >
           Add
           <img src={add_btn} alt="" className="add-btn-img" />
-          {/* <span className="material-symbols-outlined">add_circle</span> */}
         </Link>
       </div>
       <table>
@@ -154,7 +151,9 @@ const UserDetails = ({ setShowAlert, setMyAlert }) => {
       <div className="table-bottom">
         <div className="table-bottom-content">
           <button onClick={prevPage} className="prev-btn">
-            <span className="material-symbols-outlined">keyboard_arrow_left</span>
+            <span className="material-symbols-outlined">
+              keyboard_arrow_left
+            </span>
           </button>
           <div className="page-numbers">
             {pageNo.map((page) => {
