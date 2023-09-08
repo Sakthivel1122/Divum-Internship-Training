@@ -2,3 +2,10 @@
   width: 100%;
   height: calc(100vh - 5rem);
 }
+.go-btn{
+  position: absolute;
+}
+.cab-2 div:nth-child(2) {
+  background-color: yellow;
+  border: 1px solid grey;
+}
