@@ -6,6 +6,8 @@ import Service from './components/Service';
 import About from './components/About';
 import Profile from './components/Profile';
 import NavBar from './components/NavBar';
+import SignUp from './components/SignUp';
+import LogIn from './components/LogIn';
 
 const router = createBrowserRouter([
   {
@@ -23,6 +25,14 @@ const router = createBrowserRouter([
   {
     path:"/profile",
     element: <Profile/>
+  },
+  {
+    path:"/signup",
+    element: <SignUp/>
+  },
+  {
+    path:"/login",
+    element: <LogIn/>
   },
 ])
 const App = () => {

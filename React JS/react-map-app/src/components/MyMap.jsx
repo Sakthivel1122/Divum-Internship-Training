@@ -17,7 +17,7 @@ import "maplibre-gl/dist/maplibre-gl.css";
 import { Source, Layer } from "react-map-gl/maplibre";
 import { CircleLayer } from "react-map-gl/maplibre";
 import { FeatureCollection } from "geojson";
-
+// react leaflet
 const MyMap = () => {
 const geojson = {
   type: "FeatureCollection",

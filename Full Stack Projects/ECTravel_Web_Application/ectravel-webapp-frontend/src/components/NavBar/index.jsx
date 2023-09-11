@@ -20,7 +20,8 @@ const NavBar = () => {
             {servicesDropDown && <ServicesDropDown />}
           </li>
           <CustomLink to="/about" text="About" />
-          <CustomLink to="/profile" text="Profile" />
+          {/* <CustomLink to="/profile" text="Profile" /> */}
+          <Link to="signup" className="nav-link sign-in-btn">Sign in</Link>
         </ul>
       </div>
     </div>
