@@ -1,14 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./Home.css";
 import travelPic from "../../assets/images/home/travel-pic.jpg";
-import NavBar from "../NavBar";
 import place1 from "../../assets/images/home/popular_places/pic-1.jpg";
 import place2 from "../../assets/images/home/popular_places/pic-2.jpg";
 import place3 from "../../assets/images/home/popular_places/pic-3.webp";
-const Home = () => {
+import { useLocation } from "react-router-dom";
+const Home = ({ setNavBarVisiblity, setLogInStatus, isLoggedIn }) => {
+  setNavBarVisiblity(true);
+  const location = useLocation();
+  useEffect(() => {
+    if (location.state !== null) {
+      setLogInStatus(location.state.loginStatus);
+    }
+  }, []);
   return (
     <>
-      <NavBar />
       <div className="Home">
         <div className="travel-pic-container">
           <img className="travel-pic" src={travelPic} alt="Travel pic" />
@@ -113,46 +119,46 @@ const Home = () => {
         <footer>
           <div className="footer-container container">
             <div className="footer-wrapper">
-            <div className="footer-content">
-              <span>Quick Links</span>
-              <ul>
-                <li>Home</li>
-                <li>About</li>
-                <li>Profile</li>
-              </ul>
+              <div className="footer-content">
+                <span>Quick Links</span>
+                <ul>
+                  <li>Home</li>
+                  <li>About</li>
+                  <li>Profile</li>
+                </ul>
+              </div>
+              <div className="footer-content">
+                <span>Services</span>
+                <ul>
+                  <li>Track Location</li>
+                  <li>Ticket Booking</li>
+                  <li>Taxi Booking</li>
+                  <li>Hotel Booking</li>
+                  <li>Food Order</li>
+                  <li>Tour Planner</li>
+                </ul>
+              </div>
+              <div className="footer-content">
+                <span>Contact info</span>
+                <ul>
+                  <li>+91 9344229677</li>
+                  <li>asakthivel1122@gmail.com</li>
+                  <li>Tamil Nadu</li>
+                </ul>
+              </div>
+              <div className="footer-content">
+                <span>Follow US</span>
+                <ul>
+                  <li>FaceBook</li>
+                  <li>Instagram</li>
+                  <li>Twitter</li>
+                  <li>Linked in</li>
+                </ul>
+              </div>
             </div>
-            <div className="footer-content">
-              <span>Services</span>
-              <ul>
-                <li>Track Location</li>
-                <li>Ticket Booking</li>
-                <li>Taxi Booking</li>
-                <li>Hotel Booking</li>
-                <li>Food Order</li>
-                <li>Tour Planner</li>
-              </ul>
-            </div>
-            <div className="footer-content">
-              <span>Contact info</span>
-              <ul>
-                <li>+91 9344229677</li>
-                <li>asakthivel1122@gmail.com</li>
-                <li>Tamil Nadu</li>
-              </ul>
-            </div>
-            <div className="footer-content">
-              <span>Follow US</span>
-              <ul>
-                <li>FaceBook</li>
-                <li>Instagram</li>
-                <li>Twitter</li>
-                <li>Linked in</li>
-              </ul>
-            </div>
-            </div>
-          <span>
-            Created by <span>Salthivel</span> | All Rights Reserved!
-          </span>
+            <span>
+              Created by <span>Salthivel</span> | All Rights Reserved!
+            </span>
           </div>
         </footer>
       </div>

@@ -1,22 +1,26 @@
 import React from "react";
 import "./App.css";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
+import NavBar from "./components/NavBar";
 import Home from "./components/Home";
-import Contact from "./components/Contact";
+import BookList from "./components/BookList";
+import Book from "./components/Book";
+import NotFound from "./components/NotFound";
+import NewBook from "./components/NewBook";
+import BookLayout from "./components/BookLayout";
 const App = () => {
   return (
     <div className="App">
-      App
-      <Home/>
-      <Home />
-      <Router>
-        <Routes>
-          <Route path="/"></Route>
-          <Route path="/contact">
-            <Contact />
-          </Route>
-        </Routes>
-      </Router>
+      <NavBar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/books" element={<BookLayout />}>
+          <Route index element={<BookList />} />
+          <Route path=":id" element={<Book />} />
+          <Route path="new" element={<NewBook />} />
+        </Route>
+        <Route path="*" element={<NotFound />} />
+      </Routes>
     </div>
   );
 };

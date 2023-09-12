@@ -4,7 +4,6 @@ import "./About.css"
 const About = () => {
   return (
     <>
-    <NavBar/>
     <div className='About'>About</div>
     </>
   )

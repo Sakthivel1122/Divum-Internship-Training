@@ -6,8 +6,6 @@ import org.hibernate.annotations.UpdateTimestamp;
 import java.util.Date;
 
 
-//import java.sql.Date;
-
 @Entity
 @Table(name = "user")
 public class User {

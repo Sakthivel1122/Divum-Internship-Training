@@ -4,7 +4,6 @@ import "./Profile.css"
 const Profile = () => {
   return (
     <>
-    <NavBar/>
     <div className='Profile'>Profile</div>
     </>
   )

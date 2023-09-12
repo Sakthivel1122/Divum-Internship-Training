@@ -4,7 +4,6 @@ import NavBar from '../NavBar';
 const Service = () => {
   return (
     <>
-    <NavBar/>
     <div className='Services'>Service</div>
     </>
   )
