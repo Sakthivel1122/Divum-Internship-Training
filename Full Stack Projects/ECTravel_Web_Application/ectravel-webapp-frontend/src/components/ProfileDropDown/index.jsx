@@ -7,6 +7,7 @@ const ProfileDropDown = ({ setLogInStatus }) => {
     setLogInStatus(false);
     navigate("/", { replace: true });
   };
+
   return (
     <div className="ProfileDropDown">
       <ul>

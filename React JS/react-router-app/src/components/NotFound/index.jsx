@@ -9,7 +9,7 @@ const  NotFound = () => {
         }, 1000);
     },[])
   return (
-    <div className='NotFound container'><h1>NotFound</h1></div>
+    <div className='NotFound container'><h1>Page Not Found</h1></div>
   )
 }
 

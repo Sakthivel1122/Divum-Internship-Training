@@ -12,9 +12,9 @@
     display: flex;
     gap: 2rem;
 }
-.NavBar ul a {
-    text-decoration: none;
-}
+
 .active{
+    text-decoration: none;
     color: green;
+    font-weight: bold;
 }
