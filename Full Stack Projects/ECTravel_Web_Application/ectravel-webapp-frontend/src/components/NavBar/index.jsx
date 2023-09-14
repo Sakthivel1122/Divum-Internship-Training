@@ -1,18 +1,33 @@
 import React, { useEffect, useState } from "react";
 import "./NavBar.css";
-import { Link, NavLink, useLoaderData, useLocation, useNavigate } from "react-router-dom";
+import {
+  Link,
+  NavLink,
+  useLoaderData,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
 import ServicesDropDown from "../ServicesDropDown";
 import ProfileDropDown from "../ProfileDropDown";
 import profile_pic from "../../assets/images/profile-pic.webp";
 
-const NavBar = ({ setNavBarVisiblity, isLoggedIn, setLogInStatus }) => {
+const NavBar = ({
+  setNavBarVisiblity,
+  isLoggedIn,
+  setLogInStatus,
+  loggedUser,
+  handleLoggedUser,
+}) => {
   const [servicesDropDown, setServicesDropDown] = useState(false);
   const [profileDropDown, setProfileDropDown] = useState(false);
 
   const [currentPath, setCurrentPath] = useState("");
   useEffect(() => {
     setCurrentPath(window.location.pathname);
+    setLogInStatus(JSON.parse(localStorage.getItem("logInStatus")));
+    handleLoggedUser(localStorage.getItem("loggedUser"));
   }, []);
+
   const navigate = useNavigate();
   const handleSignUpBtn = () => {
     setNavBarVisiblity(false);
@@ -38,16 +53,21 @@ const NavBar = ({ setNavBarVisiblity, isLoggedIn, setLogInStatus }) => {
               Sign Up
             </button>
           )}
-          {
-            isLoggedIn && (
-              <li className="profile-nav-link-wrapper" 
+          {isLoggedIn && (
+            <li
+              className="profile-nav-link-wrapper"
               onMouseEnter={() => setProfileDropDown(true)}
-            onMouseLeave={() => setProfileDropDown(false)}>
+              onMouseLeave={() => setProfileDropDown(false)}
+            >
               <img className="profile-pic" src={profile_pic} alt="profile" />
-              { profileDropDown && <ProfileDropDown setLogInStatus={setLogInStatus}/>}
-              </li>
-            )
-          }
+              {profileDropDown && (
+                <ProfileDropDown
+                  setLogInStatus={setLogInStatus}
+                  loggedUser={loggedUser}
+                />
+              )}
+            </li>
+          )}
         </ul>
       </div>
     </div>

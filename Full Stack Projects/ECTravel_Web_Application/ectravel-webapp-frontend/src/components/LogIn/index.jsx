@@ -13,16 +13,16 @@ const LogIn = ({ setNavBarVisiblity }) => {
   const handleSubmit = async () => {
     try {
       const result = await axios.post(
-        "http://localhost:8088/api/v1/user/userauthentication",
+        API_LINKS.USER_AUTHENTICATION,
         {
           emailId: formData.emailId,
           password: formData.password,
         }
       );
       if (result.data) {
-        navigate("/", {
-          state: { emailId: formData.emailId, loginStatus: result.data },
-        });
+        localStorage.setItem("logInStatus", true);
+        localStorage.setItem("loggedUser",formData.emailId);
+        navigate("/");
       } else {
         alert("Incurrect emailid or password");
       }

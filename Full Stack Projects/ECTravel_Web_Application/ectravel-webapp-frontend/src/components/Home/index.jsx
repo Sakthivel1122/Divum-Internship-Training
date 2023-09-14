@@ -4,15 +4,11 @@ import travelPic from "../../assets/images/home/travel-pic.jpg";
 import place1 from "../../assets/images/home/popular_places/pic-1.jpg";
 import place2 from "../../assets/images/home/popular_places/pic-2.jpg";
 import place3 from "../../assets/images/home/popular_places/pic-3.webp";
-import { useLocation } from "react-router-dom";
-const Home = ({ setNavBarVisiblity, setLogInStatus, isLoggedIn }) => {
+import { useLocation, useParams } from "react-router-dom";
+const Home = ({ setNavBarVisiblity, setLogInStatus, handleLoggedUser }) => {
+  const parem = useParams();
   setNavBarVisiblity(true);
   const location = useLocation();
-  useEffect(() => {
-    if (location.state !== null) {
-      setLogInStatus(location.state.loginStatus);
-    }
-  }, []);
   return (
     <>
       <div className="Home">

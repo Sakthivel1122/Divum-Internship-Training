@@ -19,13 +19,18 @@ import LogIn from "./components/LogIn";
 const App = () => {
   const [navBar, setNavBar] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [loggedUser, setLoggedUser] = useState("");
   const setLogInStatus = (state) => {
     setIsLoggedIn(state);
+  };
+  const handleLoggedUser = (user) => {
+    setLoggedUser(user);
   };
   const setNavBarVisiblity = (state) => {
     setNavBar(state);
   };
   useEffect(() => {
+
     setNavBarVisiblity(true);
   }, []);
   return (
@@ -35,6 +40,8 @@ const App = () => {
           setNavBarVisiblity={setNavBarVisiblity}
           isLoggedIn={isLoggedIn}
           setLogInStatus={setLogInStatus}
+          loggedUser={loggedUser}
+          handleLoggedUser={handleLoggedUser}
         />
       )}
       <Routes>
@@ -45,12 +52,24 @@ const App = () => {
               setNavBarVisiblity={setNavBarVisiblity}
               isLoggedIn={isLoggedIn}
               setLogInStatus={setLogInStatus}
+              handleLoggedUser={handleLoggedUser}
+            />
+          }
+        />
+        <Route
+          path="/:emailId"
+          element={
+            <Home
+              setNavBarVisiblity={setNavBarVisiblity}
+              isLoggedIn={isLoggedIn}
+              setLogInStatus={setLogInStatus}
+              handleLoggedUser={handleLoggedUser}
             />
           }
         />
         <Route path="/services" element={<Service />} />
         <Route path="/about" element={<About />} />
-        <Route path="/profile" element={<Profile />} />
+        <Route path="/profile" element={<Profile loggedUser={loggedUser} setLogInStatus={setLogInStatus}/>} />
         <Route
           path="/signup"
           element={<SignUp setNavBarVisiblity={setNavBarVisiblity} />}
