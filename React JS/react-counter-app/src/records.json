@@ -1,0 +1,27 @@
+[
+    {
+        "id": 1,
+        "name": "Spidy",
+        "mobile No": "12345"
+    },
+    {
+        "id": 2,
+        "name": "Stark",
+        "mobile No": "67890"
+    },
+    {
+        "id": 3,
+        "name": "Caption",
+        "mobile No": "09876"
+    },
+    {
+        "id": 4,
+        "name": "Thor",
+        "mobile No": "2345"
+    },
+    {
+        "id": 5,
+        "name": "Hulk",
+        "mobile No": "34567"
+    }
+]

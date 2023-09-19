@@ -1,0 +1,27 @@
+[
+    {
+        "id":1,
+        "name":"Spidy",
+        "contact": "9876543210"
+    },
+    {
+        "id":2,
+        "name":"Stark",
+        "contact": "8765432101"
+    },
+    {
+        "id":3,
+        "name":"Thor",
+        "contact": "7654321012"
+    },
+    {
+        "id":4,
+        "name":"Caption",
+        "contact": "6543210123"
+    },
+    {
+        "id":5,
+        "name":"Hulk",
+        "contact": "5432101234"
+    }
+]

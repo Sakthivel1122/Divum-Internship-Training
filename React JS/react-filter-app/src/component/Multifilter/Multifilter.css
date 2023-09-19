@@ -1,0 +1,36 @@
+.Multifilter {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+}
+.buttons-container {
+    display: flex;
+    margin: 30px 0;
+    gap: 20px;
+}
+.items-container{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+.item {
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    width: 5rem;
+    gap: 10px;
+    padding: 10px;
+    align-items: center;
+    justify-content: center;
+}
+
+.button {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.active {
+    background: black;
+    color: white;
+}

@@ -1,0 +1,47 @@
+[
+  {
+    "id": 1,
+    "name": "Bag 1",
+    "category": "bag"
+  },
+  {
+    "id": 2,
+    "name": "Bag 2",
+    "category": "bag"
+  },
+  {
+    "id": 3,
+    "name": "Bag 3",
+    "category": "bag"
+  },
+  {
+    "id": 4,
+    "name": "Watch 1",
+    "category": "watch"
+  },
+  {
+    "id": 5,
+    "name": "Watch 2",
+    "category": "watch"
+  },
+  {
+    "id": 6,
+    "name": "Watch 3",
+    "category": "watch"
+  },
+  {
+    "id": 7,
+    "name": "Sports 1",
+    "category": "sports"
+  },
+  {
+    "id": 8,
+    "name": "Sports 2",
+    "category": "sports"
+  },
+  {
+    "id": 9,
+    "name": "Sports 3",
+    "category": "sports"
+  }
+]

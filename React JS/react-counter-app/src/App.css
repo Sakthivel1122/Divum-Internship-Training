@@ -23,3 +23,17 @@ body{
 .App button:hover{
   background-color: #6f6fe3;
 }
+.box-container {
+  display: flex;
+  /* flex-direction: column; */
+  gap: 30px;
+  margin-top: 50px;
+}
+.box {
+  display: flex;
+  width: 10rem;
+  flex-direction: column;
+  border: 1px solid white;
+  padding: 10px;
+  align-items: center;
+}
