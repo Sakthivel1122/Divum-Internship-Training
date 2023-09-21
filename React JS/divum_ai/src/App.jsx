@@ -1,12 +1,13 @@
 import React from "react";
-import SideBar from "./components/SideBar";
-import "./App.css"
-import BodyArea from "./components/BodyArea";
+import "./App.css";
+import TextAI from "./components/TextAI";
+import MainLayout from "./components/MainLayout";
 const App = () => {
   return (
     <div className="App">
-      <SideBar/>
-      <BodyArea/>
+      <MainLayout>
+        <TextAI/>
+      </MainLayout>
     </div>
   );
 };

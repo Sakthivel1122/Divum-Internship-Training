@@ -1,6 +1,35 @@
 [
   {
+    "id": 1,
     "product": "Tata Motors",
-    "data": ""
+    "data": [
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem perferendis dolores unde quae aperiam optio animi fugit vel atque dolorum, sunt neque quaerat labore veritatis reprehenderit provident mollitia veniam dolorem quis fugiat ut reiciendis. Porro nemo molestias voluptas accusamus dignissimos tenetur quam, veritatis iusto assumenda modi quae aliquam inventore minus. Aliquid autem, in nisi incidunt eaque quasi optio! Et earum vero necessitatibus facere cumque harum sint voluptatem incidunt fuga ab, dolorum odit possimus, quisquam, illum deserunt! Maxime sit amet in sint dolore dignissimos illo sed nemo facere distinctio aut voluptas, deleniti veritatis, unde porro molestiae! Quisquam mollitia architecto labore culpa.",
+      "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quidem soluta, earum, repellat reprehenderit ea dolore similique quibusdam amet provident animi minima aliquid saepe corporis numquam? Rerum quae, totam aut ab accusantium voluptas, non deleniti quaerat tempore perferendis aperiam beatae veniam delectus cupiditate nemo quis earum, at repellendus nihil? Aliquid, minima.",
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem perferendis dolores unde quae aperiam optio animi fugit vel atque dolorum, sunt neque quaerat labore veritatis reprehenderit provident mollitia veniam dolorem quis fugiat ut reiciendis. Porro nemo molestias voluptas accusamus dignissimos tenetur quam, veritatis iusto assumenda modi quae aliquam inventore minus. Aliquid autem, in nisi incidunt eaque quasi optio! Et earum vero necessitatibus facere cumque harum sint voluptatem incidunt fuga ab, dolorum odit possimus, quisquam, illum deserunt! Maxime sit amet in sint dolore dignissimos illo sed nemo facere distinctio aut voluptas, deleniti veritatis, unde porro molestiae! Quisquam mollitia architecto labore culpa.",
+      "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quidem soluta, earum, repellat reprehenderit ea dolore similique quibusdam amet provident animi minima aliquid saepe corporis numquam? Rerum quae, totam aut ab accusantium voluptas, non deleniti quaerat tempore perferendis aperiam beatae veniam delectus cupiditate nemo quis earum, at repellendus nihil? Aliquid, minima."
+    ],
+    "buttons": ["Balance Sheet Analysis","Cash Flow Sheet Analysis", "Income Statement Analysis", "All"]
+  },
+  {
+    "id":2,
+    "product": "HDFC Bank",
+    "data": [
+      "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quidem soluta, earum, repellat reprehenderit ea dolore similique quibusdam amet provident animi minima aliquid saepe corporis numquam? Rerum quae, totam aut ab accusantium voluptas, non deleniti quaerat tempore perferendis aperiam beatae veniam delectus cupiditate nemo quis earum, at repellendus nihil? Aliquid, minima.",
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem perferendis dolores unde quae aperiam optio animi fugit vel atque dolorum, sunt neque quaerat labore veritatis reprehenderit provident mollitia veniam dolorem quis fugiat ut reiciendis. Porro nemo molestias voluptas accusamus dignissimos tenetur quam, veritatis iusto assumenda modi quae aliquam inventore minus. Aliquid autem, in nisi incidunt eaque quasi optio! Et earum vero necessitatibus facere cumque harum sint voluptatem incidunt fuga ab, dolorum odit possimus, quisquam, illum deserunt! Maxime sit amet in sint dolore dignissimos illo sed nemo facere distinctio aut voluptas, deleniti veritatis, unde porro molestiae! Quisquam mollitia architecto labore culpa.",
+      "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quidem soluta, earum, repellat reprehenderit ea dolore similique quibusdam amet provident animi minima aliquid saepe corporis numquam? Rerum quae, totam aut ab accusantium voluptas, non deleniti quaerat tempore perferendis aperiam beatae veniam delectus cupiditate nemo quis earum, at repellendus nihil? Aliquid, minima.",
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem perferendis dolores unde quae aperiam optio animi fugit vel atque dolorum, sunt neque quaerat labore veritatis reprehenderit provident mollitia veniam dolorem quis fugiat ut reiciendis. Porro nemo molestias voluptas accusamus dignissimos tenetur quam, veritatis iusto assumenda modi quae aliquam inventore minus. Aliquid autem, in nisi incidunt eaque quasi optio! Et earum vero necessitatibus facere cumque harum sint voluptatem incidunt fuga ab, dolorum odit possimus, quisquam, illum deserunt! Maxime sit amet in sint dolore dignissimos illo sed nemo facere distinctio aut voluptas, deleniti veritatis, unde porro molestiae! Quisquam mollitia architecto labore culpa."
+    ],
+    "buttons": ["Balance Sheet Analysis","Cash Flow Sheet Analysis", "Income Statement Analysis", "All"]
+  },
+  {
+    "id":3,
+    "product": "Project A",
+    "data": [
+      "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quidem soluta, earum, repellat reprehenderit ea dolore similique quibusdam amet provident animi minima aliquid saepe corporis numquam? Rerum quae, totam aut ab accusantium voluptas, non deleniti quaerat tempore perferendis aperiam beatae veniam delectus cupiditate nemo quis earum, at repellendus nihil? Aliquid, minima.",
+      "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quidem soluta, earum, repellat reprehenderit ea dolore similique quibusdam amet provident animi minima aliquid saepe corporis numquam? Rerum quae, totam aut ab accusantium voluptas, non deleniti quaerat tempore perferendis aperiam beatae veniam delectus cupiditate nemo quis earum, at repellendus nihil? Aliquid, minima.",
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem perferendis dolores unde quae aperiam optio animi fugit vel atque dolorum, sunt neque quaerat labore veritatis reprehenderit provident mollitia veniam dolorem quis fugiat ut reiciendis. Porro nemo molestias voluptas accusamus dignissimos tenetur quam, veritatis iusto assumenda modi quae aliquam inventore minus. Aliquid autem, in nisi incidunt eaque quasi optio! Et earum vero necessitatibus facere cumque harum sint voluptatem incidunt fuga ab, dolorum odit possimus, quisquam, illum deserunt! Maxime sit amet in sint dolore dignissimos illo sed nemo facere distinctio aut voluptas, deleniti veritatis, unde porro molestiae! Quisquam mollitia architecto labore culpa.",
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem perferendis dolores unde quae aperiam optio animi fugit vel atque dolorum, sunt neque quaerat labore veritatis reprehenderit provident mollitia veniam dolorem quis fugiat ut reiciendis. Porro nemo molestias voluptas accusamus dignissimos tenetur quam, veritatis iusto assumenda modi quae aliquam inventore minus. Aliquid autem, in nisi incidunt eaque quasi optio! Et earum vero necessitatibus facere cumque harum sint voluptatem incidunt fuga ab, dolorum odit possimus, quisquam, illum deserunt! Maxime sit amet in sint dolore dignissimos illo sed nemo facere distinctio aut voluptas, deleniti veritatis, unde porro molestiae! Quisquam mollitia architecto labore culpa."
+    ],
+    "buttons": ["Balance Sheet Analysis","Cash Flow Sheet Analysis", "Income Statement Analysis", "All"]
   }
 ]

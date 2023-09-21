@@ -1,12 +1,14 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@600&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
+
 .SideBar {
   position: fixed;
   height: 100vh;
-  width: 282px;
+  /* width: 282px; */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  border-right: 1px solid rgba(0, 0, 0, 0.1);
 }
 .top-wrapper {
   padding: 24px 20px;
@@ -27,47 +29,37 @@
   flex-direction: column;
   gap: 12px;
 }
+.DUmmy {
+  color: green;
+}
 
 .sidebar-buttons span {
+  color: var(--black-100, var(--black-100, #1c1c1c));
+  font-feature-settings: "cv11" on, "cv01" on, "ss01" on;
   font-family: "Inter", sans-serif;
   font-size: 18px;
+  font-style: normal;
   font-weight: 600;
   line-height: 24px;
 }
 
 .sidebar-buttons ul li {
-  height: 48px;
-  padding: 0 15px;
-  border-radius: 15px;
   display: flex;
+  width: 242px;
+  padding: 12px;
   align-items: center;
   gap: 10px;
-  color: white;
+  border-radius: 15px;
   cursor: pointer;
 }
 .sidebar-buttons ul li:nth-child(1) {
-  background: rgb(148, 0, 211);
-  background: linear-gradient(
-    90deg,
-    rgba(148, 0, 211, 1) 0%,
-    rgba(75, 0, 130, 1) 100%
-  );
+  background: linear-gradient(90deg, #9400d3 0%, #4b0082 100%);
 }
 .sidebar-buttons ul li:nth-child(2) {
-  background: rgb(236, 0, 140);
-  background: linear-gradient(
-    90deg,
-    rgba(236, 0, 140, 1) 0%,
-    rgba(252, 103, 103, 1) 100%
-  );
+  background: linear-gradient(90deg, #ec008c 0%, #fc6767 100%);
 }
 .sidebar-buttons ul li:nth-child(3) {
-  background: rgb(255, 128, 8);
-  background: linear-gradient(
-    90deg,
-    rgba(255, 128, 8, 1) 0%,
-    rgba(255, 200, 55, 1) 100%
-  );
+  background: linear-gradient(90deg, #ff8008 0%, #ffc837 100%);
 }
 .sidebar-buttons ul li img {
   width: 12.64px;
@@ -75,19 +67,20 @@
 }
 
 .sidebar-buttons ul li p {
+  color: var(--noble-black-0, #fff);
+  font-feature-settings: "cv11" on, "cv01" on, "ss01" on;
   font-family: "Inter", sans-serif;
   font-size: 14px;
+  font-style: normal;
   font-weight: 600;
   line-height: 21px;
-  letter-spacing: 0.15000000596046448px;
-  text-align: left;
+  letter-spacing: 0.15px;
 }
 
 /* history-constainer */
-
 .history-constainer {
   border-top: 1px solid rgba(0, 0, 0, 0.1);
-  padding: 30px 20px;
+  padding: 24px 20px;
   display: flex;
   flex-direction: column;
   gap: 5px;
@@ -104,9 +97,10 @@
 
 .history-constainer .history-record {
   display: flex;
+  width: 242px;
   padding: 12px;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
 }
 
 .history-constainer .history-record img {
@@ -128,16 +122,19 @@
   border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
 .feature-btn-container ul {
-  margin: 20px;
   display: flex;
   flex-direction: column;
   gap: 4px;
-  margin-bottom: 2rem;
+  padding: 20px 20px 28px 20px;
 }
 
 .feature-btn-container ul li {
   display: flex;
+  padding: 12px;
   align-items: center;
+  gap: 12px;
+  align-self: stretch;
+  border-radius: 8px;
 }
 
 .feature-btn-container ul li img {
@@ -152,10 +149,20 @@
 }
 
 .feature-btn-container ul li p {
+  color: var(--black-100, var(--black-100, #1c1c1c));
+  font-feature-settings: "cv11" on, "cv01" on, "ss01" on;
+
+  /* 14 Regular */
   font-family: "Inter", sans-serif;
   font-size: 14px;
+  font-style: normal;
   font-weight: 400;
-  line-height: 20px;
-  letter-spacing: 0em;
-  text-align: left;
+  line-height: 20px; /* 142.857% */
+}
+
+/* Responsive */
+@media (max-height: 840px) {
+  .SideBar {
+    overflow-y: scroll;
+  }
 }

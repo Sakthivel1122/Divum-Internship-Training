@@ -28,7 +28,9 @@ const SideBar = () => {
       </div>
       <div className="bottom-wrapper">
         <div className="history-constainer">
-          <span>History</span>
+          <span>
+            History
+          </span>
           <ul>
             {Histories.map((history) => (
               <li className="history-record">
