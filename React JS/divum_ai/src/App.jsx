@@ -5,7 +5,7 @@ import BodyArea from "./components/BodyArea";
 const App = () => {
   return (
     <div className="App">
-      <SideBar />
+      <SideBar/>
       <BodyArea/>
     </div>
   );

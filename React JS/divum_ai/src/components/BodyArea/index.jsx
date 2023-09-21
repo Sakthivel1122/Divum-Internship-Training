@@ -87,7 +87,9 @@ const BodyArea = () => {
           </div>
         </div>
 
-        <div className="BodyArea-bottom-wrapper"></div>
+        <div className="BodyArea-bottom-wrapper">
+          {/* Data from API */}
+        </div>
       </div>
     </div>
   );
