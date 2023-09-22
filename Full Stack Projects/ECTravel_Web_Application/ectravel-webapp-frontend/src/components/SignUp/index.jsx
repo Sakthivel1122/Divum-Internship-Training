@@ -1,11 +1,17 @@
 import React, { useEffect, useState } from "react";
 import "./SignUp.css";
 import side_pic from "../../assets/images/signup/side-pic-3.jpg";
-import { Link, useLoaderData, useLocation, useNavigate } from "react-router-dom";
+import {
+  Link,
+  useLoaderData,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
 import axios from "axios";
 import API_LINKS from "../../constants/ApiConstant";
+import { useMain } from "../../Contexts/MainContext";
 
-const SignUp = ({ setNavBarVisiblity }) => {
+const SignUp = () => {
   const [formData, setFormData] = useState({
     userId: "",
     firstName: "",
@@ -18,9 +24,24 @@ const SignUp = ({ setNavBarVisiblity }) => {
     password: "",
     confirmPassword: "",
   });
+  const mainContext = useMain();
   const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (
+      formData.firstName === "" ||
+      formData.lastName === "" ||
+      formData.emailId === "" ||
+      formData.mobileNo === "" ||
+      formData.dob === "" ||
+      formData.city === "" ||
+      formData.state === "" ||
+      formData.password === "" ||
+      formData.confirmPassword === ""
+    ) {
+      alert("Enter all required fields");
+      return;
+    }
     await axios.post(API_LINKS.ADD_USER, {
       firstName: formData.firstName,
       lastName: formData.lastName,
@@ -31,16 +52,18 @@ const SignUp = ({ setNavBarVisiblity }) => {
       state: formData.state,
       password: formData.password,
     });
-    setNavBarVisiblity(true);
-    navigate("/");
+    mainContext.setNavBarVisiblity(true);
+    navigate("/login");
   };
-  setNavBarVisiblity(false);
+  mainContext.setNavBarVisiblity(false);
   const handleOnChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
-  useEffect(()=>{
-  },[])
+  useEffect(() => {
+    mainContext
+  }, []);
+  
   return (
     <div className="SignUp">
       <div className="signup-container">
@@ -58,6 +81,7 @@ const SignUp = ({ setNavBarVisiblity }) => {
               type="text"
               placeholder="First Name"
               onChange={handleOnChange}
+              required
             />
           </div>
           <div className="input-flex">
@@ -68,6 +92,7 @@ const SignUp = ({ setNavBarVisiblity }) => {
               type="text"
               placeholder="Last Name"
               onChange={handleOnChange}
+              required
             />
           </div>
           <div className="input-flex">
@@ -78,6 +103,7 @@ const SignUp = ({ setNavBarVisiblity }) => {
               type="text"
               placeholder="Email ID"
               onChange={handleOnChange}
+              required
             />
           </div>
           <div className="input-flex">
@@ -88,6 +114,7 @@ const SignUp = ({ setNavBarVisiblity }) => {
               type="text"
               placeholder="Mobile No"
               onChange={handleOnChange}
+              required
             />
           </div>
           <div className="input-flex">
@@ -97,6 +124,7 @@ const SignUp = ({ setNavBarVisiblity }) => {
               className="input-box"
               type="date"
               onChange={handleOnChange}
+              required
             />
           </div>
           <div className="input-flex">
@@ -107,6 +135,7 @@ const SignUp = ({ setNavBarVisiblity }) => {
               type="text"
               placeholder="City"
               onChange={handleOnChange}
+              required
             />
           </div>
           <div className="input-flex">
@@ -117,6 +146,7 @@ const SignUp = ({ setNavBarVisiblity }) => {
               type="text"
               placeholder="State"
               onChange={handleOnChange}
+              required
             />
           </div>
           <div className="input-flex">
@@ -127,6 +157,7 @@ const SignUp = ({ setNavBarVisiblity }) => {
               type="text"
               placeholder="Password"
               onChange={handleOnChange}
+              required
             />
           </div>
           <div className="input-flex">
@@ -137,6 +168,7 @@ const SignUp = ({ setNavBarVisiblity }) => {
               type="text"
               placeholder="Confirm Password"
               onChange={handleOnChange}
+              required
             />
           </div>
           <input

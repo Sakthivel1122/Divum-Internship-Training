@@ -9,6 +9,7 @@
   flex-direction: column;
   justify-content: space-between;
   border-right: 1px solid rgba(0, 0, 0, 0.1);
+  background-color: var(--sideBar-bg-color);
 }
 .top-wrapper {
   padding: 24px 20px;
@@ -28,9 +29,6 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
-}
-.DUmmy {
-  color: green;
 }
 
 .sidebar-buttons span {

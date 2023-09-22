@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useImperativeHandle, useState } from "react";
 import "./NavBar.css";
 import {
   Link,
@@ -10,27 +10,23 @@ import {
 import ServicesDropDown from "../ServicesDropDown";
 import ProfileDropDown from "../ProfileDropDown";
 import profile_pic from "../../assets/images/profile-pic.webp";
+import { useMain } from "../../Contexts/MainContext";
 
-const NavBar = ({
-  setNavBarVisiblity,
-  isLoggedIn,
-  setLogInStatus,
-  loggedUser,
-  handleLoggedUser,
-}) => {
+const NavBar = () => {
   const [servicesDropDown, setServicesDropDown] = useState(false);
   const [profileDropDown, setProfileDropDown] = useState(false);
 
   const [currentPath, setCurrentPath] = useState("");
+  const mainContext = useMain();
   useEffect(() => {
     setCurrentPath(window.location.pathname);
-    setLogInStatus(JSON.parse(localStorage.getItem("logInStatus")));
-    handleLoggedUser(localStorage.getItem("loggedUser"));
+    mainContext.setLogInStatus(JSON.parse(localStorage.getItem("logInStatus")));
+    mainContext.handleLoggedUser(localStorage.getItem("loggedUser"));
   }, []);
 
   const navigate = useNavigate();
   const handleSignUpBtn = () => {
-    setNavBarVisiblity(false);
+    mainContext.setNavBarVisiblity(false);
     navigate("/signup");
   };
   return (
@@ -48,12 +44,12 @@ const NavBar = ({
             {servicesDropDown && <ServicesDropDown />}
           </li>
           <CustomLink to="/about" text="About" path={currentPath} />
-          {!isLoggedIn && (
+          {!mainContext.isLoggedIn && (
             <button className="nav-link sign-in-btn" onClick={handleSignUpBtn}>
               Sign Up
             </button>
           )}
-          {isLoggedIn && (
+          {mainContext.isLoggedIn && (
             <li
               className="profile-nav-link-wrapper"
               onMouseEnter={() => setProfileDropDown(true)}
@@ -61,10 +57,7 @@ const NavBar = ({
             >
               <img className="profile-pic" src={profile_pic} alt="profile" />
               {profileDropDown && (
-                <ProfileDropDown
-                  setLogInStatus={setLogInStatus}
-                  loggedUser={loggedUser}
-                />
+                <ProfileDropDown/>
               )}
             </li>
           )}

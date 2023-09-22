@@ -4,10 +4,13 @@ import travelPic from "../../assets/images/home/travel-pic.jpg";
 import place1 from "../../assets/images/home/popular_places/pic-1.jpg";
 import place2 from "../../assets/images/home/popular_places/pic-2.jpg";
 import place3 from "../../assets/images/home/popular_places/pic-3.webp";
-import { useLocation, useParams } from "react-router-dom";
-const Home = ({ setNavBarVisiblity, setLogInStatus, handleLoggedUser }) => {
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useMain } from "../../Contexts/MainContext";
+const Home = () => {
+  const navigate = useNavigate();
   const parem = useParams();
-  setNavBarVisiblity(true);
+  const mainContext = useMain();
+  mainContext.setNavBarVisiblity(true);
   const location = useLocation();
   return (
     <>
@@ -24,7 +27,7 @@ const Home = ({ setNavBarVisiblity, setLogInStatus, handleLoggedUser }) => {
         <div className="services container">
           <h1 className="title">Services</h1>
           <div className="services-content">
-            <div className="service">
+            <div className="service" onClick={() => navigate("/services/tracklocation")}>
               <span class="material-symbols-outlined service-icon">
                 location_on
               </span>

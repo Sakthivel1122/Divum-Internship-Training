@@ -5,7 +5,8 @@ import axios from "axios";
 import API_LINKS from "../../constants/ApiConstant";
 import { useLoaderData, useLocation, useParams } from "react-router-dom";
 import profile_pic from "../../assets/images/profile-pic.webp";
-const Profile = ({ loggedUser, setLogInStatus }) => {
+import { useMain } from "../../Contexts/MainContext";
+const Profile = () => {
   const location = useLocation();
   const [userDetails, setUserDetails] = useState({
     firstName: "",
@@ -21,9 +22,10 @@ const Profile = ({ loggedUser, setLogInStatus }) => {
     lastName: "",
     emailId: "",
   });
+  const mainContext = useMain();
 
   useEffect(() => {
-    setLogInStatus(localStorage.getItem("logInStatus"));
+    mainContext.setLogInStatus(localStorage.getItem("logInStatus"));
     loadUserDetails();
   }, []);
 

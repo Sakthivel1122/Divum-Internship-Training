@@ -3,12 +3,14 @@ import "./LogIn.css";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import API_LINKS from "../../constants/ApiConstant";
-const LogIn = ({ setNavBarVisiblity }) => {
+import { useMain } from "../../Contexts/MainContext";
+const LogIn = () => {
   const [formData, setFormData] = useState({
     emailId: "",
     password: "",
   });
-  setNavBarVisiblity(false);
+  const mainContext = useMain();
+  mainContext.setNavBarVisiblity(false);
   const navigate = useNavigate();
   const handleSubmit = async () => {
     try {

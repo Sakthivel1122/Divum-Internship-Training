@@ -1,5 +1,6 @@
-package com.example.mytodoapp.controller;
+    package com.example.mytodoapp.controller;
 
+import com.example.mytodoapp.DTO.ToDoAddDTO;
 import com.example.mytodoapp.model.ToDo;
 import com.example.mytodoapp.repo.MyToDoRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,19 +11,21 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
+@RestController
+@CrossOrigin
+@RequestMapping("api/v1/todo")
 public class MyToDoController {
 
     @Autowired
     MyToDoRepo repo;
     @GetMapping("/getToDoList")
-    @ResponseBody
     public List<ToDo> viewPage(){
             return repo.findAll();
     }
 
     @PostMapping("/addToDoItem")
-    public ResponseEntity<String> addItem(@RequestBody ToDo todo){
+    public ResponseEntity<String> addItem(@RequestBody ToDoAddDTO toDoAddDTO){
+        ToDo todo = new ToDo(toDoAddDTO.getTitle(),toDoAddDTO.getDate(),toDoAddDTO.getStatus());
         if(todo != null){
             repo.save(todo);
             return new ResponseEntity<String>(HttpStatus.CREATED);

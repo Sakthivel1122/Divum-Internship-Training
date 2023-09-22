@@ -3,3 +3,10 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+:root {
+  --black-100: #000000;
+  --noble-black-0: #fff;
+  --sideBar-bg-color: #ffffff;
+  --body-bg-color: #f6fbff;
+}

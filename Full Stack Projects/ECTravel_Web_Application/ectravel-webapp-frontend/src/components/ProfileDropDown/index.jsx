@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from "react";
 import "./ProfileDropDown.css";
 import { useNavigate } from "react-router-dom";
-const ProfileDropDown = ({ setLogInStatus, loggedUser }) => {
+import { useMain } from "../../Contexts/MainContext";
+const ProfileDropDown = () => {
   const navigate = useNavigate();
   const [currentPath,setCurrentPath] = useState(window.location.href);
+  const mainContext = useMain();
   const handleLogOut = () => {
     localStorage.setItem("logInStatus", false);
     localStorage.setItem("loggedUser", "");
-    setLogInStatus(JSON.parse(localStorage.getItem("logInStatus")));
+    mainContext.setLogInStatus(JSON.parse(localStorage.getItem("logInStatus")));
     navigate("/");
   }; 
   const handleProfileDetails = () => {
-    navigate(`/profile`, { state: loggedUser });
+    navigate(`/profile`, { state: mainContext.loggedUser });
   };
   useEffect(()=>{
     setCurrentPath(window.location.href);

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./TextAI.css";
 import Icons from "../../assets/icons/Icons";
 import Data from "../../constants/Data.json";
+import { TextAIStrings } from "../../constants/StringConstant";
 const TextAI = () => {
   const [formData, setFormData] = useState({
     product: "",
@@ -20,62 +21,57 @@ const TextAI = () => {
   };
   return (
     <div className="TextAI">
-      <div className="TextAI-container">
         <div className="TextAI-top-wrapper">
           <h1>
-            <span className="main-title">Text ProductDescriber</span>
+            <span className="main-title">{TextAIStrings.main_title}</span>
           </h1>
-          <p className="main-title-desc">
-            ProductDescriber is a text-based tool that generates concise and
-            informative product descriptions in just a few lines, making it
-            ideal for online listings and marketing materials.
-          </p>
+          <p className="main-title-desc">{TextAIStrings.main_title_desc}</p>
           <form className="form-container">
             <div className="top-form-wrapper">
               <div className="input-box-wrapper">
-                <label htmlFor="">Product Name</label>
+                <label htmlFor="">{TextAIStrings.form.label_1}</label>
                 <input
                   type="text"
                   name="product"
                   className="input-box"
                   value={formData.product}
                   onChange={handleOnChange}
-                  placeholder="Enter Here"
+                  placeholder={TextAIStrings.form.placeholder_1}
                 />
               </div>
               <div className="input-box-wrapper">
-                <label htmlFor="">Filter</label>
+                <label htmlFor="">{TextAIStrings.form.label_2}</label>
                 <input
                   type="text"
                   name="filter"
                   className="input-box"
                   value={formData.filter}
                   onChange={handleOnChange}
-                  placeholder="Waterproof"
+                  placeholder={TextAIStrings.form.placeholder_2}
                 />
               </div>
             </div>
             <div className="bottom-form-wrapper">
               <div className="bottom-input-box-wrapper">
-                <label htmlFor="">Select Tone</label>
+                <label htmlFor="">{TextAIStrings.form.label_3}</label>
                 <input
                   type="text"
                   name="tone"
                   className="input-box"
                   value={formData.tone}
                   onChange={handleOnChange}
-                  placeholder="Enter Here"
+                  placeholder={TextAIStrings.form.placeholder_3}
                 />
               </div>
               <div className="bottom-input-box-wrapper">
-                <label htmlFor="">Select Language</label>
+                <label htmlFor="">{TextAIStrings.form.label_4}</label>
                 <input
                   type="text"
                   name="language"
                   className="input-box"
                   value={formData.language}
                   onChange={handleOnChange}
-                  placeholder="Enter Here"
+                  placeholder={TextAIStrings.form.placeholder_4}
                 />
               </div>
             </div>
@@ -86,7 +82,7 @@ const TextAI = () => {
             >
               <img src={Icons.generate_btn_icon} alt="" />
               <p>
-                <span>Generate</span>
+                <span>{TextAIStrings.form.submit_btn}</span>
               </p>
             </button>
           </form>
@@ -117,7 +113,6 @@ const TextAI = () => {
               );
             })}
         </div>
-      </div>
     </div>
   );
 };

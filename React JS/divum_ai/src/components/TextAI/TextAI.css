@@ -1,15 +1,9 @@
 .TextAI {
-  width: 100%;
-  min-height: 100vh;
-  margin-left: 282px;
-  background-color: #f6fbff;
-  display: flex;
-  justify-content: center;
-}
-.TextAI-container {
   max-width: 759px;
   margin-bottom: 24px;
   margin-top: 38px;
+  display: flex;
+  flex-direction: column;
 }
 .TextAI-top-wrapper {
   display: flex;
@@ -18,11 +12,10 @@
   padding-bottom: 10px;
 }
 
-.TextAI-container .main-title {
+.TextAI .main-title {
   color: var(--black-100, var(--black-100, #1c1c1c));
   text-align: center;
   font-feature-settings: "cv11" on, "cv01" on, "ss01" on;
-
   /* 48 Semibold */
   font-family: "Inter", sans-serif;
   font-size: 48px;
@@ -45,8 +38,8 @@
   margin-bottom: 68px;
 }
 
-.TextAI-container .form-container {
-  /* max-width: 759px; */
+.TextAI .form-container {
+  /* width: 759px; */
   width: 100%;
   height: 408px;
   flex-shrink: 0;
@@ -56,13 +49,13 @@
   display: flex;
   flex-direction: column;
 }
-.TextAI-container .input-box-wrapper {
+.TextAI .input-box-wrapper {
   display: flex;
   flex-direction: column;
   gap: 12px;
 }
 
-.TextAI-container .input-box-wrapper label {
+.TextAI .input-box-wrapper label {
   color: #3f3f3f;
   font-feature-settings: "cv11" on, "cv01" on, "ss01" on;
   font-family: "Inter", sans-serif;
@@ -71,7 +64,7 @@
   font-weight: 600;
   line-height: 20px; /* 125% */
 }
-.TextAI-container .input-box-wrapper input {
+.TextAI .input-box-wrapper input {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -88,18 +81,18 @@
   border: none;
 }
 
-.TextAI-container .top-form-wrapper {
+.TextAI .top-form-wrapper {
   display: flex;
   flex-direction: column;
   gap: 16px;
 }
-.TextAI-container .bottom-form-wrapper {
+.TextAI .bottom-form-wrapper {
   display: flex;
   margin-top: 16px;
   gap: 32px;
 }
 
-.TextAI-container .bottom-form-wrapper .bottom-input-box-wrapper label {
+.TextAI .bottom-form-wrapper .bottom-input-box-wrapper label {
   color: #3f3f3f;
   font-feature-settings: "cv11" on, "cv01" on, "ss01" on;
   font-family: "Inter", sans-serif;
@@ -108,12 +101,12 @@
   font-weight: 600;
   line-height: 20px; /* 125% */
 }
-.TextAI-container .bottom-form-wrapper .bottom-input-box-wrapper {
+.TextAI .bottom-form-wrapper .bottom-input-box-wrapper {
   display: flex;
   flex-direction: column;
   gap: 12px;
 }
-.TextAI-container .bottom-form-wrapper .bottom-input-box-wrapper input {
+.TextAI .bottom-form-wrapper .bottom-input-box-wrapper input {
   display: inline-flex;
   height: 56px;
   padding: 16px;
@@ -124,15 +117,15 @@
 
   border: none;
 }
-.TextAI-container .bottom-form-wrapper .bottom-input-box-wrapper:nth-child(1) {
+.TextAI .bottom-form-wrapper .bottom-input-box-wrapper:nth-child(1) {
   flex: 1;
   /* padding: 16px 254px 19px 16px; */
 }
-.TextAI-container .bottom-form-wrapper .bottom-input-box-wrapper:nth-child(2) {
+.TextAI .bottom-form-wrapper .bottom-input-box-wrapper:nth-child(2) {
   flex: 1;
   /* padding: 16px 249px 19px 16px; */
 }
-.TextAI-container .generate-btn {
+.TextAI .generate-btn {
   width: 176px;
   height: 44px;
   flex-shrink: 0;
@@ -150,14 +143,13 @@
   margin-top: 32px;
   cursor: pointer;
 }
-
-.TextAI-container .generate-btn img {
+.TextAI .generate-btn img {
   width: 16px;
   height: 16px;
   flex-shrink: 0;
 }
 
-.TextAI-container .generate-btn p span {
+.TextAI .generate-btn p span {
   color: #fff;
   font-family: "Inter", sans-serif;
   font-size: 14px;
@@ -166,17 +158,17 @@
   line-height: 21px; /* 150% */
 }
 
-.TextAI-container .input-box:-webkit-autofill,
-.TextAI-container .input-box:-webkit-autofill:hover,
-.TextAI-container .input-box:-webkit-autofill:focus,
-.TextAI-container .input-box:-webkit-autofill:active {
+.TextAI .input-box:-webkit-autofill,
+.TextAI .input-box:-webkit-autofill:hover,
+.TextAI .input-box:-webkit-autofill:focus,
+.TextAI .input-box:-webkit-autofill:active {
   -webkit-box-shadow: 0 0 0px 1000px white inset;
 }
 
 /* TextAI-bottom-wrapper */
 
 .TextAI-bottom-wrapper {
-  width: 758px;
+  max-width: 758px;
   flex-shrink: 0;
   padding: 16px;
   border-radius: 16px;
@@ -207,7 +199,7 @@
 
 .result-data-wrapper {
   display: flex;
-  width: 726px;
+  max-width: 726px;
   padding: 16px;
   flex-direction: column;
   align-items: flex-start;
@@ -220,7 +212,7 @@
 
 .suggestion-btns-wrapper {
   display: flex;
-  width: 685px;
+  max-width: 685px;
   height: 66px;
   padding: 16px 0px;
   align-items: flex-start;
@@ -231,6 +223,14 @@
 }
 
 .suggestion-btns-wrapper button {
+  color: #19191a;
+  font-feature-settings: "cv11" on, "cv01" on, "ss01" on;
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 21px; /* 150% */
+
   display: flex;
   padding: 8px 12px;
   align-items: flex-start;

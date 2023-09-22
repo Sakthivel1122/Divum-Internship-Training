@@ -1,4 +1,13 @@
 .MainLayout {
-    width: 100%;
-    display: flex;
+  width: 100%;
+  display: flex;
+}
+
+.child-container {
+  width: 100%;
+  min-height: 100vh;
+  margin-left: 282px;
+  background-color: var(--body-bg-color);
+  display: flex;
+  justify-content: center;
 }

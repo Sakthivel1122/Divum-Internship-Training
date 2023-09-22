@@ -25,6 +25,7 @@ const App = () => {
         <NavBar />
         <Routes>
           <Route path="/" element={<Home />} />
+          
           <Route
             path="/about"
             element={
@@ -33,6 +34,7 @@ const App = () => {
               </Suspense>
             }
           />
+
           <Route path="/products" element={<Products />}>
             <Route index element={<AllProducts />} />
             <Route path="features" element={<Features />} />
@@ -44,6 +46,7 @@ const App = () => {
             <Route path=":userId" element={<UserDetails />} />
             <Route path="admin" element={<Admin />} />
           </Route>
+
           <Route path="/pageone" element={<PageOne />} />
           <Route path="/pagetwo" element={<PageTwo />} />
           <Route path="/profile" element={<Profile />} />
