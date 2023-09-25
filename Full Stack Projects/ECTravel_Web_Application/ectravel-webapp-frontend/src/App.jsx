@@ -16,6 +16,7 @@ import LogIn from "./components/LogIn";
 import TrackLocation from "./components/TrackLocation";
 import MainLayout from "./components/MainLayout";
 import { MainProvider, useMain } from "./Contexts/MainContext";
+import Service from "./components/Service";
 
 const App = () => {
   return (
@@ -28,11 +29,11 @@ const App = () => {
             <Route path="about" element={<About/>}/>
             <Route path="profile" element={<Profile/>}/>
 
-            <Route path="services">
+            <Route path="services" element={<Service/>}>
               <Route path="tracklocation" element={<TrackLocation/>}/>
             </Route>
           </Route>
-
+          
           <Route path="/signup" element={<SignUp/>}/>
           <Route path="/login" element={<LogIn/>}/>
 

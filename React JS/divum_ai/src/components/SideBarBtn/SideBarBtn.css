@@ -1,0 +1,26 @@
+.SideBarBtn {
+  display: flex;
+  width: 242px;
+  padding: 12px;
+  align-items: center;
+  gap: 10px;
+  border-radius: 15px;
+  cursor: pointer;
+  border: none;
+}
+
+.SideBarBtn img {
+  width: 12.64px;
+  height: 15.45px;
+}
+
+.SideBarBtn p {
+  color: var(--noble-black-0, #fff);
+  font-feature-settings: "cv11" on, "cv01" on, "ss01" on;
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 21px;
+  letter-spacing: 0.15px;
+}

@@ -1,0 +1,23 @@
+.InputBox {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 1 0 0;
+  
+    display: inline-flex;
+    height: 56px;
+    padding: 16px 267.35px 19px 16px;
+    align-items: center;
+    flex-shrink: 0;
+    border-radius: 12px;
+    background: #fafafa;
+  
+    border: none;
+}
+
+.InputBox:-webkit-autofill,
+.InputBox:-webkit-autofill:hover,
+.InputBox:-webkit-autofill:focus,
+.InputBox:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0px 1000px white inset;
+}

@@ -64,23 +64,6 @@
   font-weight: 600;
   line-height: 20px; /* 125% */
 }
-.TextAI .input-box-wrapper input {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  flex: 1 0 0;
-
-  display: inline-flex;
-  height: 56px;
-  padding: 16px 267.35px 19px 16px;
-  align-items: center;
-  flex-shrink: 0;
-  border-radius: 12px;
-  background: #fafafa;
-
-  border: none;
-}
-
 .TextAI .top-form-wrapper {
   display: flex;
   flex-direction: column;
@@ -114,7 +97,6 @@
   flex-shrink: 0;
   border-radius: 12px;
   background: #fafafa;
-
   border: none;
 }
 .TextAI .bottom-form-wrapper .bottom-input-box-wrapper:nth-child(1) {
@@ -125,39 +107,6 @@
   flex: 1;
   /* padding: 16px 249px 19px 16px; */
 }
-.TextAI .generate-btn {
-  width: 176px;
-  height: 44px;
-  flex-shrink: 0;
-
-  border-radius: 12px;
-  background: linear-gradient(129deg, #ff2e00 0%, #b633b8 40.1%, #3d22de 100%);
-  box-shadow: 0px 4px 14px 0px rgba(182, 169, 169, 0.16);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: none;
-  gap: 6px;
-
-  align-self: center;
-  margin-top: 32px;
-  cursor: pointer;
-}
-.TextAI .generate-btn img {
-  width: 16px;
-  height: 16px;
-  flex-shrink: 0;
-}
-
-.TextAI .generate-btn p span {
-  color: #fff;
-  font-family: "Inter", sans-serif;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 600;
-  line-height: 21px; /* 150% */
-}
-
 .TextAI .input-box:-webkit-autofill,
 .TextAI .input-box:-webkit-autofill:hover,
 .TextAI .input-box:-webkit-autofill:focus,

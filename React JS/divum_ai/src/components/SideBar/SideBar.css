@@ -24,12 +24,6 @@
   flex-direction: column;
   gap: 8px;
 }
-.sidebar-buttons ul {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
 
 .sidebar-buttons span {
   color: var(--black-100, var(--black-100, #1c1c1c));
@@ -41,38 +35,21 @@
   line-height: 24px;
 }
 
-.sidebar-buttons ul li {
+.sidebar-btn-wrapper {
+  list-style: none;
   display: flex;
-  width: 242px;
-  padding: 12px;
-  align-items: center;
-  gap: 10px;
-  border-radius: 15px;
-  cursor: pointer;
-}
-.sidebar-buttons ul li:nth-child(1) {
-  background: linear-gradient(90deg, #9400d3 0%, #4b0082 100%);
-}
-.sidebar-buttons ul li:nth-child(2) {
-  background: linear-gradient(90deg, #ec008c 0%, #fc6767 100%);
-}
-.sidebar-buttons ul li:nth-child(3) {
-  background: linear-gradient(90deg, #ff8008 0%, #ffc837 100%);
-}
-.sidebar-buttons ul li img {
-  width: 12.64px;
-  height: 15.45px;
+  flex-direction: column;
+  gap: 12px;
 }
 
-.sidebar-buttons ul li p {
-  color: var(--noble-black-0, #fff);
-  font-feature-settings: "cv11" on, "cv01" on, "ss01" on;
-  font-family: "Inter", sans-serif;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 600;
-  line-height: 21px;
-  letter-spacing: 0.15px;
+.sidebar-buttons .sidebar-btn-wrapper .SideBarBtn:nth-child(1) {
+  background: linear-gradient(90deg, #9400d3 0%, #4b0082 100%);
+}
+.sidebar-buttons .sidebar-btn-wrapper .SideBarBtn:nth-child(2) {
+  background: linear-gradient(90deg, #ec008c 0%, #fc6767 100%);
+}
+.sidebar-buttons .sidebar-btn-wrapper .SideBarBtn:nth-child(3) {
+  background: linear-gradient(90deg, #ff8008 0%, #ffc837 100%);
 }
 
 /* history-constainer */

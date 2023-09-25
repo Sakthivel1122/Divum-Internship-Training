@@ -4,6 +4,7 @@ const API_LINKS = {
     ADD_USER: COMMON_API_LINK + "adduser",
     USER_AUTHENTICATION: COMMON_API_LINK + "userauthentication",
     GET_USER_DETAILS: COMMON_API_LINK + "getuserdetails/",
+    UPDATE_USER: COMMON_API_LINK + "updateUser"
 }
 
 export default API_LINKS;

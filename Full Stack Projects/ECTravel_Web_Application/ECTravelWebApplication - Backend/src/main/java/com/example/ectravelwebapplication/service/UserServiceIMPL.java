@@ -2,6 +2,7 @@ package com.example.ectravelwebapplication.service;
 
 import com.example.ectravelwebapplication.DTO.AddUserDTO;
 import com.example.ectravelwebapplication.DTO.LogInDTO;
+import com.example.ectravelwebapplication.DTO.UpdateUserDTO;
 import com.example.ectravelwebapplication.DTO.UserDetailsDTO;
 import com.example.ectravelwebapplication.model.User;
 import com.example.ectravelwebapplication.repository.UserRepo;
@@ -49,5 +50,23 @@ public class UserServiceIMPL implements UserService{
                 user.getState()
         );
         return userDetailsDTO;
+    }
+
+    @Override
+    public String updateUser(UpdateUserDTO updateUserDTO){
+        User user = userRepo.findById(updateUserDTO.getUserId()).orElse(null);
+        if(user != null){
+            user.setFirstName(updateUserDTO.getFirstName());
+            user.setLastName(updateUserDTO.getLastName());
+            user.setDob(updateUserDTO.getDob());
+            user.setMobileNo(updateUserDTO.getMobileNo());
+            user.setCity(updateUserDTO.getCity());
+            user.setState(updateUserDTO.getState());
+            userRepo.save(user);
+            return "Updated Successfully";
+        }
+        else {
+            return "Update Failed";
+        }
     }
 }

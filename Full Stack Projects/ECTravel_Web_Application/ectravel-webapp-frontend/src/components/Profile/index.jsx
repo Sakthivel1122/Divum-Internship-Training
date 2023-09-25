@@ -7,8 +7,8 @@ import { useLoaderData, useLocation, useParams } from "react-router-dom";
 import profile_pic from "../../assets/images/profile-pic.webp";
 import { useMain } from "../../Contexts/MainContext";
 const Profile = () => {
-  const location = useLocation();
-  const [userDetails, setUserDetails] = useState({
+  const [userDetails, setUserDetails] = useState({});
+  const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
     emailId: "",
@@ -17,15 +17,9 @@ const Profile = () => {
     city: "",
     state: "",
   });
-  const [profileDetails, setProfileDetails] = useState({
-    firstName: "",
-    lastName: "",
-    emailId: "",
-  });
   const mainContext = useMain();
 
   useEffect(() => {
-    mainContext.setLogInStatus(localStorage.getItem("logInStatus"));
     loadUserDetails();
   }, []);
 
@@ -34,13 +28,36 @@ const Profile = () => {
       API_LINKS.GET_USER_DETAILS + localStorage.getItem("loggedUser")
     );
     setUserDetails(result.data);
+    setFormData(result.data);
   };
 
   const handleOnChange = (e) => {
     const { name, value } = e.target;
-    setUserDetails({ ...userDetails, [name]: value });
+    setFormData({ ...formData, [name]: value });
   };
 
+  const handleSubmit = async () => {
+    console.log(formData);
+    try {
+      let res = await axios.put(API_LINKS.UPDATE_USER, {
+        userId: formData.userId,
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        emailId: formData.emailId,
+        mobileNo: formData.mobileNo,
+        dob: formData.dob,
+        city: formData.city,
+        state: formData.state
+      });
+      console.log(res);
+      loadUserDetails();
+      alert("Updated")
+  
+    } catch (error) {
+      alert(error);
+    }
+    // loadUserDetails();
+  };
   return (
     <>
       <div className="Profile">
@@ -49,7 +66,9 @@ const Profile = () => {
             <div className="profile-pic-flex-1">
               <img className="profile-pic" src={profile_pic} alt="" />
               <div className="profile-pic-details">
-                <span>{userDetails.firstName + " " + userDetails.lastName}</span>
+                <span>
+                  {userDetails.firstName + " " + userDetails.lastName}
+                </span>
                 <p>{userDetails.emailId}</p>
               </div>
             </div>
@@ -58,18 +77,14 @@ const Profile = () => {
           <div className="profile-details-wrapper">
             <h1>Update Details</h1>
             <form className="profile-details-update-form" action="">
-              <input
-                type="text"
-                name="userId"
-                value={userDetails.userId}
-                hidden
-              />
+              <input type="text" name="userId" value={formData.userId} hidden />
               <div className="profile-input-box-wrapper">
                 <label htmlFor="">First Name</label>
                 <input
                   type="text"
                   name="firstName"
-                  value={userDetails.firstName}
+                  placeholder="Enter First Name"
+                  value={formData.firstName}
                   onChange={handleOnChange}
                 />
               </div>
@@ -78,16 +93,8 @@ const Profile = () => {
                 <input
                   type="text"
                   name="lastName"
-                  value={userDetails.lastName}
-                  onChange={handleOnChange}
-                />
-              </div>
-              <div className="profile-input-box-wrapper">
-                <label htmlFor="">Email ID</label>
-                <input
-                  type="text"
-                  name="emailId"
-                  value={userDetails.emailId}
+                  placeholder="Enter Last Name"
+                  value={formData.lastName}
                   onChange={handleOnChange}
                 />
               </div>
@@ -96,7 +103,7 @@ const Profile = () => {
                 <input
                   type="date"
                   name="dob"
-                  value={userDetails.dob}
+                  value={formData.dob}
                   onChange={handleOnChange}
                 />
               </div>
@@ -105,7 +112,8 @@ const Profile = () => {
                 <input
                   type="text"
                   name="mobileNo"
-                  value={userDetails.mobileNo}
+                  placeholder="Enter Mobile Number"
+                  value={formData.mobileNo}
                   onChange={handleOnChange}
                 />
               </div>
@@ -114,7 +122,8 @@ const Profile = () => {
                 <input
                   type="text"
                   name="city"
-                  value={userDetails.city}
+                  placeholder="Enter City"
+                  value={formData.city}
                   onChange={handleOnChange}
                 />
               </div>
@@ -123,12 +132,15 @@ const Profile = () => {
                 <input
                   type="text"
                   name="state"
-                  value={userDetails.state}
+                  placeholder="Enter State"
+                  value={formData.state}
                   onChange={handleOnChange}
                 />
               </div>
             </form>
-            <button className="update-btn">Update</button>
+            <button className="update-btn" onClick={handleSubmit}>
+              Update
+            </button>
           </div>
         </div>
       </div>

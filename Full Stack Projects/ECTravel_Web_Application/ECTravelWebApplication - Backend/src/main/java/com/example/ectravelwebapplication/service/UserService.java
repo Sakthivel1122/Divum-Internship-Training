@@ -2,6 +2,7 @@ package com.example.ectravelwebapplication.service;
 
 import com.example.ectravelwebapplication.DTO.AddUserDTO;
 import com.example.ectravelwebapplication.DTO.LogInDTO;
+import com.example.ectravelwebapplication.DTO.UpdateUserDTO;
 import com.example.ectravelwebapplication.DTO.UserDetailsDTO;
 
 public interface UserService {
@@ -10,4 +11,6 @@ public interface UserService {
     boolean userAuthentication(LogInDTO logInDTO);
 
     UserDetailsDTO getUserDetails(String emailId);
+
+    String updateUser(UpdateUserDTO updateUserDTO);
 }

@@ -1,0 +1,11 @@
+.dropdown {
+  height: 56px;
+  padding: 16px;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: url("../../assets/icons/buttons_icon/expand_more_icon.png") 98% /
+    8% no-repeat #fafafa;
+  border-radius: 12px;
+  border: none;
+}

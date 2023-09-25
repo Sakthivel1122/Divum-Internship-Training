@@ -29,20 +29,24 @@ const NavBar = () => {
     mainContext.setNavBarVisiblity(false);
     navigate("/signup");
   };
+  const click = () => {
+    console.log("HI");
+  }
   return (
     <div className="NavBar">
       <div className="nav-content container">
         <span className="logo">ECTravel</span>
         <ul className="nav-links">
           <CustomLink to="/" text="Home" path={currentPath} />
-          <li
+          <NavLink to="/services"
+          onClick={click}
             className="nav-link"
             onMouseEnter={() => setServicesDropDown(true)}
             onMouseLeave={() => setServicesDropDown(false)}
           >
             Services
             {servicesDropDown && <ServicesDropDown />}
-          </li>
+          </NavLink>
           <CustomLink to="/about" text="About" path={currentPath} />
           {!mainContext.isLoggedIn && (
             <button className="nav-link sign-in-btn" onClick={handleSignUpBtn}>
