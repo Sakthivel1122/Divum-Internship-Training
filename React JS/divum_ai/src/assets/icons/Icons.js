@@ -10,7 +10,8 @@ const Icons = {
     logout_icon: require("./sidebar_btn_icon/logout-icon.png"),
     generate_btn_icon: require("./buttons_icon/generate-btn-icon.png"),
     logo_icon: require("./logo.png"),
-    dropdown_icon: require("./buttons_icon/expand_more_icon.png"),
+    downarrow_icon: require("./buttons_icon/downarrow.png"),
+    uparrow_icon: require("./buttons_icon/uparrow.png"),
 }
 
 export default Icons;

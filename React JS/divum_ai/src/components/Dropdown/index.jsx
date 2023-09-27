@@ -16,9 +16,16 @@ const Dropdown = ({
   };
   return (
     <div className="Dropdown">
-      <div className={`dropdown-btn ${isActive ? `border` : ``}`} onClick={handleOnClick}>
+      <div
+        className={`dropdown-btn ${isActive ? `border` : ``}`}
+        onClick={handleOnClick}
+      >
         {selected}
-        <img src={Icons.dropdown_icon} alt="" />
+        {isActive ? (
+          <img src={Icons.uparrow_icon} alt="" />
+        ) : (
+          <img src={Icons.downarrow_icon} alt="" />
+        )}
       </div>
       {isActive && (
         <div className="dropdown-content">

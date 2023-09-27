@@ -2,7 +2,7 @@
     position: absolute;
     /* background-color: red; */
     width: 400%;
-    left: -155%; 
+    left: -155%;
 }
 .ProfileDropDown ul {
     position: relative;
@@ -10,6 +10,7 @@
     background-color: #ffffff;
     border-radius: 5px;
     box-shadow: 0 0 10px rgb(184, 179, 179);
+    z-index: 100;
 } 
 /* .ProfileDropDown ul::before {
     position: absolute;

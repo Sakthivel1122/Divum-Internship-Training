@@ -31,16 +31,17 @@ const NavBar = () => {
   };
   const click = () => {
     console.log("HI");
-  }
+  };
   return (
     <div className="NavBar">
       <div className="nav-content container">
         <span className="logo">ECTravel</span>
         <ul className="nav-links">
           <CustomLink to="/" text="Home" path={currentPath} />
-          <NavLink to="/services"
-          onClick={click}
-            className="nav-link"
+          <NavLink
+            to="/services"
+            onClick={click}
+            className="nav-link service-link"
             onMouseEnter={() => setServicesDropDown(true)}
             onMouseLeave={() => setServicesDropDown(false)}
           >
@@ -60,9 +61,7 @@ const NavBar = () => {
               onMouseLeave={() => setProfileDropDown(false)}
             >
               <img className="profile-pic" src={profile_pic} alt="profile" />
-              {profileDropDown && (
-                <ProfileDropDown/>
-              )}
+              {profileDropDown && <ProfileDropDown />}
             </li>
           )}
         </ul>

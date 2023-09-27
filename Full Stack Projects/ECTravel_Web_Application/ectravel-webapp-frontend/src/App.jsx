@@ -30,7 +30,7 @@ const App = () => {
             <Route path="profile" element={<Profile/>}/>
 
             <Route path="services" element={<Service/>}>
-              <Route path="tracklocation" element={<TrackLocation/>}/>
+              <Route index path="tracklocation" element={<TrackLocation/>}/>
             </Route>
           </Route>
           
