@@ -10,8 +10,8 @@ const TextAI = () => {
   const [formData, setFormData] = useState({
     product: "",
     filter: "",
-    tone: "",
-    language: "",
+    tone: TextAIStrings.form.tones[0].option,
+    language: TextAIStrings.form.languages[0].option,
   });
   const [displayData, setDisplayData] = useState(null);
   const handleOnChange = (e) => {
@@ -22,6 +22,12 @@ const TextAI = () => {
     console.log(formData);
     setDisplayData(Data.filter((data) => data.product === formData.product));
   };
+  const handleSetSelectTone = (tone) => {
+    setFormData({...formData, ["tone"]: tone})
+  }
+  const handleSetLanguage = (language) => {
+    setFormData({...formData, ["language"]: language})
+  }
   return (
     <div className="TextAI">
       <div className="TextAI-top-wrapper">
@@ -57,17 +63,17 @@ const TextAI = () => {
             <div className="bottom-input-box-wrapper">
               <label htmlFor="">{TextAIStrings.form.label_3}</label>
               <Dropdown
-                name="tone"
-                values={TextAIStrings.form.tones}
-                onChange={handleOnChange}
+                selected= {formData.tone}
+                options={TextAIStrings.form.tones}
+                handleSetSelected = {handleSetSelectTone}
               />
             </div>
             <div className="bottom-input-box-wrapper">
               <label htmlFor="">{TextAIStrings.form.label_4}</label>
               <Dropdown
-                name="language"
-                values={TextAIStrings.form.languages}
-                onChange={handleOnChange}
+                selected= {formData.language}
+                options={TextAIStrings.form.languages}
+                handleSetSelected={handleSetLanguage}
               />
             </div>
           </div>
