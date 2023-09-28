@@ -8,7 +8,7 @@
     background-size: cover;
 }
 
-.login-container {
+.LogIn .login-container {
     width: 30rem;
     height: 70vh;
     background-color: white;
@@ -17,33 +17,33 @@
     flex-direction: column;
     padding: 3rem;
 }
-.login-container h1 {
+.LogIn .login-container h1 {
   font-family: "Montserrat", sans-serif;
 }
-.input-box-wrapper {
+.LogIn .input-box-wrapper {
     display: flex;
     flex-direction: column;
     position: relative;
     gap: .5rem;
     margin-top: 2.5rem;
 }
-.input-box-wrapper:nth-child(3){
+.LogIn .input-box-wrapper:nth-child(3){
     margin-bottom: 2rem;
 }
-.login-container .input-box-wrapper .login-input-box {
+.LogIn .login-container .input-box-wrapper .login-input-box {
     font-size: 16px;
     padding: 10px;
     border: none;
     border-bottom: 1px solid black;
     outline: none;
 }
-.input-box-wrapper span {
+.LogIn .input-box-wrapper span {
     position: absolute;
     height: 2px;
     transition: .5s;
     bottom: 0;
 }
-.input-box-wrapper label {
+.LogIn .input-box-wrapper label {
     color: gray;
     position: absolute;
     top: 10px;
@@ -51,17 +51,17 @@
     pointer-events: none;
     transition: .5s;
 }
-.login-input-box:focus ~ span,
-.login-input-box:valid ~ span {
+.LogIn .login-input-box:focus ~ span,
+.LogIn .login-input-box:valid ~ span {
     width: 100%;
     background-color: #00b894;
 }
-.login-input-box:focus ~ label,
-.login-input-box:valid ~ label{
+.LogIn .login-input-box:focus ~ label,
+.LogIn .login-input-box:valid ~ label{
     top: -15px;
 }
 
-.login-submit-btn {
+.LogIn .login-submit-btn {
     padding: 1rem;
     border: none;
     border-radius: 25px;
@@ -74,11 +74,11 @@
     cursor: pointer;
 }
 
-.login-submit-btn:hover {
+.LogIn .login-submit-btn:hover {
     background-color: #39c49c;
 }
 
-.login-bottom {
+.LogIn .login-bottom {
     width: 100%;
     display: flex;
     gap: 5px;

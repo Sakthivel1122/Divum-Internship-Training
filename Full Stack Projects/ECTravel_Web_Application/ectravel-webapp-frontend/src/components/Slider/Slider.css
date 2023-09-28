@@ -1,0 +1,34 @@
+.Slider {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    position: relative;
+}
+
+.Slider ul {
+    width: 60%;
+    height: 40%;
+    display: flex;
+    border: 1px solid;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 20px;
+    list-style: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.Slider-container li {
+    transition: 2s;
+    width: calc(100% / 3 - 20px);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+.Slider-container li img {
+    width: 100%;
+}

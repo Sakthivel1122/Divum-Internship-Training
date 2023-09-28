@@ -1,0 +1,179 @@
+.search-bg {
+  padding-bottom: 6rem;
+  /* background-color: var(--tertiary-color); */
+  background: rgb(106, 203, 228);
+  background: linear-gradient(
+    0deg,
+    rgba(106, 203, 228, 1) 0%,
+    rgba(81, 215, 178, 1) 71%
+  );
+
+  /* background: rgb(42,195,233);
+background: linear-gradient(0deg, rgba(42,195,233,1) 0%, rgba(25,228,147,1) 100%); */
+  /* #2bf2ca */
+}
+.ticketbooking-container {
+  position: relative;
+  width: 80%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.ticketbooking-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 7rem;
+}
+
+.TicketBooking .search-container {
+  width: 90%;
+  height: 18rem;
+  background-color: white;
+  /* background-color: var(--secondary-color); */
+  position: relative;
+  display: flex;
+  justify-content: center;
+  padding: 3rem 1rem 1rem 1rem;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+}
+.search-content {
+  width: 100%;
+  height: 100%;
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.search-input-wrapper {
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  display: flex;
+  width: 100%;
+  border-radius: 5px;
+}
+.search-input-wrapper .input-box-wrapper {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: 1rem;
+  padding: 1rem;
+}
+.search-input-wrapper .input-box-wrapper label {
+  font-size: 1.2rem;
+}
+.search-input-wrapper .input-box-wrapper input {
+  font-size: 16px;
+  padding: 10px;
+  width: 100%;
+}
+.TicketBooking .nav-links {
+  display: flex;
+  height: fit-content;
+  gap: 3rem;
+  position: absolute;
+  top: -25%;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  background-color: var(--secondary-color);
+  background-color: white;
+  padding: 1rem;
+  border-radius: 5px;
+}
+
+.TicketBooking .nav-links .nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 5rem;
+  height: 5rem;
+  border-radius: 5px;
+  position: relative;
+  cursor: pointer;
+}
+
+.TicketBooking .nav-links .nav-item.active-vehicle::after,
+.TicketBooking .nav-links .nav-item.active-vehicle::after {
+  width: 50%;
+  height: 3px;
+  background-color: var(--primary-color);
+  content: "";
+  position: absolute;
+  bottom: -8px;
+}
+
+.TicketBooking .nav-links .nav-item:hover span,
+.TicketBooking .nav-links .nav-item:hover p {
+  color: grey;
+}
+.TicketBooking .nav-links .nav-item.active-vehicle span {
+  color: var(--primary-color);
+}
+.TicketBooking .nav-links .nav-item.active-vehicle p {
+  color: var(--primary-color);
+  font-weight: bold;
+}
+.TicketBooking .nav-links .nav-item span {
+  font-size: 2.5rem;
+}
+
+.TicketBooking .nav-links .nav-item p {
+  font-size: 14px;
+}
+
+.search-btn {
+  position: absolute;
+  height: 3rem;
+  width: 15rem;
+  border: none;
+  border-radius: 1.5rem;
+  bottom: -1.5rem;
+  background-color: var(--primary-color);
+  background-color: #2ac386;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  box-shadow: 3px 3px 5px rgb(57, 159, 196);
+  /* background: rgb(42,195,233); */
+  /* background: linear-gradient(90deg, rgb(42, 195, 233) 0%, rgba(25,228,147,1) 100%); */
+}
+
+.search-btn:hover {
+  background-color: rgb(79, 196, 149);
+}
+
+/* Slider */
+
+.offers {
+  width: 90%;
+  height: 6rem;
+  position: absolute;
+  bottom: -8.5rem;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+/* Details */
+.details-container {
+  width: 80%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.details {
+  width: 90%;
+  height: 15rem;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  margin-top: 5rem;
+}

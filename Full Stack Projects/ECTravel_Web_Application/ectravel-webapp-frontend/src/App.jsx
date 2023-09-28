@@ -17,26 +17,28 @@ import TrackLocation from "./components/TrackLocation";
 import MainLayout from "./components/MainLayout";
 import { MainProvider, useMain } from "./Contexts/MainContext";
 import Service from "./components/Service";
+import TicketBooking from "./components/TicketBooking";
+import Slider from "./components/Slider";
 
 const App = () => {
   return (
     <div className="App">
       <MainProvider>
         <Routes>
+          <Route path="/" element={<MainLayout />}>
+            <Route index element={<Home />} />
+            <Route path="about" element={<About />} />
+            <Route path="profile" element={<Profile />} />
 
-          <Route path="/" element={<MainLayout/>}>
-            <Route index element={<Home/>}/>
-            <Route path="about" element={<About/>}/>
-            <Route path="profile" element={<Profile/>}/>
-
-            <Route path="services" element={<Service/>}>
-              <Route index path="tracklocation" element={<TrackLocation/>}/>
+            <Route path="services" element={<Service />}>
+              <Route index path="tracklocation" element={<TrackLocation />} />
+              <Route index path="ticketbooking" element={<TicketBooking/>} />
             </Route>
           </Route>
-          
-          <Route path="/signup" element={<SignUp/>}/>
-          <Route path="/login" element={<LogIn/>}/>
 
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/login" element={<LogIn />} />
+          <Route path="/slider" element={<Slider />} />
         </Routes>
       </MainProvider>
     </div>

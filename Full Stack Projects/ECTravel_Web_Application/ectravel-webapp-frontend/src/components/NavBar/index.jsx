@@ -38,16 +38,17 @@ const NavBar = () => {
         <span className="logo">ECTravel</span>
         <ul className="nav-links">
           <CustomLink to="/" text="Home" path={currentPath} />
-          <NavLink
-            to="/services"
+          <Link
             onClick={click}
-            className="nav-link service-link"
+            className={`nav-link service-link ${
+              window.location.href.includes("services") ? `active` : ``
+            }`}
             onMouseEnter={() => setServicesDropDown(true)}
             onMouseLeave={() => setServicesDropDown(false)}
           >
             Services
             {servicesDropDown && <ServicesDropDown />}
-          </NavLink>
+          </Link>
           <CustomLink to="/about" text="About" path={currentPath} />
           {!mainContext.isLoggedIn && (
             <button className="nav-link sign-in-btn" onClick={handleSignUpBtn}>
