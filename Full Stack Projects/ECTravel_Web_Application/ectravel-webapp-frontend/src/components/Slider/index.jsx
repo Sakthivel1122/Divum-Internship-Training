@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import "./Slider.css";
 import { offers } from "../../constants/OffersConstant";
-import CarouselItem from "../CarouselItem";
 const Slider = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const prevPage = () => {
@@ -9,7 +8,7 @@ const Slider = () => {
     console.log(activeIndex);
   };
   const nextPage = () => {
-    if (activeIndex != offers.length - 3) setActiveIndex(activeIndex + 1);
+    if (activeIndex != offers.length - 4) setActiveIndex(activeIndex + 1);
     console.log(activeIndex);
   };
   return (
@@ -17,9 +16,7 @@ const Slider = () => {
       <div className="Slider-container">
         <ul
           style={{
-            transform: `translateX(calc(-${activeIndex * 100}% / ${
-              offers.length
-            } - ${activeIndex * 20}px))`,
+            transform: `translateX(calc(-${activeIndex * 100}% / 4))`,
           }}
         >
           {offers.map((offer) => {
@@ -31,10 +28,10 @@ const Slider = () => {
             );
           })}
         </ul>
-        <button onClick={prevPage} className="btn">
+        <button onClick={prevPage} className="btn prev-btn">
           Prev
         </button>
-        <button onClick={nextPage} className="btn">
+        <button onClick={nextPage} className="btn next-btn">
           Next
         </button>
       </div>

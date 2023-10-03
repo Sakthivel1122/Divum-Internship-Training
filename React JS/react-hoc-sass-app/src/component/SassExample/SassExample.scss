@@ -4,8 +4,6 @@
 // $primary-color: red;
 // $color: green;
 
-
-
 // Variables and Scope
 .SassExample .ex-1 p{
     color: $primary-color;
@@ -33,8 +31,8 @@
           list-style: none;
         }
         li {
-          display: inline-block;
-        }
+            display: inline-block;
+          }
         a {
           display: block;
           padding: 6px 12px;

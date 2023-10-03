@@ -3,7 +3,7 @@
 // It is predictable
 // To use Redux with React we use react-redux library
 
-// import redux from "redux";
+// import redux from "redux"; 
 const redux = require("redux");
 
 const BUY_CAKE = "BUY_CAKE";

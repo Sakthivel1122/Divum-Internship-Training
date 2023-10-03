@@ -21,7 +21,7 @@ export const offers = [
     id: 4,
     discount: 30,
     place: "Goa",
-    img: require("../assets/images/TicketBooking/offer-pic.jpg"),
+    img: require("../assets/images/home/travel-pic.jpeg"),
   },
   {
     id: 5,
@@ -33,7 +33,7 @@ export const offers = [
     id: 6,
     discount: 30,
     place: "Goa",
-    img: require("../assets/images/TicketBooking/offer-pic.jpg"),
+    img: require("../assets/images/home/travel-pic.jpeg"),
   },
   {
     id: 7,
@@ -45,7 +45,7 @@ export const offers = [
     id: 8,
     discount: 30,
     place: "Goa",
-    img: require("../assets/images/TicketBooking/offer-pic.jpg"),
+    img: require("../assets/images/home/travel-pic.jpeg"),
   },
   {
     id: 9,

@@ -3,14 +3,12 @@ import "./NavBar.css";
 import {
   Link,
   NavLink,
-  useLoaderData,
-  useLocation,
   useNavigate,
 } from "react-router-dom";
-import ServicesDropDown from "../ServicesDropDown";
-import ProfileDropDown from "../ProfileDropDown";
+import ServicesDropDown from "./ServicesDropDown";
 import profile_pic from "../../assets/images/profile-pic.webp";
-import { useMain } from "../../Contexts/MainContext";
+import { useMain } from "../../contexts/MainContext";
+import ProfileDropDown from "./ProfileDropDown";
 
 const NavBar = () => {
   const [servicesDropDown, setServicesDropDown] = useState(false);
