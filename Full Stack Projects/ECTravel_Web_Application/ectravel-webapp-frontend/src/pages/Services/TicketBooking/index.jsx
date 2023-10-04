@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./TicketBooking.css";
 import { offers } from "../../../constants/OffersConstant";
 import axios from "axios";
@@ -13,6 +13,15 @@ const TicketBooking = () => {
     toPlace: "",
     date: "",
   });
+  const [searchNavFormData, setSearchNavFormData] = useState({
+    vehicle: "flight",
+    fromPlace: "",
+    toPlace: "",
+    date: "",
+  });
+  const [selectedFilter, setSelectedFilter] = useState([]);
+  const [filteredBuses, setFilteredBuses] = useState();
+
   const handleVehicle = (vehicle) => {
     setFormData({ ...formData, ["vehicle"]: vehicle });
   };
@@ -29,6 +38,12 @@ const TicketBooking = () => {
   };
 
   const handleSubmit = async () => {
+    setSearchNavFormData({
+      vehicle: formData.vehicle,
+      fromPlace: formData.fromPlace,
+      toPlace: formData.toPlace,
+      date: formData.date,
+    });
     switch (formData.vehicle) {
       case "flight":
         console.log("flight");
@@ -44,12 +59,59 @@ const TicketBooking = () => {
           );
           console.log(availBus.data);
           setBusList(availBus.data);
+          setFilteredBuses(availBus.data);
         } catch (error) {
           alert(error);
         }
         break;
       default:
         break;
+    }
+  };
+  useEffect(() => {
+    filterBus();
+  }, [selectedFilter]);
+
+  const filterBus = () => {
+  };
+
+  const handleFilterBtnClick = (item) => {
+    if (selectedFilter.includes(item)) {
+      let filter = selectedFilter.filter((ele) => ele !== item);
+      setSelectedFilter(filter);
+    } else {
+      let selectedFilterArr = selectedFilter;
+      switch (item) {
+        case "AC":
+          if (selectedFilterArr.includes("Non-AC")) {
+            let filter = selectedFilterArr.filter((ele) => ele !== "Non-AC");
+            selectedFilterArr = filter;
+          }
+          break;
+        case "Non-AC":
+          if (selectedFilterArr.includes("AC")) {
+            let filter = selectedFilterArr.filter((ele) => ele !== "AC");
+            selectedFilterArr = filter;
+          }
+          break;
+
+        case "seater":
+          if (selectedFilterArr.includes("sleeper")) {
+            let filter = selectedFilterArr.filter((ele) => ele !== "sleeper");
+            selectedFilterArr = filter;
+          }
+          break;
+        case "sleeper":
+          if (selectedFilterArr.includes("seater")) {
+            let filter = selectedFilterArr.filter((ele) => ele !== "seater");
+            selectedFilterArr = filter;
+          }
+          break;
+        default:
+          break;
+      }
+      selectedFilterArr = [...selectedFilterArr, item];
+      setSelectedFilter(selectedFilterArr);
     }
   };
   return (
@@ -65,7 +127,7 @@ const TicketBooking = () => {
                   }`}
                   onClick={() => handleVehicle("flight")}
                 >
-                  <span class="material-symbols-outlined">flightsmode</span>
+                  <span className="material-symbols-outlined">flightsmode</span>
                   <p>Flight</p>
                 </div>
                 <div
@@ -75,7 +137,7 @@ const TicketBooking = () => {
                   }`}
                   onClick={() => handleVehicle("train")}
                 >
-                  <span class="material-symbols-outlined">train</span>
+                  <span className="material-symbols-outlined">train</span>
                   <p>Train</p>
                 </div>
                 <div
@@ -85,7 +147,9 @@ const TicketBooking = () => {
                   }`}
                   onClick={() => handleVehicle("bus")}
                 >
-                  <span class="material-symbols-outlined">directions_bus</span>
+                  <span className="material-symbols-outlined">
+                    directions_bus
+                  </span>
                   <p>Bus</p>
                 </div>
               </div>
@@ -129,7 +193,7 @@ const TicketBooking = () => {
           </div>
           <div className="offers">
             <span
-              class="material-symbols-outlined prev-btn"
+              className="material-symbols-outlined prev-btn"
               onClick={prevPage}
               style={{ color: activeIndex === 0 ? "lightgrey" : "black" }}
             >
@@ -158,7 +222,7 @@ const TicketBooking = () => {
               </div>
             </div>
             <span
-              class="material-symbols-outlined next-btn"
+              className="material-symbols-outlined next-btn"
               onClick={nextPage}
               style={{
                 color:
@@ -175,13 +239,13 @@ const TicketBooking = () => {
           <nav className="search-navbar">
             <ul>
               <li>
-                From <p>aaa</p>
+                From <p>{searchNavFormData.fromPlace}</p>
               </li>
               <li>
-                To <p>bbb</p>
+                To <p>{searchNavFormData.toPlace}</p>
               </li>
               <li>
-                Date <p>yyyy-mm-dd</p>
+                Date <p>{searchNavFormData.date}</p>
               </li>
             </ul>
           </nav>
@@ -194,15 +258,43 @@ const TicketBooking = () => {
               <div className="filter-1">
                 <h4>AC</h4>
                 <div className="options-wrapper">
-                  <span>AC</span>
-                  <span>Non AC</span>
+                  <span
+                    className={
+                      selectedFilter.includes("AC") ? "active-filter" : ""
+                    }
+                    onClick={() => handleFilterBtnClick("AC")}
+                  >
+                    AC
+                  </span>
+                  <span
+                    className={
+                      selectedFilter.includes("Non-AC") ? "active-filter" : ""
+                    }
+                    onClick={() => handleFilterBtnClick("Non-AC")}
+                  >
+                    Non AC
+                  </span>
                 </div>
               </div>
               <div className="filter-2">
                 <h4>Seat type</h4>
                 <div className="options-wrapper">
-                  <span>Sleeper</span>
-                  <span>Seater</span>
+                  <span
+                    className={
+                      selectedFilter.includes("sleeper") ? "active-filter" : ""
+                    }
+                    onClick={() => handleFilterBtnClick("sleeper")}
+                  >
+                    Sleeper
+                  </span>
+                  <span
+                    className={
+                      selectedFilter.includes("seater") ? "active-filter" : ""
+                    }
+                    onClick={() => handleFilterBtnClick("seater")}
+                  >
+                    Seater
+                  </span>
                 </div>
               </div>
               <div className="filter-3">
@@ -239,14 +331,20 @@ const TicketBooking = () => {
                 busList.map((bus) => {
                   return (
                     <BusDetails
+                      key={bus.busId}
                       busName={bus.bus.busName}
                       rating={bus.bus.rating}
                       price={bus.bus.price}
-                      busType = {bus.bus.busType}
+                      busType={bus.bus.busType}
+                      pickUpDate={bus.bus.pickUpDate}
+                      pickUpTime={bus.bus.pickUpTime}
+                      dropDate={bus.bus.dropDate}
+                      dropTime={bus.bus.dropTime}
+                      seatList={bus.seatList}
+                      seatType={bus.bus.seatType}
                     />
                   );
                 })}
-              {/* <BusDetails /> */}
             </div>
           </div>
         </div>

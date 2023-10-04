@@ -1,137 +1,67 @@
 package com.example.ectravelwebapplication.DTO;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.apache.catalina.LifecycleState;
 
 import java.util.List;
 
 public class AddBusDTO {
 
+    @Getter
+    @Setter
     private String busName;
 
+    @Getter
+    @Setter
     private String fromPlace;
 
+    @Getter
+    @Setter
     private String toPlace;
 
+    @Getter
+    @Setter
     private String price;
 
+    @Getter
+    @Setter
     private String busType;
 
+    @Getter
+    @Setter
     private String seatType;
 
-    private String date;
+    @Getter
+    @Setter
+    private String pickUpDate;
 
-    private String time;
+    @Getter
+    @Setter
+    private String pickUpTime;
 
+    @Getter
+    @Setter
+    private String dropDate;
+
+    @Getter
+    @Setter
+    private String dropTime;
+
+    @Getter
+    @Setter
     private String rating;
 
+    @Getter
+    @Setter
     private List<AddBusPickUpDrop> pickUps;
 
+    @Getter
+    @Setter
     private List<AddBusPickUpDrop> drops;
 
-    public AddBusDTO(String busName, String fromPlace, String toPlace, String price, String busType, String seatType, String date, String time, String rating, List<AddBusPickUpDrop> pickUps, List<AddBusPickUpDrop> drops) {
-        this.busName = busName;
-        this.fromPlace = fromPlace;
-        this.toPlace = toPlace;
-        this.price = price;
-        this.busType = busType;
-        this.seatType = seatType;
-        this.date = date;
-        this.time = time;
-        this.rating = rating;
-        this.pickUps = pickUps;
-        this.drops = drops;
-    }
 
     public AddBusDTO(){
 
     }
-
-    public List<AddBusPickUpDrop> getPickUps() {
-        return pickUps;
-    }
-
-    public void setPickUps(List<AddBusPickUpDrop> pickUps) {
-        this.pickUps = pickUps;
-    }
-
-    public List<AddBusPickUpDrop> getDrops() {
-        return drops;
-    }
-
-    public void setDrops(List<AddBusPickUpDrop> drops) {
-        this.drops = drops;
-    }
-
-    public String getBusName() {
-        return busName;
-    }
-
-    public void setBusName(String busName) {
-        this.busName = busName;
-    }
-
-    public String getFromPlace() {
-        return fromPlace;
-    }
-
-    public void setFromPlace(String fromPlace) {
-        this.fromPlace = fromPlace;
-    }
-
-    public String getToPlace() {
-        return toPlace;
-    }
-
-    public void setToPlace(String toPlace) {
-        this.toPlace = toPlace;
-    }
-
-    public String getPrice() {
-        return price;
-    }
-
-    public void setPrice(String price) {
-        this.price = price;
-    }
-
-    public String getBusType() {
-        return busType;
-    }
-
-    public void setBusType(String busType) {
-        this.busType = busType;
-    }
-
-    public String getSeatType() {
-        return seatType;
-    }
-
-    public void setSeatType(String seatType) {
-        this.seatType = seatType;
-    }
-
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
-
-    public String getTime() {
-        return time;
-    }
-
-    public void setTime(String time) {
-        this.time = time;
-    }
-
-    public String getRating() {
-        return rating;
-    }
-
-    public void setRating(String rating) {
-        this.rating = rating;
-    }
-
 }

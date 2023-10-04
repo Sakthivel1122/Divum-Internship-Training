@@ -11,7 +11,8 @@ const AddBus = () => {
     price: "",
     busType: "AC",
     seatType: "seater",
-    dateTime: "",
+    pickUpDateTime: "",
+    dropDateTime: "",
     rating: "",
     noOfPickUps: "",
     noOfDrops: "",
@@ -68,14 +69,16 @@ const AddBus = () => {
       price: formData.price,
       busType: formData.busType,
       seatType: formData.seatType,
-      date: formData.dateTime.split("T")[0],
-      time: formData.dateTime.split("T")[1],
+      pickUpDate: formData.pickUpDateTime.split("T")[0],
+      pickUpTime: formData.pickUpDateTime.split("T")[1],
+      dropDate: formData.dropDateTime.split("T")[0],
+      dropTime: formData.dropDateTime.split("T")[1],
       rating: formData.rating,
       pickUps: pickUps,
-      drops: drops
+      drops: drops,
     };
     try {
-      const busId = await axios.post(API_LINKS.BUS_API_LINKS.ADD_BUS , payload);
+      const busId = await axios.post(API_LINKS.BUS_API_LINKS.ADD_BUS, payload);
       alert("Bus Added Successfully " + busId);
       setFormData({
         busName: "",
@@ -154,11 +157,20 @@ const AddBus = () => {
               </select>
             </div>
             <div className="input-box-wrapper">
-              <label htmlFor="">Date and Time</label>
+              <label htmlFor="">PickUp Date and Time</label>
               <input
-                name="dateTime"
+                name="pickUpDateTime"
                 type="datetime-local"
-                value={formData.dateTime}
+                value={formData.pickUpDateTime}
+                onChange={handleOnChange}
+              />
+            </div>
+            <div className="input-box-wrapper">
+              <label htmlFor="">Drop Date and Time</label>
+              <input
+                name="dropDateTime"
+                type="datetime-local"
+                value={formData.dropDateTime}
                 onChange={handleOnChange}
               />
             </div>

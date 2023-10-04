@@ -11,5 +11,5 @@ import java.util.List;
 @EnableJpaRepositories
 @Repository
 public interface BusRepo extends JpaRepository<Bus, Integer> {
-    public List<Bus> findByFromPlaceAndToPlaceAndDate(String fromPlace, String toPlace,String date);
+    public List<Bus> findAllByFromPlaceAndToPlaceAndPickUpDate(String fromPlace, String toPlace,String pickUpDate);
 }

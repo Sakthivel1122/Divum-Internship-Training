@@ -33,8 +33,10 @@ public class BusServiceIMPL implements BusService {
                 addBusDTO.getPrice(),
                 addBusDTO.getBusType(),
                 addBusDTO.getSeatType(),
-                addBusDTO.getDate(),
-                addBusDTO.getTime(),
+                addBusDTO.getPickUpDate(),
+                addBusDTO.getPickUpTime(),
+                addBusDTO.getDropDate(),
+                addBusDTO.getDropTime(),
                 addBusDTO.getRating()
         );
         busRepo.save(bus);
@@ -79,13 +81,13 @@ public class BusServiceIMPL implements BusService {
             );
             busPickUpDropRepo.save(busPickUpDrop);
         }
-        return bus.getPickUpDropId();
+        return bus.getBusId();
     }
 
 
     @Override
     public List<SearchResponseDTO> getAvailBus(SearchDTO searchDTO) {
-        List<Bus> buses = busRepo.findByFromPlaceAndToPlaceAndDate(searchDTO.getFromPlace(),searchDTO.getToPlace(),searchDTO.getDate());
+        List<Bus> buses = busRepo.findAllByFromPlaceAndToPlaceAndPickUpDate(searchDTO.getFromPlace(),searchDTO.getToPlace(),searchDTO.getDate());
         int len = buses.size();
         List<SearchResponseDTO> searchResponseDTOS = new ArrayList<>();
         for (int i = 0; i < len; i++) {

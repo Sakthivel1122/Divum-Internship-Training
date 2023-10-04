@@ -164,10 +164,6 @@ background: linear-gradient(0deg, rgba(42,195,233,1) 0%, rgba(25,228,147,1) 100%
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 }
 .offers-wrapper {
-  /* border: 1px solid blue; */
-  /* display: flex; */
-  /* justify-content: center; */
-  /* align-items: center; */
   padding: 10px;
   height: 6rem;
   overflow: hidden;
@@ -179,21 +175,14 @@ background: linear-gradient(0deg, rgba(42,195,233,1) 0%, rgba(25,228,147,1) 100%
   width: 100%;
   height: 100%;
   list-style: none;
-  /* border: 1px solid green; */
   display: inline-block;
-  /* flex-direction: column; */
-  /* flex-wrap: wrap; */
-  /* justify-content: center; */
-  /* align-items: center; */
   transition: 1s;
-  /* white-space: nowrap; */
 }
 .offers .offers-slide-wrapper .offers-slides {
   width: calc(100% / 3);
   height: 100%;
   padding: 5px 10px;
   display: inline-block;
-  /* border: 1px solid black; */
 }
 .offers .offers-slide-wrapper .offers-slides div:nth-child(1){
   display: flex;
@@ -248,9 +237,7 @@ background: linear-gradient(0deg, rgba(42,195,233,1) 0%, rgba(25,228,147,1) 100%
   margin-top: 6rem;
 }
 
-.search-details-container .search-navbar {
-  padding: .5rem;
-}
+/* Search Details NavBar */
 
 .search-details-container .search-navbar ul {
   list-style: none;
@@ -306,7 +293,6 @@ background: linear-gradient(0deg, rgba(42,195,233,1) 0%, rgba(25,228,147,1) 100%
   gap: .5rem;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 }
-
 .filter-container .filter-1 .options-wrapper,
 .filter-container .filter-2 .options-wrapper {
   display: flex;
@@ -324,6 +310,19 @@ background: linear-gradient(0deg, rgba(42,195,233,1) 0%, rgba(25,228,147,1) 100%
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
+}
+
+.search-details-container .filter-container .filter-1 .options-wrapper span:hover,
+.search-details-container .filter-container .filter-2 .options-wrapper span:hover {
+  border: 1px solid var(--primary-color);
+  background-color: #f1fbf7;
+}
+.search-details-container .filter-container .filter-1 .options-wrapper span.active-filter,
+.search-details-container .filter-container .filter-2 .options-wrapper span.active-filter {
+  border: 1px solid var(--primary-color);
+  color: var(--primary-color);
+  background-color: #f1fbf7;
 }
 
 .search-details-container .filter-container .filter-3 input[type="text"]{
