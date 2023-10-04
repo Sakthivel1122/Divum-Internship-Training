@@ -1,0 +1,10 @@
+@mixin warning-text {
+    color: red;
+    font-weight: bold;
+    font-size: 32px;
+}
+
+@mixin change-text($color: green, $font-size: 32px) {
+    color: $color;
+    font-size: $font-size;
+}

@@ -1,41 +1,39 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import "./App.css";
-import Home from "./components/Home";
-import {
-  Route,
-  Router,
-  RouterProvider,
-  Routes,
-  createBrowserRouter,
-  useSearchParams,
-} from "react-router-dom";
-import About from "./components/About";
-import Profile from "./components/Profile";
-import SignUp from "./components/SignUp";
-import LogIn from "./components/LogIn";
-import TrackLocation from "./components/TrackLocation";
+import { Route, Routes } from "react-router-dom";
 import MainLayout from "./components/MainLayout";
-import { MainProvider, useMain } from "./Contexts/MainContext";
+import Services from "./pages/Services";
+import Slider from "./components/Slider";
+import { MainProvider } from "./contexts/MainContext";
+import Home from "./pages/Home";
+import Profile from "./pages/Profile";
+import About from "./pages/About";
+import SignUp from "./pages/SignUp";
+import LogIn from "./pages/LogIn";
+import TicketBooking from "./pages/Services/TicketBooking";
+import TrackLocation from "./pages/Services/TrackLocation";
+import AddBus from "./pages/AddBus";
 
 const App = () => {
   return (
     <div className="App">
       <MainProvider>
         <Routes>
+          <Route path="/" element={<MainLayout />}>
+            <Route index element={<Home />} />
+            <Route path="about" element={<About />} />
+            <Route path="profile" element={<Profile />} />
 
-          <Route path="/" element={<MainLayout/>}>
-            <Route index element={<Home/>}/>
-            <Route path="about" element={<About/>}/>
-            <Route path="profile" element={<Profile/>}/>
-
-            <Route path="services">
-              <Route path="tracklocation" element={<TrackLocation/>}/>
+            <Route path="services" element={<Services />}>
+              <Route index path="tracklocation" element={<TrackLocation />} />
+              <Route index path="ticketbooking" element={<TicketBooking />} />
             </Route>
           </Route>
 
-          <Route path="/signup" element={<SignUp/>}/>
-          <Route path="/login" element={<LogIn/>}/>
-
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/login" element={<LogIn />} />
+          <Route path="/slider" element={<Slider />} />
+          <Route path="/addBus" element={<AddBus/>} />
         </Routes>
       </MainProvider>
     </div>

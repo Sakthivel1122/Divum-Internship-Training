@@ -1,0 +1,94 @@
+@import "./globalconstants";
+@import "./mixins";
+// $name: "Sakthivel";
+// $primary-color: red;
+// $color: green;
+
+// Variables and Scope
+.SassExample .ex-1 p{
+    color: $primary-color;
+    $color: blue !global; // The color variable is set to blue as global
+}
+
+.SassExample .ex-1 span {
+    color: $color;
+    $primary-color: yellow; // The value of primary-color variable is changed only in this scope
+}
+
+.SassExample .ex-1 h5 {
+    color: $primary-color;
+}
+
+// Example 2
+
+// Nesting
+// Nesting Rules
+.SassExample .ex-2 {
+    nav {
+        ul {
+          margin: 0;
+          padding: 0;
+          list-style: none;
+        }
+        li {
+            display: inline-block;
+          }
+        a {
+          display: block;
+          padding: 6px 12px;
+          text-decoration: none;
+        }
+      }
+}
+
+// Nesting Properties
+
+.SassExample .ex-2{
+    p{
+        font: {
+            family: Helvetica, sans-serif;
+            size: 18px;
+            weight: bold;
+          }
+          text: {
+            align: center;
+            transform: lowercase;
+            overflow: hidden;
+          }
+    }
+}
+
+// Partial files
+
+.ex-3 ul{
+    margin-left: 2rem;
+}
+
+// Mixins
+
+.ex-4 {
+    p {
+        @include warning-text;
+    }
+    // passing variables to mixin
+    span {
+        // We can pass a particular parameter and also
+        // We can set default values to the arguments as well
+        // @include change-text($font-size: 10px) 
+        @include change-text(blue, 20px)
+    }
+}
+
+// Extend
+
+.ex-5 {
+    .para {
+        color: grey;
+        font-size: 20px;
+    }
+
+    span {
+        @extend .para;
+        // color: red;
+    }
+}

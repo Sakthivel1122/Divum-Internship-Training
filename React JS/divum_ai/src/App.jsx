@@ -8,6 +8,11 @@ const App = () => {
       <MainLayout>
         <TextAI/>
       </MainLayout>
+      {/* 
+      Higher Order Components
+      sass -> .scss
+      Redux 
+      */}
     </div>
   );
 };
