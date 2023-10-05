@@ -3,8 +3,6 @@ export const calcDuration = (
   dropDate,
   pickUpTime,
   dropTime,
-  duration,
-  handleSetDuration
 ) => {
   let ddDue = 0;
   let hourDue = 0;
@@ -87,12 +85,9 @@ export const calcDuration = (
       hourDue = hourDue % 24;
     }
   }
-  handleSetDuration({
-    ...duration,
-    hourDue: hourDue,
-    minuteDue: minuteDue,
-    ddDue: ddDue,
-  });
+  return `${ddDue !== 0 ? `${ddDue} day` : ``} 
+  ${hourDue !== 0 ? `${hourDue} hr` : ``}
+  ${minuteDue !== 0 ? `${minuteDue} min` : ``}`;
 };
 
 export const monthNoToMonthStr = (monthNo) => {

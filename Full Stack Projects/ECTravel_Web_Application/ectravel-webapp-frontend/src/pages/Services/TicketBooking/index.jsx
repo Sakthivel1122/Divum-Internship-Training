@@ -21,7 +21,11 @@ const TicketBooking = () => {
   });
   const [selectedFilter, setSelectedFilter] = useState([]);
   const [filteredBuses, setFilteredBuses] = useState();
-
+  const [filters, setFilters] = useState({
+    operators: [],
+    selectedOperators: [],
+    filteredOperators: [],
+  });
   const handleVehicle = (vehicle) => {
     setFormData({ ...formData, ["vehicle"]: vehicle });
   };
@@ -44,22 +48,23 @@ const TicketBooking = () => {
       toPlace: formData.toPlace,
       date: formData.date,
     });
+    let result;
     switch (formData.vehicle) {
       case "flight":
         console.log("flight");
         break;
       case "train":
-        console.log("flight");
+        console.log("train");
         break;
       case "bus":
         try {
-          const availBus = await axios.post(
+          result = await axios.post(
             API_LINKS.BUS_API_LINKS.GET_AVAIL_BUSES,
             formData
           );
-          console.log(availBus.data);
-          setBusList(availBus.data);
-          setFilteredBuses(availBus.data);
+          console.log(result.data);
+          setBusList(result.data);
+          setFilteredBuses(result.data);
         } catch (error) {
           alert(error);
         }
@@ -67,12 +72,59 @@ const TicketBooking = () => {
       default:
         break;
     }
+    let operators = [];
+    result.data.map((bus) => {
+      operators = [...operators, bus.bus.busName];
+    });
+    console.log("operators", operators);
+    setFilters({
+      ...filters,
+      operators: operators,
+      filteredOperators: operators,
+    });
   };
-  useEffect(() => {
-    filterBus();
-  }, [selectedFilter]);
 
   const filterBus = () => {
+    const len = selectedFilter.length;
+    let temp;
+    let resultBusList;
+    switch (len) {
+      case 0:
+        resultBusList = busList;
+        // setFilteredBuses(busList);
+        break;
+      case 1:
+        resultBusList = busList.filter((bus) => {
+          if (selectedFilter[0] === "AC" || selectedFilter[0] === "Non-AC") {
+            console.log("1 >>", bus.bus.busType === selectedFilter[0]);
+            return bus.bus.busType === selectedFilter[0];
+          } else {
+            return bus.bus.seatType === selectedFilter[0];
+          }
+        });
+        // setFilteredBuses(resultBusList);
+        break;
+      case 2:
+        resultBusList = busList.filter((bus) => {
+          if (selectedFilter[0] === "AC" || selectedFilter[0] === "Non-AC") {
+            return (
+              bus.bus.busType === selectedFilter[0] &&
+              bus.bus.seatType === selectedFilter[1]
+            );
+          } else {
+            return (
+              bus.bus.busType === selectedFilter[1] &&
+              bus.bus.seatType === selectedFilter[0]
+            );
+          }
+        });
+        // setFilteredBuses(resultBusList);
+        break;
+      default:
+        resultBusList = busList;
+        break;
+    }
+    filterBusOperator(resultBusList);
   };
 
   const handleFilterBtnClick = (item) => {
@@ -114,6 +166,63 @@ const TicketBooking = () => {
       setSelectedFilter(selectedFilterArr);
     }
   };
+  const handleClearAll = () => {
+    setFilteredBuses(busList);
+    setSelectedFilter([]);
+  };
+  const handleOperatorSelect = (e, value) => {
+    let selectedOperators = filters.selectedOperators;
+    console.log("=>=>", selectedOperators.length, filters.operators.length);
+    if (
+      selectedOperators.length === 0 &&
+      filters.filteredOperators.length === filters.operators.length
+    ) {
+      selectedOperators = [];
+    }
+    if (e.target.checked) {
+      selectedOperators = [...selectedOperators, value];
+    } else {
+      let temp = selectedOperators.filter(
+        (selectedOperator) => selectedOperator !== value
+      );
+      selectedOperators = temp;
+    }
+    if (selectedOperators.length === 0) {
+      setFilters({
+        ...filters,
+        selectedOperators: selectedOperators,
+        filteredOperators: filters.operators,
+      });
+    } else {
+      setFilters({
+        ...filters,
+        selectedOperators: selectedOperators,
+        filteredOperators: selectedOperators,
+      });
+    }
+  };
+  useEffect(() => {
+    filterBus();
+  }, [selectedFilter, filters]);
+
+  // useEffect(() => {
+  //   filterBusOperator();
+  // }, [filters]);
+
+  const filterBusOperator = (resultBusList) => {
+    console.log("resultBusList", resultBusList);
+    let temp =
+      resultBusList &&
+      resultBusList.filter((bus) =>
+        filters.filteredOperators.includes(bus.bus.busName)
+      );
+    console.log("filterBus temp", temp);
+    setFilteredBuses(temp);
+  };
+  console.log("operators ==>", filters.operators);
+  console.log("selectedOperators ==>", filters.selectedOperators);
+  console.log("filteredOperators ==>", filters.filteredOperators);
+  console.log("filteredBuses ==>", filteredBuses);
   return (
     <div className="TicketBooking">
       <div className="search-bg">
@@ -253,7 +362,9 @@ const TicketBooking = () => {
             <div className="filter-container">
               <nav className="filter-nav">
                 <h3>Filters</h3>
-                <p>CLEAR ALL</p>
+                <p className="clear-all" onClick={handleClearAll}>
+                  CLEAR ALL
+                </p>
               </nav>
               <div className="filter-1">
                 <h4>AC</h4>
@@ -300,35 +411,27 @@ const TicketBooking = () => {
               <div className="filter-3">
                 <h4>Travel Operator</h4>
                 <div className="options-wrapper">
-                  <input type="text" placeholder="Search" />
                   <ul>
-                    <li>
-                      <input type="checkbox" />
-                      <p>A1 Travels</p>
-                    </li>
-                    <li>
-                      <input type="checkbox" />
-                      <p>A2 Travels</p>
-                    </li>
-                    <li>
-                      <input type="checkbox" />
-                      <p>A3 Travels</p>
-                    </li>
-                    <li>
-                      <input type="checkbox" />
-                      <p>A4 Travels</p>
-                    </li>
-                    <li>
-                      <input type="checkbox" />
-                      <p>A5 Travels</p>
-                    </li>
+                    {filters.operators &&
+                      filters.operators.map((operator) => {
+                        return (
+                          <li>
+                            <input
+                              type="checkbox"
+                              onClick={(e) => handleOperatorSelect(e, operator)}
+                            />
+                            <p>{operator}</p>
+                          </li>
+                        );
+                      })}
                   </ul>
                 </div>
               </div>
             </div>
             <div className="details-container">
-              {busList &&
-                busList.map((bus) => {
+              {filteredBuses &&
+                filteredBuses.length > 0 &&
+                filteredBuses.map((bus) => {
                   return (
                     <BusDetails
                       key={bus.busId}
@@ -345,6 +448,9 @@ const TicketBooking = () => {
                     />
                   );
                 })}
+              {(!filteredBuses || filteredBuses.length === 0) && (
+                <p className="no-result">No result found</p>
+              )}
             </div>
           </div>
         </div>

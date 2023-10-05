@@ -1,5 +1,5 @@
-import L from "leaflet";
-
+// import L from "leaflet";
+// import L from "react-leaflet"
 export const icon = L.icon({
   iconSize: [25, 41],
   iconAnchor: [10, 41],

@@ -18,10 +18,12 @@ const Profile = () => {
   const mainContext = useMain();
 
   useEffect(() => {
+    console.log("HI");
     loadUserDetails();
   }, []);
 
   const loadUserDetails = async () => {
+    console.log(localStorage.getItem("loggedUser"));
     const result = await axios.get(
       API_LINKS.GET_USER_DETAILS + localStorage.getItem("loggedUser")
     );
@@ -35,7 +37,6 @@ const Profile = () => {
   };
 
   const handleSubmit = async () => {
-    console.log(formData);
     try {
       let res = await axios.put(API_LINKS.UPDATE_USER, {
         userId: formData.userId,
