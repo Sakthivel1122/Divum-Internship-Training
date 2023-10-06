@@ -8,17 +8,18 @@ const TicketBooking = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [busList, setBusList] = useState(null);
   const [formData, setFormData] = useState({
-    vehicle: "flight",
-    fromPlace: "",
-    toPlace: "",
-    date: "",
+    vehicle: "bus",
+    fromPlace: "Nagapattinam",
+    toPlace: "Bangalore",
+    date: "2023-10-06",
   });
   const [searchNavFormData, setSearchNavFormData] = useState({
-    vehicle: "flight",
+    vehicle: "",
     fromPlace: "",
     toPlace: "",
     date: "",
   });
+  console.log(formData);
   const [selectedFilter, setSelectedFilter] = useState([]);
   const [filteredBuses, setFilteredBuses] = useState();
   const [filters, setFilters] = useState({
@@ -76,7 +77,6 @@ const TicketBooking = () => {
     result.data.map((bus) => {
       operators = [...operators, bus.bus.busName];
     });
-    console.log("operators", operators);
     setFilters({
       ...filters,
       operators: operators,
@@ -96,7 +96,6 @@ const TicketBooking = () => {
       case 1:
         resultBusList = busList.filter((bus) => {
           if (selectedFilter[0] === "AC" || selectedFilter[0] === "Non-AC") {
-            console.log("1 >>", bus.bus.busType === selectedFilter[0]);
             return bus.bus.busType === selectedFilter[0];
           } else {
             return bus.bus.seatType === selectedFilter[0];
@@ -172,7 +171,6 @@ const TicketBooking = () => {
   };
   const handleOperatorSelect = (e, value) => {
     let selectedOperators = filters.selectedOperators;
-    console.log("=>=>", selectedOperators.length, filters.operators.length);
     if (
       selectedOperators.length === 0 &&
       filters.filteredOperators.length === filters.operators.length
@@ -210,19 +208,13 @@ const TicketBooking = () => {
   // }, [filters]);
 
   const filterBusOperator = (resultBusList) => {
-    console.log("resultBusList", resultBusList);
     let temp =
       resultBusList &&
       resultBusList.filter((bus) =>
         filters.filteredOperators.includes(bus.bus.busName)
       );
-    console.log("filterBus temp", temp);
     setFilteredBuses(temp);
   };
-  console.log("operators ==>", filters.operators);
-  console.log("selectedOperators ==>", filters.selectedOperators);
-  console.log("filteredOperators ==>", filters.filteredOperators);
-  console.log("filteredBuses ==>", filteredBuses);
   return (
     <div className="TicketBooking">
       <div className="search-bg">
@@ -445,6 +437,8 @@ const TicketBooking = () => {
                       dropTime={bus.bus.dropTime}
                       seatList={bus.seatList}
                       seatType={bus.bus.seatType}
+                      pickUpList = {bus.pickUpList}
+                      dropList = {bus.dropList}
                     />
                   );
                 })}

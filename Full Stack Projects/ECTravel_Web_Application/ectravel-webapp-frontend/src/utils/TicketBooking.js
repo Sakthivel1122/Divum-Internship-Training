@@ -1,9 +1,4 @@
-export const calcDuration = (
-  pickUpDate,
-  dropDate,
-  pickUpTime,
-  dropTime,
-) => {
+export const calcDuration = (pickUpDate, dropDate, pickUpTime, dropTime) => {
   let ddDue = 0;
   let hourDue = 0;
   let minuteDue = 0;
@@ -85,6 +80,10 @@ export const calcDuration = (
       hourDue = hourDue % 24;
     }
   }
+  if (hourDue >= 24) {
+    ddDue += (hourDue - (hourDue % 24)) / 24;
+    hourDue = hourDue % 24;
+  }
   return `${ddDue !== 0 ? `${ddDue} day` : ``} 
   ${hourDue !== 0 ? `${hourDue} hr` : ``}
   ${minuteDue !== 0 ? `${minuteDue} min` : ``}`;
@@ -120,4 +119,20 @@ export const monthNoToMonthStr = (monthNo) => {
     default:
       return "";
   }
+};
+
+export const arrayFirstHalf = (arr) => {
+  let resArr = [];
+  for (let i = 0; i < arr.length / 2; i++) {
+    resArr.push(arr[i]);
+  }
+  return resArr;
+};
+
+export const arraySecondHalf = (arr) => {
+  let resArr = [];
+  for (let i = arr.length / 2; i < arr.length; i++) {
+    resArr.push(arr[i]);
+  }
+  return resArr;
 };

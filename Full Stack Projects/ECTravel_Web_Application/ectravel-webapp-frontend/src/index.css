@@ -2,6 +2,8 @@
   --primary-color: #00b894;
   --secondary-color: #f1fffa;
   --tertiary-color: #464e47;
+  --hover-color: #39c49c;
+  --busBooking-navBar-bg: #02b280;
 }
 * {
   margin: 0;

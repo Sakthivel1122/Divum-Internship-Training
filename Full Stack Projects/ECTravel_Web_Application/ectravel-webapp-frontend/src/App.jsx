@@ -13,6 +13,7 @@ import LogIn from "./pages/LogIn";
 import TicketBooking from "./pages/Services/TicketBooking";
 import TrackLocation from "./pages/Services/TrackLocation";
 import AddBus from "./pages/AddBus";
+import BusBooking from "./pages/BusBooking";
 
 const App = () => {
   return (
@@ -27,13 +28,15 @@ const App = () => {
             <Route path="services" element={<Services />}>
               <Route index path="tracklocation" element={<TrackLocation />} />
               <Route index path="ticketbooking" element={<TicketBooking />} />
+              {/* <Route index path="busBooking" element={<BusBooking />} /> */}
             </Route>
+            <Route index path="/busBooking" element={<BusBooking />} />
           </Route>
 
           <Route path="/signup" element={<SignUp />} />
           <Route path="/login" element={<LogIn />} />
           <Route path="/slider" element={<Slider />} />
-          <Route path="/addBus" element={<AddBus/>} />
+          <Route path="/addBus" element={<AddBus />} />
         </Routes>
       </MainProvider>
     </div>
