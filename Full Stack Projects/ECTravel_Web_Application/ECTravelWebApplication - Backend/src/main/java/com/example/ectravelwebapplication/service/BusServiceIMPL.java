@@ -41,23 +41,25 @@ public class BusServiceIMPL implements BusService {
         );
         busRepo.save(bus);
         if(bus.getSeatType().equals("seater")) {
-            for (int i = 0; i < 49; i++) {
+            for (int i = 0; i < 40; i++) {
                 Seat seat = new Seat(
                         bus.getBusId(),
                         null,
                         false,
-                        bus.getSeatType()
+                        bus.getSeatType(),
+                        -1
                 );
                 seatRepo.save(seat);
             }
         }
         else {
-            for (int i = 0; i < 18; i++) {
+            for (int i = 0; i < 30; i++) {
                 Seat seat = new Seat(
                         bus.getBusId(),
                         null,
                         false,
-                        bus.getSeatType()
+                        bus.getSeatType(),
+                        -1
                 );
                 seatRepo.save(seat);
             }

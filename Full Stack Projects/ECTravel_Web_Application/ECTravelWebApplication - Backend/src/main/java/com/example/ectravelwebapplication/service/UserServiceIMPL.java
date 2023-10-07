@@ -22,6 +22,7 @@ public class UserServiceIMPL implements UserService{
                 addUserDTO.getEmailId(),
                 addUserDTO.getMobileNo(),
                 addUserDTO.getDob(),
+                addUserDTO.getGender(),
                 addUserDTO.getCity(),
                 addUserDTO.getState(),
                 addUserDTO.getPassword()

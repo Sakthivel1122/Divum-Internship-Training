@@ -19,6 +19,7 @@ const SignUp = () => {
     emailId: "",
     mobileNo: "",
     dob: "",
+    gender: "",
     city: "",
     state: "",
     password: "",
@@ -34,6 +35,7 @@ const SignUp = () => {
       formData.emailId === "" ||
       formData.mobileNo === "" ||
       formData.dob === "" ||
+      formData.gender === "" ||
       formData.city === "" ||
       formData.state === "" ||
       formData.password === "" ||
@@ -48,6 +50,7 @@ const SignUp = () => {
       emailId: formData.emailId,
       mobileNo: formData.mobileNo,
       dob: formData.dob,
+      gender: formData.gender,
       city: formData.city,
       state: formData.state,
       password: formData.password,
@@ -123,6 +126,17 @@ const SignUp = () => {
               name="dob"
               className="input-box"
               type="date"
+              onChange={handleOnChange}
+              required
+            />
+          </div>
+          <div className="input-flex">
+            <label>Gender</label>
+            <input
+              name="gender"
+              className="input-box"
+              type="text"
+              placeholder="Gender"
               onChange={handleOnChange}
               required
             />

@@ -1,10 +1,6 @@
 import React, { useEffect, useImperativeHandle, useState } from "react";
 import "./NavBar.css";
-import {
-  Link,
-  NavLink,
-  useNavigate,
-} from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import ServicesDropDown from "./ServicesDropDown";
 import profile_pic from "../../assets/images/profile-pic.webp";
 import { useMain } from "../../contexts/MainContext";
