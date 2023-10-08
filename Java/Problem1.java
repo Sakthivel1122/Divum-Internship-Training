@@ -6,6 +6,7 @@ import java.util.Scanner;
 public class Problem1 {
 
     public static void main(String[] args) {
+        System.out.println("abcA".matches("[a-z]+"));
         int num = 5;
         while (num > 0) {
             System.out.println(num);
