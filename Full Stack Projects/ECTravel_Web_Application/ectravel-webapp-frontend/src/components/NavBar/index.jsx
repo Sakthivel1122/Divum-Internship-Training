@@ -14,13 +14,10 @@ const NavBar = () => {
   const mainContext = useMain();
   useEffect(() => {
     setCurrentPath(window.location.pathname);
-    mainContext.setLogInStatus(JSON.parse(localStorage.getItem("logInStatus")));
-    mainContext.handleLoggedUser(localStorage.getItem("loggedUser"));
   }, []);
 
   const navigate = useNavigate();
   const handleSignUpBtn = () => {
-    mainContext.setNavBarVisiblity(false);
     navigate("/signup");
   };
   const click = () => {
@@ -44,18 +41,17 @@ const NavBar = () => {
             {servicesDropDown && <ServicesDropDown />}
           </Link>
           <CustomLink to="/about" text="About" path={currentPath} />
-          {!mainContext.isLoggedIn && (
+          {!mainContext.loginDetails.isLoggedIn ? (
             <button className="nav-link sign-in-btn" onClick={handleSignUpBtn}>
               Sign Up
             </button>
-          )}
-          {mainContext.isLoggedIn && (
+          ) : (
             <li
               className="profile-nav-link-wrapper"
               onMouseEnter={() => setProfileDropDown(true)}
               onMouseLeave={() => setProfileDropDown(false)}
             >
-              <img className="profile-pic" src={profile_pic} alt="profile" />
+              <img className="profile-pic" loading="lazy" src={profile_pic} alt="profile" />
               {profileDropDown && <ProfileDropDown />}
             </li>
           )}

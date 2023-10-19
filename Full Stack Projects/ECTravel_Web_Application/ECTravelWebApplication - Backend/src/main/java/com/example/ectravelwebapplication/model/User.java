@@ -1,11 +1,12 @@
 package com.example.ectravelwebapplication.model;
 
 import jakarta.persistence.*;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "user")
+@Table(name = "user_tbl")
 public class User {
 
     @Id

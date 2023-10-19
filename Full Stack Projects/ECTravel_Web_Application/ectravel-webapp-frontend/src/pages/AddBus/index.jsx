@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./AddBus.css";
 import axios from "axios";
 import API_LINKS from "../../constants/ApiConstant";
+import { handleAddBusApiCall } from "../../utils/ApiCalls";
 
 const AddBus = () => {
   const [formData, setFormData] = useState({
@@ -62,7 +63,7 @@ const AddBus = () => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const payload = {
+    const dataObj = {
       busName: formData.busName,
       fromPlace: formData.fromPlace,
       toPlace: formData.toPlace,
@@ -77,9 +78,8 @@ const AddBus = () => {
       pickUps: pickUps,
       drops: drops,
     };
-    try {
-      const busId = await axios.post(API_LINKS.BUS_API_LINKS.ADD_BUS, payload);
-      alert("Bus Added Successfully " + busId);
+    const response = handleAddBusApiCall(dataObj);
+    if (response) {
       setFormData({
         busName: "",
         fromPlace: "",
@@ -87,13 +87,15 @@ const AddBus = () => {
         price: "",
         busType: "AC",
         seatType: "seater",
-        dateTime: "",
+        pickUpDateTime: "",
+        dropDateTime: "",
         rating: "",
+        noOfPickUps: "",
+        noOfDrops: "",
       });
-    } catch (error) {
-      alert(error);
+      setPickUps([]);
+      setDrops([]);
     }
-    // console.log(formData);
   };
   return (
     <div className="AddBus">

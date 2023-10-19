@@ -23,9 +23,8 @@ const Profile = () => {
   }, []);
 
   const loadUserDetails = async () => {
-    console.log(localStorage.getItem("loggedUser"));
     const result = await axios.get(
-      API_LINKS.GET_USER_DETAILS + localStorage.getItem("loggedUser")
+      API_LINKS.GET_USER_DETAILS + mainContext.loginDetails.emailId
     );
     setUserDetails(result.data);
     setFormData(result.data);
@@ -63,7 +62,7 @@ const Profile = () => {
         <div className="profile-container">
           <div className="profile-pic-wrapper">
             <div className="profile-pic-flex-1">
-              <img className="profile-pic" src={profile_pic} alt="" />
+              <img className="profile-pic"  src={profile_pic} alt="" />
               <div className="profile-pic-details">
                 <span>
                   {userDetails.firstName + " " + userDetails.lastName}

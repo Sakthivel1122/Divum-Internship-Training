@@ -4,6 +4,7 @@ import { offers } from "../../../constants/OffersConstant";
 import axios from "axios";
 import API_LINKS from "../../../constants/ApiConstant";
 import BusDetails from "./BusDetails";
+import { handleCheckAvailBusApiCall } from "../../../utils/ApiCalls";
 const TicketBooking = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [busList, setBusList] = useState(null);
@@ -49,7 +50,7 @@ const TicketBooking = () => {
       toPlace: formData.toPlace,
       date: formData.date,
     });
-    let result;
+    let response;
     switch (formData.vehicle) {
       case "flight":
         console.log("flight");
@@ -58,30 +59,30 @@ const TicketBooking = () => {
         console.log("train");
         break;
       case "bus":
-        try {
-          result = await axios.post(
-            API_LINKS.BUS_API_LINKS.GET_AVAIL_BUSES,
-            formData
-          );
-          console.log(result.data);
-          setBusList(result.data);
-          setFilteredBuses(result.data);
-        } catch (error) {
-          alert(error);
-        }
+        response = handleCheckAvailBusApiCall(formData);
+        response.then((res) => {
+          setBusList(res.data);
+          setFilteredBuses(res.data);
+        });
         break;
       default:
         break;
     }
-    let operators = [];
-    result.data.map((bus) => {
-      operators = [...operators, bus.bus.busName];
-    });
-    setFilters({
-      ...filters,
-      operators: operators,
-      filteredOperators: operators,
-    });
+    if (response) {
+      response.then((res) => {
+        let operators = [];
+        res.data.map((bus) => {
+          if (operators.indexOf(bus.bus.busName) === -1) {
+            operators.push(bus.bus.busName);
+          }
+        });
+        setFilters({
+          ...filters,
+          operators: operators,
+          filteredOperators: operators,
+        });
+      });
+    }
   };
 
   const filterBus = () => {
@@ -437,8 +438,8 @@ const TicketBooking = () => {
                       dropTime={bus.bus.dropTime}
                       seatList={bus.seatList}
                       seatType={bus.bus.seatType}
-                      pickUpList = {bus.pickUpList}
-                      dropList = {bus.dropList}
+                      pickUpList={bus.pickUpList}
+                      dropList={bus.dropList}
                     />
                   );
                 })}

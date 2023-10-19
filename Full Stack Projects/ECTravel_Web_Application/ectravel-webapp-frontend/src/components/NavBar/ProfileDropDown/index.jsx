@@ -7,13 +7,15 @@ const ProfileDropDown = () => {
   const [currentPath,setCurrentPath] = useState(window.location.href);
   const mainContext = useMain();
   const handleLogOut = () => {
-    localStorage.setItem("logInStatus", false);
-    localStorage.setItem("loggedUser", "");
-    mainContext.setLogInStatus(JSON.parse(localStorage.getItem("logInStatus")));
+    mainContext.handleSetLogInDetails({
+      ...mainContext.loginDetails,
+      emailId: null,
+      isLoggedIn: false,
+    })
     navigate("/");
   }; 
   const handleProfileDetails = () => {
-    navigate(`/profile`, { state: mainContext.loggedUser });
+    navigate(`/profile`, { state: mainContext.loginDetails.emailId });
   };
   useEffect(()=>{
     setCurrentPath(window.location.href);

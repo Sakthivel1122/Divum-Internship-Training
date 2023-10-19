@@ -8,6 +8,7 @@
   background-color: white;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   border: 1px solid transparent;
+  cursor: pointer;
 }
 .bus-details-top-container {
   border-top-left-radius: 5px;

@@ -1,6 +1,8 @@
 package com.example.ectravelwebapplication.model;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table
@@ -10,11 +12,20 @@ public class BusPickUpDrop {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int pickUpDropId;
 
+    @Getter
+    @Setter
     private int busId;
+
+    @Getter
+    @Setter
     private String place;
 
+    @Getter
+    @Setter
     private String time;
 
+    @Getter
+    @Setter
     private boolean type;
 
     public BusPickUpDrop(int busId, String place, String time, boolean type) {
@@ -25,45 +36,6 @@ public class BusPickUpDrop {
     }
 
     public BusPickUpDrop(){}
-    public int getPickUpDropId() {
-        return pickUpDropId;
-    }
-
-    public void setPickUpDropId(int pickUpDropId) {
-        this.pickUpDropId = pickUpDropId;
-    }
-
-    public int getBusId() {
-        return busId;
-    }
-
-    public void setBusId(int busId) {
-        this.busId = busId;
-    }
-
-    public String getPlace() {
-        return place;
-    }
-
-    public void setPlace(String place) {
-        this.place = place;
-    }
-
-    public String getTime() {
-        return time;
-    }
-
-    public void setTime(String time) {
-        this.time = time;
-    }
-
-    public boolean isType() {
-        return type;
-    }
-
-    public void setType(boolean type) {
-        this.type = type;
-    }
 
     @Override
     public String toString() {

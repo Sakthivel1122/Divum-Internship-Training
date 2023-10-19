@@ -6,17 +6,22 @@ import place2 from "../../assets/images/home/popular_places/pic-2.jpg";
 import place3 from "../../assets/images/home/popular_places/pic-3.webp";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useMain } from "../../contexts/MainContext";
+import Alert from "../../components/Alert";
 const Home = () => {
   const navigate = useNavigate();
   const parem = useParams();
   const mainContext = useMain();
-  mainContext.setNavBarVisiblity(true);
   const location = useLocation();
   return (
     <>
       <div className="Home">
         <div className="travel-pic-container">
-          <img className="travel-pic" src={travelPic} alt="Travel pic" />
+          <img
+            className="travel-pic"
+            loading="lazy"
+            src={travelPic}
+            alt="Travel pic"
+          />
           <div className="travel-description">
             <h1>Your Journey Your Story</h1>
             <p>Choose your Favourite Destination</p>
@@ -27,7 +32,10 @@ const Home = () => {
         <div className="services container">
           <h1 className="title">Services</h1>
           <div className="services-content">
-            <div className="service" onClick={() => navigate("/services/tracklocation")}>
+            <div
+              className="service"
+              onClick={() => navigate("/services/tracklocation")}
+            >
               <span class="material-symbols-outlined service-icon">
                 location_on
               </span>
@@ -82,11 +90,21 @@ const Home = () => {
                 temple.
               </p>
             </div>
-            <img className="place-img" src={place1} alt="place img" />
+            <img
+              className="place-img"
+              loading="lazy"
+              src={place1}
+              alt="place img"
+            />
           </div>
 
           <div className="popular-place">
-            <img className="place-img" src={place2} alt="place img" />
+            <img
+              className="place-img"
+              loading="lazy"
+              src={place2}
+              alt="place img"
+            />
             <div className="place-details">
               <span>Kodaikanal</span>
               <p>
@@ -111,7 +129,12 @@ const Home = () => {
                 lost in the beauty of nature.
               </p>
             </div>
-            <img className="place-img" src={place3} alt="place img" />
+            <img
+              className="place-img"
+              loading="lazy"
+              src={place3}
+              alt="place img"
+            />
           </div>
         </div>
 

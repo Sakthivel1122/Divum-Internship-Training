@@ -1,30 +1,37 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 
 const MainContext = createContext(null);
 
 export const MainProvider = ({ children }) => {
-  const [navBar, setNavBar] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [loggedUser, setLoggedUser] = useState("");
-  const setLogInStatus = (state) => {
-    setIsLoggedIn(state);
+  const [loginDetails, setLogInDetails] = useState(() => {
+    const localValue = JSON.parse(localStorage.getItem("loginDetails"));
+    return localValue ? localValue : { emailId: null, isLoggedIn: false };
+  });
+  const [myAlertBox, setMyAlertBox] = useState({
+    visible: false,
+    type: null,
+    message: null,
+    closeBtn: null,
+  });
+  const handleSetLogInDetails = (value) => {
+    setLogInDetails(value);
   };
-  const handleLoggedUser = (user) => {
-    setLoggedUser(user);
+  const handleSetMyAlertBox = (value) => {
+    setMyAlertBox(value);
   };
-  const setNavBarVisiblity = (state) => {
-    setNavBar(state);
-  };
+
+  // UseEffect to handle localStorage
+  useEffect(() => {
+    localStorage.setItem("loginDetails", JSON.stringify(loginDetails));
+  }, [loginDetails]);
 
   return (
     <MainContext.Provider
       value={{
-        navBar,
-        isLoggedIn,
-        loggedUser,
-        setLogInStatus,
-        handleLoggedUser,
-        setNavBarVisiblity,
+        loginDetails,
+        handleSetLogInDetails,
+        myAlertBox,
+        handleSetMyAlertBox,
       }}
     >
       {children}
@@ -33,5 +40,15 @@ export const MainProvider = ({ children }) => {
 };
 
 export const useMain = () => {
-    return useContext(MainContext);
-}
+  return useContext(MainContext);
+};
+
+/*
+
+mainContext.handleSetMyAlertBox({
+      visible: true,
+      message: "Log in successfull",
+      type:"success",
+    })
+
+*/

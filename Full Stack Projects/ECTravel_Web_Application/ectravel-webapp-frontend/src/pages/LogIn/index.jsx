@@ -4,32 +4,35 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import API_LINKS from "../../constants/ApiConstant";
 import { useMain } from "../../contexts/MainContext";
+import { handleUserLogInApiCall } from "../../utils/ApiCalls";
 const LogIn = () => {
   const [formData, setFormData] = useState({
     emailId: "",
     password: "",
   });
   const mainContext = useMain();
-  mainContext.setNavBarVisiblity(false);
   const navigate = useNavigate();
   const handleSubmit = async () => {
-    try {
-      const result = await axios.post(
-        API_LINKS.USER_AUTHENTICATION,
-        {
+    const dataObj = {
+      emailId: formData.emailId,
+      password: formData.password,
+    };
+    const response = handleUserLogInApiCall(dataObj);
+    response.then((res) => {
+      if (res.data) {
+        mainContext.handleSetLogInDetails({
+          ...mainContext.loginDetails,
           emailId: formData.emailId,
-          password: formData.password,
-        }
-      );
-      if (result.data) {
-        localStorage.setItem("logInStatus", true);
-        localStorage.setItem("loggedUser",formData.emailId);
+          isLoggedIn: true,
+        });
         navigate("/");
       } else {
-        alert("Incurrect emailid or password");
+        alert("Incorrect emailId or password!!!");
       }
-    } catch (error) {
-      alert(error);
+    })
+    if (response) {
+      if (response.data) {
+      }
     }
   };
   const handleOnChange = (e) => {
@@ -56,7 +59,7 @@ const LogIn = () => {
           <input
             name="password"
             className="login-input-box"
-            type="text"
+            type="password"
             value={formData.password}
             onChange={handleOnChange}
             required

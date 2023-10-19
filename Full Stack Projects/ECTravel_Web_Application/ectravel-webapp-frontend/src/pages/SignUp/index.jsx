@@ -55,18 +55,16 @@ const SignUp = () => {
       state: formData.state,
       password: formData.password,
     });
-    mainContext.setNavBarVisiblity(true);
     navigate("/login");
   };
-  mainContext.setNavBarVisiblity(false);
   const handleOnChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
   useEffect(() => {
-    mainContext
+    // mainContext;
   }, []);
-  
+
   return (
     <div className="SignUp">
       <div className="signup-container">
@@ -168,7 +166,7 @@ const SignUp = () => {
             <input
               name="password"
               className="input-box"
-              type="text"
+              type="password"
               placeholder="Password"
               onChange={handleOnChange}
               required
@@ -179,7 +177,7 @@ const SignUp = () => {
             <input
               name="confirmPassword"
               className="input-box"
-              type="text"
+              type="password"
               placeholder="Confirm Password"
               onChange={handleOnChange}
               required
