@@ -28,9 +28,41 @@ export const handleCheckAvailBusApiCall = async (dataObj) => {
       API_LINKS.BUS_API_LINKS.GET_AVAIL_BUSES,
       dataObj
     );
-    console.log(">>",response);
     return response;
   } catch (error) {
+    console.log("CHECK AVAIL BUS API ERROR >>", error);
+    return false;
+  }
+};
+
+export const handleUpdateUserDetailsApiCall = async (dataObj) => {
+  try {
+    let response = await axios.put(API_LINKS.UPDATE_USER, dataObj);
+    return response;
+  } catch (error) {
+    console.log("UPDATE USER DETAILS API ERROR >>", error);
+    return false;
+  }
+};
+
+export const handleGetUserDetailsApiCall = async (emailId) => {
+  try {
+    const response = await axios.get(
+      API_LINKS.GET_USER_DETAILS + emailId
+    );
+    return response;
+  } catch (error) {
+    console.log("GET USER DETAILS API ERROR >>", error);
+    return false;
+  }
+};
+
+export const handleAddUserApiCall = async (dataObj) => {
+  try {
+    const response = await axios.post(API_LINKS.ADD_USER, dataObj);
+    return response;
+  } catch (error) {
+    console.log("ADD USER API ERROR >>", error);
     return false;
   }
 };

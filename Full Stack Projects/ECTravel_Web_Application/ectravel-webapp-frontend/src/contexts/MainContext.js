@@ -13,11 +13,18 @@ export const MainProvider = ({ children }) => {
     message: null,
     closeBtn: null,
   });
+  const [loadingSpinner,setLoadingSpinner] = useState(false);
   const handleSetLogInDetails = (value) => {
     setLogInDetails(value);
   };
   const handleSetMyAlertBox = (value) => {
     setMyAlertBox(value);
+  };
+  const handleSetLoadingSpinner = (value) => {
+    setLoadingSpinner(value);
+  }
+  const handleOnLoad = () => {
+    handleSetLoadingSpinner(false);
   };
 
   // UseEffect to handle localStorage
@@ -32,6 +39,9 @@ export const MainProvider = ({ children }) => {
         handleSetLogInDetails,
         myAlertBox,
         handleSetMyAlertBox,
+        loadingSpinner,
+        handleSetLoadingSpinner,
+        handleOnLoad,
       }}
     >
       {children}

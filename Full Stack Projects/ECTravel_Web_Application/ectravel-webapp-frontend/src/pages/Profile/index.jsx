@@ -4,6 +4,7 @@ import axios from "axios";
 import API_LINKS from "../../constants/ApiConstant";
 import profile_pic from "../../assets/images/profile-pic.webp";
 import { useMain } from "../../contexts/MainContext";
+import { handleGetUserDetailsApiCall, handleUpdateUserDetailsApiCall } from "../../utils/ApiCalls";
 const Profile = () => {
   const [userDetails, setUserDetails] = useState({});
   const [formData, setFormData] = useState({
@@ -23,11 +24,11 @@ const Profile = () => {
   }, []);
 
   const loadUserDetails = async () => {
-    const result = await axios.get(
-      API_LINKS.GET_USER_DETAILS + mainContext.loginDetails.emailId
-    );
-    setUserDetails(result.data);
-    setFormData(result.data);
+    const response = handleGetUserDetailsApiCall(mainContext.loginDetails.emailId);
+    response.then(res => {
+      setUserDetails(res.data);
+      setFormData(res.data);
+    })
   };
 
   const handleOnChange = (e) => {
@@ -36,9 +37,8 @@ const Profile = () => {
   };
 
   const handleSubmit = async () => {
-    try {
-      let res = await axios.put(API_LINKS.UPDATE_USER, {
-        userId: formData.userId,
+    const dataObj = {
+      userId: formData.userId,
         firstName: formData.firstName,
         lastName: formData.lastName,
         emailId: formData.emailId,
@@ -46,15 +46,13 @@ const Profile = () => {
         dob: formData.dob,
         city: formData.city,
         state: formData.state
-      });
-      console.log(res);
-      loadUserDetails();
-      alert("Updated")
-  
-    } catch (error) {
-      alert(error);
     }
-    // loadUserDetails();
+    const response = handleUpdateUserDetailsApiCall(dataObj);
+    response.then(res => {
+      console.log(res);
+      alert("Updated")
+        loadUserDetails();
+    })
   };
   return (
     <>

@@ -10,6 +10,7 @@ import {
 import axios from "axios";
 import API_LINKS from "../../constants/ApiConstant";
 import { useMain } from "../../contexts/MainContext";
+import { handleAddUserApiCall } from "../../utils/ApiCalls";
 
 const SignUp = () => {
   const [formData, setFormData] = useState({
@@ -44,7 +45,7 @@ const SignUp = () => {
       alert("Enter all required fields");
       return;
     }
-    await axios.post(API_LINKS.ADD_USER, {
+    const dataObj = {
       firstName: formData.firstName,
       lastName: formData.lastName,
       emailId: formData.emailId,
@@ -54,19 +55,25 @@ const SignUp = () => {
       city: formData.city,
       state: formData.state,
       password: formData.password,
-    });
-    navigate("/login");
+    }
+    const response = handleAddUserApiCall(dataObj);
+    response.then(res => {
+      navigate("/login");
+    })
+
   };
   const handleOnChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
   useEffect(() => {
-    // mainContext;
+    mainContext.handleSetLoadingSpinner(true);
   }, []);
 
+  
+
   return (
-    <div className="SignUp">
+    <div className="SignUp" onLoad={mainContext.handleOnLoad}>
       <div className="signup-container">
         <div className="left-side-div">
           <img className="left-side-pic" src={side_pic} alt="" />

@@ -15,6 +15,7 @@
   font-size: 1rem;
   font-weight: bold;
   align-items: center;
+  margin: auto;
 }
 .NavBar .nav-links {
   list-style: none;

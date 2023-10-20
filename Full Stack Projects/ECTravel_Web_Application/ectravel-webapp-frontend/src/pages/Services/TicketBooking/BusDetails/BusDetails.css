@@ -71,10 +71,16 @@
 .BusDetails .bus-details-bottom-container {
   height: 42rem;
   border-top: 1px solid rgba(0, 0, 0, 0.2);
+  display: none;
 }
+.visible-bus-details {
+  display: flex !important;
+  /* animation: name duration timing-function delay iteration-count direction fill-mode; */
+  /* display: flex !important; */
+  /* animation: smooth-dropdown 2s ease-in-out; */
+}
+.invisible-bus-details {
 
-.BusDetails .bus-details-bottom-container {
-  display: flex;
 }
 .BusDetails .bus-details-bottom-flex-1 {
   border-right: 1px solid rgba(0, 0, 0, 0.08);
@@ -253,4 +259,13 @@
 
 .active-btn:hover {
   background-color: var(--hover-color);
+}
+
+@keyframes smooth-dropdown {
+  0% {
+    height: 0;
+  }
+  100% {
+    height: 100%;
+  }
 }

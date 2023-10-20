@@ -12,7 +12,7 @@ const TicketBooking = () => {
     vehicle: "bus",
     fromPlace: "Nagapattinam",
     toPlace: "Bangalore",
-    date: "2023-10-06",
+    date: "2023-10-18",
   });
   const [searchNavFormData, setSearchNavFormData] = useState({
     vehicle: "",
@@ -217,6 +217,7 @@ const TicketBooking = () => {
     setFilteredBuses(temp);
   };
   return (
+    <>
     <div className="TicketBooking">
       <div className="search-bg">
         <div className="ticketbooking-container">
@@ -336,6 +337,7 @@ const TicketBooking = () => {
           </div>
         </div>
       </div>
+      </div>
       {busList && (
         <div className="search-details-container">
           <nav className="search-navbar">
@@ -450,7 +452,7 @@ const TicketBooking = () => {
           </div>
         </div>
       )}
-    </div>
+    </>
   );
 };
 

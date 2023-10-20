@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./LogIn.css";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -12,7 +12,8 @@ const LogIn = () => {
   });
   const mainContext = useMain();
   const navigate = useNavigate();
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     const dataObj = {
       emailId: formData.emailId,
       password: formData.password,
@@ -39,9 +40,15 @@ const LogIn = () => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
+  useEffect(() => {
+    mainContext.handleSetLoadingSpinner(true);
+    setTimeout(()=>{
+      mainContext.handleOnLoad();
+    },2000)
+  }, []);
   return (
     <div className="LogIn">
-      <div className="login-container">
+      <form className="login-container">
         <h1>Login</h1>
         <div className="input-box-wrapper">
           <input
@@ -77,7 +84,7 @@ const LogIn = () => {
           <p>Not have an account?</p>
           <Link to="/signup">Sign up</Link>
         </div>
-      </div>
+      </form>
     </div>
   );
 };

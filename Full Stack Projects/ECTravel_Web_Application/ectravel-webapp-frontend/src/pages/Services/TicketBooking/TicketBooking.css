@@ -238,6 +238,9 @@ background: linear-gradient(0deg, rgba(42,195,233,1) 0%, rgba(25,228,147,1) 100%
   padding-bottom: 3rem;
   /* border: 1px solid black; */
   min-height: calc(90vh - 4rem);
+  position: sticky;
+  top: 4rem;
+  border: 1px solid;
 }
 
 /* Search Details NavBar */
