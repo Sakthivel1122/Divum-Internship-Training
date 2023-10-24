@@ -47,7 +47,7 @@ public class BusServiceIMPL implements BusService {
                         null,
                         false,
                         bus.getSeatType(),
-                        -1
+                        i+1
                 );
                 seatRepo.save(seat);
             }
@@ -59,7 +59,7 @@ public class BusServiceIMPL implements BusService {
                         null,
                         false,
                         bus.getSeatType(),
-                        -1
+                        i+1
                 );
                 seatRepo.save(seat);
             }
