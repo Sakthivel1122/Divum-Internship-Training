@@ -1,18 +1,21 @@
 import React, { useEffect, useState } from "react";
 import "./TicketBooking.css";
 import { offers } from "../../../constants/OffersConstant";
-import axios from "axios";
+import axios, { formToJSON } from "axios";
 import API_LINKS from "../../../constants/ApiConstant";
 import BusDetails from "./BusDetails";
 import { handleCheckAvailBusApiCall } from "../../../utils/ApiCalls";
+import { useNavigate } from "react-router-dom";
+import { useMain } from "../../../contexts/MainContext";
 const TicketBooking = () => {
+  const mainContext = useMain();
   const [activeIndex, setActiveIndex] = useState(0);
   const [busList, setBusList] = useState(null);
   const [formData, setFormData] = useState({
     vehicle: "bus",
     fromPlace: "Nagapattinam",
     toPlace: "Bangalore",
-    date: "2023-10-18",
+    date: "2023-10-24",
   });
   const [searchNavFormData, setSearchNavFormData] = useState({
     vehicle: "",
@@ -28,6 +31,7 @@ const TicketBooking = () => {
     selectedOperators: [],
     filteredOperators: [],
   });
+  const navigate = useNavigate();
   const handleVehicle = (vehicle) => {
     setFormData({ ...formData, ["vehicle"]: vehicle });
   };
@@ -61,9 +65,18 @@ const TicketBooking = () => {
       case "bus":
         response = handleCheckAvailBusApiCall(formData);
         response.then((res) => {
-          setBusList(res.data);
-          setFilteredBuses(res.data);
+          // setBusList(res.data);
+          // setFilteredBuses(res.data);
+          console.log("response",res.data);
+          const data = {
+            data: res.data,
+            fromPlace: formData.fromPlace,
+            toPlace: formData.toPlace,
+            date: formData.date
+          }
+          navigate("/services/availBus",{state: data});
         });
+        
         break;
       default:
         break;
@@ -216,9 +229,15 @@ const TicketBooking = () => {
       );
     setFilteredBuses(temp);
   };
+  // useEffect(()=>{
+  //   mainContext.handleSetLoadingSpinner(true);
+  // },[]);
+  // setTimeout(()=>{
+  //   mainContext.handleSetLoadingSpinner(false);
+  // },2000);
   return (
     <>
-    <div className="TicketBooking">
+    <div className="TicketBooking" onLoad={mainContext.handleOnLoad}>
       <div className="search-bg">
         <div className="ticketbooking-container">
           <div className="ticketbooking-wrapper">
@@ -442,6 +461,8 @@ const TicketBooking = () => {
                       seatType={bus.bus.seatType}
                       pickUpList={bus.pickUpList}
                       dropList={bus.dropList}
+                      fromPlace={searchNavFormData.fromPlace}
+                      toPlace={searchNavFormData.toPlace}
                     />
                   );
                 })}

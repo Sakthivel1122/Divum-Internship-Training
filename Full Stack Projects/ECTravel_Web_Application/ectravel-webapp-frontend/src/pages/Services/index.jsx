@@ -4,9 +4,9 @@ import { Outlet } from "react-router-dom";
 const Services = () => {
   return (
     <>
-      <div className="Services">
         <Outlet />
-      </div>
+      {/* <div className="Services">
+      </div> */}
     </>
   );
 };

@@ -11,6 +11,11 @@ import BusBooking from "../pages/BusBooking";
 import SignUp from "../pages/SignUp";
 import LogIn from "../pages/LogIn";
 import AddBus from "../pages/AddBus";
+import AvailBus from "../pages/AvailBus";
+import Admin from "../pages/Admin";
+import ManageUser from "../pages/Admin/ManageUser";
+import AdminHome from "../pages/Admin/AdminHome";
+import ManageBooking from "../pages/Admin/ManageBooking";
 
 const RoutingFile = () => {
   return (
@@ -22,13 +27,18 @@ const RoutingFile = () => {
 
         <Route path="services" element={<Services />}>
           <Route index path="tracklocation" element={<TrackLocation />} />
-          <Route path="ticketbooking" element={<TicketBooking />}/>
-            <Route path="busBooking" element={<BusBooking />} />
+          <Route path="ticketbooking" element={<TicketBooking />} />
+          <Route path="busBooking" element={<BusBooking />} />
+          <Route path="availBus" element={<AvailBus />} />
           {/* <Route index path="busBooking" element={<BusBooking />} /> */}
         </Route>
         {/* <Route index path="/busBooking" element={<BusBooking />} /> */}
       </Route>
-
+      <Route path="/admin" element={<Admin />}>
+        <Route index element={<AdminHome />} />
+        <Route path="manageUser" element={<ManageUser />} />
+        <Route path="manageBooking" element={<ManageBooking />} />
+      </Route>
       <Route path="/signup" element={<SignUp />} />
       <Route path="/login" element={<LogIn />} />
       {/* <Route path="/slider" element={<Slider />} /> */}

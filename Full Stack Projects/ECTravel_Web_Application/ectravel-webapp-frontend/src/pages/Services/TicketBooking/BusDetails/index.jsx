@@ -4,9 +4,11 @@ import {
   arrayFirstHalf,
   arraySecondHalf,
   calcDuration,
+  handleSleeprtSeatSplit,
   monthNoToMonthStr,
 } from "../../../../utils/TicketBooking";
 import { useNavigate } from "react-router-dom";
+import { useMain } from "../../../../contexts/MainContext";
 const BusDetails = ({
   key,
   busName,
@@ -21,16 +23,21 @@ const BusDetails = ({
   seatType,
   pickUpList,
   dropList,
+  fromPlace,
+  toPlace,
 }) => {
+  const mainContext = useMain();
   const [visible, setVisible] = useState(false);
   const [selectSeat, setSelectSeat] = useState({
     selectedSeatIdList: [],
     selectedSeatDetailsList: [],
+    selectedSeatNoList: [],
   });
   const [selectPickUpDrop, setSelectPickUpDrop] = useState({
     pickUp: pickUpList[0],
     drop: dropList[0],
   });
+  console.log(selectPickUpDrop);
   const seatesLeft = seatList.filter((seat) => {
     return !seat.status;
   });
@@ -39,11 +46,7 @@ const BusDetails = ({
   const handleOnClick = () => {
     setVisible(!visible);
   };
-  const handleSelectSeat = (seatSetNo, seat, seatNo) => {
-    seatNo = seatSetNo === 1 ? seatNo : seatNo + seatList.length / 2;
-    seatNo++;
-    console.log("seatNo", seatNo);
-    seat.seatNo = seatNo;
+  const handleSelectSeat = (seat) => {
     let tempSelectSeat = selectSeat;
     if (tempSelectSeat.selectedSeatIdList.includes(seat.seatId)) {
       let tempDetailsList = tempSelectSeat.selectedSeatDetailsList.filter(
@@ -80,7 +83,7 @@ const BusDetails = ({
       }
       tempList += "S" + seat.seatNo;
     });
-    console.log(tempList);
+    // console.log(tempList);
     setSelectedSeatNoList(tempList);
   };
   const handleSelectPickUp = (pickUp) => {
@@ -95,8 +98,44 @@ const BusDetails = ({
   // ----------------------
   // console.log("selectSeat", selectSeat.selectedSeatDetailsList);
   const handleSubmit = () => {
-    navigate("/services/busBooking");
+    if (selectSeat.selectedSeatIdList.length > 0) {
+      const data = {
+        busName: busName,
+        rating: rating,
+        price: price,
+        busType: busType,
+        pickUpDate: pickUpDate,
+        pickUpTime: selectPickUpDrop.pickUp.time,
+        dropDate: dropDate,
+        dropTime: selectPickUpDrop.drop.time,
+        selectSeat: selectSeat,
+        seatType: seatType,
+        selectPickUpDrop: selectPickUpDrop,
+        duration: calcDuration(
+          pickUpDate,
+          dropDate,
+          selectPickUpDrop.pickUp.time,
+          selectPickUpDrop.drop.time
+        ),
+        totalPrice: selectSeat.selectedSeatIdList.length * price,
+        selectedSeatNoList: selectedSeatNoList,
+        formattedPickUpDateTime: `${selectPickUpDrop.pickUp.time} - ${
+          pickUpDate.split("-")[2]
+        } ${monthNoToMonthStr(pickUpDate.split("-")[1])}`,
+        formattedDropDateTime: `${selectPickUpDrop.drop.time} - ${
+          dropDate.split("-")[2]
+        } ${monthNoToMonthStr(dropDate.split("-")[1])}`,
+        pickUpPlace: selectPickUpDrop.pickUp.place,
+        dropPlace: selectPickUpDrop.drop.place,
+        fromPlace,
+        toPlace,
+      };
+      console.log(data);
+      navigate("/services/busBooking", { state: data });
+    }
   };
+  const sleeperSeatSlpit = handleSleeprtSeatSplit(seatList);
+  // console.log("sleeperSeatSlpit", sleeperSeatSlpit);
   return (
     <div className={`BusDetails ${visible ? `active-bus` : ``}`} key={key}>
       <div
@@ -148,45 +187,27 @@ const BusDetails = ({
             <p></p>
           </div>
           <div className="bus-details-bottom-content-1">
-            <div className="bus-layout-container">
-              <div className="bus-layout-top-flex">
-                <span class="material-symbols-outlined">
-                  swap_driving_apps_wheel
-                </span>
-              </div>
-              <div className="bus-layout-bottom-flex">
-                <div className="bus-layout-bottom-flex-1">
-                  {firstHalfSeat.map((seat, index) => {
-                    return (
-                      <>
-                        <span
-                          class={`material-symbols-outlined seat ${
-                            selectSeat.selectedSeatIdList.includes(seat.seatId)
-                              ? `selected-seat`
-                              : ``
-                          }`}
-                          onClick={() => handleSelectSeat(1, seat, index)}
-                        >
-                          weekend
-                        </span>
-                      </>
-                    );
-                  })}
+            {seatType === "seater" ? (
+              <div className="bus-layout-container">
+                <div className="bus-layout-top-flex">
+                  <span class="material-symbols-outlined">
+                    swap_driving_apps_wheel
+                  </span>
                 </div>
-                <div className="bus-layout-bottom-flex-2">
-                  <div className="bus-layout-bottom-flex-2">
-                    {secondHalfSeat.map((seat, index) => {
+                <div className="bus-layout-bottom-flex">
+                  <div className="bus-layout-bottom-flex-1">
+                    {firstHalfSeat.map((seat, index) => {
                       return (
                         <>
                           <span
-                            class={`material-symbols-outlined seat ${
+                            className={`material-symbols-outlined seat ${
                               selectSeat.selectedSeatIdList.includes(
                                 seat.seatId
                               )
                                 ? `selected-seat`
                                 : ``
                             }`}
-                            onClick={() => handleSelectSeat(2, seat, index)}
+                            onClick={() => handleSelectSeat(seat)}
                           >
                             weekend
                           </span>
@@ -194,9 +215,120 @@ const BusDetails = ({
                       );
                     })}
                   </div>
+                  <div className="bus-layout-bottom-flex-2">
+                    <div className="bus-layout-bottom-flex-2">
+                      {secondHalfSeat.map((seat, index) => {
+                        return (
+                          <>
+                            <span
+                              className={`material-symbols-outlined seat ${
+                                selectSeat.selectedSeatIdList.includes(
+                                  seat.seatId
+                                )
+                                  ? `selected-seat`
+                                  : ``
+                              }`}
+                              onClick={() => handleSelectSeat(seat)}
+                            >
+                              weekend
+                            </span>
+                          </>
+                        );
+                      })}
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
+            ) : (
+              <>
+                <div className="sleeper-bus-layout-1">
+                  <div className="sleeper-bus-layout-1-header">
+                    <span class="material-symbols-outlined">
+                      swap_driving_apps_wheel
+                    </span>
+                  </div>
+                  <div className="sleeper-bus-layout-1-content">
+                    <div className="sleeper-bus-layout-1-content-1">
+                      {sleeperSeatSlpit.upperBerthFirstFive.map((seat) => {
+                        return (
+                          <span
+                            className={`sleeper-icon-layout ${
+                              selectSeat.selectedSeatIdList.includes(
+                                seat.seatId
+                              )
+                                ? `selected-sleeper-seat`
+                                : ``
+                            }`}
+                            onClick={() => handleSelectSeat(seat)}
+                          >
+                            <span></span>
+                          </span>
+                        );
+                      })}
+                    </div>
+                    <div className="sleeper-bus-layout-1-content-2">
+                      {sleeperSeatSlpit.upperBerthLastTen.map((seat) => {
+                        return (
+                          <span
+                            className={`sleeper-icon-layout ${
+                              selectSeat.selectedSeatIdList.includes(
+                                seat.seatId
+                              )
+                                ? `selected-sleeper-seat`
+                                : ``
+                            }`}
+                            onClick={() => handleSelectSeat(seat)}
+                          >
+                            <span></span>
+                          </span>
+                        );
+                      })}
+                    </div>
+                  </div>
+                </div>
+                <div className="sleeper-bus-layout-2">
+                  <div className="sleeper-bus-layout-2-header"></div>
+                  <div className="sleeper-bus-layout-2-content">
+                    <div className="sleeper-bus-layout-2-content-1">
+                      {sleeperSeatSlpit.lowerBerthFirstFive.map((seat) => {
+                        return (
+                          <span
+                            className={`sleeper-icon-layout ${
+                              selectSeat.selectedSeatIdList.includes(
+                                seat.seatId
+                              )
+                                ? `selected-sleeper-seat`
+                                : ``
+                            }`}
+                            onClick={() => handleSelectSeat(seat)}
+                          >
+                            <span></span>
+                          </span>
+                        );
+                      })}
+                    </div>
+                    <div className="sleeper-bus-layout-2-content-2">
+                      {sleeperSeatSlpit.lowerBerthLastTen.map((seat) => {
+                        return (
+                          <span
+                            className={`sleeper-icon-layout ${
+                              selectSeat.selectedSeatIdList.includes(
+                                seat.seatId
+                              )
+                                ? `selected-sleeper-seat`
+                                : ``
+                            }`}
+                            onClick={() => handleSelectSeat(seat)}
+                          >
+                            <span></span>
+                          </span>
+                        );
+                      })}
+                    </div>
+                  </div>
+                </div>
+              </>
+            )}
           </div>
         </div>
         <div className="bus-details-bottom-flex-2">
@@ -238,17 +370,17 @@ const BusDetails = ({
                   <h4>DROP POINT</h4>
                 </div>
                 <div className="bus-details-bottom-content-2-top-flex-2-content">
-                  {dropList.map((drop) => {
+                  {dropList && dropList?.map((drop) => {
                     return (
                       <div
                         className="drop"
                         onClick={() => handleSelectDrop(drop)}
                       >
                         <p>
-                          {`${drop.place} -
-                            ${drop.time} | ${
-                            dropDate.split("-")[2]
-                          } ${monthNoToMonthStr(dropDate.split("-")[1])}`}
+                          {`${drop?.place} -
+                            ${drop?.time} | ${
+                            dropDate?.split("-")[2]
+                          } ${monthNoToMonthStr(dropDate?.split("-")[1])}`}
                         </p>
                         {selectPickUpDrop.drop.place === drop.place && (
                           <span class="material-symbols-outlined">

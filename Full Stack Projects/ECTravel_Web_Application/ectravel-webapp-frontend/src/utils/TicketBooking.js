@@ -136,3 +136,52 @@ export const arraySecondHalf = (arr) => {
   }
   return resArr;
 };
+
+export const handleSleeprtSeatSplit = (arr) => {
+  let upperBerthFirstFive = [];
+  let upperBerthLastTen = [];
+  let lowerBerthFirstFive = [];
+  let lowerBerthLastTen = [];
+  for (let i = 0; i < 5; i++) {
+    upperBerthFirstFive.push(arr[i]);
+  }
+  for (let i = 5; i < 15; i++) {
+    upperBerthLastTen.push(arr[i]);
+  }
+  for (let i = 15; i < 20; i++) {
+    lowerBerthFirstFive.push(arr[i]);
+  }
+  for (let i = 20; i < arr.length; i++) {
+    lowerBerthLastTen.push(arr[i]);
+  }
+  return {
+    upperBerthFirstFive: upperBerthFirstFive,
+    upperBerthLastTen: upperBerthLastTen,
+    lowerBerthFirstFive: lowerBerthFirstFive,
+    lowerBerthLastTen: lowerBerthLastTen,
+  };
+};
+
+// export const upperBerthLastTen = (arr) => {
+//   let resArr = [];
+//   for (let i = arr.length / 2; i < arr.length; i++) {
+//     resArr.push(arr[i]);
+//   }
+//   return resArr;
+// };
+
+// export const upperBerthFirstFive = (arr) => {
+//   let resArr = [];
+//   for (let i = arr.length / 2; i < arr.length; i++) {
+//     resArr.push(arr[i]);
+//   }
+//   return resArr;
+// };
+
+// export const upperBerthLastTen = (arr) => {
+//   let resArr = [];
+//   for (let i = arr.length / 2; i < arr.length; i++) {
+//     resArr.push(arr[i]);
+//   }
+//   return resArr;
+// };
