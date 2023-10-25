@@ -43,6 +43,7 @@
     padding: 1rem;
     cursor: pointer;
 }
-.admin-sidebar-manage-booking-item-wrapper li:hover {
+.admin-sidebar-manage-booking-item-wrapper li:hover,
+.admin-sidebar-manage-booking-item-wrapper li.active-manage-booking {
     background-color: rgb(113, 111, 111);
 }

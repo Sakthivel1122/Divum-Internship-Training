@@ -1,6 +1,7 @@
+@import "../../assets/styles/globalConstants";
 .AvailBus {
   min-height: 100vh;
-  background-color: var(--global-bg-color);
+  background-color: $global-bg-color;
 }
 .search-details-container {
   /* height: 1000px; */
@@ -26,7 +27,7 @@
   height: 3.5rem;
   border: 1px solid;
   color: white;
-  background-color: var(--busBooking-navBar-bg);
+  background-color: $busBooking-navBar-bg;
   position: sticky;
   top: 4rem;
   z-index: 10;
@@ -39,20 +40,7 @@
   align-items: center;
   justify-content: space-between;
 }
-/* .search-details-container .search-navbar {
-    position: sticky;
-    top: 4rem;
-    padding: 1.5rem 0 1rem 0;
-    z-index: 10;
-    background-color: var(--global-bg-color);
-}
-.search-details-container .search-navbar ul {
-  list-style: none;
-  width: 80%;
-  margin: auto;
-  display: flex;
-  gap: 1rem;
-} */
+
 .search-details {
   width: 80%;
   margin: auto;
@@ -109,7 +97,7 @@
   cursor: pointer;
 }
 .search-details-container .filter-nav .clear-all:hover {
-  color: var(--primary-color);
+  color: $primary-color;
 }
 .search-details-container .filter-container .filter-1,
 .search-details-container .filter-container .filter-2,
@@ -150,7 +138,7 @@
   .filter-2
   .options-wrapper
   span:hover {
-  border: 1px solid var(--primary-color);
+  border: 1px solid $primary-color;
   background-color: #f1fbf7;
 }
 .search-details-container
@@ -163,8 +151,8 @@
   .filter-2
   .options-wrapper
   span.active-filter {
-  border: 1px solid var(--primary-color);
-  color: var(--primary-color);
+  border: 1px solid $primary-color;
+  color: $primary-color;
   background-color: #f1fbf7;
 }
 

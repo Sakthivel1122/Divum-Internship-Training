@@ -1,14 +1,18 @@
 package com.example.ectravelwebapplication.service;
 
-import com.example.ectravelwebapplication.DTO.AddBusDTO;
-import com.example.ectravelwebapplication.DTO.SearchResponseDTO;
-import com.example.ectravelwebapplication.model.Bus;
-import com.example.ectravelwebapplication.DTO.SearchDTO;
+import com.example.ectravelwebapplication.DTO.*;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
 public interface BusService {
-    int addBus(AddBusDTO addBusDTO);
+    ResponseEntity<String> addBus(AddBusDTO addBusDTO);
 
     List<SearchResponseDTO> getAvailBus(SearchDTO searchDTO);
+
+    ResponseEntity<List<GetAllBusDTO>> getAllBus();
+
+    ResponseEntity<String> deleteBus(int busId);
+
+    ResponseEntity<String> updateBus(UpdateBusDTO updateBusDTO);
 }

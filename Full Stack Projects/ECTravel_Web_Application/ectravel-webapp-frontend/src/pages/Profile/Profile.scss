@@ -1,3 +1,4 @@
+@import "../../assets/styles/globalConstants";
 .Profile {
   position: absolute;
   top: 4rem;
@@ -49,12 +50,12 @@
   font-weight: bold;
 }
 .profile-pic-upload-btn:hover {
-  background-color: var(--hover-color);
+  background-color: $hover-color;
 }
 .profile-pic-flex-1 .profile-pic {
   height: 100%;
   width: fit-content;
-  border: 2px solid var(--primary-color);
+  border: 2px solid $primary-color;
   border-radius: 50%;
 }
 
@@ -96,7 +97,7 @@
   height: 3rem;
   border-radius: 1.5rem;
   border: none;
-  background-color: var(--primary-color);
+  background-color: $primary-color;
   color: white;
   font-weight: bold;
   font-size: 16px;
@@ -106,5 +107,5 @@
   /* padding: 1rem; */
 }
 .update-btn:hover {
-  background-color: var(--hover-color);
+  background-color: $hover-color;
 }

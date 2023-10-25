@@ -1,3 +1,4 @@
+@import "../../../../assets/styles/globalConstants";
 .BusDetails {
   width: 100%;
   height: fit-content;
@@ -16,7 +17,7 @@
 }
 .BusDetails:hover,
 .active-bus {
-  border: 1px solid var(--primary-color);
+  border: 1px solid $primary-color;
 }
 .BusDetails .bus-details-top {
   display: flex;
@@ -158,7 +159,7 @@
 }
 .BusDetails .bus-layout-bottom-flex-1 .seat.selected-seat,
 .BusDetails .bus-layout-bottom-flex-2 .seat.selected-seat {
-  color: var(--primary-color);
+  color: $primary-color;
 }
 
 /* Pick Up & Drop */
@@ -217,7 +218,7 @@
 }
 .bus-details-bottom-content-2-top-flex-1-content .pick-up span,
 .bus-details-bottom-content-2-top-flex-2-content .drop span {
-  color: var(--primary-color);
+  color: $primary-color;
 }
 .bus-details-bottom-content-2-bottom-flex {
   display: flex;
@@ -254,11 +255,11 @@
 }
 
 .active-btn {
-  background-color: var(--primary-color);
+  background-color: $primary-color;
 }
 
 .active-btn:hover {
-  background-color: var(--hover-color);
+  background-color: $hover-color;
 }
 
 @keyframes smooth-dropdown {
@@ -311,7 +312,6 @@
 .sleeper-bus-layout-1-content-2,
 .sleeper-bus-layout-2-content-2 {
   gap: 0.5rem;
-  margin-right: 0.5rem;
 }
 .sleeper-icon-layout {
   /* font-size: 4rem; */
@@ -335,10 +335,10 @@
   border-color: rgba(0, 0, 0, 0.2);
 }
 .selected-sleeper-seat {
-  border-color: var(--primary-color) !important;
-  background-color: var(--secondary-color) !important;
+  border-color: $primary-color !important;
+  background-color: $secondary-color !important;
 }
 
 .selected-sleeper-seat span {
-  border-color: var(--primary-color) !important;
+  border-color: $primary-color !important;
 }

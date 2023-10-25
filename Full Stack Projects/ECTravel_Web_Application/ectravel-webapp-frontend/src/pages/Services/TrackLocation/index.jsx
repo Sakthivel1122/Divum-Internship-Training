@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { MapContainer, TileLayer, useMap, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import "leaflet-geosearch/dist/geosearch.css";
-import "./TrackLocation.css";
+import "./TrackLocation.scss";
 import { GeoSearchControl, OpenStreetMapProvider } from "leaflet-geosearch";
 import { icon, icon2, myloc } from "../../../constants/constants";
 

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./Profile.css";
+import "./Profile.scss";
 import axios from "axios";
 import API_LINKS from "../../constants/ApiConstant";
 import profile_pic from "../../assets/images/profile-pic.webp";

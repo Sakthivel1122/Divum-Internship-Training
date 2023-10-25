@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./BusBooking.css";
+import "./BusBooking.scss";
 import { useLocation } from "react-router-dom";
 import { useMain } from "../../contexts/MainContext";
 const BusBooking = () => {

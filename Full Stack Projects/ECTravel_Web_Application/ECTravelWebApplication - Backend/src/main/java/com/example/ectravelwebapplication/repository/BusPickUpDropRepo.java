@@ -13,4 +13,6 @@ import java.util.List;
 public interface BusPickUpDropRepo extends JpaRepository<BusPickUpDrop, Integer> {
 
     public List<BusPickUpDrop> findAllByBusIdAndType(int busId, boolean type);
+
+    public void deleteAllByBusId(int busId);
 }

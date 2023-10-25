@@ -1,0 +1,68 @@
+@import "../../../assets/styles/globalConstants";
+.ManageBusBooking {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin: 0 auto;
+  margin-top: 3rem;
+}
+.manage-bus-booking {
+  display: flex;
+  justify-content: space-between;
+
+  .add-bus-btn {
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    font-size: 1rem;
+    background-color: $add-btn-color;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    font-weight: bold;
+  }
+
+  .add-bus-btn:hover {
+    background-color: $add-btn-hover-color;
+  }
+}
+.busTable {
+  border-collapse: collapse;
+  font-size: 1rem;
+  th,
+  td,
+  th {
+    padding: 1rem;
+    text-align: center;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+  }
+  thead {
+    background-color: rgb(73, 72, 72);
+    color: white;
+  }
+  button {
+    padding: 0.4rem 1rem;
+    cursor: pointer;
+    font-size: 1rem;
+  }
+  button:nth-child(1) {
+    background-color: $edit-btn-color;
+    border: none;
+    border-radius: 3px;
+    margin-right: .5rem;
+  }
+  button:nth-child(1):hover {
+    background-color: $edit-btn-hover-color;
+  }
+  button:nth-child(2) {
+    background-color: $delete-btn-color;
+    border: none;
+    border-radius: 3px;
+    color: white;
+  }
+  button:nth-child(2):hover {
+    background-color: $delete-btn-hover-color;
+  }
+  tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+}

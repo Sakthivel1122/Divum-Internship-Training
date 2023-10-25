@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./BusDetails.css";
+import "./BusDetails.scss";
 import {
   arrayFirstHalf,
   arraySecondHalf,

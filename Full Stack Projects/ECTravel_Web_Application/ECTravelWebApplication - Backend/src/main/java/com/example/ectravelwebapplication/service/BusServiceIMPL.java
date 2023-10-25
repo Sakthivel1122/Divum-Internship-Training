@@ -7,6 +7,8 @@ import com.example.ectravelwebapplication.repository.BusPickUpDropRepo;
 import com.example.ectravelwebapplication.repository.BusRepo;
 import com.example.ectravelwebapplication.repository.SeatRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -25,7 +27,7 @@ public class BusServiceIMPL implements BusService {
     SeatRepo seatRepo;
 
     @Override
-    public int addBus(AddBusDTO addBusDTO){
+    public ResponseEntity<String> addBus(AddBusDTO addBusDTO){
         Bus bus = new Bus(
                 addBusDTO.getBusName(),
                 addBusDTO.getFromPlace(),
@@ -83,7 +85,7 @@ public class BusServiceIMPL implements BusService {
             );
             busPickUpDropRepo.save(busPickUpDrop);
         }
-        return bus.getBusId();
+        return new ResponseEntity<>("Bus Added Successfully",HttpStatus.OK);
     }
 
 
@@ -121,4 +123,65 @@ public class BusServiceIMPL implements BusService {
         }
         return searchResponseDTOS;
     }
+
+    @Override
+    public ResponseEntity<List<GetAllBusDTO>> getAllBus() {
+        List<GetAllBusDTO> result = new ArrayList<>();
+        List<Bus> allBusList = busRepo.findAll();
+        for (int i = 0; i < allBusList.size(); i++) {
+            Bus bus = allBusList.get(i);
+            List<BusPickUpDrop> pickUpList = busPickUpDropRepo.findAllByBusIdAndType(bus.getBusId(),true);
+            List<BusPickUpDrop> dropList = busPickUpDropRepo.findAllByBusIdAndType(bus.getBusId(),false);
+            result.add(new GetAllBusDTO(bus,pickUpList,dropList));
+        }
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<String> deleteBus(int busId) {
+        busPickUpDropRepo.deleteAllByBusId(busId);
+        seatRepo.deleteAllByBusId(busId);
+        busRepo.deleteById(busId);
+        return new ResponseEntity<>("Bus Deleted SuccessFully",HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<String> updateBus(UpdateBusDTO updateBusDTO){
+        Bus bus = busRepo.findById(updateBusDTO.getBusDetails().getBusId()).orElse(null);
+        if(bus != null) {
+        bus.setBusName(updateBusDTO.getBusDetails().getBusName());
+        bus.setFromPlace(updateBusDTO.getBusDetails().getFromPlace());
+        bus.setToPlace(updateBusDTO.getBusDetails().getToPlace());
+        bus.setPrice(updateBusDTO.getBusDetails().getPrice());
+        bus.setBusType(updateBusDTO.getBusDetails().getBusType());
+        bus.setSeatType(updateBusDTO.getBusDetails().getSeatType());
+        bus.setPickUpDate(updateBusDTO.getBusDetails().getPickUpDate());
+        bus.setPickUpTime(updateBusDTO.getBusDetails().getPickUpTime());
+        bus.setDropDate(updateBusDTO.getBusDetails().getDropDate());
+        bus.setDropTime(updateBusDTO.getBusDetails().getDropTime());
+        bus.setRating(updateBusDTO.getBusDetails().getRating());
+        busPickUpDropRepo.deleteAllByBusId(bus.getBusId());
+        for (int i = 0; i < updateBusDTO.getBusPickUpList().size(); i++) {
+            BusPickUpDrop busPickUpDrop = new BusPickUpDrop(
+                    bus.getBusId(),
+                    updateBusDTO.getBusPickUpList().get(i).getPlace(),
+                    updateBusDTO.getBusPickUpList().get(i).getTime(),
+                    true
+            );
+            busPickUpDropRepo.save(busPickUpDrop);
+        }
+        for (int i = 0; i < updateBusDTO.getBusPickUpList().size(); i++) {
+            BusPickUpDrop busPickUpDrop = new BusPickUpDrop(
+                    bus.getBusId(),
+                    updateBusDTO.getBusPickUpList().get(i).getPlace(),
+                    updateBusDTO.getBusPickUpList().get(i).getTime(),
+                    false
+            );
+            busPickUpDropRepo.save(busPickUpDrop);
+            }
+        return new ResponseEntity<>("Bus Updated Successfully",HttpStatus.OK);
+        }
+        return new ResponseEntity<>("Bus Update Failed",HttpStatus.BAD_REQUEST);
+    }
+
 }

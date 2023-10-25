@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./TicketBooking.css";
+import "./TicketBooking.scss";
 import { offers } from "../../../constants/OffersConstant";
 import axios, { formToJSON } from "axios";
 import API_LINKS from "../../../constants/ApiConstant";

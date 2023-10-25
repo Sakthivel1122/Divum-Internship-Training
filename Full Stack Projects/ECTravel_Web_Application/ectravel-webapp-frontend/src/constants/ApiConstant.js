@@ -10,6 +10,13 @@ const API_LINKS = {
     ADD_BUS: COMMON_BUS_API_LINK + "addBus",
     GET_AVAIL_BUSES: COMMON_BUS_API_LINK + "getAvailBus",
   },
+  ADMIN: {
+    MANAGE_BUS: {
+      GET_ALL_BUS: COMMON_BUS_API_LINK + "getAllBus",
+      DELETE_BUS: COMMON_BUS_API_LINK + "deleteBus/",
+      UPDATE_BUS: COMMON_BUS_API_LINK + "updateBus",
+    },
+  },
 };
 
 export default API_LINKS;

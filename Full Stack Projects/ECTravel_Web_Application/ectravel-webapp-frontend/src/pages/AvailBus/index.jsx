@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./AvailBus.css";
+import "./AvailBus.scss";
 import BusDetails from "../Services/TicketBooking/BusDetails";
 import { useLocation } from "react-router-dom";
 import { monthNoToMonthStr } from "../../utils/TicketBooking";

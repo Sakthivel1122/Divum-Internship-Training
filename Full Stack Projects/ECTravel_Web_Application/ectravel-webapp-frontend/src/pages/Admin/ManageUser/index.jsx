@@ -1,5 +1,5 @@
 import React from "react";
-import "./ManageUser.css";
+import "./ManageUser.scss";
 const ManageUser = () => {
   return <div className="ManageUser">ManageUser</div>;
 };

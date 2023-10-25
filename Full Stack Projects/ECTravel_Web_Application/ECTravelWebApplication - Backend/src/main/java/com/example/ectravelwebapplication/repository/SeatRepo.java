@@ -15,4 +15,6 @@ public interface SeatRepo extends JpaRepository<Seat, Integer> {
 
     public List<Seat> findAllByBusId(int busId);
 
+    public void deleteAllByBusId(int busId);
+
 }

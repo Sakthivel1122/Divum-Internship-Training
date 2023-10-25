@@ -1,0 +1,33 @@
+import axios from "axios";
+import API_LINKS from "../constants/ApiConstant";
+
+export const handleGetAllBusApiCall = async () => {
+  try {
+    const response = await axios.get(API_LINKS.ADMIN.MANAGE_BUS.GET_ALL_BUS);
+    return response;
+  } catch (error) {
+    console.log("GET ALL BUS API ERROR", error);
+    return false;
+  }
+};
+
+export const handleDeleteBusApiCall = async(busId) => {
+    try {
+        const response = await axios.delete(API_LINKS.ADMIN.MANAGE_BUS.DELETE_BUS + busId);
+        return response;
+      } catch (error) {
+        console.log("DELETE BUS API ERROR", error);
+        return false;
+      }
+}
+
+export const handleUpdateBusApiCall = async(dataObj) => {
+  try {
+    console.log(dataObj);
+      const response = await axios.put  (API_LINKS.ADMIN.MANAGE_BUS.UPDATE_BUS, dataObj);
+      return response;
+    } catch (error) {
+      console.log("UPDATE BUS API ERROR", error);
+      return false;
+    }
+}
