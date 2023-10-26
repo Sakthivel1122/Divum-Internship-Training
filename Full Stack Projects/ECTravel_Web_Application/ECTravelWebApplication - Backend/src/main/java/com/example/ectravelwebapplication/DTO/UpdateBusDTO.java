@@ -1,8 +1,7 @@
 package com.example.ectravelwebapplication.DTO;
 
-import com.example.ectravelwebapplication.model.Bus;
-import com.example.ectravelwebapplication.model.BusPickUpDrop;
-import lombok.AllArgsConstructor;
+import com.example.ectravelwebapplication.entity.Bus;
+import com.example.ectravelwebapplication.entity.BusPickUpDrop;
 import lombok.Data;
 
 import java.util.List;

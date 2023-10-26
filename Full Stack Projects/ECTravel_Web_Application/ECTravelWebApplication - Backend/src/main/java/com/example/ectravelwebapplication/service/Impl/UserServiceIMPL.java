@@ -1,18 +1,21 @@
-package com.example.ectravelwebapplication.service;
+package com.example.ectravelwebapplication.service.Impl;
 
 import com.example.ectravelwebapplication.DTO.AddUserDTO;
 import com.example.ectravelwebapplication.DTO.LogInDTO;
 import com.example.ectravelwebapplication.DTO.UpdateUserDTO;
 import com.example.ectravelwebapplication.DTO.UserDetailsDTO;
-import com.example.ectravelwebapplication.model.User;
+import com.example.ectravelwebapplication.entity.User;
 import com.example.ectravelwebapplication.repository.UserRepo;
+import com.example.ectravelwebapplication.repository.service.UserRepoService;
+import com.example.ectravelwebapplication.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserServiceIMPL implements UserService{
+public class UserServiceIMPL implements UserService {
+
     @Autowired
-    UserRepo userRepo;
+    UserRepoService userRepoService;
 
     @Override
     public String addUser(AddUserDTO addUserDTO){
@@ -27,19 +30,19 @@ public class UserServiceIMPL implements UserService{
                 addUserDTO.getState(),
                 addUserDTO.getPassword()
         );
-        userRepo.save(user);
+        userRepoService.saveUser(user);
         return "Added Successfully";
     }
 
     @Override
     public boolean userAuthentication(LogInDTO logInDTO){
-        User user = userRepo.findByEmailId(logInDTO.getEmailId());
+        User user = userRepoService.findByEmailId(logInDTO.getEmailId());
         return (user != null && user.getPassword().equals(logInDTO.getPassword()));
     }
 
     @Override
     public UserDetailsDTO getUserDetails(String emailId) {
-        User user = userRepo.findByEmailId(emailId);
+        User user = userRepoService.findByEmailId(emailId);
         UserDetailsDTO userDetailsDTO = new UserDetailsDTO(
                 user.getUserId(),
                 user.getFirstName(),
@@ -55,7 +58,7 @@ public class UserServiceIMPL implements UserService{
 
     @Override
     public String updateUser(UpdateUserDTO updateUserDTO){
-        User user = userRepo.findById(updateUserDTO.getUserId()).orElse(null);
+        User user = userRepoService.findById(updateUserDTO.getUserId());
         if(user != null){
             user.setFirstName(updateUserDTO.getFirstName());
             user.setLastName(updateUserDTO.getLastName());
@@ -63,7 +66,7 @@ public class UserServiceIMPL implements UserService{
             user.setMobileNo(updateUserDTO.getMobileNo());
             user.setCity(updateUserDTO.getCity());
             user.setState(updateUserDTO.getState());
-            userRepo.save(user);
+            userRepoService.saveUser(user);
             return "Updated Successfully";
         }
         else {

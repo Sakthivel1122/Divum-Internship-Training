@@ -1,4 +1,4 @@
-package com.example.ectravelwebapplication.model;
+package com.example.ectravelwebapplication.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @Table
-public class SeatType {
+public class TrainSeatType {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)

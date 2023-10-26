@@ -1,0 +1,38 @@
+package com.example.ectravelwebapplication.controller;
+
+import com.example.ectravelwebapplication.DTO.AddTrainDTO;
+import com.example.ectravelwebapplication.DTO.GetAllTrainResponseDTO;
+import com.example.ectravelwebapplication.DTO.GetAvailTrainRequestDTO;
+import com.example.ectravelwebapplication.api.TrainApi;
+import com.example.ectravelwebapplication.service.TrainService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+
+@RestController
+@CrossOrigin
+public class TrainController implements TrainApi {
+
+    @Autowired
+    TrainService trainService;
+
+    @Override
+    public ResponseEntity<String> addTrain(@RequestBody AddTrainDTO addTrainDTO){
+        return trainService.addTrain(addTrainDTO);
+    }
+
+    @Override
+    public ResponseEntity<List<GetAllTrainResponseDTO>> getAllTrain(){
+        return trainService.getAllTrain();
+    }
+
+    @Override
+    public ResponseEntity<List<GetAllTrainResponseDTO>> getAvailTrain(@RequestBody GetAvailTrainRequestDTO getAvailTrainRequestDTO){
+        return trainService.getAvailTrain(getAvailTrainRequestDTO);
+    }
+
+}

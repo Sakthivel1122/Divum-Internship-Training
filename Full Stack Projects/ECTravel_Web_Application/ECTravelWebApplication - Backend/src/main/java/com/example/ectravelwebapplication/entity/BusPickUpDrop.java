@@ -1,4 +1,4 @@
-package com.example.ectravelwebapplication.model;
+package com.example.ectravelwebapplication.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;

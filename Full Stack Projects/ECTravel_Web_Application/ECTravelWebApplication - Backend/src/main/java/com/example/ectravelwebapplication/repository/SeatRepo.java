@@ -1,8 +1,6 @@
 package com.example.ectravelwebapplication.repository;
 
-import com.example.ectravelwebapplication.model.Seat;
-import com.example.ectravelwebapplication.model.User;
-import jakarta.persistence.OrderBy;
+import com.example.ectravelwebapplication.entity.Seat;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.stereotype.Repository;

@@ -1,6 +1,7 @@
 package com.example.ectravelwebapplication.controller;
 
 import com.example.ectravelwebapplication.DTO.*;
+import com.example.ectravelwebapplication.api.BusApi;
 import com.example.ectravelwebapplication.service.BusService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,33 +12,35 @@ import java.util.List;
 
 @RestController
 @CrossOrigin
-@RequestMapping("api/v1/bus")
-public class BusController {
+public class BusController implements BusApi {
 
     @Autowired
     BusService busService;
 
-    @PostMapping("/addBus")
+    @Override
     public ResponseEntity<String> addBus(@RequestBody AddBusDTO addBusDTO) {
         return busService.addBus(addBusDTO);
     }
 
-    @PostMapping("/getAvailBus")
+    @Override
     public List<SearchResponseDTO> getAvailBus(@RequestBody SearchDTO searchDTO){
         return busService.getAvailBus(searchDTO);
     }
-    @GetMapping("/getAllBus")
-    public ResponseEntity<List<GetAllBusDTO>> getAllBus (){
+
+    @Override
+    public ResponseEntity<List<GetAllBusDTO>> getAllBus(){
         return busService.getAllBus();
     }
 
-    @DeleteMapping("/deleteBus/{busId}")
+
+    @Override
     @Transactional
     public ResponseEntity<String> deleteBus(@PathVariable("busId") int busId) {
         return busService.deleteBus(busId);
     }
 
-    @PutMapping("/updateBus")
+
+    @Override
     @Transactional
     public ResponseEntity<String> updateBus(@RequestBody UpdateBusDTO updateBusDTO){
         return busService.updateBus(updateBusDTO);

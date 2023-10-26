@@ -1,11 +1,16 @@
-package com.example.ectravelwebapplication.service;
+package com.example.ectravelwebapplication.service.Impl;
 
 
 import com.example.ectravelwebapplication.DTO.*;
-import com.example.ectravelwebapplication.model.*;
+import com.example.ectravelwebapplication.entity.*;
 import com.example.ectravelwebapplication.repository.BusPickUpDropRepo;
 import com.example.ectravelwebapplication.repository.BusRepo;
 import com.example.ectravelwebapplication.repository.SeatRepo;
+import com.example.ectravelwebapplication.repository.service.BusPickUpDropRepoService;
+import com.example.ectravelwebapplication.repository.service.BusRepoService;
+import com.example.ectravelwebapplication.repository.service.SeatRepoService;
+import com.example.ectravelwebapplication.repository.service.UserRepoService;
+import com.example.ectravelwebapplication.service.BusService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,13 +23,13 @@ import java.util.List;
 public class BusServiceIMPL implements BusService {
 
     @Autowired
-    BusRepo busRepo;
+    BusRepoService busRepoService;
 
     @Autowired
-    BusPickUpDropRepo busPickUpDropRepo;
+    BusPickUpDropRepoService busPickUpDropRepoService;
 
     @Autowired
-    SeatRepo seatRepo;
+    SeatRepoService seatRepoService;
 
     @Override
     public ResponseEntity<String> addBus(AddBusDTO addBusDTO){
@@ -41,7 +46,7 @@ public class BusServiceIMPL implements BusService {
                 addBusDTO.getDropTime(),
                 addBusDTO.getRating()
         );
-        busRepo.save(bus);
+        busRepoService.saveBus(bus);
         if(bus.getSeatType().equals("seater")) {
             for (int i = 0; i < 40; i++) {
                 Seat seat = new Seat(
@@ -51,7 +56,7 @@ public class BusServiceIMPL implements BusService {
                         bus.getSeatType(),
                         i+1
                 );
-                seatRepo.save(seat);
+                seatRepoService.saveSeat(seat);
             }
         }
         else {
@@ -63,7 +68,7 @@ public class BusServiceIMPL implements BusService {
                         bus.getSeatType(),
                         i+1
                 );
-                seatRepo.save(seat);
+                seatRepoService.saveSeat(seat);
             }
         }
         // PickUpDrop
@@ -74,7 +79,7 @@ public class BusServiceIMPL implements BusService {
                     addBusDTO.getPickUps().get(i).getTime(),
                     true
             );
-            busPickUpDropRepo.save(busPickUpDrop);
+            busPickUpDropRepoService.saveBusPickUpDrop(busPickUpDrop);
         }
         for (int i = 0; i < addBusDTO.getDrops().size(); i++) {
             BusPickUpDrop busPickUpDrop = new BusPickUpDrop(
@@ -83,7 +88,7 @@ public class BusServiceIMPL implements BusService {
                     addBusDTO.getDrops().get(i).getTime(),
                     false
             );
-            busPickUpDropRepo.save(busPickUpDrop);
+            busPickUpDropRepoService.saveBusPickUpDrop(busPickUpDrop);
         }
         return new ResponseEntity<>("Bus Added Successfully",HttpStatus.OK);
     }
@@ -91,14 +96,14 @@ public class BusServiceIMPL implements BusService {
 
     @Override
     public List<SearchResponseDTO> getAvailBus(SearchDTO searchDTO) {
-        List<Bus> buses = busRepo.findAllByFromPlaceAndToPlaceAndPickUpDate(searchDTO.getFromPlace(),searchDTO.getToPlace(),searchDTO.getDate());
+        List<Bus> buses = busRepoService.findAllByFromPlaceAndToPlaceAndPickUpDate(searchDTO.getFromPlace(),searchDTO.getToPlace(),searchDTO.getDate());
         int len = buses.size();
         List<SearchResponseDTO> searchResponseDTOS = new ArrayList<>();
         for (int i = 0; i < len; i++) {
             Bus bus = buses.get(i);
             int busId = bus.getBusId();
-            List<Seat> seatList = seatRepo.findAllByBusId(busId);
-            List<BusPickUpDrop> pickUpList = busPickUpDropRepo.findAllByBusIdAndType(busId,true);
+            List<Seat> seatList = seatRepoService.findAllByBusId(busId);
+            List<BusPickUpDrop> pickUpList = busPickUpDropRepoService.findAllByBusIdAndType(busId,true);
             List<PickUpListDTO> pickUpListDTOList =  new ArrayList<>();
             for (int j = 0; j < pickUpList.size(); j++) {
                 BusPickUpDrop busPickUpDrop = pickUpList.get(j);
@@ -108,7 +113,7 @@ public class BusServiceIMPL implements BusService {
                 );
                 pickUpListDTOList.add(pickUpListDTO);
             }
-            List<BusPickUpDrop> dropList = busPickUpDropRepo.findAllByBusIdAndType(busId,false);
+            List<BusPickUpDrop> dropList = busPickUpDropRepoService.findAllByBusIdAndType(busId,false);
             List<DropListDTO> dropListDTOList =  new ArrayList<>();
             for (int j = 0; j < dropList.size(); j++) {
                 BusPickUpDrop busPickUpDrop = dropList.get(j);
@@ -127,11 +132,11 @@ public class BusServiceIMPL implements BusService {
     @Override
     public ResponseEntity<List<GetAllBusDTO>> getAllBus() {
         List<GetAllBusDTO> result = new ArrayList<>();
-        List<Bus> allBusList = busRepo.findAll();
+        List<Bus> allBusList = busRepoService.findAllBus();
         for (int i = 0; i < allBusList.size(); i++) {
             Bus bus = allBusList.get(i);
-            List<BusPickUpDrop> pickUpList = busPickUpDropRepo.findAllByBusIdAndType(bus.getBusId(),true);
-            List<BusPickUpDrop> dropList = busPickUpDropRepo.findAllByBusIdAndType(bus.getBusId(),false);
+            List<BusPickUpDrop> pickUpList = busPickUpDropRepoService.findAllByBusIdAndType(bus.getBusId(),true);
+            List<BusPickUpDrop> dropList = busPickUpDropRepoService.findAllByBusIdAndType(bus.getBusId(),false);
             result.add(new GetAllBusDTO(bus,pickUpList,dropList));
         }
         return new ResponseEntity<>(result, HttpStatus.OK);
@@ -139,15 +144,15 @@ public class BusServiceIMPL implements BusService {
 
     @Override
     public ResponseEntity<String> deleteBus(int busId) {
-        busPickUpDropRepo.deleteAllByBusId(busId);
-        seatRepo.deleteAllByBusId(busId);
-        busRepo.deleteById(busId);
+        busPickUpDropRepoService.deleteAllByBusId(busId);
+        seatRepoService.deleteAllByBusId(busId);
+        busRepoService.deleteById(busId);
         return new ResponseEntity<>("Bus Deleted SuccessFully",HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<String> updateBus(UpdateBusDTO updateBusDTO){
-        Bus bus = busRepo.findById(updateBusDTO.getBusDetails().getBusId()).orElse(null);
+        Bus bus = busRepoService.findById(updateBusDTO.getBusDetails().getBusId());
         if(bus != null) {
         bus.setBusName(updateBusDTO.getBusDetails().getBusName());
         bus.setFromPlace(updateBusDTO.getBusDetails().getFromPlace());
@@ -160,7 +165,7 @@ public class BusServiceIMPL implements BusService {
         bus.setDropDate(updateBusDTO.getBusDetails().getDropDate());
         bus.setDropTime(updateBusDTO.getBusDetails().getDropTime());
         bus.setRating(updateBusDTO.getBusDetails().getRating());
-        busPickUpDropRepo.deleteAllByBusId(bus.getBusId());
+        busPickUpDropRepoService.deleteAllByBusId(bus.getBusId());
         for (int i = 0; i < updateBusDTO.getBusPickUpList().size(); i++) {
             BusPickUpDrop busPickUpDrop = new BusPickUpDrop(
                     bus.getBusId(),
@@ -168,7 +173,7 @@ public class BusServiceIMPL implements BusService {
                     updateBusDTO.getBusPickUpList().get(i).getTime(),
                     true
             );
-            busPickUpDropRepo.save(busPickUpDrop);
+            busPickUpDropRepoService.saveBusPickUpDrop(busPickUpDrop);
         }
         for (int i = 0; i < updateBusDTO.getBusPickUpList().size(); i++) {
             BusPickUpDrop busPickUpDrop = new BusPickUpDrop(
@@ -177,7 +182,7 @@ public class BusServiceIMPL implements BusService {
                     updateBusDTO.getBusPickUpList().get(i).getTime(),
                     false
             );
-            busPickUpDropRepo.save(busPickUpDrop);
+            busPickUpDropRepoService.saveBusPickUpDrop(busPickUpDrop);
             }
         return new ResponseEntity<>("Bus Updated Successfully",HttpStatus.OK);
         }

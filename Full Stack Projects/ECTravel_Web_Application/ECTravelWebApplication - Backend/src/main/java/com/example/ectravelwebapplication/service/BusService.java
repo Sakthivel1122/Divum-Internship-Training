@@ -2,9 +2,11 @@ package com.example.ectravelwebapplication.service;
 
 import com.example.ectravelwebapplication.DTO.*;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public interface BusService {
     ResponseEntity<String> addBus(AddBusDTO addBusDTO);
 

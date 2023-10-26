@@ -4,7 +4,9 @@ import com.example.ectravelwebapplication.DTO.AddUserDTO;
 import com.example.ectravelwebapplication.DTO.LogInDTO;
 import com.example.ectravelwebapplication.DTO.UpdateUserDTO;
 import com.example.ectravelwebapplication.DTO.UserDetailsDTO;
+import org.springframework.stereotype.Service;
 
+@Service
 public interface UserService {
     String addUser(AddUserDTO addUserDTO);
 

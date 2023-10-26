@@ -1,7 +1,7 @@
 package com.example.ectravelwebapplication.DTO;
 
-import com.example.ectravelwebapplication.model.Bus;
-import com.example.ectravelwebapplication.model.Seat;
+import com.example.ectravelwebapplication.entity.Bus;
+import com.example.ectravelwebapplication.entity.Seat;
 
 import java.util.List;
 
