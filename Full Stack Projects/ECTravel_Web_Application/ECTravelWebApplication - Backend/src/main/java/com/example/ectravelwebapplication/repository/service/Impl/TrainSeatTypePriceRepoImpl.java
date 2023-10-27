@@ -18,4 +18,10 @@ public class TrainSeatTypePriceRepoImpl implements TrainSeatTypePriceRepoService
     public TrainSeatTypePrice saveTrainSeatTypePrice(TrainSeatTypePrice trainSeatTypePrice) {
         return trainSeatTypePriceRepo.save(trainSeatTypePrice);
     }
+
+    @Override
+    public void deleteByTrainDetails_TrainId(int trainId) {
+        trainSeatTypePriceRepo.deleteByTrainDetails_TrainId(trainId);
+    }
+
 }

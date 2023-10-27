@@ -11,7 +11,7 @@ public interface TrainSeatRepoService {
 
     List<TrainSeat> findAllByTrainDetails_TrainId(int trainId);
 
-
-
     List<TrainSeat> findAllByTrainDetails_TrainIdAndTrainSeatTypePriceDetails_SeatTypeDetails_SeatTypeIdAndStatus(int trainId, int seatTypeId, boolean statue);
+
+    void deleteByTrainDetails_TrainId(int trainId);
 }

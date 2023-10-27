@@ -1,5 +1,6 @@
 const COMMON_API_LINK = "http://localhost:8088/api/v1/user/";
 const COMMON_BUS_API_LINK = "http://localhost:8088/api/v1/bus/";
+const COMMON_TRAIN_API_LINK = "http://localhost:8088/api/v1/train/";
 
 const API_LINKS = {
   ADD_USER: COMMON_API_LINK + "adduser",
@@ -16,6 +17,11 @@ const API_LINKS = {
       DELETE_BUS: COMMON_BUS_API_LINK + "deleteBus/",
       UPDATE_BUS: COMMON_BUS_API_LINK + "updateBus",
     },
+    MANAGE_TRAIN: {
+      GET_ALL_TRAIN: COMMON_TRAIN_API_LINK + "getAllTrain",
+      ADD_TRAIN: COMMON_TRAIN_API_LINK + "addTrain",
+      DELETE_TRAIN: COMMON_TRAIN_API_LINK + "deleteTrain/"
+    }
   },
 };
 

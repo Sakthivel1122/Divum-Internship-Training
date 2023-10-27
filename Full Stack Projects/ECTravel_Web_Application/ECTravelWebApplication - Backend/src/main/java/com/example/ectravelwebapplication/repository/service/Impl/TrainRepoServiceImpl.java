@@ -28,4 +28,9 @@ public class TrainRepoServiceImpl implements TrainRepoService {
     public List<Train> findAllByFromPlaceAndToPlaceAndPickUpDate(String fromPlace,String toPlace,String pickUpDate){
         return trainRepo.findAllByFromPlaceAndToPlaceAndPickUpDate(fromPlace,toPlace,pickUpDate);
     }
+
+    @Override
+    public void deleteById(int trainId){
+        trainRepo.deleteById(trainId);
+    }
 }

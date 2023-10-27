@@ -4,6 +4,7 @@ import AdminSideBar from "./AdminSideBar";
 import { Outlet } from "react-router-dom";
 import AddBusPopUp from "./AddBusPopUp";
 import { useAdmin } from "../../contexts/AdminContext";
+import TrainFormPopUP from "./ManageTrainBooking/TrainFormPopUP";
 const Admin = () => {
   const adminContext = useAdmin();
   return (
@@ -11,6 +12,7 @@ const Admin = () => {
         <AdminSideBar />
         <Outlet />
       {adminContext.popUp.addBusPopUp.visible && <AddBusPopUp/>}
+      {adminContext.trainFormPopUp.visible && <TrainFormPopUP/>}
     </div>
   );
 };

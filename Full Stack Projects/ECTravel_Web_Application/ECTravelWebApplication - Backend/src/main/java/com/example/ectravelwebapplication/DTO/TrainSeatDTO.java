@@ -8,16 +8,16 @@ import java.util.List;
 @Data
 public class TrainSeatDTO {
 
-    private int oneACount;
+    private TrainSeatDetailsDTO oneA;
 
-    private int twoACount;
+    private TrainSeatDetailsDTO twoA;
 
-    private int threeACount;
+    private TrainSeatDetailsDTO threeA;
 
-    private int sleeperCount;
+    private TrainSeatDetailsDTO sleeper;
 
-    private int secondSeaterCount;
+    private TrainSeatDetailsDTO secondSeater;
 
-    private int chairCarCount;
+    private TrainSeatDetailsDTO chairCar;
 
 }

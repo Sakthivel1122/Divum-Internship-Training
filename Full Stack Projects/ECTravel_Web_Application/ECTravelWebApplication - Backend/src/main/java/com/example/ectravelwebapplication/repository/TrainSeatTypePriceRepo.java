@@ -8,4 +8,7 @@ import org.springframework.stereotype.Repository;
 @EnableJpaRepositories
 @Repository
 public interface TrainSeatTypePriceRepo extends JpaRepository<TrainSeatTypePrice, Integer> {
+    void deleteByTrainDetails_TrainId(int trainId);
+
+    void deleteAllByTrainDetails_TrainId(int trainId);
 }

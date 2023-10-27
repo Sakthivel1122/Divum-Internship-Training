@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./SignUp.css";
+import "./SignUp.scss";
 import side_pic from "../../assets/images/signup/side-pic-3.jpg";
 import {
   Link,

@@ -20,4 +20,7 @@ public interface TrainApi {
 
     @PostMapping("getAvailTrain")
     ResponseEntity<List<GetAllTrainResponseDTO>> getAvailTrain(@RequestBody GetAvailTrainRequestDTO getAvailTrainRequestDTO);
+
+    @DeleteMapping("deleteTrain/{trainId}")
+    ResponseEntity<String> deleteTrain(@PathVariable("trainId") int trainId);
 }

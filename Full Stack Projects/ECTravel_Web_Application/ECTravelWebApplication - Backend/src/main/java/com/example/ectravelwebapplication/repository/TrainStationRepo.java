@@ -13,6 +13,10 @@ import java.util.Optional;
 @Repository
 public interface TrainStationRepo extends JpaRepository<TrainStation, Integer> {
 
-    Optional<TrainStation> findAllByTrainId(int trainId);
+    List<TrainStation> findTrainStationsByTrainId(int trainId);
+
     List<TrainStation> findByTrainId(int trainId);
+
+    void deleteByTrainId(int trainId);
+
 }

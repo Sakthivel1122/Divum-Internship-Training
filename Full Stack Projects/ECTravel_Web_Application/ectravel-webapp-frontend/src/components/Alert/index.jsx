@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./Alert.css";
+import "./Alert.scss";
 import { useMain } from "../../contexts/MainContext";
 
 const Alert = ({

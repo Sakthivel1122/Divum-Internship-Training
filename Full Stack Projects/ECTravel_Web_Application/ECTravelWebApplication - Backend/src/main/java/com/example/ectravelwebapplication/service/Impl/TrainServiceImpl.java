@@ -5,7 +5,7 @@ import com.example.ectravelwebapplication.entity.Train;
 import com.example.ectravelwebapplication.entity.TrainSeat;
 import com.example.ectravelwebapplication.entity.TrainSeatTypePrice;
 import com.example.ectravelwebapplication.entity.TrainStation;
-import com.example.ectravelwebapplication.repository.TrainSeatRepo;
+import com.example.ectravelwebapplication.repository.TrainSeatTypePriceRepo;
 import com.example.ectravelwebapplication.repository.TrainStationRepo;
 import com.example.ectravelwebapplication.repository.service.*;
 import com.example.ectravelwebapplication.service.TrainService;
@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class TrainServiceImpl implements TrainService {
@@ -37,7 +36,11 @@ public class TrainServiceImpl implements TrainService {
     TrainStationRepoService trainStationRepoService;
 
     @Autowired
-    TrainStationRepo trainStationRepo;
+    TrainStationRepo trainStationRepo; //
+
+    @Autowired
+    TrainSeatTypePriceRepo trainSeatTypePriceRepo;
+
     @Override
     public ResponseEntity<String> addTrain(AddTrainDTO addTrainDTO){
         Train train = new Train(
@@ -77,52 +80,66 @@ public class TrainServiceImpl implements TrainService {
 
     @Override
     public ResponseEntity<List<GetAllTrainResponseDTO>> getAllTrain(){
-        List<GetAllTrainResponseDTO> allTrainList = new ArrayList<>();
         List<Train> trains =  trainRepoService.findAll();
-        for (int i = 0; i < trains.size(); i++) {
-            Train train = trains.get(i);
-            TrainSeatDTO trainSeatDTO = new TrainSeatDTO();
-            trainSeatDTO.setOneACount(trainSeatRepoService.findAllByTrainDetails_TrainIdAndTrainSeatTypePriceDetails_SeatTypeDetails_SeatTypeIdAndStatus(train.getTrainId(),1,false).size());
-            trainSeatDTO.setTwoACount(trainSeatRepoService.findAllByTrainDetails_TrainIdAndTrainSeatTypePriceDetails_SeatTypeDetails_SeatTypeIdAndStatus(train.getTrainId(),2,false).size());
-            trainSeatDTO.setThreeACount(trainSeatRepoService.findAllByTrainDetails_TrainIdAndTrainSeatTypePriceDetails_SeatTypeDetails_SeatTypeIdAndStatus(train.getTrainId(),3,false).size());
-            trainSeatDTO.setSleeperCount(trainSeatRepoService.findAllByTrainDetails_TrainIdAndTrainSeatTypePriceDetails_SeatTypeDetails_SeatTypeIdAndStatus(train.getTrainId(),4,false).size());
-            trainSeatDTO.setSecondSeaterCount(trainSeatRepoService.findAllByTrainDetails_TrainIdAndTrainSeatTypePriceDetails_SeatTypeDetails_SeatTypeIdAndStatus(train.getTrainId(),5,false).size());
-            trainSeatDTO.setChairCarCount(trainSeatRepoService.findAllByTrainDetails_TrainIdAndTrainSeatTypePriceDetails_SeatTypeDetails_SeatTypeIdAndStatus(train.getTrainId(),6,false).size());
-
-//            List<TrainSeat>  trainSeatList = trainSeatRepoService.findAllByTrainDetails_TrainId(train.getTrainId());
-//            List<TrainStation> trainStationList = trainStationRepoService.findAllByTrainId(1);
-            List<TrainStation> trainStationList2 = trainStationRepoService.findAllByTrainId(train.getTrainId());
-            System.out.println(train.getTrainId() + " >> " + trainStationRepoService.findAllByTrainId(train.getTrainId()));
-            GetAllTrainResponseDTO getAllTrainResponseDTO = new GetAllTrainResponseDTO(train, trainSeatDTO,trainStationList2);
-            allTrainList.add(getAllTrainResponseDTO);
-        }
+        List<GetAllTrainResponseDTO> allTrainList = getAllTrainResult(trains);
         return new ResponseEntity<>(allTrainList, HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<List<GetAllTrainResponseDTO>> getAvailTrain(GetAvailTrainRequestDTO getAvailTrainRequestDTO){
-        List<GetAllTrainResponseDTO> allAvailTrainList = new ArrayList<>();
         List<Train> trains =  trainRepoService.findAllByFromPlaceAndToPlaceAndPickUpDate(
                 getAvailTrainRequestDTO.getFromPlace(),
                 getAvailTrainRequestDTO.getToPlace(),
                 getAvailTrainRequestDTO.getPickUpDate()
         );
-        for (int i = 0; i < trains.size(); i++) {
-            Train train = trains.get(i);
-            TrainSeatDTO trainSeatDTO = new TrainSeatDTO();
-            trainSeatDTO.setOneACount(trainSeatRepoService.findAllByTrainDetails_TrainIdAndTrainSeatTypePriceDetails_SeatTypeDetails_SeatTypeIdAndStatus(train.getTrainId(),1,false).size());
-            trainSeatDTO.setTwoACount(trainSeatRepoService.findAllByTrainDetails_TrainIdAndTrainSeatTypePriceDetails_SeatTypeDetails_SeatTypeIdAndStatus(train.getTrainId(),2,false).size());
-            trainSeatDTO.setThreeACount(trainSeatRepoService.findAllByTrainDetails_TrainIdAndTrainSeatTypePriceDetails_SeatTypeDetails_SeatTypeIdAndStatus(train.getTrainId(),3,false).size());
-            trainSeatDTO.setSleeperCount(trainSeatRepoService.findAllByTrainDetails_TrainIdAndTrainSeatTypePriceDetails_SeatTypeDetails_SeatTypeIdAndStatus(train.getTrainId(),4,false).size());
-            trainSeatDTO.setSecondSeaterCount(trainSeatRepoService.findAllByTrainDetails_TrainIdAndTrainSeatTypePriceDetails_SeatTypeDetails_SeatTypeIdAndStatus(train.getTrainId(),5,false).size());
-            trainSeatDTO.setChairCarCount(trainSeatRepoService.findAllByTrainDetails_TrainIdAndTrainSeatTypePriceDetails_SeatTypeDetails_SeatTypeIdAndStatus(train.getTrainId(),6,false).size());
-
-//            List<TrainSeat>  trainSeatList = trainSeatRepoService.findAllByTrainDetails_TrainId(train.getTrainId());
-            List<TrainStation> trainStationList = trainStationRepoService.findAllByTrainId(train.getTrainId());
-
-            GetAllTrainResponseDTO getAllTrainResponseDTO = new GetAllTrainResponseDTO(train, trainSeatDTO,trainStationList );
-            allAvailTrainList.add(getAllTrainResponseDTO);
-        }
+        List<GetAllTrainResponseDTO> allAvailTrainList = getAllTrainResult(trains);
         return new ResponseEntity<>(allAvailTrainList, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<String> deleteTrain(int trainId) {
+        trainStationRepo.deleteByTrainId(trainId);
+        trainSeatRepoService.deleteByTrainDetails_TrainId(trainId);
+        trainSeatTypePriceRepo.deleteAllByTrainDetails_TrainId(trainId);
+        trainRepoService.deleteById(trainId);
+        return new ResponseEntity<>("Train Deleted Successfully", HttpStatus.OK);
+    }
+
+    public List<GetAllTrainResponseDTO> getAllTrainResult(List<Train> trains){
+        List<GetAllTrainResponseDTO> allTrainList = new ArrayList<>();
+        for (Train train : trains) {
+            TrainSeatDTO trainSeatDTO = new TrainSeatDTO();
+            List<TrainSeat> trainSeatList;
+            TrainSeatDetailsDTO trainSeatDetailsDTO;
+
+            trainSeatList = trainSeatRepoService.findAllByTrainDetails_TrainIdAndTrainSeatTypePriceDetails_SeatTypeDetails_SeatTypeIdAndStatus(train.getTrainId(),1,false);
+            trainSeatDetailsDTO = new TrainSeatDetailsDTO(trainSeatList.size(), !trainSeatList.isEmpty() ? trainSeatList.get(0).getTrainSeatTypePriceDetails().getPrice() + "" : "null");
+            trainSeatDTO.setOneA(trainSeatDetailsDTO);
+
+            trainSeatList = trainSeatRepoService.findAllByTrainDetails_TrainIdAndTrainSeatTypePriceDetails_SeatTypeDetails_SeatTypeIdAndStatus(train.getTrainId(),2,false);
+            trainSeatDetailsDTO = new TrainSeatDetailsDTO(trainSeatList.size(), !trainSeatList.isEmpty() ? trainSeatList.get(0).getTrainSeatTypePriceDetails().getPrice() + "" : "null");
+            trainSeatDTO.setTwoA(trainSeatDetailsDTO);
+
+            trainSeatList = trainSeatRepoService.findAllByTrainDetails_TrainIdAndTrainSeatTypePriceDetails_SeatTypeDetails_SeatTypeIdAndStatus(train.getTrainId(),3,false);
+            trainSeatDetailsDTO = new TrainSeatDetailsDTO(trainSeatList.size(), !trainSeatList.isEmpty() ? trainSeatList.get(0).getTrainSeatTypePriceDetails().getPrice() + "" : "null");
+            trainSeatDTO.setThreeA(trainSeatDetailsDTO);
+
+            trainSeatList = trainSeatRepoService.findAllByTrainDetails_TrainIdAndTrainSeatTypePriceDetails_SeatTypeDetails_SeatTypeIdAndStatus(train.getTrainId(),4,false);
+            trainSeatDetailsDTO = new TrainSeatDetailsDTO(trainSeatList.size(), !trainSeatList.isEmpty() ? trainSeatList.get(0).getTrainSeatTypePriceDetails().getPrice() + "" : "null");
+            trainSeatDTO.setSleeper(trainSeatDetailsDTO);
+
+            trainSeatList = trainSeatRepoService.findAllByTrainDetails_TrainIdAndTrainSeatTypePriceDetails_SeatTypeDetails_SeatTypeIdAndStatus(train.getTrainId(),5,false);
+            trainSeatDetailsDTO = new TrainSeatDetailsDTO(trainSeatList.size(), !trainSeatList.isEmpty() ? trainSeatList.get(0).getTrainSeatTypePriceDetails().getPrice() + "" : "null");
+            trainSeatDTO.setSecondSeater(trainSeatDetailsDTO);
+
+            trainSeatList = trainSeatRepoService.findAllByTrainDetails_TrainIdAndTrainSeatTypePriceDetails_SeatTypeDetails_SeatTypeIdAndStatus(train.getTrainId(),6,false);
+            trainSeatDetailsDTO = new TrainSeatDetailsDTO(trainSeatList.size(), !trainSeatList.isEmpty() ? trainSeatList.get(0).getTrainSeatTypePriceDetails().getPrice() + "" : "null");
+            trainSeatDTO.setChairCar(trainSeatDetailsDTO);
+
+            List<TrainStation> trainStationList = trainStationRepoService.findAllByTrainId(train.getTrainId());
+            GetAllTrainResponseDTO getAllTrainResponseDTO = new GetAllTrainResponseDTO(train, trainSeatDTO,trainStationList);
+            allTrainList.add(getAllTrainResponseDTO);
+        }
+        return allTrainList;
     }
 }

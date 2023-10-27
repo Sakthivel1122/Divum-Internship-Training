@@ -10,4 +10,5 @@ public interface TrainStationRepoService {
     void saveTrainStation(TrainStation trainStation);
 
     List<TrainStation> findAllByTrainId(int trainId);
+
 }

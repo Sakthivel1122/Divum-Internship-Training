@@ -23,6 +23,6 @@ public class TrainStationRepoImpl implements TrainStationRepoService {
 
     @Override
     public List<TrainStation> findAllByTrainId(int trainId){
-        return trainStationRepo.findByTrainId(1);
+        return trainStationRepo.findTrainStationsByTrainId(trainId);
     }
 }

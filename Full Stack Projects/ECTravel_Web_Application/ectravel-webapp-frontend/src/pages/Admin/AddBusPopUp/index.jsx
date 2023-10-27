@@ -151,17 +151,6 @@ const AddBusPopUp = () => {
     setPickUps([]);
     setDrops([]);
   };
-  const handleCloseBtn = () => {
-    resetForm();
-    adminContext.handleSetPopUp({
-      ...adminContext.popUp,
-      addBusPopUp: {
-        ...adminContext.popUp.addBusPopUp,
-        visible: false,
-        details: null,
-      },
-    });
-  };
   useEffect(() => {
     if (adminContext.popUp.addBusPopUp.details !== null) {
       const obj = adminContext.popUp.addBusPopUp.details.busDetails;
@@ -181,14 +170,27 @@ const AddBusPopUp = () => {
       setDrops(adminContext.popUp.addBusPopUp.details.busDropList);
     }
   }, []);
+  const handleClose = (e) => {
+    const { className } = e.target;
+    if (className === "AddBusPopUp" || className.includes("close-btn")) {
+      resetForm();
+      adminContext.handleSetPopUp({
+        ...adminContext.popUp,
+        addBusPopUp: {
+          ...adminContext.popUp.addBusPopUp,
+          visible: false,
+          details: null,
+        },
+      });
+    }
+  };
   return (
-    <div className="AddBusPopUp">
+    <div className="AddBusPopUp" onClick={handleClose}>
       <form>
         <div className="form-header">
           <h2>Add Bus</h2>
           <span
             class="material-symbols-outlined close-btn"
-            onClick={handleCloseBtn}
           >
             close
           </span>
@@ -374,9 +376,11 @@ const AddBusPopUp = () => {
             </div>
           </div>
         </div>
-        <button className="submit-btn" onClick={handleSubmit}>
-          Submit
-        </button>
+        <div className="submit-btn-wrapper">
+          <button className="submit-btn" onClick={handleSubmit}>
+            Submit
+          </button>
+        </div>
       </form>
     </div>
   );

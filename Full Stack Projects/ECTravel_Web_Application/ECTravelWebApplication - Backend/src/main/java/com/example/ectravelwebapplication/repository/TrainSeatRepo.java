@@ -13,4 +13,6 @@ public interface TrainSeatRepo extends JpaRepository<TrainSeat, Integer> {
     List<TrainSeat> findAllByTrainDetails_TrainId(int trainId);
 
     List<TrainSeat> findAllByTrainDetails_TrainIdAndTrainSeatTypePriceDetails_SeatTypeDetails_SeatTypeIdAndStatus(int trainId,int seatTypeId,boolean status);
+
+    void deleteByTrainDetails_TrainId(int trainId);
 }

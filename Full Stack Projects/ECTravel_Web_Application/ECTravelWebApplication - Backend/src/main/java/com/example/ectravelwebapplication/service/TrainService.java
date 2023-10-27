@@ -15,4 +15,6 @@ public interface TrainService {
     ResponseEntity<List<GetAllTrainResponseDTO>> getAllTrain();
 
     ResponseEntity<List<GetAllTrainResponseDTO>> getAvailTrain(GetAvailTrainRequestDTO getAvailTrainRequestDTO);
+
+    ResponseEntity<String> deleteTrain(int trainId);
 }
