@@ -19,7 +19,6 @@ const Profile = () => {
   const mainContext = useMain();
 
   useEffect(() => {
-    console.log("HI");
     loadUserDetails();
   }, []);
 
@@ -49,7 +48,6 @@ const Profile = () => {
     }
     const response = handleUpdateUserDetailsApiCall(dataObj);
     response.then(res => {
-      console.log(res);
       alert("Updated")
         loadUserDetails();
     })

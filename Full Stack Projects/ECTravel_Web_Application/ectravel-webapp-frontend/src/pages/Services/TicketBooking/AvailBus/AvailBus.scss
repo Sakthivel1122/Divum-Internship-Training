@@ -1,4 +1,4 @@
-@import "../../assets/styles/globalConstants";
+@import "../../../../assets/styles/globalConstants";
 .AvailBus {
   min-height: 100vh;
   background-color: $global-bg-color;
@@ -27,7 +27,7 @@
   height: 3.5rem;
   border: 1px solid;
   color: white;
-  background-color: $busBooking-navBar-bg;
+  background-color: $booking-navBar-bg;
   position: sticky;
   top: 4rem;
   z-index: 10;

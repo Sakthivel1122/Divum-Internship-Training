@@ -75,3 +75,15 @@ export const handleDeleteTrainApiCall = async (trainId) => {
     return false;
   }
 };
+
+export const handleUpdateTrainApiCall = async (dataObj) => {
+  try {
+    const response = await axios.put(
+      API_LINKS.ADMIN.MANAGE_TRAIN.UPDATE_TRAIN, dataObj
+    );
+    return response;
+  } catch (error) {
+    console.log("UPDATE TRAIN API ERROR", error);
+    return false;
+  }
+};

@@ -1,10 +1,15 @@
-import React, { useState } from "react";
-import "./TrainFormPopUP.scss";
-import { useAdmin } from "../../../../contexts/AdminContext";
-import { handleAddTrainApiCall, handleGetAllTrainApiCall } from "../../../../utils/AdminApiCall";
+import React, { useEffect, useState } from "react";
+import "./TrainFormPopUp.scss";
+import { useAdmin } from "../../contexts/AdminContext";
+import {
+  handleAddTrainApiCall,
+  handleGetAllTrainApiCall,
+  handleUpdateTrainApiCall,
+} from "../../utils/AdminApiCall";
 const TrainFormPopUP = () => {
   const adminContext = useAdmin();
   const [formData, setFormData] = useState({
+    trainId: null,
     trainName: "",
     fromPlace: "",
     toPlace: "",
@@ -20,6 +25,18 @@ const TrainFormPopUP = () => {
       adminContext.handleSetTrainFormPopUp({
         ...adminContext.trainFormPopUp,
         visible: false,
+        details: null,
+      });
+      setFormData({
+        trainId: null,
+        trainName: "",
+        fromPlace: "",
+        toPlace: "",
+        rating: "",
+        pickUpDateAndTime: "",
+        dropDateAndTime: "",
+        prices: [],
+        trainStationList: [],
       });
     }
   };
@@ -80,14 +97,34 @@ const TrainFormPopUP = () => {
       prices: formData.prices,
       trainStationList: formData.trainStationList,
     };
-    const response = handleAddTrainApiCall(dataObj);
-    response.then((res) => {
-      handleGetAllTrain();
-      adminContext.handleSetTrainFormPopUp({
-        ...adminContext.trainFormPopUp,
-        visible: false,
+    if (
+      adminContext.trainFormPopUp.details &&
+      adminContext.trainFormPopUp.details !== null
+    ){
+      const updateDataObj = {
+        trainId: formData.trainId,
+        trainData: dataObj,
+      }
+      const response = handleUpdateTrainApiCall(updateDataObj);
+      response.then((res) => {
+        handleGetAllTrain();
+        adminContext.handleSetTrainFormPopUp({
+          ...adminContext.trainFormPopUp,
+          visible: false,
+          details: null,
+        });
       });
-    })
+    } else {
+      const response = handleAddTrainApiCall(dataObj);
+      response.then((res) => {
+        handleGetAllTrain();
+        adminContext.handleSetTrainFormPopUp({
+          ...adminContext.trainFormPopUp,
+          visible: false,
+          details: null,
+        });
+      });
+    }
   };
   const handleGetAllTrain = () => {
     const response = handleGetAllTrainApiCall();
@@ -95,12 +132,39 @@ const TrainFormPopUP = () => {
       adminContext.handleSetTrainList(res.data);
     });
   };
+  useEffect(() => {
+    if (
+      adminContext.trainFormPopUp.details &&
+      adminContext.trainFormPopUp.details !== null
+    ) {
+      const train = adminContext.trainFormPopUp.details;
+      const priceList = [];
+      priceList.push(train.trainSeatDetails.oneA.price);
+      priceList.push(train.trainSeatDetails.twoA.price);
+      priceList.push(train.trainSeatDetails.threeA.price);
+      priceList.push(train.trainSeatDetails.sleeper.price);
+      priceList.push(train.trainSeatDetails.secondSeater.price);
+      priceList.push(train.trainSeatDetails.chairCar.price);
+      setFormData({
+        trainId: train.train.trainId,
+        trainName: train.train.trainName,
+        fromPlace: train.train.fromPlace,
+        toPlace: train.train.toPlace,
+        rating: train.train.rating,
+        pickUpDateAndTime:
+          train.train.pickUpDate + "T" + train.train.pickUpTime,
+        dropDateAndTime: train.train.dropDate + "T" + train.train.dropTime,
+        prices: priceList,
+        trainStationList: train.trainStationList,
+      });
+    }
+  }, []);
   return (
     <div className="TrainFormPopUP" onClick={handleClose}>
       <form className="train-form">
         <div className="train-form-1">
           <h2 className="form-title">Add Train</h2>
-          <span class="material-symbols-outlined close-btn">close</span>
+          <span className="material-symbols-outlined close-btn">close</span>
         </div>
         <div className="train-form-2">
           <div className="train-form-2-1">
@@ -247,7 +311,7 @@ const TrainFormPopUP = () => {
                         type="button"
                         onClick={() => handleDeleteStationBtn(index)}
                       >
-                        <span class="material-symbols-outlined">close</span>
+                        <span className="material-symbols-outlined">close</span>
                       </button>
                     </div>
                   </div>

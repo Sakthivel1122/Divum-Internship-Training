@@ -22,9 +22,9 @@ public class TrainSeatTypePrice {
     @JoinColumn(name = "fk_seat_type_details")
     private TrainSeatType seatTypeDetails; // F
 
-    private float price;
+    private String price;
 
-    public TrainSeatTypePrice(Train trainDetails, TrainSeatType seatTypeDetails, float price) {
+    public TrainSeatTypePrice(Train trainDetails, TrainSeatType seatTypeDetails, String price) {
         this.trainDetails = trainDetails;
         this.seatTypeDetails = seatTypeDetails;
         this.price = price;

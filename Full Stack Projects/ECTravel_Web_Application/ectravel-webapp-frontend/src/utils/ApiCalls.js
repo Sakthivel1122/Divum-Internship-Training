@@ -66,3 +66,15 @@ export const handleAddUserApiCall = async (dataObj) => {
     return false;
   }
 };
+
+// ------------ TRAIN BOOKING -------------
+
+export const handleGetAvailTrainApiCall = async (dataObj) => {
+  try {
+    const response = await axios.post(API_LINKS.TRAIN_API_LINKS.GET_AVAIL_TRAINS, dataObj);
+    return response;
+  } catch (error) {
+    console.log("ADD USER API ERROR >>", error);
+    return false;
+  }
+};

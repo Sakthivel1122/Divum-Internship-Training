@@ -162,26 +162,64 @@ export const handleSleeprtSeatSplit = (arr) => {
   };
 };
 
-// export const upperBerthLastTen = (arr) => {
-//   let resArr = [];
-//   for (let i = arr.length / 2; i < arr.length; i++) {
-//     resArr.push(arr[i]);
-//   }
-//   return resArr;
-// };
+export const generateNextTenDate = (date) => {
+  const thirtyDayMonth = [4, 6, 9, 11];
+  let [year, month, day] = date.split("-");
+  year = Number(year);
+  month = Number(month);
+  day = Number(day);
+  console.log(year, month, day);
+  let currYear = year;
+  let currMonth = month;
+  let currDay = day;
+  const result = [];
+  if (month === 2) {
+    let count = 0;
 
-// export const upperBerthFirstFive = (arr) => {
-//   let resArr = [];
-//   for (let i = arr.length / 2; i < arr.length; i++) {
-//     resArr.push(arr[i]);
-//   }
-//   return resArr;
-// };
+    let limitDay = isLeapYear(year) ? 29 : 28;
+    while (currDay <= limitDay && count < 10) {
+      result.push({
+        date: currYear + "-" + currMonth + "-" + (currDay < 10 ? "0":"") + currDay,
+        formatted: currDay + " " + monthNoToMonthStr(currMonth),
+      });
+      count++;
+      currDay++;
+    }
+    currDay = 1;
+    currMonth++;
+    while (count < 10) {
+      result.push({
+        date: currYear + "-" + currMonth + "-" + (currDay < 10 ? "0":"") + currDay,
+        formatted: currDay + " " + monthNoToMonthStr(currMonth),
+      });
+      count++;
+      currDay++;
+    }
+  } else {
+    let count = 0;
+    let limitDay = thirtyDayMonth.includes(month) ? 30 : 31;
+    while (currDay <= limitDay && count < 10) {
+      result.push({
+        date: currYear + "-" + currMonth + "-" + (currDay < 10 ? "0":"") + currDay,
+        formatted: currDay + " " + monthNoToMonthStr(currMonth),
+      });
+      count++;
+      currDay++;
+    }
+    currDay = 1;
+    currMonth++;
+    while (count < 10) {
+      result.push({
+        date: currYear + "-" + currMonth + "-" + (currDay < 10 ? "0":"") + currDay,
+        formatted: currDay + " " + monthNoToMonthStr(currMonth),
+      });
+      count++;
+      currDay++;
+    }
+  }
+  return result;
+};
 
-// export const upperBerthLastTen = (arr) => {
-//   let resArr = [];
-//   for (let i = arr.length / 2; i < arr.length; i++) {
-//     resArr.push(arr[i]);
-//   }
-//   return resArr;
-// };
+const isLeapYear = (year) => {
+  return year % 100 === 0 ? year % 400 === 0 : year % 4 === 0;
+};

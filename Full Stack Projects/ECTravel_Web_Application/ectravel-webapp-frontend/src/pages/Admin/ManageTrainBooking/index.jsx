@@ -22,7 +22,11 @@ const ManageTrainBooking = () => {
     });
   };
   const handleEditBtn = (train) => {
-
+    adminContext.handleSetTrainFormPopUp({
+      ...adminContext.trainFormPopUp,
+      visible: true,
+      details: train
+    });
   };
   const handleDeleteBtn = (trainId) => {
     const response = handleDeleteTrainApiCall(trainId);
@@ -56,7 +60,7 @@ const ManageTrainBooking = () => {
               adminContext.trainList.map((train, index) => {
                 return (
                   <tr key={index}>
-                    <td>{train.train.trainId}</td>
+                    <td>{index + 1}</td>
                     <td>{train.train.trainName}</td>
                     <td>{train.train.fromPlace}</td>
                     <td>{train.train.toPlace}</td>

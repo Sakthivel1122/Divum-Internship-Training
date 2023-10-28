@@ -45,7 +45,6 @@ const TrackLocation = () => {
       console.log("Error while accessing location...");
     };
     navigator.geolocation.getCurrentPosition(success, error);
-    console.log(location?.latitude, location?.longitude);
   }, []);
 
   return (

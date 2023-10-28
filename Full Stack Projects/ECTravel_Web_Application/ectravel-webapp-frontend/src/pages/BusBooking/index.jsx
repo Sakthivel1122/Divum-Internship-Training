@@ -14,7 +14,6 @@ const BusBooking = () => {
         gender: "",
       });
     });
-    console.log("objList", objList);
     return objList;
   };
   const [bookingData, setBookingData] = useState({
@@ -25,7 +24,6 @@ const BusBooking = () => {
     },
   });
   const selectedSeatNoListNum = location.state.selectedSeatNoList.split(",");
-  // console.log(">>", location.state);
   const handleContactDetailsOnChange = (e) => {
     const { name, value } = e.target;
     setBookingData({
@@ -48,7 +46,6 @@ const BusBooking = () => {
       travellersDetails: tempList,
     });
   };
-  // console.log(bookingData);
   const handleSelectGender = (index, value) => {
     let tempList = bookingData.travellersDetails;
     tempList[index] = {
@@ -60,12 +57,6 @@ const BusBooking = () => {
       travellersDetails: tempList,
     });
   };
-  // useEffect(()=>{
-  //   mainContext.handleSetLoadingSpinner(true);
-  // },[]);
-  // setTimeout(()=>{
-  //   mainContext.handleSetLoadingSpinner(false);
-  // },2000);
   return (
     <div className="BusBooking" onLoad={mainContext.handleOnLoad}>
       <nav className="bus-booking-navbar">

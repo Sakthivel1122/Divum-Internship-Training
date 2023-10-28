@@ -6,9 +6,9 @@ import {
   calcDuration,
   handleSleeprtSeatSplit,
   monthNoToMonthStr,
-} from "../../../../utils/TicketBooking";
+} from "../../utils/TicketBooking";
 import { useNavigate } from "react-router-dom";
-import { useMain } from "../../../../contexts/MainContext";
+import { useMain } from "../../contexts/MainContext";
 const BusDetails = ({
   key,
   busName,
@@ -37,7 +37,6 @@ const BusDetails = ({
     pickUp: pickUpList[0],
     drop: dropList[0],
   });
-  console.log(selectPickUpDrop);
   const seatesLeft = seatList.filter((seat) => {
     return !seat.status;
   });
@@ -83,7 +82,6 @@ const BusDetails = ({
       }
       tempList += "S" + seat.seatNo;
     });
-    // console.log(tempList);
     setSelectedSeatNoList(tempList);
   };
   const handleSelectPickUp = (pickUp) => {
@@ -96,7 +94,6 @@ const BusDetails = ({
   const firstHalfSeat = arrayFirstHalf(seatList);
   const secondHalfSeat = arraySecondHalf(seatList);
   // ----------------------
-  // console.log("selectSeat", selectSeat.selectedSeatDetailsList);
   const handleSubmit = () => {
     if (selectSeat.selectedSeatIdList.length > 0) {
       const data = {
@@ -130,12 +127,10 @@ const BusDetails = ({
         fromPlace,
         toPlace,
       };
-      console.log(data);
       navigate("/services/busBooking", { state: data });
     }
   };
   const sleeperSeatSlpit = handleSleeprtSeatSplit(seatList);
-  // console.log("sleeperSeatSlpit", sleeperSeatSlpit);
   return (
     <div className={`BusDetails ${visible ? `active-bus` : ``}`} key={key}>
       <div
@@ -190,7 +185,7 @@ const BusDetails = ({
             {seatType === "seater" ? (
               <div className="bus-layout-container">
                 <div className="bus-layout-top-flex">
-                  <span class="material-symbols-outlined">
+                  <span className="material-symbols-outlined">
                     swap_driving_apps_wheel
                   </span>
                 </div>
@@ -243,7 +238,7 @@ const BusDetails = ({
               <>
                 <div className="sleeper-bus-layout-1">
                   <div className="sleeper-bus-layout-1-header">
-                    <span class="material-symbols-outlined">
+                    <span className="material-symbols-outlined">
                       swap_driving_apps_wheel
                     </span>
                   </div>
@@ -356,7 +351,7 @@ const BusDetails = ({
                           } ${monthNoToMonthStr(pickUpDate.split("-")[1])}`}
                         </p>
                         {selectPickUpDrop.pickUp.place === pickUp.place && (
-                          <span class="material-symbols-outlined">
+                          <span className="material-symbols-outlined">
                             check_circle
                           </span>
                         )}
@@ -383,7 +378,7 @@ const BusDetails = ({
                           } ${monthNoToMonthStr(dropDate?.split("-")[1])}`}
                         </p>
                         {selectPickUpDrop.drop.place === drop.place && (
-                          <span class="material-symbols-outlined">
+                          <span className="material-symbols-outlined">
                             check_circle
                           </span>
                         )}

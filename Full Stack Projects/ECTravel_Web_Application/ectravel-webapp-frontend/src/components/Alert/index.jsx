@@ -79,7 +79,7 @@ const Alert = ({
           }}
         >
           <div className="symbole-container">
-          <i class={myStyle.symbol}></i>
+          <i className={myStyle.symbol}></i>
           </div>
           <div className="message-container">
             <span className="message">{myStyle.message}</span>

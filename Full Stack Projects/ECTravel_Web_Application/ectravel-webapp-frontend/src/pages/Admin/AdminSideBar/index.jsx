@@ -87,9 +87,9 @@ const AdminSideBar = () => {
         >
           Manage Booking
           {manageBooking.visible ? (
-            <span class="material-symbols-outlined">expand_less</span>
+            <span className="material-symbols-outlined">expand_less</span>
           ) : (
-            <span class="material-symbols-outlined">expand_more</span>
+            <span className="material-symbols-outlined">expand_more</span>
           )}
         </li>
         {manageBooking.visible && (

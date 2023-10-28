@@ -2,9 +2,9 @@ import React from "react";
 import "./Admin.scss";
 import AdminSideBar from "./AdminSideBar";
 import { Outlet } from "react-router-dom";
-import AddBusPopUp from "./AddBusPopUp";
 import { useAdmin } from "../../contexts/AdminContext";
-import TrainFormPopUP from "./ManageTrainBooking/TrainFormPopUP";
+import TrainFormPopUP from "../../components/TrainFormPopUP";
+import AddBusPopUp from "../../components/AddBusPopUp";
 const Admin = () => {
   const adminContext = useAdmin();
   return (

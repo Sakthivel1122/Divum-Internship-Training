@@ -21,7 +21,6 @@ const NavBar = () => {
     navigate("/signup");
   };
   const click = () => {
-    console.log("HI");
   };
   return (
     <div className="NavBar">

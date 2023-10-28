@@ -3,6 +3,7 @@ package com.example.ectravelwebapplication.service;
 import com.example.ectravelwebapplication.DTO.AddTrainDTO;
 import com.example.ectravelwebapplication.DTO.GetAllTrainResponseDTO;
 import com.example.ectravelwebapplication.DTO.GetAvailTrainRequestDTO;
+import com.example.ectravelwebapplication.DTO.UpdateTrainDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -17,4 +18,6 @@ public interface TrainService {
     ResponseEntity<List<GetAllTrainResponseDTO>> getAvailTrain(GetAvailTrainRequestDTO getAvailTrainRequestDTO);
 
     ResponseEntity<String> deleteTrain(int trainId);
+
+    ResponseEntity<String> updateTrain(UpdateTrainDTO updateTrainDTO);
 }

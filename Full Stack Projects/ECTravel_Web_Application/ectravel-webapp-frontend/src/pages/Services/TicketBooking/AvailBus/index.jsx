@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
 import "./AvailBus.scss";
-import BusDetails from "../Services/TicketBooking/BusDetails";
 import { useLocation } from "react-router-dom";
-import { monthNoToMonthStr } from "../../utils/TicketBooking";
-import { useMain } from "../../contexts/MainContext";
+import { monthNoToMonthStr } from "../../../../utils/TicketBooking";
+import { useMain } from "../../../../contexts/MainContext";
+import BusDetails from "../../../../components/BusDetails";
 const AvailBus = () => {
   const location = useLocation();
   const mainContext = useMain();
-  // console.log("state >>",location.state);
   const [busList, setBusList] = useState(location.state.data);
   const [searchNavFormData, setSearchNavFormData] = useState({
     vehicle: "",
@@ -17,7 +16,6 @@ const AvailBus = () => {
   });
   const [selectedFilter, setSelectedFilter] = useState([]);
   const [filteredBuses, setFilteredBuses] = useState(location.state.data);
-  console.log("filteredBuses", filteredBuses, selectedFilter);
   const [filters, setFilters] = useState({
     operators: [],
     selectedOperators: [],
@@ -161,12 +159,6 @@ const AvailBus = () => {
   useEffect(() => {
     filterBus();
   }, [selectedFilter, filters]);
-  // useEffect(()=>{
-  //   mainContext.handleSetLoadingSpinner(true);
-  // },[]);
-  // setTimeout(()=>{
-  //   mainContext.handleSetLoadingSpinner(false);
-  // },2000);
   return (
     <div className="AvailBus" onLoad={mainContext.handleOnLoad}>
       <div className="search-details-container">

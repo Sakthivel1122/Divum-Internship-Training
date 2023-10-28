@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import "./Home.css";
+import "./Home.scss";
 import travelPic from "../../assets/images/home/travel-pic.jpg";
 import place1 from "../../assets/images/home/popular_places/pic-1.jpg";
 import place2 from "../../assets/images/home/popular_places/pic-2.jpg";
@@ -36,35 +36,35 @@ const Home = () => {
               className="service"
               onClick={() => navigate("/services/tracklocation")}
             >
-              <span class="material-symbols-outlined service-icon">
+              <span className="material-symbols-outlined service-icon">
                 location_on
               </span>
               <span className="service-name">Track Location</span>
             </div>
             <div className="service">
-              <span class="material-symbols-outlined service-icon">
+              <span className="material-symbols-outlined service-icon">
                 airplane_ticket
               </span>
               <span className="service-name">Ticket Booking</span>
             </div>
             <div className="service">
-              <span class="material-symbols-outlined service-icon">
+              <span className="material-symbols-outlined service-icon">
                 local_taxi
               </span>
               <span className="service-name">Taxi Booking</span>
             </div>
             <div className="service">
-              <span class="material-symbols-outlined service-icon">hotel</span>
+              <span className="material-symbols-outlined service-icon">hotel</span>
               <span className="service-name">Hotel Booking</span>
             </div>
             <div className="service">
-              <span class="material-symbols-outlined service-icon">
+              <span className="material-symbols-outlined service-icon">
                 restaurant
               </span>
               <span className="service-name">Food Order</span>
             </div>
             <div className="service">
-              <span class="material-symbols-outlined service-icon">tour</span>
+              <span className="material-symbols-outlined service-icon">tour</span>
               <span className="service-name">Ticket Booking</span>
             </div>
           </div>

@@ -23,7 +23,7 @@ public class AddTrainDTO {
 
     private String dropTime;
 
-    private List<Float> prices;
+    private List<String> prices;
 
     private List<TrainStationDTO> trainStationList;
 

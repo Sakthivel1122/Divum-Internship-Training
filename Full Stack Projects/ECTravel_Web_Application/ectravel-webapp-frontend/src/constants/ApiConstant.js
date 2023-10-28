@@ -11,6 +11,9 @@ const API_LINKS = {
     ADD_BUS: COMMON_BUS_API_LINK + "addBus",
     GET_AVAIL_BUSES: COMMON_BUS_API_LINK + "getAvailBus",
   },
+  TRAIN_API_LINKS: {
+    GET_AVAIL_TRAINS: COMMON_TRAIN_API_LINK + "getAvailTrain",
+  },
   ADMIN: {
     MANAGE_BUS: {
       GET_ALL_BUS: COMMON_BUS_API_LINK + "getAllBus",
@@ -20,7 +23,8 @@ const API_LINKS = {
     MANAGE_TRAIN: {
       GET_ALL_TRAIN: COMMON_TRAIN_API_LINK + "getAllTrain",
       ADD_TRAIN: COMMON_TRAIN_API_LINK + "addTrain",
-      DELETE_TRAIN: COMMON_TRAIN_API_LINK + "deleteTrain/"
+      DELETE_TRAIN: COMMON_TRAIN_API_LINK + "deleteTrain/",
+      UPDATE_TRAIN: COMMON_TRAIN_API_LINK + "updateTrain",
     }
   },
 };

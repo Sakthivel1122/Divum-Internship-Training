@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class TrainSeatDetailsDTO {
+    private String seatName;
+
     private int availCount;
 
     private String price;

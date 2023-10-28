@@ -15,7 +15,7 @@ public class GetAllTrainResponseDTO {
 
     private Train train;
 
-    private TrainSeatDTO trainSeatDetails;
+    private List<TrainSeatDetailsDTO> trainSeatDetails;
 
     private List<TrainStation> trainStationList;
 }

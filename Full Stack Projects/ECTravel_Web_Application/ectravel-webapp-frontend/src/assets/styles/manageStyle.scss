@@ -1,5 +1,5 @@
 @import "./globalConstants";
-
+@import "./globalMixin";
 
 .Manage {
   display: flex;
@@ -14,18 +14,11 @@
   justify-content: space-between;
 
   .add-btn {
-    padding: 0.5rem 1rem;
-    cursor: pointer;
-    font-size: 1rem;
-    background-color: $add-btn-color;
-    border: none;
-    color: white;
-    border-radius: 5px;
-    font-weight: bold;
+    @include admin-submit-btn;
   }
 
   .add-btn:hover {
-    background-color: $add-btn-hover-color;
+    @include admin-submit-btn-hover;
   }
 }
 .manage-table {
@@ -34,7 +27,7 @@
   th,
   td,
   th {
-    padding: 1rem;
+    padding: .5rem;
     text-align: center;
     border: 1px solid rgba(0, 0, 0, 0.5);
   }
@@ -51,7 +44,6 @@
     background-color: $edit-btn-color;
     border: none;
     border-radius: 3px;
-    margin-right: 0.5rem;
   }
   .edit-btn:hover {
     background-color: $edit-btn-hover-color;

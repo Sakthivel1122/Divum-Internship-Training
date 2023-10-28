@@ -11,13 +11,14 @@ import BusBooking from "../pages/BusBooking";
 import SignUp from "../pages/SignUp";
 import LogIn from "../pages/LogIn";
 import AddBus from "../pages/AddBus";
-import AvailBus from "../pages/AvailBus";
 import Admin from "../pages/Admin";
 import ManageUser from "../pages/Admin/ManageUser";
 import AdminHome from "../pages/Admin/AdminHome";
 import ManageFlightBooking from "../pages/Admin/ManageFlightBooking";
 import ManageTrainBooking from "../pages/Admin/ManageTrainBooking";
 import ManageBusBooking from "../pages/Admin/ManageBusBooking";
+import AvailTrain from "../pages/Services/TicketBooking/AvailTrain";
+import AvailBus from "../pages/Services/TicketBooking/AvailBus";
 
 const RoutingFile = () => {
   return (
@@ -30,8 +31,9 @@ const RoutingFile = () => {
         <Route path="services" element={<Services />}>
           <Route index path="tracklocation" element={<TrackLocation />} />
           <Route path="ticketbooking" element={<TicketBooking />} />
-          <Route path="busBooking" element={<BusBooking />} />
           <Route path="availBus" element={<AvailBus />} />
+          <Route path="busBooking" element={<BusBooking />} />
+          <Route path="availTrain" element={<AvailTrain />} />
         </Route>
       </Route>
 

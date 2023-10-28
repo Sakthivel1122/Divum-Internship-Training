@@ -3,7 +3,9 @@ package com.example.ectravelwebapplication.api;
 import com.example.ectravelwebapplication.DTO.AddTrainDTO;
 import com.example.ectravelwebapplication.DTO.GetAllTrainResponseDTO;
 import com.example.ectravelwebapplication.DTO.GetAvailTrainRequestDTO;
+import com.example.ectravelwebapplication.DTO.UpdateTrainDTO;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,4 +25,7 @@ public interface TrainApi {
 
     @DeleteMapping("deleteTrain/{trainId}")
     ResponseEntity<String> deleteTrain(@PathVariable("trainId") int trainId);
+
+    @PutMapping("updateTrain")
+    ResponseEntity<String> updateTrain(@RequestBody UpdateTrainDTO updateTrainDTO);
 }

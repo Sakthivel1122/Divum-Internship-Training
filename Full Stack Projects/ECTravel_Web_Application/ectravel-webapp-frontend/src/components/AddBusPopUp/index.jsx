@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "./AddBusPopUp.scss";
-import { handleAddBusApiCall } from "../../../utils/ApiCalls";
-import { useAdmin } from "../../../contexts/AdminContext";
-import {
-  handleGetAllBusApiCall,
-  handleUpdateBusApiCall,
-} from "../../../utils/AdminApiCall";
+import { handleGetAllBusApiCall, handleUpdateBusApiCall } from "../../utils/AdminApiCall";
+import { handleAddBusApiCall } from "../../utils/ApiCalls";
+import { useAdmin } from "../../contexts/AdminContext";
 
 const AddBusPopUp = () => {
   const [formData, setFormData] = useState({
@@ -190,7 +187,7 @@ const AddBusPopUp = () => {
         <div className="form-header">
           <h2>Add Bus</h2>
           <span
-            class="material-symbols-outlined close-btn"
+            className="material-symbols-outlined close-btn"
           >
             close
           </span>

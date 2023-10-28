@@ -5,11 +5,9 @@ const Slider = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const prevPage = () => {
     if (activeIndex != 0) setActiveIndex(activeIndex - 1);
-    console.log(activeIndex);
   };
   const nextPage = () => {
     if (activeIndex != offers.length - 4) setActiveIndex(activeIndex + 1);
-    console.log(activeIndex);
   };
   return (
     <div className="Slider">
