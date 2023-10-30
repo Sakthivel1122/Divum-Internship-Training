@@ -30,3 +30,12 @@
     font-size: 0.9rem;
   }
 }
+
+.not-available {
+  opacity: 0.5;
+  cursor: not-allowed;
+
+  .avail-count {
+    color: rgb(255, 85, 0);
+  }
+}

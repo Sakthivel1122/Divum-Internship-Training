@@ -1,7 +1,10 @@
 import React, { useEffect } from "react";
 import "./ManageTrainBooking.scss";
 import "../../../assets/styles/manageStyle.scss";
-import { handleDeleteTrainApiCall, handleGetAllTrainApiCall } from "../../../utils/AdminApiCall";
+import {
+  handleDeleteTrainApiCall,
+  handleGetAllTrainApiCall,
+} from "../../../utils/AdminApiCall";
 import { useAdmin } from "../../../contexts/AdminContext";
 
 const ManageTrainBooking = () => {
@@ -25,14 +28,14 @@ const ManageTrainBooking = () => {
     adminContext.handleSetTrainFormPopUp({
       ...adminContext.trainFormPopUp,
       visible: true,
-      details: train
+      details: train,
     });
   };
   const handleDeleteBtn = (trainId) => {
     const response = handleDeleteTrainApiCall(trainId);
-    response.then(res => {
+    response.then((res) => {
       handleGetAllTrain();
-    })
+    });
   };
   return (
     <div className="ManageTrainBooking">

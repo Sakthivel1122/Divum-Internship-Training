@@ -10,12 +10,102 @@ import { handleGetAvailTrainApiCall } from "../../../../utils/ApiCalls";
 
 const AvailTrain = () => {
   const location = useLocation();
-  const [trainList, setTrainList] = useState([]);
   const [activeIndex, setActiveIndex] = useState(0);
   const [dateList, setDateList] = useState(
     generateNextTenDate(location.state.date)
   );
   const [activeDate, setActiveDate] = useState(location.state.date);
+  const [trainList, setTrainList] = useState(location.state.data);
+  const [filteredTrainList, setFilteredTrainList] = useState(
+    location.state.data
+  );
+  const [isAvailSelected, setIsAvailSelected] = useState(false);
+  const [seatFilter, setSeatFilter] = useState([
+    {
+      seatName: "1A Seat",
+      isSelected: false,
+    },
+    {
+      seatName: "2A Seat",
+      isSelected: false,
+    },
+    {
+      seatName: "3A Seat",
+      isSelected: false,
+    },
+    {
+      seatName: "SL Seat",
+      isSelected: false,
+    },
+    {
+      seatName: "2S Seat",
+      isSelected: false,
+    },
+    {
+      seatName: "CC Seat",
+      isSelected: false,
+    },
+  ]);
+  const [pickUpFilterList, setPickUpFilterList] = useState([
+    {
+      label: "Night",
+      time: "00:01 - 06:00",
+      start: 0,
+      end: 6,
+      isSelected: false,
+    },
+    {
+      label: "Morning",
+      time: "06:01 - 12:00",
+      start: 7,
+      end: 12,
+      isSelected: false,
+    },
+    {
+      label: "Afternoon",
+      time: "12:01 - 18:00",
+      start: 13,
+      end: 18,
+      isSelected: false,
+    },
+    {
+      label: "Evening",
+      time: "18:01 - 00:00",
+      start: 19,
+      end: 23,
+      isSelected: false,
+    },
+  ]);
+  const [dropFilterList, setDropFilterList] = useState([
+    {
+      label: "Night",
+      time: "00:01 - 06:00",
+      start: 0,
+      end: 6,
+      isSelected: false,
+    },
+    {
+      label: "Morning",
+      time: "06:01 - 12:00",
+      start: 7,
+      end: 12,
+      isSelected: false,
+    },
+    {
+      label: "Afternoon",
+      time: "12:01 - 18:00",
+      start: 13,
+      end: 18,
+      isSelected: false,
+    },
+    {
+      label: "Evening",
+      time: "18:01 - 00:00",
+      start: 19,
+      end: 23,
+      isSelected: false,
+    },
+  ]);
   const handlePrevPage = () => {
     if (activeIndex != 0) setActiveIndex(activeIndex - 1);
   };
@@ -32,11 +122,54 @@ const AvailTrain = () => {
     response.then((res) => {
       setTrainList(res.data);
       setActiveDate(newDate);
+      setFilteredTrainList(res.data);
     });
   };
+
+  useEffect(() => {
+    handleAllFilter();
+  }, [isAvailSelected]);
+
+  // ON CLICK FUNCTION
+  const handleQuickFilterOnCick = (e) => {
+    setIsAvailSelected(e.target.checked);
+  };
+  const handleSeatFilterOnClick = (index, e) => {
+    let arr = [...seatFilter];
+    arr[index].isSelected = e.target.checked;
+    setSeatFilter(arr);
+  };
+  const handlePickUpOnClick = (e, index) => {
+    let arr = [...pickUpFilterList];
+    arr[index].isSelected = e.target.checked;
+    setPickUpFilterList(arr);
+  };
+  const handleDropOnClick = (e, index) => {
+    let arr = [...dropFilterList];
+    arr[index].isSelected = e.target.checked;
+    setDropFilterList(arr);
+  };
+
+  // HANDLE FILTER FUNCTIONS
+  const handleAllFilter = () => {
+    let trainArrList = [...trainList];
+    trainArrList = handlePickUpFilter(trainArrList);
+    trainArrList = handleDropFilter(trainArrList);
+    setFilteredTrainList(trainArrList);
+  };
+
+  const handlePickUpFilter = (trainArrList) => {
+    return trainArrList;
+  };
+
+  const handleDropFilter = (trainArrList) => {
+    return trainArrList;
+  };
+
   useEffect(() => {
     if (location.state) {
       setTrainList(location.state.data);
+      setFilteredTrainList(location.state.data);
     }
   }, []);
   return (
@@ -51,33 +184,79 @@ const AvailTrain = () => {
       </nav>
       <div className="avail-train-content">
         <div className="filter-container">
-          <div className="title-container">
-            <p className="title">Quick Filter</p>
-            <p>CLEAR ALL</p>
+          <div className="filter-content">
+            <div className="title-container">
+              <p className="title">Quick Filter</p>
+              <p>CLEAR ALL</p>
+            </div>
+            <ul className="filter-list-wrapper">
+              <li className="filter-item">
+                <input type="checkbox" onClick={handleQuickFilterOnCick} />{" "}
+                <p>Available</p>
+              </li>
+            </ul>
           </div>
-          <ul className="filter-list-wrapper">
-            <li className="filter-item">
-              <input type="checkbox" /> <p>Available</p>
-            </li>
-            <li className="filter-item">
-              <input type="checkbox" /> <p>1A Seat</p>
-            </li>
-            <li className="filter-item">
-              <input type="checkbox" /> <p>2A Seat</p>
-            </li>
-            <li className="filter-item">
-              <input type="checkbox" /> <p>3A Seat</p>
-            </li>
-            <li className="filter-item">
-              <input type="checkbox" /> <p>SL Seat</p>
-            </li>
-            <li className="filter-item">
-              <input type="checkbox" /> <p>2S Seat</p>
-            </li>
-            <li className="filter-item">
-              <input type="checkbox" /> <p>CC Seat</p>
-            </li>
-          </ul>
+
+          <div className="filter-content">
+            <div className="title-container">
+              <p className="title">Seat Filter</p>
+              <p>CLEAR ALL</p>
+            </div>
+            <ul className="filter-list-wrapper">
+              {seatFilter.map((seat, index) => {
+                return (
+                  <li className="filter-item" key={index}>
+                    <input
+                      type="checkbox"
+                      onClick={(e) => handleSeatFilterOnClick(index, e)}
+                    />
+                    <p>{seat.seatName}</p>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+
+          <div className="filter-content">
+            <div className="title-container">
+              <p className="title">PickUp Timing</p>
+              <p>CLEAR ALL</p>
+            </div>
+            <ul className="filter-list-wrapper">
+              {pickUpFilterList.map((pickUp, index) => {
+                return (
+                  <li className="filter-item">
+                    <input
+                      type="checkbox"
+                      onClick={(e) => handlePickUpOnClick(e, index)}
+                    />
+                    <p>
+                      {pickUp.label} <span>{pickUp.time}</span>
+                    </p>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+
+          <div className="filter-content">
+            <div className="title-container">
+              <p className="title">Drop Timing</p>
+              <p>CLEAR ALL</p>
+            </div>
+            <ul className="filter-list-wrapper">
+              {dropFilterList.map((drop,index) => {
+                return (
+                  <li className="filter-item">
+                    <input type="checkbox" onClick={(e) => handleDropOnClick(e,index)}/>
+                    <p>
+                      {drop.label} <span>{drop.time}</span>
+                    </p>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
         </div>
         <div className="train-list-wrapper">
           <div className="date-slider-container">
@@ -114,9 +293,16 @@ const AvailTrain = () => {
               chevron_right
             </span>
           </div>
-          {trainList &&
-            trainList.map((train, index) => {
-              return <TrainDetails key={index} train={train} />;
+          {filteredTrainList &&
+            filteredTrainList.map((train, index) => {
+              return (
+                <TrainDetails
+                  key={index}
+                  train={train}
+                  isAvailSelected={isAvailSelected}
+                  seatFilter={seatFilter}
+                />
+              );
             })}
         </div>
       </div>

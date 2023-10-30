@@ -1,8 +1,39 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./TrainDetails.scss";
 import { calcDuration, monthNoToMonthStr } from "../../utils/TicketBooking";
 import TrainSeatDetails from "../TrainSeatDetails";
-const TrainDetails = ({ train }) => {
+const TrainDetails = ({ train, isAvailSelected, seatFilter }) => {
+  const [seatList, setSeatList] = useState(train.trainSeatDetails);
+  // console.log("seat >>",seatList);
+  // console.log(selectedSeatFilter,selectedSeatFilter.filter(val => val === false).length);
+  // console.log(selectedSeatFilter.lastIndexOf(false),selectedSeatFilter.lastIndexOf(false) === selectedSeatFilter.length - 1);
+  useEffect(() => {
+    handleAllFilter();
+  }, [isAvailSelected, seatFilter]);
+  const handleAllFilter = () => {
+    let arrList = [...train.trainSeatDetails];
+    arrList = handleSeatFilter(arrList);
+    arrList = handleQuickFilter(arrList);
+    setSeatList(arrList);
+  };
+
+  const handleSeatFilter = (arrList) => {
+    if (
+      seatFilter.filter((seat) => seat.isSelected === false).length !==
+      seatFilter.length
+    ) {
+      console.log("Entered");
+      return arrList.filter((seat, index) => seatFilter[index].isSelected);
+    }
+    return arrList;
+  };
+
+  const handleQuickFilter = (arrList) => {
+    if (isAvailSelected) {
+      return arrList.filter((seat) => seat.availCount > 0);
+    }
+    return arrList;
+  };
   return (
     <div className="TrainDetails">
       <div className="train-details-1">
@@ -28,11 +59,9 @@ const TrainDetails = ({ train }) => {
       </div>
 
       <div className="train-details-2">
-        {
-          train.trainSeatDetails.map((seat, index) => {
-            return <TrainSeatDetails key={index} seat={seat}/>;
-          })
-        }
+        {seatList.map((seat, index) => {
+          return <TrainSeatDetails key={index} seat={seat} />;
+        })}
       </div>
     </div>
   );

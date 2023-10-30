@@ -16,9 +16,17 @@ const TrainFormPopUP = () => {
     rating: "",
     pickUpDateAndTime: "",
     dropDateAndTime: "",
-    prices: [],
+    prices: [
+      { price: "" },
+      { price: "" },
+      { price: "" },
+      { price: "" },
+      { price: "" },
+      { price: "" },
+    ],
     trainStationList: [],
   });
+  const [quickFilter,setQuickFilter] = useState();
   const handleClose = (e) => {
     const { className } = e.target;
     if (className === "TrainFormPopUP" || className.includes("close-btn")) {
@@ -77,7 +85,7 @@ const TrainFormPopUP = () => {
   };
   const handlePriceOnChange = (e, index) => {
     const arr = formData.prices;
-    arr[index] = e.target.value;
+    arr[index].price = e.target.value;
     setFormData({
       ...formData,
       prices: arr,
@@ -85,6 +93,13 @@ const TrainFormPopUP = () => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
+    const priceList = [];
+    priceList.push(formData.prices[0].price);
+    priceList.push(formData.prices[1].price);
+    priceList.push(formData.prices[2].price);
+    priceList.push(formData.prices[3].price);
+    priceList.push(formData.prices[4].price);
+    priceList.push(formData.prices[5].price);
     const dataObj = {
       trainName: formData.trainName,
       fromPlace: formData.fromPlace,
@@ -94,17 +109,17 @@ const TrainFormPopUP = () => {
       pickUpTime: formData.pickUpDateAndTime.split("T")[1],
       dropDate: formData.dropDateAndTime.split("T")[0],
       dropTime: formData.dropDateAndTime.split("T")[1],
-      prices: formData.prices,
+      prices: priceList,
       trainStationList: formData.trainStationList,
     };
     if (
       adminContext.trainFormPopUp.details &&
       adminContext.trainFormPopUp.details !== null
-    ){
+    ) {
       const updateDataObj = {
         trainId: formData.trainId,
         trainData: dataObj,
-      }
+      };
       const response = handleUpdateTrainApiCall(updateDataObj);
       response.then((res) => {
         handleGetAllTrain();
@@ -139,12 +154,12 @@ const TrainFormPopUP = () => {
     ) {
       const train = adminContext.trainFormPopUp.details;
       const priceList = [];
-      priceList.push(train.trainSeatDetails.oneA.price);
-      priceList.push(train.trainSeatDetails.twoA.price);
-      priceList.push(train.trainSeatDetails.threeA.price);
-      priceList.push(train.trainSeatDetails.sleeper.price);
-      priceList.push(train.trainSeatDetails.secondSeater.price);
-      priceList.push(train.trainSeatDetails.chairCar.price);
+      priceList.push(train.trainSeatDetails[0]);
+      priceList.push(train.trainSeatDetails[1]);
+      priceList.push(train.trainSeatDetails[2]);
+      priceList.push(train.trainSeatDetails[3]);
+      priceList.push(train.trainSeatDetails[4]);
+      priceList.push(train.trainSeatDetails[5]);
       setFormData({
         trainId: train.train.trainId,
         trainName: train.train.trainName,
@@ -227,7 +242,7 @@ const TrainFormPopUP = () => {
               <input
                 name="trainName"
                 type="number"
-                value={formData.prices[0]}
+                value={formData.prices[0].price}
                 onChange={(e) => handlePriceOnChange(e, 0)}
               />
             </div>
@@ -236,7 +251,7 @@ const TrainFormPopUP = () => {
               <input
                 name="trainName"
                 type="number"
-                value={formData.prices[1]}
+                value={formData.prices[1].price}
                 onChange={(e) => handlePriceOnChange(e, 1)}
               />
             </div>
@@ -245,7 +260,7 @@ const TrainFormPopUP = () => {
               <input
                 name="trainName"
                 type="number"
-                value={formData.prices[2]}
+                value={formData.prices[2].price}
                 onChange={(e) => handlePriceOnChange(e, 2)}
               />
             </div>
@@ -254,7 +269,7 @@ const TrainFormPopUP = () => {
               <input
                 name="trainName"
                 type="number"
-                value={formData.prices[3]}
+                value={formData.prices[3].price}
                 onChange={(e) => handlePriceOnChange(e, 3)}
               />
             </div>
@@ -263,7 +278,7 @@ const TrainFormPopUP = () => {
               <input
                 name="trainName"
                 type="number"
-                value={formData.prices[4]}
+                value={formData.prices[4].price}
                 onChange={(e) => handlePriceOnChange(e, 4)}
               />
             </div>
@@ -272,7 +287,7 @@ const TrainFormPopUP = () => {
               <input
                 name="trainName"
                 type="number"
-                value={formData.prices[5]}
+                value={formData.prices[5].price}
                 onChange={(e) => handlePriceOnChange(e, 5)}
               />
             </div>

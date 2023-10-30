@@ -168,7 +168,6 @@ export const generateNextTenDate = (date) => {
   year = Number(year);
   month = Number(month);
   day = Number(day);
-  console.log(year, month, day);
   let currYear = year;
   let currMonth = month;
   let currDay = day;
@@ -223,3 +222,7 @@ export const generateNextTenDate = (date) => {
 const isLeapYear = (year) => {
   return year % 100 === 0 ? year % 400 === 0 : year % 4 === 0;
 };
+
+export const isInRange = (start,end,value) => {
+  return (value >= start && value <= end);
+}

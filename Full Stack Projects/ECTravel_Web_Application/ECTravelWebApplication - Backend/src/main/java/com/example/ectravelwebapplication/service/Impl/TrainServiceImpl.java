@@ -107,8 +107,8 @@ public class TrainServiceImpl implements TrainService {
 
     @Override
     public ResponseEntity<String> updateTrain(UpdateTrainDTO updateTrainDTO){
-        deleteTrain(updateTrainDTO.getTrainId());
-        addTrain(updateTrainDTO.getTrainData());
+//        deleteTrain(updateTrainDTO.getTrainId());
+//        addTrain(updateTrainDTO.getTrainData());
         return new ResponseEntity<>("Train Updated Successfully",HttpStatus.OK);
     }
 
@@ -120,27 +120,33 @@ public class TrainServiceImpl implements TrainService {
             TrainSeatDetailsDTO trainSeatDetailsDTO;
 
             trainSeatList = trainSeatRepoService.findAllByTrainDetails_TrainIdAndTrainSeatTypePriceDetails_SeatTypeDetails_SeatTypeIdAndStatus(train.getTrainId(),1,false);
-            trainSeatDetailsDTO = new TrainSeatDetailsDTO("1A",trainSeatList.size(), !trainSeatList.isEmpty() ? trainSeatList.get(0).getTrainSeatTypePriceDetails().getPrice() + "" : "null");
+            trainSeatDetailsDTO = new TrainSeatDetailsDTO(
+                    "1A",
+                    trainSeatList.size(),
+                    !trainSeatList.isEmpty() ?
+                            trainSeatList.get(0).getTrainSeatTypePriceDetails().getPrice()
+                            :
+                            trainSeatRepoService.findByTrainDetails_TrainIdAndTrainSeatTypePriceDetails_SeatTypeDetails_SeatTypeId(train.getTrainId(),1).get(0).getTrainSeatTypePriceDetails().getPrice());
             trainSeatDetailsDTOList.add(trainSeatDetailsDTO);
 
             trainSeatList = trainSeatRepoService.findAllByTrainDetails_TrainIdAndTrainSeatTypePriceDetails_SeatTypeDetails_SeatTypeIdAndStatus(train.getTrainId(),2,false);
-            trainSeatDetailsDTO = new TrainSeatDetailsDTO("2A",trainSeatList.size(), !trainSeatList.isEmpty() ? trainSeatList.get(0).getTrainSeatTypePriceDetails().getPrice() + "" : "null");
+            trainSeatDetailsDTO = new TrainSeatDetailsDTO("2A",trainSeatList.size(), !trainSeatList.isEmpty() ? trainSeatList.get(0).getTrainSeatTypePriceDetails().getPrice() : trainSeatRepoService.findByTrainDetails_TrainIdAndTrainSeatTypePriceDetails_SeatTypeDetails_SeatTypeId(train.getTrainId(),2).get(0).getTrainSeatTypePriceDetails().getPrice());
             trainSeatDetailsDTOList.add(trainSeatDetailsDTO);
 
             trainSeatList = trainSeatRepoService.findAllByTrainDetails_TrainIdAndTrainSeatTypePriceDetails_SeatTypeDetails_SeatTypeIdAndStatus(train.getTrainId(),3,false);
-            trainSeatDetailsDTO = new TrainSeatDetailsDTO("3A",trainSeatList.size(), !trainSeatList.isEmpty() ? trainSeatList.get(0).getTrainSeatTypePriceDetails().getPrice() + "" : "null");
+            trainSeatDetailsDTO = new TrainSeatDetailsDTO("3A",trainSeatList.size(), !trainSeatList.isEmpty() ? trainSeatList.get(0).getTrainSeatTypePriceDetails().getPrice() : trainSeatRepoService.findByTrainDetails_TrainIdAndTrainSeatTypePriceDetails_SeatTypeDetails_SeatTypeId(train.getTrainId(),3).get(0).getTrainSeatTypePriceDetails().getPrice());
             trainSeatDetailsDTOList.add(trainSeatDetailsDTO);
 
             trainSeatList = trainSeatRepoService.findAllByTrainDetails_TrainIdAndTrainSeatTypePriceDetails_SeatTypeDetails_SeatTypeIdAndStatus(train.getTrainId(),4,false);
-            trainSeatDetailsDTO = new TrainSeatDetailsDTO("SL",trainSeatList.size(), !trainSeatList.isEmpty() ? trainSeatList.get(0).getTrainSeatTypePriceDetails().getPrice() + "" : "null");
+            trainSeatDetailsDTO = new TrainSeatDetailsDTO("SL",trainSeatList.size(), !trainSeatList.isEmpty() ? trainSeatList.get(0).getTrainSeatTypePriceDetails().getPrice() : trainSeatRepoService.findByTrainDetails_TrainIdAndTrainSeatTypePriceDetails_SeatTypeDetails_SeatTypeId(train.getTrainId(),4).get(0).getTrainSeatTypePriceDetails().getPrice());
             trainSeatDetailsDTOList.add(trainSeatDetailsDTO);
 
             trainSeatList = trainSeatRepoService.findAllByTrainDetails_TrainIdAndTrainSeatTypePriceDetails_SeatTypeDetails_SeatTypeIdAndStatus(train.getTrainId(),5,false);
-            trainSeatDetailsDTO = new TrainSeatDetailsDTO("2S",trainSeatList.size(), !trainSeatList.isEmpty() ? trainSeatList.get(0).getTrainSeatTypePriceDetails().getPrice() + "" : "null");
+            trainSeatDetailsDTO = new TrainSeatDetailsDTO("2S",trainSeatList.size(), !trainSeatList.isEmpty() ? trainSeatList.get(0).getTrainSeatTypePriceDetails().getPrice(): trainSeatRepoService.findByTrainDetails_TrainIdAndTrainSeatTypePriceDetails_SeatTypeDetails_SeatTypeId(train.getTrainId(),5).get(0).getTrainSeatTypePriceDetails().getPrice());
             trainSeatDetailsDTOList.add(trainSeatDetailsDTO);
 
             trainSeatList = trainSeatRepoService.findAllByTrainDetails_TrainIdAndTrainSeatTypePriceDetails_SeatTypeDetails_SeatTypeIdAndStatus(train.getTrainId(),6,false);
-            trainSeatDetailsDTO = new TrainSeatDetailsDTO("CC",trainSeatList.size(), !trainSeatList.isEmpty() ? trainSeatList.get(0).getTrainSeatTypePriceDetails().getPrice() + "" : "null");
+            trainSeatDetailsDTO = new TrainSeatDetailsDTO("CC",trainSeatList.size(), !trainSeatList.isEmpty() ? trainSeatList.get(0).getTrainSeatTypePriceDetails().getPrice(): trainSeatRepoService.findByTrainDetails_TrainIdAndTrainSeatTypePriceDetails_SeatTypeDetails_SeatTypeId(train.getTrainId(),6).get(0).getTrainSeatTypePriceDetails().getPrice());
             trainSeatDetailsDTOList.add(trainSeatDetailsDTO);
 
             List<TrainStation> trainStationList = trainStationRepoService.findAllByTrainId(train.getTrainId());

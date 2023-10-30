@@ -10,10 +10,10 @@ const TicketBooking = () => {
   const mainContext = useMain();
   const [activeIndex, setActiveIndex] = useState(0);
   const [formData, setFormData] = useState({
-    vehicle: "bus",
+    vehicle: "train",
     fromPlace: "Nagapattinam",
     toPlace: "Bangalore",
-    date: "2023-10-28",
+    date: "2023-10-30",
   });
 
   const navigate = useNavigate();
