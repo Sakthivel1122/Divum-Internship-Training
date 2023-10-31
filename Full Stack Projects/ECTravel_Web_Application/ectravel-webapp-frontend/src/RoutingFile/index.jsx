@@ -19,6 +19,7 @@ import ManageTrainBooking from "../pages/Admin/ManageTrainBooking";
 import ManageBusBooking from "../pages/Admin/ManageBusBooking";
 import AvailTrain from "../pages/Services/TicketBooking/AvailTrain";
 import AvailBus from "../pages/Services/TicketBooking/AvailBus";
+import TrainBooking from "../pages/Services/TicketBooking/TrainBooking";
 
 const RoutingFile = () => {
   return (
@@ -34,6 +35,7 @@ const RoutingFile = () => {
           <Route path="availBus" element={<AvailBus />} />
           <Route path="busBooking" element={<BusBooking />} />
           <Route path="availTrain" element={<AvailTrain />} />
+          <Route path="trainBooking" element={<TrainBooking />} />
         </Route>
       </Route>
 

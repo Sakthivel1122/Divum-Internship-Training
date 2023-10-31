@@ -2,14 +2,17 @@ import React, { useEffect, useState } from "react";
 import "./TrainDetails.scss";
 import { calcDuration, monthNoToMonthStr } from "../../utils/TicketBooking";
 import TrainSeatDetails from "../TrainSeatDetails";
-const TrainDetails = ({ train, isAvailSelected, seatFilter }) => {
+const TrainDetails = ({
+  train,
+  isAvailSelected,
+  seatFilter,
+  trainList,
+  pageData,
+}) => {
   const [seatList, setSeatList] = useState(train.trainSeatDetails);
-  // console.log("seat >>",seatList);
-  // console.log(selectedSeatFilter,selectedSeatFilter.filter(val => val === false).length);
-  // console.log(selectedSeatFilter.lastIndexOf(false),selectedSeatFilter.lastIndexOf(false) === selectedSeatFilter.length - 1);
   useEffect(() => {
     handleAllFilter();
-  }, [isAvailSelected, seatFilter]);
+  }, [isAvailSelected, seatFilter, trainList]);
   const handleAllFilter = () => {
     let arrList = [...train.trainSeatDetails];
     arrList = handleSeatFilter(arrList);
@@ -60,7 +63,13 @@ const TrainDetails = ({ train, isAvailSelected, seatFilter }) => {
 
       <div className="train-details-2">
         {seatList.map((seat, index) => {
-          return <TrainSeatDetails key={index} seat={seat} />;
+          return (
+            <TrainSeatDetails
+              key={index}
+              seat={seat}
+              pageData={{ ...pageData, train: train, seat: seat }}
+            />
+          );
         })}
       </div>
     </div>

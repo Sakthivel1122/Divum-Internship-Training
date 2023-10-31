@@ -4,6 +4,7 @@ import TrainDetails from "../../../../components/TrainDetails";
 import { useLocation } from "react-router-dom";
 import {
   generateNextTenDate,
+  isInRange,
   monthNoToMonthStr,
 } from "../../../../utils/TicketBooking";
 import { handleGetAvailTrainApiCall } from "../../../../utils/ApiCalls";
@@ -106,6 +107,11 @@ const AvailTrain = () => {
       isSelected: false,
     },
   ]);
+  const pageData = {
+    fromPlace: location.state.fromPlace,
+    toPlace: location.state.toPlace,
+    date: location.state.date,
+  }
   const handlePrevPage = () => {
     if (activeIndex != 0) setActiveIndex(activeIndex - 1);
   };
@@ -123,12 +129,13 @@ const AvailTrain = () => {
       setTrainList(res.data);
       setActiveDate(newDate);
       setFilteredTrainList(res.data);
+      handleAllFilter([...res.data]);
     });
   };
 
   useEffect(() => {
-    handleAllFilter();
-  }, [isAvailSelected]);
+    handleAllFilter([...trainList]);
+  }, [pickUpFilterList, dropFilterList]);
 
   // ON CLICK FUNCTION
   const handleQuickFilterOnCick = (e) => {
@@ -151,18 +158,56 @@ const AvailTrain = () => {
   };
 
   // HANDLE FILTER FUNCTIONS
-  const handleAllFilter = () => {
-    let trainArrList = [...trainList];
+  const handleAllFilter = (arrList) => {
+    let trainArrList = arrList;
     trainArrList = handlePickUpFilter(trainArrList);
     trainArrList = handleDropFilter(trainArrList);
     setFilteredTrainList(trainArrList);
   };
 
   const handlePickUpFilter = (trainArrList) => {
+    if (pickUpFilterList.filter((pickUp) => pickUp.isSelected).length !== 0) {
+      let pickUpList = [...pickUpFilterList];
+      pickUpList = pickUpList.filter((pickUp) => pickUp.isSelected);
+      trainArrList = trainArrList.filter((train) => {
+        let [hour, minutes] = train.train.pickUpTime.split(":");
+        hour = Number(hour);
+        minutes = Number(minutes);
+        if (minutes > 0 && [0, 6, 12, 18].includes(hour)) {
+          hour++;
+        }
+        let flag = false;
+        pickUpList.map((pickUp) => {
+          if (isInRange(pickUp.start, pickUp.end, hour)) {
+            flag = true;
+          }
+        });
+        return flag;
+      });
+    }
     return trainArrList;
   };
 
   const handleDropFilter = (trainArrList) => {
+    if (dropFilterList.filter((drop) => drop.isSelected).length !== 0) {
+      let dropList = [...dropFilterList];
+      dropList = dropList.filter((drop) => drop.isSelected);
+      trainArrList = trainArrList.filter((train) => {
+        let [hour, minutes] = train.train.dropTime.split(":");
+        hour = Number(hour);
+        minutes = Number(minutes);
+        if (minutes > 0 && [0, 6, 12, 18].includes(hour)) {
+          hour++;
+        }
+        let flag = false;
+        dropList.map((drop) => {
+          if (isInRange(drop.start, drop.end, hour)) {
+            flag = true;
+          }
+        });
+        return flag;
+      });
+    }
     return trainArrList;
   };
 
@@ -225,7 +270,7 @@ const AvailTrain = () => {
             <ul className="filter-list-wrapper">
               {pickUpFilterList.map((pickUp, index) => {
                 return (
-                  <li className="filter-item">
+                  <li className="filter-item" key={index}>
                     <input
                       type="checkbox"
                       onClick={(e) => handlePickUpOnClick(e, index)}
@@ -245,10 +290,13 @@ const AvailTrain = () => {
               <p>CLEAR ALL</p>
             </div>
             <ul className="filter-list-wrapper">
-              {dropFilterList.map((drop,index) => {
+              {dropFilterList.map((drop, index) => {
                 return (
-                  <li className="filter-item">
-                    <input type="checkbox" onClick={(e) => handleDropOnClick(e,index)}/>
+                  <li className="filter-item" key={index}>
+                    <input
+                      type="checkbox"
+                      onClick={(e) => handleDropOnClick(e, index)}
+                    />
                     <p>
                       {drop.label} <span>{drop.time}</span>
                     </p>
@@ -301,6 +349,8 @@ const AvailTrain = () => {
                   train={train}
                   isAvailSelected={isAvailSelected}
                   seatFilter={seatFilter}
+                  trainList={trainList}
+                  pageData={pageData}
                 />
               );
             })}

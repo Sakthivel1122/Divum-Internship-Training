@@ -1,11 +1,20 @@
 import React from "react";
 import "./TrainSeatDetails.scss";
-const TrainSeatDetails = ({ seat }) => {
+import { useNavigate } from "react-router-dom";
+const TrainSeatDetails = ({ seat,pageData }) => {
+  const navigate = useNavigate();
+  const handleOnClick = () => {
+    if(seat.availCount === 0){
+      return;
+    }
+    navigate("/services/trainBooking",{state: pageData});
+  };
   return (
     <div
       className={`TrainSeatDetails ${
         seat.availCount === 0 ? `not-available` : ``
       }`}
+      onClick={handleOnClick}
     >
       <div className="seat-details-top">
         <div className="seat-details-top-content">

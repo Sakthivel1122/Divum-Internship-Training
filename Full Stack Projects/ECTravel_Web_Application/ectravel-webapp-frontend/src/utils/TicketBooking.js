@@ -21,7 +21,29 @@ export const calcDuration = (pickUpDate, dropDate, pickUpTime, dropTime) => {
   let dropHour = Number(hour);
   let dropMinute = Number(minute);
 
-  ddDue = dropDD - pickUpDD;
+  const thirtyDayMonth = [4, 6, 9, 11];
+  if (pickUpMonth != dropMonth) {
+    let count = 0;
+    if (pickUpMonth === 2) {
+      let limitDD = isLeapYear(pickUpYear) ? 29 : 28;
+      while (pickUpDD <= limitDD) {
+        pickUpDD++;
+        count++;
+      }
+    } else {
+      let limitDD = thirtyDayMonth.includes(pickUpMonth) ? 30 : 31;
+      while (pickUpDD <= limitDD) {
+        pickUpDD++;
+        count++;
+      }
+    }
+    count += dropDD;
+    ddDue = count;
+    ddDue--;
+  } else {
+    ddDue = dropDD - pickUpDD;
+  }
+  // ddDue = 1;
   if (ddDue === 0) {
     let pickUpHr = pickUpHour;
     let pickUpMin = pickUpMinute;
@@ -178,7 +200,13 @@ export const generateNextTenDate = (date) => {
     let limitDay = isLeapYear(year) ? 29 : 28;
     while (currDay <= limitDay && count < 10) {
       result.push({
-        date: currYear + "-" + currMonth + "-" + (currDay < 10 ? "0":"") + currDay,
+        date:
+          currYear +
+          "-" +
+          currMonth +
+          "-" +
+          (currDay < 10 ? "0" : "") +
+          currDay,
         formatted: currDay + " " + monthNoToMonthStr(currMonth),
       });
       count++;
@@ -188,7 +216,13 @@ export const generateNextTenDate = (date) => {
     currMonth++;
     while (count < 10) {
       result.push({
-        date: currYear + "-" + currMonth + "-" + (currDay < 10 ? "0":"") + currDay,
+        date:
+          currYear +
+          "-" +
+          currMonth +
+          "-" +
+          (currDay < 10 ? "0" : "") +
+          currDay,
         formatted: currDay + " " + monthNoToMonthStr(currMonth),
       });
       count++;
@@ -199,7 +233,13 @@ export const generateNextTenDate = (date) => {
     let limitDay = thirtyDayMonth.includes(month) ? 30 : 31;
     while (currDay <= limitDay && count < 10) {
       result.push({
-        date: currYear + "-" + currMonth + "-" + (currDay < 10 ? "0":"") + currDay,
+        date:
+          currYear +
+          "-" +
+          currMonth +
+          "-" +
+          (currDay < 10 ? "0" : "") +
+          currDay,
         formatted: currDay + " " + monthNoToMonthStr(currMonth),
       });
       count++;
@@ -209,7 +249,13 @@ export const generateNextTenDate = (date) => {
     currMonth++;
     while (count < 10) {
       result.push({
-        date: currYear + "-" + currMonth + "-" + (currDay < 10 ? "0":"") + currDay,
+        date:
+          currYear +
+          "-" +
+          currMonth +
+          "-" +
+          (currDay < 10 ? "0" : "") +
+          currDay,
         formatted: currDay + " " + monthNoToMonthStr(currMonth),
       });
       count++;
@@ -223,6 +269,6 @@ const isLeapYear = (year) => {
   return year % 100 === 0 ? year % 400 === 0 : year % 4 === 0;
 };
 
-export const isInRange = (start,end,value) => {
-  return (value >= start && value <= end);
-}
+export const isInRange = (start, end, value) => {
+  return value >= start && value <= end;
+};
