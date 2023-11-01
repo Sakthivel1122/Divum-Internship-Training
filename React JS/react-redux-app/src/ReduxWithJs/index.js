@@ -5,6 +5,7 @@
 
 // import redux from "redux";
 const redux = require("redux");
+const produce = require("immer").produce;
 const createStore = redux.createStore;
 const combineReducer = redux.combineReducers;
 const appluMiddleware = redux.applyMiddleware;
@@ -62,10 +63,13 @@ const reducer = (state = initialState, action) => {
 const cakeReducer = (state = initialCakeState, action) => {
   switch (action.type) {
     case BUY_CAKE:
-      return {
-        ...state,
-        numOfCakes: state.numOfCakes - 1,
-      };
+      // return {
+      //   ...state,
+      //   numOfCakes: state.numOfCakes - 1,
+      // };
+    return produce(state, (draft) => {
+      draft.numOfCakes = draft.numOfCakes - 1;
+    })
     default:
       return state;
   }

@@ -13,13 +13,13 @@ const App = () => {
   return (
     <div className="App">
       <Provider store={store}>
-        {/* <NewCakeContainer/>
+        <NewCakeContainer/>
         <CakeContainer />
         <HooksCakeContainer/>
         <IceCreamContainer/>
         <ChocolateContainer/>
         <ItemContainer cake={true}/>
-        <ItemContainer cake={false}/> */}
+        <ItemContainer cake={false}/>
         <UserContainer/>
       </Provider>
     </div>
