@@ -20,6 +20,8 @@ import ManageBusBooking from "../pages/Admin/ManageBusBooking";
 import AvailTrain from "../pages/Services/TicketBooking/AvailTrain";
 import AvailBus from "../pages/Services/TicketBooking/AvailBus";
 import TrainBooking from "../pages/Services/TicketBooking/TrainBooking";
+import { Provider } from "react-redux";
+import { trainBookingStore } from "../redux/app/trainBookingStore";
 
 const RoutingFile = () => {
   return (
@@ -29,24 +31,24 @@ const RoutingFile = () => {
         <Route path="about" element={<About />} />
         <Route path="profile" element={<Profile />} />
 
-        <Route path="services" element={<Services />}>
-          <Route index path="tracklocation" element={<TrackLocation />} />
-          <Route path="ticketbooking" element={<TicketBooking />} />
-          <Route path="availBus" element={<AvailBus />} />
-          <Route path="busBooking" element={<BusBooking />} />
-          <Route path="availTrain" element={<AvailTrain />} />
-          <Route path="trainBooking" element={<TrainBooking />} />
-        </Route>
+          <Route path="services" element={<Services />}>
+            <Route index path="tracklocation" element={<TrackLocation />} />
+            <Route path="ticketbooking" element={<TicketBooking />} />
+            <Route path="availBus" element={<AvailBus />} />
+            <Route path="busBooking" element={<BusBooking />} />
+            <Route path="availTrain" element={<AvailTrain />} />
+            <Route path="trainBooking" element={<TrainBooking />} />
+          </Route>
       </Route>
 
-        <Route path="/admin" element={<Admin />}>
-          <Route index element={<AdminHome />} />
-          <Route path="manageUser" element={<ManageUser />} />
-          <Route path="manageFlightBooking" element={<ManageFlightBooking />} />
-          <Route path="manageTrainBooking" element={<ManageTrainBooking />} />
-          <Route path="manageBusBooking" element={<ManageBusBooking />} />
-        </Route>
-        
+      <Route path="/admin" element={<Admin />}>
+        <Route index element={<AdminHome />} />
+        <Route path="manageUser" element={<ManageUser />} />
+        <Route path="manageFlightBooking" element={<ManageFlightBooking />} />
+        <Route path="manageTrainBooking" element={<ManageTrainBooking />} />
+        <Route path="manageBusBooking" element={<ManageBusBooking />} />
+      </Route>
+
       <Route path="/signup" element={<SignUp />} />
       <Route path="/login" element={<LogIn />} />
       <Route path="/addBus" element={<AddBus />} />

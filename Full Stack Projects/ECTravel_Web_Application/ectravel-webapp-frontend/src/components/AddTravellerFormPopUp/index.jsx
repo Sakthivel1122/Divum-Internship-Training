@@ -2,6 +2,11 @@ import React, { useEffect, useState } from "react";
 import "./AddTravellerFormPopUp.scss";
 import DropDown from "../DropDown";
 import { Popup } from "react-leaflet";
+import { useDispatch } from "react-redux";
+import {
+  addTraveller,
+  editTraveller,
+} from "../../redux/features/TrainBooking/travellersList";
 const AddTravellerFormPopUp = ({
   popUp,
   handleSetPopUp,
@@ -49,13 +54,19 @@ const AddTravellerFormPopUp = ({
       data: null,
     });
   };
+  const dispatch = useDispatch();
   const handleSubmit = () => {
-    if(popUp.data !== null){
-        let arr = [...travellersList];
-        arr[popUp.data.index] = formData;
-        handleSetTravellersList(arr);
+    // if (popUp.data !== null) {
+    //   let arr = [...travellersList];
+    //   arr[popUp.data.index] = formData;
+    //   handleSetTravellersList(arr);
+    // } else {
+    //   handleSetTravellersList([...travellersList, formData]);
+    // }
+    if (popUp.data === null) {
+      dispatch(addTraveller(formData));
     } else {
-        handleSetTravellersList([...travellersList, formData]);
+      dispatch(editTraveller({ index: popUp.index, travellerData: formData }));
     }
     handleClose();
   };
@@ -82,7 +93,7 @@ const AddTravellerFormPopUp = ({
         <div className="add-traveller-form-navbar">
           <h2 className="title">Add Travellers</h2>
           <span
-            class="material-symbols-outlined close-icon"
+            className="material-symbols-outlined close-icon"
             onClick={handleClose}
           >
             close

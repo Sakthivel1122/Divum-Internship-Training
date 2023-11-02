@@ -18,7 +18,7 @@ const DropDown = ({ state, setState, dropDownList }) => {
             arrow_drop_down
           </span>
         ) : (
-          <span class="material-symbols-outlined">arrow_drop_up</span>
+          <span className="material-symbols-outlined">arrow_drop_up</span>
         )}
       </div>
 

@@ -7,8 +7,11 @@ import {
   monthNoToMonthStr,
 } from "../../../../utils/TicketBooking";
 import AddTravellerFormPopUp from "../../../../components/AddTravellerFormPopUp";
+import { useDispatch, useSelector } from "react-redux";
+import { removeTraveller } from "../../../../redux/features/TrainBooking/travellersList";
 const TrainBooking = () => {
   const location = useLocation();
+  const dispatch = useDispatch();
   const [train, setTrain] = useState(location.state);
   const [selectedStation, setSelectedStation] = useState(
     train.train.trainStationList[0]
@@ -17,7 +20,7 @@ const TrainBooking = () => {
     visible: false,
     data: null,
   });
-  const [travellersList, setTravellersList] = useState([]);
+  const travellersList = useSelector((state) => state.train.travellersList);
   const handleSetSelectedStation = (value) => {
     setSelectedStation(value);
   };
@@ -30,9 +33,7 @@ const TrainBooking = () => {
   const handleSetPopUp = (value) => {
     setPopUp(value);
   };
-  const handleSetTravellersList = (value) => {
-    setTravellersList(value);
-  };
+  const handleSetTravellersList = (value) => {};
   const handleEditBtn = (traveller, index) => {
     setPopUp({
       ...popUp,
@@ -44,9 +45,7 @@ const TrainBooking = () => {
     });
   };
   const handleDeleteTravellerBtn = (index) => {
-    let arr = [...travellersList];
-    arr = arr.slice(0, index).concat(arr.slice(index + 1, arr.length));
-    setTravellersList(arr);
+    dispatch(removeTraveller(index));
   };
 
   return (
@@ -121,7 +120,7 @@ const TrainBooking = () => {
                   className="add-travelers-btn-container"
                   onClick={handleAddTravellerBtn}
                 >
-                  <p>+ ADD TRAVELLER</p>
+                  + ADD TRAVELLER
                 </div>
                 {travellersList.map((traveller, index) => {
                   return (
@@ -145,7 +144,7 @@ const TrainBooking = () => {
                           Edit
                         </button>
                         <span
-                          class="material-symbols-outlined delete-icon"
+                          className="material-symbols-outlined delete-icon"
                           onClick={() => handleDeleteTravellerBtn(index)}
                         >
                           close
