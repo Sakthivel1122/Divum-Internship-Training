@@ -7,8 +7,6 @@ import {
   useLocation,
   useNavigate,
 } from "react-router-dom";
-import axios from "axios";
-import API_LINKS from "../../constants/ApiConstant";
 import { useMain } from "../../contexts/MainContext";
 import { handleAddUserApiCall } from "../../utils/ApiCalls";
 
@@ -55,22 +53,19 @@ const SignUp = () => {
       city: formData.city,
       state: formData.state,
       password: formData.password,
-    }
+    };
     const response = handleAddUserApiCall(dataObj);
-    response.then(res => {
+    response.then((res) => {
       navigate("/login");
-    })
-
+    });
   };
   const handleOnChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
   useEffect(() => {
-    mainContext.handleSetLoadingSpinner(true);
+    mainContext.handleSetLoadingSpinner(false);
   }, []);
-
-  
 
   return (
     <div className="SignUp" onLoad={mainContext.handleOnLoad}>
@@ -78,8 +73,8 @@ const SignUp = () => {
         <div className="left-side-div">
           <img className="left-side-pic" src={side_pic} alt="" />
         </div>
-        <form action="">
-          <h1>Create Account</h1>
+        <form className="signup-form">
+          <p className="form-title">Create Account</p>
           <input name="userId" type="number" hidden />
           <div className="input-flex">
             <label>First Name</label>

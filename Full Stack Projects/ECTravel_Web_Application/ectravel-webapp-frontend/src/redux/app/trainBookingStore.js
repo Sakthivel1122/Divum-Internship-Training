@@ -9,7 +9,6 @@ const presistConfig = {
     version: 1,
     storage
 }
-
 const rootRouder = combineReducers({
     train: travellerReducer,
 })
