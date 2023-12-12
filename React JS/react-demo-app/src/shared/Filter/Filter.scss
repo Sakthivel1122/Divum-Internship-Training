@@ -1,0 +1,20 @@
+@import "../../variables.scss";
+
+.Filter {
+    position: relative;
+}
+.filter-icon {
+    height: 2.5rem;
+    width: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: $primary-btn-color;
+    border: 1px solid $primary-btn-color;
+    cursor: pointer;
+}
+
+.filter-list-container {
+    
+}

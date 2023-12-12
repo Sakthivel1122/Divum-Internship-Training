@@ -1,0 +1,23 @@
+.HomeSideBar {
+    width: 20rem;
+    height: calc(100vh - (4rem + 2px));
+    position: sticky;
+    top: 4rem;
+    overflow-y: auto;
+}
+
+.HomeSideBar::-webkit-scrollbar {
+    width: 4px;
+}
+
+.HomeSideBar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.HomeSideBar::-webkit-scrollbar-thumb {
+    background: #d0cfcf;
+}
+
+.HomeSideBar::-webkit-scrollbar-thumb:hover {
+    background: #adadad;
+}

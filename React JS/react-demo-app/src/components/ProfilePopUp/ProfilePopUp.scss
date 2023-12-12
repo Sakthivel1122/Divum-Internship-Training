@@ -1,0 +1,29 @@
+@import "../../variables.scss";
+
+.ProfilePopUp {
+    position: absolute;
+    top: 2rem;
+    right: 0;
+    width: 20rem;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    z-index: 5;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: .2rem;
+    .sign-out-btn {
+        width: 100%;
+        margin-top: .3rem;
+    }
+    .user-name {
+        font-weight: bold;
+    }
+    .view-profile-text {
+        font-size: .8rem;
+        cursor: pointer;
+    }
+    .view-profile-text:hover {
+        color: $primary-btn-color;
+    }
+}

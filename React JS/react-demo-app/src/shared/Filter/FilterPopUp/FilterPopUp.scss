@@ -1,0 +1,33 @@
+.FilterPopUp {
+    position: absolute;
+    top: 3rem;
+    right: 0;
+    width: 10rem;
+    height: 10rem;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    list-style: none;
+    overflow-y: auto;
+    .filter-item {
+        padding: 0.5rem;
+        cursor: pointer;
+    }
+    .filter-item:hover {
+        background-color: rgba(0, 0, 0, 0.1);
+    }
+}
+.FilterPopUp::-webkit-scrollbar {
+    width: 5px;
+}
+
+.FilterPopUp::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.FilterPopUp::-webkit-scrollbar-thumb {
+    background: #c3c2c2;
+}
+
+.FilterPopUp::-webkit-scrollbar-thumb:hover {
+    background: #adadad;
+}

@@ -1,0 +1,19 @@
+.MyProducts {
+    
+}
+
+.myproducts-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 4rem;
+    padding: 0 1rem;
+    border-bottom: 1px solid rgba(0,0,0,0.2);
+    .title {
+        font-weight: bold;
+    }
+}
+.myproducts-header-wrapper {
+    display: flex;
+    gap: 1rem;
+}

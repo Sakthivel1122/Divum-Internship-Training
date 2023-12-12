@@ -1,0 +1,33 @@
+.NavBar {
+    border-bottom: 1px solid rgba(0,0,0,0.2);
+    .logo {
+        color: rgb(235, 4, 4);
+        font-weight: bolder;
+    }
+}
+.navbar-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 4rem;
+    padding: 0 1rem;
+}
+
+.profile-item {
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    gap: .5rem;
+    .profile-icon {
+        border: none;   
+        outline: none;
+        background-color: white;
+        font-size: 1.7rem;
+        cursor: pointer;
+    }
+    .text-content {
+        font-weight: bold;
+    }
+}

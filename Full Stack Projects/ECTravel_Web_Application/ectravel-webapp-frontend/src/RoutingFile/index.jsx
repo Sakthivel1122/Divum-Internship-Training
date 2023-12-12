@@ -51,7 +51,7 @@ const RoutingFile = () => {
 
       <Route path="/signup" element={<SignUp />} />
       <Route path="/login" element={<LogIn />} />
-      <Route path="/addBus" element={<AddBus />} />
+      {/* <Route path="/addBus" element={<AddBus />} /> */}
     </Routes>
   );
 };
