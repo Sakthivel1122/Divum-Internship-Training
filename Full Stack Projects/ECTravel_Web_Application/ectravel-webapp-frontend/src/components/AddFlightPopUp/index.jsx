@@ -1,0 +1,244 @@
+import React, { useState } from "react";
+import "./AddFlightPopUp.scss";
+import { flightForm } from "../../constants/flightForm";
+import { DATE_AND_TIME, RADIO, TEXT } from "../../constants/inputType";
+import {
+  handleAddFlightApiCall,
+  handleGetAllFlightsApiCall,
+} from "../../utils/AdminApiCall";
+import { useAdmin } from "../../contexts/AdminContext";
+
+const AddFlightPopUp = () => {
+  const adminContext = useAdmin();
+  const [isThereStopping, setIsThereStopping] = useState(false);
+  const [formData, setFormData] = useState({
+    flightId: null,
+    flightName: "",
+    fromPlace: "",
+    toPlace: "",
+    pickUpDateAndTime: "",
+    dropDateAndTime: "",
+    isMealFree: true,
+    price: "",
+    availCount: "",
+    cabinBagLimit: "",
+    checkInLimit: "",
+    stoppingDateAndTime: "",
+    stopping: "",
+  });
+  const handleStoppingOnClick = (e) => {
+    const { id } = e.target;
+    if (id === "yes") {
+      setIsThereStopping(true);
+    } else {
+      setIsThereStopping(false);
+      setFormData({
+        ...formData,
+        stopping: "",
+        stoppingDateAndTime: "",
+      });
+    }
+  };
+  const handleOnChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+  const handleMealOnClick = (e) => {
+    const { name, id } = e.target;
+    setFormData({
+      ...formData,
+      [name]: id === "free" ? true : false,
+    });
+  };
+
+  const handleSubmitBtn = () => {
+    const dataObj = {
+      flightName: formData.flightName,
+      fromPlace: formData.fromPlace,
+      toPlace: formData.toPlace,
+      pickUpDate: formData.pickUpDateAndTime.split("T")[0],
+      pickUpTime: formData.pickUpDateAndTime.split("T")[1],
+      dropDate: formData.dropDateAndTime.split("T")[0],
+      dropTime: formData.dropDateAndTime.split("T")[1],
+      mealFree: formData.isMealFree,
+      price: formData.price,
+      availCount: formData.availCount,
+      cabinBagLimit: formData.cabinBagLimit,
+      checkInLimit: formData.checkInLimit,
+      stopping: formData.stopping,
+      stoppingDateAndTime: formData.stoppingDateAndTime,
+    };
+    const response = handleAddFlightApiCall(dataObj);
+    response.then((res) => {
+      if (res) {
+        const result = handleGetAllFlightsApiCall();
+        result.then((flightList) => {
+          adminContext.handleSetFlightList(flightList.data);
+          console.log("HI");
+        });
+        adminContext.handleSetFlightPopUp({
+          ...adminContext.flightPopUp,
+          visible: false,
+        });
+      }
+    });
+  };
+  const resetForm = () => {
+    setFormData({
+      flightName: "",
+      fromPlace: "",
+      toPlace: "",
+      pickUpDateAndTime: "",
+      dropDateAndTime: "",
+      isMealFree: true,
+      price: "",
+      availCount: "",
+      cabinBagLimit: "",
+      checkInLimit: "",
+      stoppingDateAndTime: "",
+      stopping: "",
+    });
+  };
+  const handleClose = (e) => {
+    const { className } = e.target;
+    if (className === "AddFlightPopUp" || className.includes("close-icon")) {
+      adminContext.handleSetFlightPopUp({
+        ...adminContext.flightPopUp,
+        visible: false,
+        data: null,
+      });
+      resetForm();
+    }
+  };
+  return (
+    <div className="AddFlightPopUp" onClick={handleClose}>
+      <div className="form-container">
+        <div className="form-header">
+          <h2>Add Flight</h2>
+          <span className="material-symbols-outlined close-icon">close</span>
+        </div>
+        <form className="add-train-form">
+          <div className="form-left-side">
+            {flightForm.map((formInput) => {
+              switch (formInput.type) {
+                case TEXT:
+                  return (
+                    <div className="input-box-wrapper">
+                      <label className="flight-form-label">
+                        {formInput.labelName}
+                      </label>
+                      <input
+                        type="text"
+                        name={formInput.name}
+                        className="input-box"
+                        value={formData[formInput.name]}
+                        onChange={handleOnChange}
+                      />
+                    </div>
+                  );
+                case RADIO:
+                  return (
+                    <div className="input-box-wrapper">
+                      <label className="flight-form-label">
+                        {formInput.labelName}
+                      </label>
+                      <div className="radio-input">
+                        <input
+                          type="radio"
+                          id="free"
+                          name="isMealFree"
+                          checked={formData.isMealFree}
+                          onClick={handleMealOnClick}
+                        />
+                        <label className="first-label">Free</label>
+                        <input
+                          type="radio"
+                          id="paid"
+                          name="isMealFree"
+                          checked={!formData.isMealFree}
+                          onClick={handleMealOnClick}
+                        />
+                        <label>Paid</label>
+                      </div>
+                    </div>
+                  );
+                case DATE_AND_TIME:
+                  return (
+                    <div className="input-box-wrapper">
+                      <label className="flight-form-label">
+                        {formInput.labelName}
+                      </label>
+                      <input
+                        type="datetime-local"
+                        className="input-box"
+                        name={formInput.name}
+                        value={formData[formInput.name]}
+                        onChange={handleOnChange}
+                      />
+                    </div>
+                  );
+                default:
+                  break;
+              }
+            })}
+          </div>
+          <div className="form-right-side">
+            <div className="input-box-wrapper">
+              <label className="flight-form-label">Is there stopping</label>
+              <div className="radio-input">
+                <input
+                  id="yes"
+                  type="radio"
+                  name="stopping"
+                  onClick={(e) => handleStoppingOnClick(e)}
+                  checked={isThereStopping}
+                />
+                <label className="first-label">Yes</label>
+                <input
+                  id="no"
+                  type="radio"
+                  name="stopping"
+                  onClick={(e) => handleStoppingOnClick(e)}
+                  checked={!isThereStopping}
+                />
+                <label>No</label>
+              </div>
+            </div>
+            <div className={isThereStopping ? "visible" : "hidden"}>
+              <div className="input-box-wrapper">
+                <label className="flight-form-label">Stopping Name</label>
+                <input
+                  type="text"
+                  name="stopping"
+                  value={formData.stopping}
+                  className="input-box"
+                  onChange={handleOnChange}
+                />
+              </div>
+              <div className="input-box-wrapper">
+                <label className="flight-form-label">
+                  Stopping date & time
+                </label>
+                <input
+                  type="datetime-local"
+                  name="stoppingDateAndTime"
+                  value={formData.stoppingDateAndTime}
+                  className="input-box"
+                  onChange={handleOnChange}
+                />
+              </div>
+            </div>
+          </div>
+        </form>
+        <button type="button" className="submit-btn" onClick={handleSubmitBtn}>
+          Submit
+        </button>
+      </div>
+    </div>
+  );
+};
+
+export default AddFlightPopUp;

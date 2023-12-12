@@ -26,7 +26,7 @@ const TrainFormPopUP = () => {
     ],
     trainStationList: [],
   });
-  const [quickFilter,setQuickFilter] = useState();
+  const [quickFilter, setQuickFilter] = useState();
   const handleClose = (e) => {
     const { className } = e.target;
     if (className === "TrainFormPopUP" || className.includes("close-btn")) {
@@ -68,6 +68,7 @@ const TrainFormPopUP = () => {
       trainStationList: arr,
     });
   };
+
   const handleOnChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -75,6 +76,7 @@ const TrainFormPopUP = () => {
       [name]: value,
     });
   };
+
   const handleDeleteStationBtn = (index) => {
     let arr = formData.trainStationList;
     arr = arr.slice(0, index).concat(arr.slice(index + 1, arr.length));
@@ -83,6 +85,7 @@ const TrainFormPopUP = () => {
       trainStationList: arr,
     });
   };
+  
   const handlePriceOnChange = (e, index) => {
     const arr = formData.prices;
     arr[index].price = e.target.value;
