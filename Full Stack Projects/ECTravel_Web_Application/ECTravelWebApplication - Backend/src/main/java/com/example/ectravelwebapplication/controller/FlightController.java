@@ -1,6 +1,7 @@
 package com.example.ectravelwebapplication.controller;
 
 import com.example.ectravelwebapplication.DTO.AddFlightDTO;
+import com.example.ectravelwebapplication.DTO.GetAvailFlightDTO;
 import com.example.ectravelwebapplication.DTO.UpdateFlightDTO;
 import com.example.ectravelwebapplication.api.FlightApi;
 import com.example.ectravelwebapplication.entity.Flight;
@@ -21,7 +22,6 @@ public class FlightController implements FlightApi {
 
     @Override
     public ResponseEntity<String> addFlight(@RequestBody AddFlightDTO addFlightDTO){
-        System.out.println(addFlightDTO.toString());
         return flightService.addFlight(addFlightDTO);
     }
 
@@ -39,5 +39,10 @@ public class FlightController implements FlightApi {
     @Override
     public ResponseEntity<String> updateFlight(@RequestBody UpdateFlightDTO updateFlightDTO){
         return flightService.updateFlight(updateFlightDTO);
+    }
+
+    @Override
+    public ResponseEntity<List<Flight>> getAvailFlight(@RequestBody GetAvailFlightDTO getAvailFlightDTO){
+        return flightService.getAvailFlight(getAvailFlightDTO);
     }
 }

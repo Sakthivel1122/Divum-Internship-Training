@@ -1,6 +1,7 @@
 package com.example.ectravelwebapplication.service.Impl;
 
 import com.example.ectravelwebapplication.DTO.AddFlightDTO;
+import com.example.ectravelwebapplication.DTO.GetAvailFlightDTO;
 import com.example.ectravelwebapplication.DTO.UpdateFlightDTO;
 import com.example.ectravelwebapplication.entity.Flight;
 import com.example.ectravelwebapplication.repository.service.FlightRepoService;
@@ -56,5 +57,10 @@ public class FlightServiceIMPL implements FlightService {
     public ResponseEntity<String> updateFlight(UpdateFlightDTO updateFlightDTO) {
         boolean result = flightRepoService.updateFlight(updateFlightDTO);
         return new ResponseEntity<String>(result ? "Flight Updated Successfully" : "Flight Update Failed", HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<List<Flight>> getAvailFlight(GetAvailFlightDTO getAvailFlightDTO){
+        return new ResponseEntity<List<Flight>>(flightRepoService.getAvailFlight(getAvailFlightDTO),HttpStatus.OK);
     }
 }

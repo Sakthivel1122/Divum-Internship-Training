@@ -85,7 +85,7 @@ const TrainFormPopUP = () => {
       trainStationList: arr,
     });
   };
-  
+
   const handlePriceOnChange = (e, index) => {
     const arr = formData.prices;
     arr[index].price = e.target.value;
@@ -181,7 +181,13 @@ const TrainFormPopUP = () => {
     <div className="TrainFormPopUP" onClick={handleClose}>
       <form className="train-form">
         <div className="train-form-1">
-          <h2 className="form-title">Add Train</h2>
+          <h2 className="form-title">
+            {adminContext.trainFormPopUp.details &&
+            adminContext.trainFormPopUp.details !== null
+              ? "Update"
+              : "Add"}
+            Train
+          </h2>
           <span className="material-symbols-outlined close-btn">close</span>
         </div>
         <div className="train-form-2">
@@ -340,7 +346,10 @@ const TrainFormPopUP = () => {
         </div>
         <div className="train-form-3">
           <button className="submit-btn" onClick={handleSubmit}>
-            Submit
+            {adminContext.trainFormPopUp.details &&
+            adminContext.trainFormPopUp.details !== null
+              ? "Update"
+              : "Submit"}
           </button>
         </div>
       </form>

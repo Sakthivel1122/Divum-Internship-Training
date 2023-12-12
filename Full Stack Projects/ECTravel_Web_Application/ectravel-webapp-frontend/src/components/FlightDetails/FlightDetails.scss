@@ -1,0 +1,64 @@
+@import "../../assets/styles/globalConstants";
+
+.FlightDetails {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    background-color: white;
+    border-radius: 5px;
+
+    .flight-details-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1rem;
+        border-bottom: 1px solid rgba(0,0,0,0.2);
+    }
+    .flight-name {
+        font-weight: bold;
+        font-size: 1.4rem;
+    }
+    .flight-details-bottom {
+        display: flex;
+        justify-content: flex-end;
+        padding: .5rem;
+    }
+    .view-details-text {
+        cursor: pointer;
+    }
+    .view-details-text:hover {
+        color: $primary-color;
+    }
+    .book-now-wrapper {
+        display: flex;
+        gap: 1rem;
+    }
+    .book-btn {
+        height: fit-content;
+        font-size: 1rem;
+        padding: .5rem .7rem;
+        border: none;
+        background-color: $primary-color;
+        border-radius: 5px;
+        cursor: pointer;
+        color: white;
+        font-weight: bold;
+    }
+    .book-btn:hover {
+        background-color: $hover-color;
+    }
+    .price-details {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+    }
+    .price,
+    .time {
+        font-weight: bold;
+        font-size: 1.3rem;
+    }
+    .view-details-container {
+        height: 20rem;
+    }
+}

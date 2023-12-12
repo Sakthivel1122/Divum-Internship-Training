@@ -36,6 +36,7 @@ const TicketBooking = () => {
     let response;
     switch (formData.vehicle) {
       case "flight":
+        navigate("/services/availFlight");
         break;
       case "train":
         const dataObj = {

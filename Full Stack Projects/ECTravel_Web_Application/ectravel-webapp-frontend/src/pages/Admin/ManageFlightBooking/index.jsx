@@ -24,7 +24,13 @@ const ManageFlightBooking = () => {
       console.log(res.data);
     });
   };
-  const handleEditBtn = (flight) => {};
+  const handleEditBtn = (flight) => {
+    adminContext.handleSetFlightPopUp({
+      ...adminContext.flightPopUp,
+      visible: true,
+      data: flight,
+    });
+  };
 
   const handleDeleteBtn = (flightId) => {
     const response = handleDeleteFlightApiCall(flightId);

@@ -30,8 +30,9 @@ const API_LINKS = {
     MANAGE_FLIGHT: {
       GET_ALL_FLIGHTS: COMMON_FLIGHT_API_LINK + "getAllFlights",
       ADD_FLIGHT: COMMON_FLIGHT_API_LINK + "addFlight",
-      DELETE_FLIGHT: COMMON_FLIGHT_API_LINK + "deleteFlight/"
-    }
+      DELETE_FLIGHT: COMMON_FLIGHT_API_LINK + "deleteFlight/",
+      UPDATE_FLIGHT: COMMON_FLIGHT_API_LINK + "updateFlight",
+    },
   },
 };
 

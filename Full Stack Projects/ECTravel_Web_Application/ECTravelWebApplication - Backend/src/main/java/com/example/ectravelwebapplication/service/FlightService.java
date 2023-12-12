@@ -1,6 +1,7 @@
 package com.example.ectravelwebapplication.service;
 
 import com.example.ectravelwebapplication.DTO.AddFlightDTO;
+import com.example.ectravelwebapplication.DTO.GetAvailFlightDTO;
 import com.example.ectravelwebapplication.DTO.UpdateFlightDTO;
 import com.example.ectravelwebapplication.entity.Flight;
 import org.springframework.http.ResponseEntity;
@@ -17,4 +18,6 @@ public interface FlightService {
     ResponseEntity<String> deleteFlight(int flightId);
 
     ResponseEntity<String> updateFlight(UpdateFlightDTO updateFlightDTO);
+
+    ResponseEntity<List<Flight>> getAvailFlight(GetAvailFlightDTO getAvailFlightDTO);
 }

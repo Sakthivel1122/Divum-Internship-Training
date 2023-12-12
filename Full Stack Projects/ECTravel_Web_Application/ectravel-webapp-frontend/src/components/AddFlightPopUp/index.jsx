@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./AddFlightPopUp.scss";
 import { flightForm } from "../../constants/flightForm";
 import { DATE_AND_TIME, RADIO, TEXT } from "../../constants/inputType";
 import {
   handleAddFlightApiCall,
   handleGetAllFlightsApiCall,
+  handleUpdateBusApiCall,
+  handleUpdateFlightApiCall,
 } from "../../utils/AdminApiCall";
 import { useAdmin } from "../../contexts/AdminContext";
 
@@ -55,39 +57,59 @@ const AddFlightPopUp = () => {
   };
 
   const handleSubmitBtn = () => {
-    const dataObj = {
+    let dataObj = {
       flightName: formData.flightName,
       fromPlace: formData.fromPlace,
       toPlace: formData.toPlace,
-      pickUpDate: formData.pickUpDateAndTime.split("T")[0],
-      pickUpTime: formData.pickUpDateAndTime.split("T")[1],
-      dropDate: formData.dropDateAndTime.split("T")[0],
-      dropTime: formData.dropDateAndTime.split("T")[1],
       mealFree: formData.isMealFree,
       price: formData.price,
       availCount: formData.availCount,
       cabinBagLimit: formData.cabinBagLimit,
       checkInLimit: formData.checkInLimit,
       stopping: formData.stopping,
-      stoppingDateAndTime: formData.stoppingDateAndTime,
+      pickUpDate: "",
+      pickUpTime: "",
+      dropDate: "",
+      dropTime: "",
+      stoppingDate: "",
+      stoppingTime: "",
     };
-    const response = handleAddFlightApiCall(dataObj);
+    if (formData.pickUpDateAndTime !== "") {
+      dataObj.pickUpDate = formData.pickUpDateAndTime.split("T")[0];
+      dataObj.pickUpTime = formData.pickUpDateAndTime.split("T")[1];
+    }
+    if (formData.dropDateAndTime !== "") {
+      dataObj.dropDate = formData.dropDateAndTime.split("T")[0];
+      dataObj.dropTime = formData.dropDateAndTime.split("T")[1];
+    }
+    if (formData.stoppingDateAndTime !== "") {
+      dataObj.stoppingDate = formData.stoppingDateAndTime.split("T")[0];
+      dataObj.stoppingTime = formData.stoppingDateAndTime.split("T")[1];
+    }
+    let response;
+    if (adminContext.flightPopUp.data === null) {
+      response = handleAddFlightApiCall(dataObj);
+    } else {
+      dataObj.flightId = formData.flightId;
+      response = handleUpdateFlightApiCall(dataObj);
+    }
     response.then((res) => {
       if (res) {
         const result = handleGetAllFlightsApiCall();
         result.then((flightList) => {
           adminContext.handleSetFlightList(flightList.data);
-          console.log("HI");
         });
         adminContext.handleSetFlightPopUp({
           ...adminContext.flightPopUp,
           visible: false,
+          data: null,
         });
       }
     });
   };
   const resetForm = () => {
     setFormData({
+      flightId: null,
       flightName: "",
       fromPlace: "",
       toPlace: "",
@@ -113,11 +135,35 @@ const AddFlightPopUp = () => {
       resetForm();
     }
   };
+  useEffect(() => {
+    if (adminContext.flightPopUp.data !== null) {
+      const data = adminContext.flightPopUp.data;
+      setFormData({
+        flightId: data.flightId,
+        flightName: data.flightName,
+        fromPlace: data.fromPlace,
+        toPlace: data.toPlace,
+        pickUpDateAndTime: data.pickUpDate + "T" + data.pickUpTime,
+        dropDateAndTime: data.dropDate + "T" + data.dropTime,
+        isMealFree: data.mealFree,
+        price: data.price,
+        availCount: data.availCount,
+        cabinBagLimit: data.cabinBagLimit,
+        checkInLimit: data.checkInLimit,
+        stoppingDateAndTime:
+          data.stopping !== ""
+            ? data.stoppingDate + "T" + data.stoppingTime
+            : "",
+        stopping: data.stopping,
+      });
+      setIsThereStopping(data.stopping !== "");
+    }
+  }, []);
   return (
     <div className="AddFlightPopUp" onClick={handleClose}>
       <div className="form-container">
         <div className="form-header">
-          <h2>Add Flight</h2>
+          <h2>{adminContext.flightPopUp.data === null ? "Add" : "Update"} Flight</h2>
           <span className="material-symbols-outlined close-icon">close</span>
         </div>
         <form className="add-train-form">
@@ -234,7 +280,7 @@ const AddFlightPopUp = () => {
           </div>
         </form>
         <button type="button" className="submit-btn" onClick={handleSubmitBtn}>
-          Submit
+          {adminContext.flightPopUp.data === null ? "Submit" : "Update"}
         </button>
       </div>
     </div>

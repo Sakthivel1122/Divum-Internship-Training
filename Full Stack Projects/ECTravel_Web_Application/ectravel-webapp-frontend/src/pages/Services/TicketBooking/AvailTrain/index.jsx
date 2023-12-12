@@ -111,7 +111,7 @@ const AvailTrain = () => {
     fromPlace: location.state.fromPlace,
     toPlace: location.state.toPlace,
     date: location.state.date,
-  }
+  };
   const handlePrevPage = () => {
     if (activeIndex != 0) setActiveIndex(activeIndex - 1);
   };

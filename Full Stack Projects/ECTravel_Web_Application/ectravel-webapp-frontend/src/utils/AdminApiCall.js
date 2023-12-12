@@ -127,3 +127,16 @@ export const handleDeleteFlightApiCall = async (flightId) => {
     return false;
   }
 };
+
+export const handleUpdateFlightApiCall = async (dataObj) => {
+  try {
+    const response = await axios.put(
+      API_LINKS.ADMIN.MANAGE_FLIGHT.UPDATE_FLIGHT,
+      dataObj
+    );
+    return response;
+  } catch (error) {
+    console.log("UPDATE FLIGHT API ERROR", error);
+    return false;
+  }
+};

@@ -1,5 +1,6 @@
 package com.example.ectravelwebapplication.repository.service.Impl;
 
+import com.example.ectravelwebapplication.DTO.GetAvailFlightDTO;
 import com.example.ectravelwebapplication.DTO.UpdateFlightDTO;
 import com.example.ectravelwebapplication.entity.Flight;
 import com.example.ectravelwebapplication.repository.FlightRepo;
@@ -53,5 +54,10 @@ public class FlightRepoServiceImpl implements FlightRepoService {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public List<Flight> getAvailFlight(GetAvailFlightDTO getAvailFlightDTO){
+        return flightRepo.findByFromPlaceAndToPlaceAndPickUpDate(getAvailFlightDTO.getFromPlace(),getAvailFlightDTO.getToPlace(),getAvailFlightDTO.getPickUpDate());
     }
 }

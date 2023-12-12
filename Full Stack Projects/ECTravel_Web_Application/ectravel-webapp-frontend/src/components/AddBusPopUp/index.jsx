@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import "./AddBusPopUp.scss";
-import { handleGetAllBusApiCall, handleUpdateBusApiCall } from "../../utils/AdminApiCall";
+import {
+  handleGetAllBusApiCall,
+  handleUpdateBusApiCall,
+} from "../../utils/AdminApiCall";
 import { handleAddBusApiCall } from "../../utils/ApiCalls";
 import { useAdmin } from "../../contexts/AdminContext";
 
@@ -185,12 +188,11 @@ const AddBusPopUp = () => {
     <div className="AddBusPopUp" onClick={handleClose}>
       <form>
         <div className="form-header">
-          <h2>Add Bus</h2>
-          <span
-            className="material-symbols-outlined close-btn"
-          >
-            close
-          </span>
+          <h2>
+            {adminContext.popUp.addBusPopUp.details === null ? "Add" : "Update"}{" "}
+            Bus
+          </h2>
+          <span className="material-symbols-outlined close-btn">close</span>
         </div>
         <div className="form-flex-wrapper">
           <div className="form-flex-1">
@@ -375,7 +377,9 @@ const AddBusPopUp = () => {
         </div>
         <div className="submit-btn-wrapper">
           <button className="submit-btn" onClick={handleSubmit}>
-            Submit
+            {adminContext.popUp.addBusPopUp.details === null
+              ? "Submit"
+              : "Update"}
           </button>
         </div>
       </form>

@@ -1,0 +1,64 @@
+@import "../../../../assets/styles/globalConstants";
+
+.AvailFlight {
+  margin-top: 4rem;
+  background-color: $global-bg-color;
+
+  .navbar-container {
+    background-color: $booking-navBar-bg;
+    height: 3.5rem;
+    display: flex;
+    align-items: center;
+
+    .basic-details {
+      font-size: 1rem;
+    }
+  }
+
+  .navbar-content-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 80%;
+    margin: auto;
+    color: white;
+  }
+
+  .avail-flight-container {
+    width: 80%;
+    margin: auto;
+    display: flex;
+    margin-top: 1rem;
+    gap: 1rem;
+  }
+
+  .filter-title {
+    font-weight: bold;
+    font-size: 1.3rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    padding: 0.5rem 0 0.5rem 1rem;
+  }
+  .filter-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 17rem;
+    .filter-content {
+      background-color: white;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      width: 100%;
+      border-radius: 5px;
+    }
+    .filter-option-wrapper {
+      display: flex;
+      gap: 0.5rem;
+      padding: 0.5rem 0 0 1rem;
+    }
+    .filter-option-wrapper:last-child {
+      margin-bottom: 0.5rem;
+    }
+  }
+  .fildered-flight-container {
+    width: 100%;
+  }
+}

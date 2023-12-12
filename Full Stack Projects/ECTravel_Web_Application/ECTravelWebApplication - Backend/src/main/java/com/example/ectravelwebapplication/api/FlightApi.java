@@ -1,6 +1,7 @@
 package com.example.ectravelwebapplication.api;
 
 import com.example.ectravelwebapplication.DTO.AddFlightDTO;
+import com.example.ectravelwebapplication.DTO.GetAvailFlightDTO;
 import com.example.ectravelwebapplication.DTO.UpdateFlightDTO;
 import com.example.ectravelwebapplication.entity.Flight;
 import org.springframework.http.ResponseEntity;
@@ -21,5 +22,9 @@ public interface FlightApi {
     @DeleteMapping("deleteFlight/{flightId}")
     ResponseEntity<String> deleteFlight(@PathVariable("flightId") int flightId);
 
+    @PutMapping("updateFlight")
     ResponseEntity<String> updateFlight(@RequestBody UpdateFlightDTO updateFlightDTO);
+
+    @GetMapping("getAvailFlight")
+    ResponseEntity<List<Flight>> getAvailFlight(@RequestBody GetAvailFlightDTO getAvailFlightDTO);
 }

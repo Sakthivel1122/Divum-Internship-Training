@@ -23,7 +23,6 @@ public class UserController implements UserApi {
 
     @Override
     public boolean userAuthentication(@RequestBody LogInDTO logInDTO){
-        System.out.println(logInDTO.toString());
         return userService.userAuthentication(logInDTO);
     }
 
