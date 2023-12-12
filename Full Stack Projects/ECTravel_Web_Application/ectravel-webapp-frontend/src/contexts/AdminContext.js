@@ -15,6 +15,12 @@ export const AdminProvider = ({ children }) => {
     visible: false,
     detais: null
   });
+
+  const [flightList,setFlightList] = useState([]);
+  const [flightPopUp,setFlightPopUp] = useState({
+    visible: false,
+    data: null,
+  });
   const handleSetPopUp = (value) => {
     setPopUp(value);
   };
@@ -27,6 +33,12 @@ export const AdminProvider = ({ children }) => {
   const handleSetTrainFormPopUp = (value) => {
     setTrainFormPopUp(value);
   }
+  const handleSetFlightList = (value) => {
+    setFlightList(value);
+  }
+  const handleSetFlightPopUp = (value) => {
+    setFlightPopUp(value);
+  }
   return (
     <AdminContext.Provider
       value={{
@@ -38,6 +50,10 @@ export const AdminProvider = ({ children }) => {
         handleSetTrainList,
         trainFormPopUp,
         handleSetTrainFormPopUp,
+        flightList,
+        handleSetFlightList,
+        flightPopUp,
+        handleSetFlightPopUp
       }}
     >
       {children}

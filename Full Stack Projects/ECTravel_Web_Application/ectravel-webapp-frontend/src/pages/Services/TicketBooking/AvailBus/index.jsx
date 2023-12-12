@@ -106,7 +106,6 @@ const AvailBus = () => {
             selectedFilterArr = filter;
           }
           break;
-
         case "seater":
           if (selectedFilterArr.includes("sleeper")) {
             let filter = selectedFilterArr.filter((ele) => ele !== "sleeper");

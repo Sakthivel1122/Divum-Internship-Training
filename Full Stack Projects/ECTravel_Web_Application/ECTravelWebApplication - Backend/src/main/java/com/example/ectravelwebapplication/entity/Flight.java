@@ -2,10 +2,12 @@ package com.example.ectravelwebapplication.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Entity
 @Table
+@NoArgsConstructor
 public class Flight {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -36,4 +38,26 @@ public class Flight {
     private String cabinBagLimit;
 
     private String checkInLimit;
+
+    private String stoppingDate;
+
+    private String stoppingTime;
+
+    public Flight(String flightName, String fromPlace, String toPlace, String pickUpDate, String pickUpTime, String dropDate, String dropTime, String stopping, String price, int availCount, boolean isMealFree, String cabinBagLimit, String checkInLimit,String stoppingDate,String stoppingTime) {
+        this.flightName = flightName;
+        this.fromPlace = fromPlace;
+        this.toPlace = toPlace;
+        this.pickUpDate = pickUpDate;
+        this.pickUpTime = pickUpTime;
+        this.dropDate = dropDate;
+        this.dropTime = dropTime;
+        this.stopping = stopping;
+        this.price = price;
+        this.availCount = availCount;
+        this.isMealFree = isMealFree;
+        this.cabinBagLimit = cabinBagLimit;
+        this.checkInLimit = checkInLimit;
+        this.stoppingDate = stoppingDate;
+        this.stoppingTime = stoppingTime;
+    }
 }

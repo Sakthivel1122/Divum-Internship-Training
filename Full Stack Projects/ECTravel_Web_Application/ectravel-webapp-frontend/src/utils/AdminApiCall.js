@@ -79,11 +79,51 @@ export const handleDeleteTrainApiCall = async (trainId) => {
 export const handleUpdateTrainApiCall = async (dataObj) => {
   try {
     const response = await axios.put(
-      API_LINKS.ADMIN.MANAGE_TRAIN.UPDATE_TRAIN, dataObj
+      API_LINKS.ADMIN.MANAGE_TRAIN.UPDATE_TRAIN,
+      dataObj
     );
     return response;
   } catch (error) {
     console.log("UPDATE TRAIN API ERROR", error);
+    return false;
+  }
+};
+
+// ----------------- FLIGHT API CALLS ---------------------
+
+export const handleGetAllFlightsApiCall = async () => {
+  try {
+    const response = await axios.get(
+      API_LINKS.ADMIN.MANAGE_FLIGHT.GET_ALL_FLIGHTS
+    );
+    return response;
+  } catch (error) {
+    console.log("GET ALL FLIGHT API ERROR", error);
+    return false;
+  }
+};
+
+export const handleAddFlightApiCall = async (dataObj) => {
+  try {
+    const response = await axios.post(
+      API_LINKS.ADMIN.MANAGE_FLIGHT.ADD_FLIGHT,
+      dataObj
+    );
+    return response;
+  } catch (error) {
+    console.log("ADD FLIGHT API ERROR", error);
+    return false;
+  }
+};
+
+export const handleDeleteFlightApiCall = async (flightId) => {
+  try {
+    const response = await axios.delete(
+      API_LINKS.ADMIN.MANAGE_FLIGHT.DELETE_FLIGHT + flightId
+    );
+    return response;
+  } catch (error) {
+    console.log("DELETE FLIGHT API ERROR", error);
     return false;
   }
 };

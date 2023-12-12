@@ -5,6 +5,7 @@ import { Outlet } from "react-router-dom";
 import { useAdmin } from "../../contexts/AdminContext";
 import TrainFormPopUP from "../../components/TrainFormPopUP";
 import AddBusPopUp from "../../components/AddBusPopUp";
+import AddFlightPopUp from "../../components/AddFlightPopUp";
 const Admin = () => {
   const adminContext = useAdmin();
   return (
@@ -13,6 +14,8 @@ const Admin = () => {
         <Outlet />
       {adminContext.popUp.addBusPopUp.visible && <AddBusPopUp/>}
       {adminContext.trainFormPopUp.visible && <TrainFormPopUP/>}
+      {adminContext.flightPopUp.visible && <AddFlightPopUp/>}
+
     </div>
   );
 };
