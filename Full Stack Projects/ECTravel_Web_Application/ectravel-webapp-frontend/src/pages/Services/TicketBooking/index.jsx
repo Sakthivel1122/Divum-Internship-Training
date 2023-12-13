@@ -3,7 +3,11 @@ import "./TicketBooking.scss";
 import { offers } from "../../../constants/OffersConstant";
 import axios, { formToJSON } from "axios";
 import API_LINKS from "../../../constants/ApiConstant";
-import { handleCheckAvailBusApiCall, handleGetAvailTrainApiCall } from "../../../utils/ApiCalls";
+import {
+  handleCheckAvailBusApiCall,
+  handleGetAvailFlightApiCall,
+  handleGetAvailTrainApiCall,
+} from "../../../utils/ApiCalls";
 import { useNavigate } from "react-router-dom";
 import { useMain } from "../../../contexts/MainContext";
 const TicketBooking = () => {
@@ -33,27 +37,42 @@ const TicketBooking = () => {
   };
 
   const handleSubmit = async () => {
-    let response;
+    let response,dataObj;
     switch (formData.vehicle) {
       case "flight":
-        navigate("/services/availFlight");
+        dataObj = {
+          fromPlace: formData.fromPlace,
+          toPlace: formData.toPlace,
+          pickUpDate: formData.date,
+        };
+        response = handleGetAvailFlightApiCall(dataObj);
+        response.then((res) => {
+          const data = {
+            fromPlace: formData.fromPlace,
+            toPlace: formData.toPlace,
+            date: formData.date,
+            data: res.data,
+          };
+          // navigate("/services/availTrain", { state: data });
+          navigate("/services/availFlight", { state: data });
+        });
         break;
       case "train":
-        const dataObj = {
+        dataObj = {
           pickUpDate: formData.date,
           fromPlace: formData.fromPlace,
           toPlace: formData.toPlace,
-        }
+        };
         response = handleGetAvailTrainApiCall(dataObj);
-        response.then(res => {
+        response.then((res) => {
           const data = {
             data: res.data,
             fromPlace: formData.fromPlace,
             toPlace: formData.toPlace,
             date: formData.date,
-          }
-          navigate("/services/availTrain", {state: data});
-        })
+          };
+          navigate("/services/availTrain", { state: data });
+        });
         break;
       case "bus":
         response = handleCheckAvailBusApiCall(formData);
@@ -66,7 +85,6 @@ const TicketBooking = () => {
           };
           navigate("/services/availBus", { state: data });
         });
-
         break;
       default:
         break;

@@ -365,26 +365,27 @@ const BusDetails = ({
                   <h4>DROP POINT</h4>
                 </div>
                 <div className="bus-details-bottom-content-2-top-flex-2-content">
-                  {dropList && dropList?.map((drop) => {
-                    return (
-                      <div
-                        className="drop"
-                        onClick={() => handleSelectDrop(drop)}
-                      >
-                        <p>
-                          {`${drop?.place} -
+                  {dropList &&
+                    dropList?.map((drop) => {
+                      return (
+                        <div
+                          className="drop"
+                          onClick={() => handleSelectDrop(drop)}
+                        >
+                          <p>
+                            {`${drop?.place} -
                             ${drop?.time} | ${
-                            dropDate?.split("-")[2]
-                          } ${monthNoToMonthStr(dropDate?.split("-")[1])}`}
-                        </p>
-                        {selectPickUpDrop.drop.place === drop.place && (
-                          <span className="material-symbols-outlined">
-                            check_circle
-                          </span>
-                        )}
-                      </div>
-                    );
-                  })}
+                              dropDate?.split("-")[2]
+                            } ${monthNoToMonthStr(dropDate?.split("-")[1])}`}
+                          </p>
+                          {selectPickUpDrop.drop.place === drop.place && (
+                            <span className="material-symbols-outlined">
+                              check_circle
+                            </span>
+                          )}
+                        </div>
+                      );
+                    })}
                 </div>
               </div>
             </div>

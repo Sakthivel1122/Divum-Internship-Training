@@ -47,9 +47,7 @@ export const handleUpdateUserDetailsApiCall = async (dataObj) => {
 
 export const handleGetUserDetailsApiCall = async (emailId) => {
   try {
-    const response = await axios.get(
-      API_LINKS.GET_USER_DETAILS + emailId
-    );
+    const response = await axios.get(API_LINKS.GET_USER_DETAILS + emailId);
     return response;
   } catch (error) {
     console.log("GET USER DETAILS API ERROR >>", error);
@@ -71,10 +69,29 @@ export const handleAddUserApiCall = async (dataObj) => {
 
 export const handleGetAvailTrainApiCall = async (dataObj) => {
   try {
-    const response = await axios.post(API_LINKS.TRAIN_API_LINKS.GET_AVAIL_TRAINS, dataObj);
+    const response = await axios.post(
+      API_LINKS.TRAIN_API_LINKS.GET_AVAIL_TRAINS,
+      dataObj
+    );
     return response;
   } catch (error) {
-    console.log("ADD USER API ERROR >>", error);
+    console.log("GET AVAIL TRAIN API ERROR >>", error);
+    return false;
+  }
+};
+
+
+// ----------- FLIGHT BOOKING -------------
+
+export const handleGetAvailFlightApiCall = async (dataObj) => {
+  try {
+    const response = await axios.post(
+      API_LINKS.FLIGHT_API_LINKS.GET_AVAIL_FLIGHTS,
+      dataObj
+    );
+    return response;
+  } catch (error) {
+    console.log("GET AVAIL FLIGHT API ERROR >>", error);
     return false;
   }
 };

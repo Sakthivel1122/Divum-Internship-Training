@@ -4,29 +4,39 @@ const COMMON_TRAIN_API_LINK = "http://localhost:8088/api/v1/train/";
 const COMMON_FLIGHT_API_LINK = "http://localhost:8088/api/v1/flight/";
 
 const API_LINKS = {
+  
   ADD_USER: COMMON_API_LINK + "adduser",
   USER_AUTHENTICATION: COMMON_API_LINK + "userauthentication",
   GET_USER_DETAILS: COMMON_API_LINK + "getuserdetails/",
   UPDATE_USER: COMMON_API_LINK + "updateUser",
+
   BUS_API_LINKS: {
     ADD_BUS: COMMON_BUS_API_LINK + "addBus",
     GET_AVAIL_BUSES: COMMON_BUS_API_LINK + "getAvailBus",
   },
+
   TRAIN_API_LINKS: {
     GET_AVAIL_TRAINS: COMMON_TRAIN_API_LINK + "getAvailTrain",
   },
+
+  FLIGHT_API_LINKS: {
+    GET_AVAIL_FLIGHTS: COMMON_FLIGHT_API_LINK + "getAvailFlight",
+  },
+
   ADMIN: {
     MANAGE_BUS: {
       GET_ALL_BUS: COMMON_BUS_API_LINK + "getAllBus",
       DELETE_BUS: COMMON_BUS_API_LINK + "deleteBus/",
       UPDATE_BUS: COMMON_BUS_API_LINK + "updateBus",
     },
+
     MANAGE_TRAIN: {
       GET_ALL_TRAIN: COMMON_TRAIN_API_LINK + "getAllTrain",
       ADD_TRAIN: COMMON_TRAIN_API_LINK + "addTrain",
       DELETE_TRAIN: COMMON_TRAIN_API_LINK + "deleteTrain/",
       UPDATE_TRAIN: COMMON_TRAIN_API_LINK + "updateTrain",
     },
+
     MANAGE_FLIGHT: {
       GET_ALL_FLIGHTS: COMMON_FLIGHT_API_LINK + "getAllFlights",
       ADD_FLIGHT: COMMON_FLIGHT_API_LINK + "addFlight",

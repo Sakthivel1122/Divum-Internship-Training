@@ -1,41 +1,114 @@
-import React from "react";
+import React, { useState } from "react";
 import "./FlightDetails.scss";
+import FlightOtherDetails from "./FlightOtherDetails";
+import { calcDuration, monthNoToMonthStr } from "../../utils/TicketBooking";
 
-const FlightDetails = () => {
+const FlightDetails = (props) => {
+  const { flightData, fromPlace, toPlace, date } = props;
+  const [detailsDropDown, setDetailsDropDown] = useState(false);
+  const handleViewDetailsOnClick = () => {
+    setDetailsDropDown(!detailsDropDown);
+  };
   return (
     <div className="FlightDetails">
-      <div className="flight-details-top">
-        <p className="flight-name">Air India Travels</p>
-        <div className="pickup-details">
-          <p className="time">20:25</p>
-          <p>New Delhi</p>
-        </div>
-        <div className="duration-details">
-          <p>5h 45mins</p>
-          <p>---.---</p>
-          <p>Goa</p>
-        </div>
-        <div className="drop-details">
-          <p className="time">02:00</p>
-          <p>Bengaluru</p>
-        </div>
-        <div className="book-now-wrapper">
-          <div className="price-details">
-            <p className="price">Rs.5000</p>
-            <p>per adult</p>
+      <div className="flight-details-container">
+        <div className="flight-details-top">
+          <p className="flight-name">{flightData.flightName}</p>
+          <div className="pickup-details">
+            <p className="time">{flightData.pickUpTime}</p>
+            <p>{fromPlace}</p>
           </div>
-          <button className="book-btn">Book Now</button>
+          <div className="duration-details">
+            <p>
+              {calcDuration(
+                flightData.pickUpDate,
+                flightData.dropDate,
+                flightData.pickUpTime,
+                flightData.dropTime
+              )}
+            </p>
+            {flightData.stopping === "" ? (
+              <>
+                <p>--------------</p>
+                <p>Non Stop</p>
+              </>
+            ) : (
+              <>
+                <p>-------.-------</p>
+                <p>{flightData.stopping}</p>
+              </>
+            )}
+          </div>
+          <div className="drop-details">
+            <p className="time">{flightData.dropTime}</p>
+            <p>{toPlace}</p>
+          </div>
+          <div className="book-now-wrapper">
+            <div className="price-details">
+              <p className="price">Rs.{flightData.price}</p>
+              <p>per adult</p>
+            </div>
+            <button className="book-btn">Book Now</button>
+          </div>
+        </div>
+        <div className="flight-details-bottom">
+          <p
+            className={"view-details-text " + (detailsDropDown && "active")}
+            onClick={handleViewDetailsOnClick}
+          >
+            {detailsDropDown ? "Hide " : "View "}
+            Flight Details
+          </p>
         </div>
       </div>
-      <div className="flight-details-bottom">
-        <p className="view-details-text">View Flight Details</p>
-      </div>
-      {
-        true && 
+      {detailsDropDown && (
         <div className="view-details-container">
-            
+          <div className="details-wrapper">
+            <p className="from-to">
+              {fromPlace +
+                " to " +
+                toPlace +
+                ", " +
+                date.split("-")[2] +
+                " " +
+                monthNoToMonthStr(date.split("-")[1])}
+            </p>
+            {flightData.stopping === "" ? (
+              <FlightOtherDetails
+                flightData={flightData}
+                fromPlace={fromPlace}
+                toPlace={toPlace}
+                pickUpDate={flightData.pickUpDate}
+                dropDate={flightData.dropDate}
+                pickUpTime={flightData.pickUpTime}
+                dropTime={flightData.dropTime}
+              />
+            ) : (
+              <>
+                <FlightOtherDetails
+                  flightData={flightData}
+                  fromPlace={fromPlace}
+                  toPlace={flightData.stopping}
+                  pickUpDate={flightData.pickUpDate}
+                  dropDate={flightData.stoppingDate}
+                  pickUpTime={flightData.pickUpTime}
+                  dropTime={flightData.stoppingTime}
+                />
+                <hr className="hr-line" />
+                <FlightOtherDetails
+                  flightData={flightData}
+                  fromPlace={flightData.stopping}
+                  toPlace={toPlace}
+                  pickUpDate={flightData.stoppingDate}
+                  dropDate={flightData.dropDate}
+                  pickUpTime={flightData.stoppingTime}
+                  dropTime={flightData.dropTime}
+                />
+              </>
+            )}
+          </div>
         </div>
-      }
+      )}
     </div>
   );
 };

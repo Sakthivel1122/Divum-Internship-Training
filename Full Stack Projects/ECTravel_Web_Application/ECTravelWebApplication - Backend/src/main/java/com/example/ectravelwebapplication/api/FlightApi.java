@@ -25,6 +25,6 @@ public interface FlightApi {
     @PutMapping("updateFlight")
     ResponseEntity<String> updateFlight(@RequestBody UpdateFlightDTO updateFlightDTO);
 
-    @GetMapping("getAvailFlight")
+    @PostMapping("getAvailFlight")
     ResponseEntity<List<Flight>> getAvailFlight(@RequestBody GetAvailFlightDTO getAvailFlightDTO);
 }
