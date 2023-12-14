@@ -23,6 +23,7 @@ import TrainBooking from "../pages/Services/TicketBooking/TrainBooking";
 import { Provider } from "react-redux";
 import { trainBookingStore } from "../redux/app/trainBookingStore";
 import AvailFlight from "../pages/Services/TicketBooking/AvailFlight";
+import FlightBooking from "../pages/Services/TicketBooking/FlightBooking";
 
 const RoutingFile = () => {
   return (
@@ -36,10 +37,11 @@ const RoutingFile = () => {
             <Route index path="tracklocation" element={<TrackLocation />} />
             <Route path="ticketbooking" element={<TicketBooking />} />
             <Route path="availBus" element={<AvailBus />} />
-            <Route path="busBooking" element={<BusBooking />} />
             <Route path="availTrain" element={<AvailTrain />} />
-            <Route path="trainBooking" element={<TrainBooking />} />
             <Route path="availFlight" element={<AvailFlight />} />
+            <Route path="busBooking" element={<BusBooking />} />
+            <Route path="trainBooking" element={<TrainBooking />} />
+            <Route path="flightBooking" element={<FlightBooking />} />
           </Route>
       </Route>
 

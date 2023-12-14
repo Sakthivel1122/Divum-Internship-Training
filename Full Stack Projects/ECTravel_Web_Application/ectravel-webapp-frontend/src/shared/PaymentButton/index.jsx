@@ -1,0 +1,10 @@
+import React from "react";
+import "./PaymentButton.scss";
+
+const PaymentButton = ({className}) => {
+  return <div className={"PaymentButton " + className}>
+    Pay Now
+  </div>;
+};
+
+export default PaymentButton;

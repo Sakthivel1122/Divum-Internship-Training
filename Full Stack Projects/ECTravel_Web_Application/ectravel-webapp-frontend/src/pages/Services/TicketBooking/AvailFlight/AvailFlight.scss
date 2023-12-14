@@ -111,13 +111,44 @@
       cursor: pointer;
     }
 
+    .price-sort-content {
+      display: flex;
+      padding: 1rem;
+      gap: 1rem;
+    }
+
+    .price-sort-option {
+      border: 1px solid rgba(0, 0, 0, 0.2);
+      padding: .5rem;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .price-sort-option:hover {
+      border-color: $primary-color;
+      background-color: $secondary-color;
+    }
+    .selected-price-sort-option {
+      border-color: $primary-color;
+      background-color: $secondary-color;
+      color: $primary-color;
+    }
+
+    .price-range-filter-content {
+      padding: .5rem 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: .5rem;
+      .min-max-price-container {
+        display: flex;
+        justify-content: space-between;
+      }
+    }
   }
   .fildered-flight-container {
     width: 100%;
     display: flex;
     flex-direction: column;
     gap: 1rem;
+    margin-bottom: 1rem;
   }
-
-  
 }

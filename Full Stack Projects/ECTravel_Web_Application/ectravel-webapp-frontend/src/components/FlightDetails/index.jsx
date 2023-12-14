@@ -2,12 +2,18 @@ import React, { useState } from "react";
 import "./FlightDetails.scss";
 import FlightOtherDetails from "./FlightOtherDetails";
 import { calcDuration, monthNoToMonthStr } from "../../utils/TicketBooking";
+import { useNavigate } from "react-router-dom";
 
 const FlightDetails = (props) => {
   const { flightData, fromPlace, toPlace, date } = props;
   const [detailsDropDown, setDetailsDropDown] = useState(false);
   const handleViewDetailsOnClick = () => {
     setDetailsDropDown(!detailsDropDown);
+  };
+  const navigate = useNavigate();
+
+  const handelBookNowBtnOnClick = () => {
+    navigate("/services/flightBooking");
   };
   return (
     <div className="FlightDetails">
@@ -48,7 +54,9 @@ const FlightDetails = (props) => {
               <p className="price">Rs.{flightData.price}</p>
               <p>per adult</p>
             </div>
-            <button className="book-btn">Book Now</button>
+            <button className="book-btn" onClick={handelBookNowBtnOnClick}>
+              Book Now
+            </button>
           </div>
         </div>
         <div className="flight-details-bottom">
