@@ -3,7 +3,7 @@ import "./PaymentButton.scss";
 
 const PaymentButton = ({className}) => {
   return <div className={"PaymentButton " + className}>
-    Pay Now
+    PAY NOW
   </div>;
 };
 

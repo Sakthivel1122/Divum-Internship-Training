@@ -20,15 +20,15 @@
     border-radius: 5px;
     .from-to {
       border-bottom: 1px solid rgba(0, 0, 0, 0.3);
-      padding: .5rem;
+      padding: 0.5rem;
       font-weight: bold;
     }
   }
   .hr-line {
-    width: 50%;
-    margin: .5rem auto;
-    // border: 1px solid rgba(0, 0, 0, 0.3);
-    border-color: rgba(0, 0, 0, 0.3);
+    width: 100%;
+    margin: 0.5rem auto;
+    border: none;
+    border-top: 1px solid rgba(0, 0, 0, 0.3);
   }
 }
 .flight-details-container {

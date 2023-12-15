@@ -320,7 +320,7 @@ const AvailFlight = () => {
               <div className="min-max-price-container">
                 <p>Rs.{priceRange.minPrice}</p>
                 <p>Rs.{priceRange.pointedPrice}</p>
-                <p>Rs.{priceRange.maxPrice}</p>
+                {/* <p>Rs.{priceRange.maxPrice}</p> */}
               </div>
             </div>
           </div>

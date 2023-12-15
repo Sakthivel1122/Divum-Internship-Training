@@ -107,7 +107,7 @@ export const calcDuration = (pickUpDate, dropDate, pickUpTime, dropTime) => {
     hourDue = hourDue % 24;
   }
   return `${ddDue !== 0 ? `${ddDue} day` : ``} 
-  ${hourDue !== 0 ? `${hourDue} hr` : ''}
+  ${hourDue !== 0 ? `${hourDue} hr` : ""}
   ${minuteDue !== 0 ? `${minuteDue} min` : ``}`;
 };
 
@@ -270,5 +270,5 @@ const isLeapYear = (year) => {
 };
 
 export const isInRange = (start, end, value) => {
-  return value >= start && value <= end;  
+  return value >= start && value <= end;
 };

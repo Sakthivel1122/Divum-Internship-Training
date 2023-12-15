@@ -13,7 +13,13 @@ const FlightDetails = (props) => {
   const navigate = useNavigate();
 
   const handelBookNowBtnOnClick = () => {
-    navigate("/services/flightBooking");
+    const data = {
+      flightData: flightData,
+      fromPlace: fromPlace,
+      toPlace: toPlace,
+      date: date,
+    }
+    navigate("/services/flightBooking", {state: data});
   };
   return (
     <div className="FlightDetails">
