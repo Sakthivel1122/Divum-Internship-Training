@@ -5,6 +5,7 @@ import axios from "axios";
 import API_LINKS from "../../constants/ApiConstant";
 import { useMain } from "../../contexts/MainContext";
 import { handleUserLogInApiCall } from "../../utils/ApiCalls";
+
 const LogIn = () => {
   const [formData, setFormData] = useState({
     emailId: "",
@@ -20,21 +21,18 @@ const LogIn = () => {
     };
     const response = handleUserLogInApiCall(dataObj);
     response.then((res) => {
-      if (res.data) {
+      if (res.data.loginStatus) {
         mainContext.handleSetLogInDetails({
           ...mainContext.loginDetails,
-          emailId: formData.emailId,
-          isLoggedIn: true,
+          userId: res.data.userId,
+          emailId: res.data.emailId,
+          isLoggedIn: res.data.loginStatus,
         });
         navigate("/");
       } else {
         alert("Incorrect emailId or password!!!");
       }
     })
-    if (response) {
-      if (response.data) {
-      }
-    }
   };
   const handleOnChange = (e) => {
     const { name, value } = e.target;

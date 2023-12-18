@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./TrainBooking.scss";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import TrainStationDropDown from "../../../../components/TrainStationDropDown";
 import {
   calcDuration,
@@ -9,9 +9,13 @@ import {
 import AddTravellerFormPopUp from "../../../../components/AddTravellerFormPopUp";
 import { useDispatch, useSelector } from "react-redux";
 import { removeTraveller } from "../../../../redux/features/TrainBooking/travellersList";
+import { handlePayment } from "../../../../utils/payment";
+import BookingInputBox from "../../../../shared/BookingInputBox";
+import { contactDetailsForm } from "../../../../constants/formConstants";
 const TrainBooking = () => {
   const location = useLocation();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [train, setTrain] = useState(location.state);
   const [selectedStation, setSelectedStation] = useState(
     train.train.trainStationList[0]
@@ -21,6 +25,10 @@ const TrainBooking = () => {
     data: null,
   });
   const travellersList = useSelector((state) => state.train.travellersList);
+  const [contactDetails,setContactDetails] = useState({
+    emailId:"",
+    mobileNo:"",
+  })
   const handleSetSelectedStation = (value) => {
     setSelectedStation(value);
   };
@@ -47,7 +55,18 @@ const TrainBooking = () => {
   const handleDeleteTravellerBtn = (index) => {
     dispatch(removeTraveller(index));
   };
+  const handlePaymentCallBack = (response) => {
+    console.log(response.razorpay_payment_id);
+    // navigate(-1);
+  };
 
+  const handleContactDetailsOnChange = (e) => {
+    const {name,value} = e.target;
+    setContactDetails({
+      ...contactDetails,
+      [name]:value,
+    })
+  }
   return (
     <>
       <div className="TrainBooking">
@@ -155,6 +174,31 @@ const TrainBooking = () => {
                 })}
               </div>
             </div>
+            {/* --- */}
+
+
+            <div className="flight-detail flight-detail-3">
+            <h2>Contact Details</h2>
+
+            <div className="traveller-form-wrapper">
+              {contactDetailsForm.map((inputBoxData) => {
+                return (
+                  <div className="input-box-wrapper" key={inputBoxData.id}>
+                    <label>{inputBoxData.label}</label>
+                    <BookingInputBox
+                      className=""
+                      name={inputBoxData.name}
+                      type={inputBoxData.type}
+                      placeHolder={inputBoxData.placeHolder}
+                      value={contactDetails[inputBoxData.name]}
+                      handleOnChange={handleContactDetailsOnChange}
+                    />
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+            {/* --- */}
           </div>
           <div className="train-booking-container-2">
             <p className="title">Price Details</p>
@@ -172,7 +216,17 @@ const TrainBooking = () => {
                 <p>Rs.{Number(train.seat.price) + 20}</p>
               </div>
             </div>
-            <button className="payment-btn">PAY & BOOK NOW</button>
+            <button
+              className="payment-btn"
+              onClick={() => {
+                handlePayment(
+                  Number(train.seat.price) + 20,
+                  handlePaymentCallBack
+                );
+              }}
+            >
+              PAY & BOOK NOW
+            </button>
           </div>
         </div>
       </div>

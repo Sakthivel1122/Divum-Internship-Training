@@ -7,7 +7,6 @@ import Profile from "../pages/Profile";
 import Services from "../pages/Services";
 import TrackLocation from "../pages/Services/TrackLocation";
 import TicketBooking from "../pages/Services/TicketBooking";
-import BusBooking from "../pages/BusBooking";
 import SignUp from "../pages/SignUp";
 import LogIn from "../pages/LogIn";
 import AddBus from "../pages/AddBus";
@@ -24,6 +23,8 @@ import { Provider } from "react-redux";
 import { trainBookingStore } from "../redux/app/trainBookingStore";
 import AvailFlight from "../pages/Services/TicketBooking/AvailFlight";
 import FlightBooking from "../pages/Services/TicketBooking/FlightBooking";
+import BusBooking from "../pages/Services/TicketBooking/BusBooking";
+import MyTrips from "../pages/MyTrips";
 
 const RoutingFile = () => {
   return (
@@ -32,6 +33,7 @@ const RoutingFile = () => {
         <Route index element={<Home />} />
         <Route path="about" element={<About />} />
         <Route path="profile" element={<Profile />} />
+        <Route path="myTrips" element={<MyTrips />} />
 
           <Route path="services" element={<Services />}>
             <Route index path="tracklocation" element={<TrackLocation />} />

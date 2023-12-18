@@ -96,6 +96,7 @@ const AvailFlight = () => {
   const [filteredFlightList, setFilteredFlightList] = useState(
     location.state.data
   );
+  const [isAllSelected, setIsAllSelected] = useState(false);
   useEffect(() => {
     let tempAirLineList = [];
     let minPrice = Number.MAX_VALUE;
@@ -140,7 +141,15 @@ const AvailFlight = () => {
 
   const handleAirLineFilterOnClick = (selectedAirLineName) => {
     let tempSelectedAirLineList = [...selectedAirLineList];
-    if (tempSelectedAirLineList.includes(selectedAirLineName)) {
+    if (selectedAirLineName === "All") {
+      let isSelected = !isAllSelected;
+      setIsAllSelected(!isAllSelected);
+      if (isSelected) {
+        tempSelectedAirLineList = airLineList;
+      } else {
+        tempSelectedAirLineList = [];
+      }
+    } else if (tempSelectedAirLineList.includes(selectedAirLineName)) {
       tempSelectedAirLineList = tempSelectedAirLineList.filter(
         (airLineName) => {
           return airLineName !== selectedAirLineName;
@@ -148,6 +157,12 @@ const AvailFlight = () => {
       );
     } else {
       tempSelectedAirLineList.push(selectedAirLineName);
+    }
+    console.log("tempSelectedAirLineList", tempSelectedAirLineList);
+    if (tempSelectedAirLineList.length === airLineList.length) {
+      setIsAllSelected(true);
+    } else {
+      setIsAllSelected(false);
     }
     setSelectedAirLineList(tempSelectedAirLineList);
   };
@@ -350,12 +365,21 @@ const AvailFlight = () => {
           <div className="filter-content">
             <p className="filter-title">Airlines</p>
             <div className="airline-filter-content">
+              <label className="airline-option">
+                <input
+                  type="checkbox"
+                  onClick={() => handleAirLineFilterOnClick("All")}
+                  checked={isAllSelected}
+                />
+                All
+              </label>
               {airLineList.map((airLineName, index) => {
                 return (
                   <label className="airline-option" key={index}>
                     <input
                       type="checkbox"
                       onClick={() => handleAirLineFilterOnClick(airLineName)}
+                      checked={selectedAirLineList.includes(airLineName)}
                     />
                     {airLineName}
                   </label>

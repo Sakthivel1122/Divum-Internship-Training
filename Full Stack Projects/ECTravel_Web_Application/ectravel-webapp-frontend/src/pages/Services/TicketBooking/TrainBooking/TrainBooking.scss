@@ -189,3 +189,66 @@
     }
   }
 }
+
+
+.flight-detail {
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  background-color: white;
+  padding: 1rem;
+}
+
+
+.flight-detail-3 {
+  .input-box-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .traveller-form-wrapper {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+    flex-wrap: wrap;
+    
+  }
+
+  .gender-selector {
+    display: flex;
+
+    .gender-option {
+      border: 1px solid rgba(0, 0, 0, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 5rem;
+      padding: 0.5rem;
+      cursor: pointer;
+    }
+
+    .gender-option-1 {
+      border-top-left-radius: 5px;
+      border-bottom-left-radius: 5px;
+    }
+
+    .gender-option-2 {
+      border-top-right-radius: 5px;
+      border-bottom-right-radius: 5px;
+    }
+
+    .selected-gender {
+      border-color: $primary-color;
+      background-color: $secondary-color;
+      position: relative;
+    }
+    .selected-gender::after {
+      content: "";
+      position: absolute;
+      height: 2px;
+      width: 100%;
+      bottom: 0;
+      left: 0;
+      background-color: $primary-color;
+    }
+  }
+}

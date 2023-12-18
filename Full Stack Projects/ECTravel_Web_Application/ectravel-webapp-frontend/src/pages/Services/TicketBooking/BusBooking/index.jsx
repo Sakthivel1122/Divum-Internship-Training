@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "./BusBooking.scss";
 import { useLocation } from "react-router-dom";
-import { useMain } from "../../contexts/MainContext";
+import { useMain } from "../../../../contexts/MainContext";
+import { handlePayment } from "../../../../utils/payment";
 const BusBooking = () => {
   const location = useLocation();
   const mainContext = useMain();
@@ -56,6 +57,10 @@ const BusBooking = () => {
       ...bookingData,
       travellersDetails: tempList,
     });
+  };
+
+  const handlePaymentCallBack = (response) => {
+    console.log(response.razorpay_payment_id);
   };
   return (
     <div className="BusBooking" onLoad={mainContext.handleOnLoad}>
@@ -194,7 +199,17 @@ const BusBooking = () => {
             <label htmlFor="">Total Amount</label>
             <p>Rs.{location.state.totalPrice + 20}</p>
           </div>
-          <button className="continue-btn">CONTINUE</button>
+          <button
+            className="continue-btn"
+            onClick={() => {
+              handlePayment(
+                location.state.totalPrice + 20,
+                handlePaymentCallBack
+              );
+            }}
+          >
+            PAY NOW
+          </button>
         </div>
       </div>
     </div>

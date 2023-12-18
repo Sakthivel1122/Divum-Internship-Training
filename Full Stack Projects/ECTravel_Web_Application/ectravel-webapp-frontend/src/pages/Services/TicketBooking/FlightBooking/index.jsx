@@ -13,6 +13,7 @@ import {
   calcDuration,
   monthNoToMonthStr,
 } from "../../../../utils/TicketBooking";
+import { handlePayment } from "../../../../utils/payment";
 
 const FlightBooking = () => {
   const location = useLocation();
@@ -38,6 +39,10 @@ const FlightBooking = () => {
     });
   };
   console.log(location.state);
+
+  const handlePaymentCallBack = (response) => {
+    console.log(response.razorpay_payment_id);
+  };
   return (
     <div className="FlightBooking">
       <nav className="navbar">
@@ -194,7 +199,15 @@ const FlightBooking = () => {
             <p className="price-label">Total Amount</p>
             <p className="price-text">Rs.{Number(flightData.price) + 700}</p>
           </div>
-          <PaymentButton className="flight-pay-now-btn" />
+          <PaymentButton
+            className="flight-pay-now-btn"
+            handleOnClick={() =>
+              handlePayment(
+                Number(flightData.price) + 700,
+                handlePaymentCallBack
+              )
+            }
+          />
         </div>
       </div>
     </div>

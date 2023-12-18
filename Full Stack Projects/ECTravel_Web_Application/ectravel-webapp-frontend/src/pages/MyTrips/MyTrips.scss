@@ -1,0 +1,68 @@
+@import "../../assets/styles/globalConstants";
+
+.MyTrips {
+  margin-top: 4rem;
+  background-color: $active-color;
+  //   background-color: $booking-navBar-bg;
+  position: relative;
+  height: 8rem;
+
+  //   background: rgb(6, 176, 219);
+  background: linear-gradient(
+    90deg,
+    rgb(33, 232, 176) 0%,
+    rgb(21, 187, 228) 100%
+  );
+}
+
+.background-color-container {
+  min-height: calc(100vh - (10rem + 4rem));
+  background-color: $global-bg-color;
+}
+.my-trips-container {
+  position: absolute;
+  top: 4rem;
+  // border: 1px solid;
+  width: 80%;
+  left: 50%;
+  transform: translateX(-50%);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  .my-trip-content {
+    min-height: calc(100vh - (10rem + 4rem));
+    // height: 100%;
+    overflow-y: auto;
+    background-color: white;
+  }
+}
+
+.my-trips-navbar {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  height: 4rem;
+  background-color: white;
+  // border: 1px solid red;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  padding: 1rem;
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+  border-bottom: 1px solid;
+//   z-index: 20;
+
+  .nav-item {
+    cursor: pointer;
+    position: relative;
+  }
+
+  .nav-item:hover::after {
+    content: "";
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    left: 0;
+    height: 5px;
+    width: 100%;
+    background-color: $primary-color;
+    border-radius: 3px;
+  }
+}

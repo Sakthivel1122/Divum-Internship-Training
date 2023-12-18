@@ -1,14 +1,16 @@
 package com.example.ectravelwebapplication.service.Impl;
 
-import com.example.ectravelwebapplication.DTO.AddUserDTO;
-import com.example.ectravelwebapplication.DTO.LogInDTO;
-import com.example.ectravelwebapplication.DTO.UpdateUserDTO;
-import com.example.ectravelwebapplication.DTO.UserDetailsDTO;
+import com.example.ectravelwebapplication.DTO.*;
+import com.example.ectravelwebapplication.entity.Passenger;
+import com.example.ectravelwebapplication.entity.Trip;
 import com.example.ectravelwebapplication.entity.User;
-import com.example.ectravelwebapplication.repository.UserRepo;
+import com.example.ectravelwebapplication.repository.service.PassengerRepoService;
+import com.example.ectravelwebapplication.repository.service.TripRepoService;
 import com.example.ectravelwebapplication.repository.service.UserRepoService;
 import com.example.ectravelwebapplication.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -16,6 +18,12 @@ public class UserServiceIMPL implements UserService {
 
     @Autowired
     UserRepoService userRepoService;
+
+    @Autowired
+    TripRepoService tripRepoService;
+
+    @Autowired
+    PassengerRepoService passengerRepoService;
 
     @Override
     public String addUser(AddUserDTO addUserDTO){
@@ -35,9 +43,15 @@ public class UserServiceIMPL implements UserService {
     }
 
     @Override
-    public boolean userAuthentication(LogInDTO logInDTO){
+    public ResponseEntity<LoginResponseDTO> userAuthentication(LogInDTO logInDTO){
         User user = userRepoService.findByEmailId(logInDTO.getEmailId());
-        return (user != null && user.getPassword().equals(logInDTO.getPassword()));
+        if((user != null && user.getPassword().equals(logInDTO.getPassword()))){
+            LoginResponseDTO loginResponseDTO = new LoginResponseDTO(user.getUserId(),user.getEmailId(),true);
+            return new ResponseEntity<>(loginResponseDTO, HttpStatus.OK);
+        } else {
+            LoginResponseDTO loginResponseDTO = new LoginResponseDTO(null,null,false);
+            return new ResponseEntity<>(loginResponseDTO, HttpStatus.BAD_REQUEST);
+        }
     }
 
     @Override
@@ -72,5 +86,40 @@ public class UserServiceIMPL implements UserService {
         else {
             return "Update Failed";
         }
+    }
+
+    @Override
+    public ResponseEntity<String> busPayment(BusPaymentDTO busPaymentDTO){
+        if(!busPaymentDTO.isPaymentStatus()){
+            return new ResponseEntity<>("Payment Failed",HttpStatus.BAD_REQUEST);
+        }
+        Trip trip = new Trip(
+                busPaymentDTO.getTripDetails().getTripType(),
+                busPaymentDTO.getTripDetails().getFromPlace(),
+                busPaymentDTO.getTripDetails().getToPlace(),
+                busPaymentDTO.getTripDetails().getPickUpDate(),
+                busPaymentDTO.getTripDetails().getPickUpTime(),
+                busPaymentDTO.getTripDetails().getDropDate(),
+                busPaymentDTO.getTripDetails().getDropTime(),
+                busPaymentDTO.getTripDetails().getTripPrice(),
+                busPaymentDTO.isPaymentStatus()
+                );
+        tripRepoService.saveTrip(trip);
+        for (BusPassengerDTO passengerDetails : busPaymentDTO.getPassengerList()){
+            Passenger passenger = new Passenger(
+                    passengerDetails.getName(),
+                    busPaymentDTO.getContactDetails().getEmailId(),
+                    busPaymentDTO.getContactDetails().getMobileNo(),
+                    null,
+                    passengerDetails.getAge(),
+                    trip.getTripId(),
+                    passengerDetails.getSeatId(),
+                    busPaymentDTO.getBusId(),
+                    busPaymentDTO.getUserId()
+            );
+            passengerRepoService.savePassenger(passenger);
+        }
+
+        return null;
     }
 }

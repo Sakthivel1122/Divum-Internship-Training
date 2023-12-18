@@ -1,12 +1,10 @@
 package com.example.ectravelwebapplication.controller;
 
-import com.example.ectravelwebapplication.DTO.AddUserDTO;
-import com.example.ectravelwebapplication.DTO.LogInDTO;
-import com.example.ectravelwebapplication.DTO.UpdateUserDTO;
-import com.example.ectravelwebapplication.DTO.UserDetailsDTO;
+import com.example.ectravelwebapplication.DTO.*;
 import com.example.ectravelwebapplication.api.UserApi;
 import com.example.ectravelwebapplication.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -22,7 +20,7 @@ public class UserController implements UserApi {
     }
 
     @Override
-    public boolean userAuthentication(@RequestBody LogInDTO logInDTO){
+    public ResponseEntity<LoginResponseDTO> userAuthentication(@RequestBody LogInDTO logInDTO){
         return userService.userAuthentication(logInDTO);
     }
 
@@ -34,5 +32,10 @@ public class UserController implements UserApi {
     @Override
     public String UpdateUser(@RequestBody UpdateUserDTO updateUserDTO){
         return userService.updateUser(updateUserDTO);
+    }
+
+    @Override
+    public ResponseEntity<String> busPayment(@RequestBody BusPaymentDTO busPaymentDTO){
+        return null;
     }
 }
