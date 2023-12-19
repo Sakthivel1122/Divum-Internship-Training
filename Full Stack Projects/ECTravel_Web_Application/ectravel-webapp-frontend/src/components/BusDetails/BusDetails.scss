@@ -161,7 +161,13 @@
 .BusDetails .bus-layout-bottom-flex-2 .seat.selected-seat {
   color: $primary-color;
 }
-
+.BusDetails .bus-layout-bottom-flex-1 .booked-bus-seat,
+.BusDetails .bus-layout-bottom-flex-2 .booked-bus-seat,
+.BusDetails .bus-layout-bottom-flex-1 .booked-bus-seat:hover,
+.BusDetails .bus-layout-bottom-flex-2 .booked-bus-seat:hover {
+  color: rgba(0,0,0,0.2);
+  cursor: not-allowed;
+}
 /* Pick Up & Drop */
 
 .BusDetails .bus-details-bottom-content-2 {
@@ -341,4 +347,16 @@
 
 .selected-sleeper-seat span {
   border-color: $primary-color !important;
+}
+.booked-bus-sleeper-seat,
+.booked-bus-sleeper-seat:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+  border-color: rgba(0, 0, 0, 0.1);
+  span {
+    border-color: rgba(0, 0, 0, 0.1);
+  }
+  cursor: not-allowed;
+  // border: 1px solid red;
+  // color: red;
+  // background-color: red;
 }

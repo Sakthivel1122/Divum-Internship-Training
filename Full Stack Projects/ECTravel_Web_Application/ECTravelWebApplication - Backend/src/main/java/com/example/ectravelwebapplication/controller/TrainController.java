@@ -1,9 +1,6 @@
 package com.example.ectravelwebapplication.controller;
 
-import com.example.ectravelwebapplication.DTO.AddTrainDTO;
-import com.example.ectravelwebapplication.DTO.GetAllTrainResponseDTO;
-import com.example.ectravelwebapplication.DTO.GetAvailTrainRequestDTO;
-import com.example.ectravelwebapplication.DTO.UpdateTrainDTO;
+import com.example.ectravelwebapplication.DTO.*;
 import com.example.ectravelwebapplication.api.TrainApi;
 import com.example.ectravelwebapplication.service.TrainService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,5 +45,10 @@ public class TrainController implements TrainApi {
     @Transactional
     public ResponseEntity<String> updateTrain(@RequestBody UpdateTrainDTO updateTrainDTO){
         return trainService.updateTrain(updateTrainDTO);
+    }
+
+    @Override
+    public ResponseEntity<String> trainPayment(@RequestBody TrainPaymentDTO trainPaymentDTO){
+        return trainService.trainPayment(trainPaymentDTO);
     }
 }

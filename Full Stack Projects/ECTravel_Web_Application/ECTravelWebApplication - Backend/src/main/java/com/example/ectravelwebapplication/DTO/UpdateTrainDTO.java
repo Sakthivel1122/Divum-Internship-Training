@@ -8,4 +8,5 @@ public class UpdateTrainDTO {
     private int trainId;
 
     private AddTrainDTO trainData;
+
 }

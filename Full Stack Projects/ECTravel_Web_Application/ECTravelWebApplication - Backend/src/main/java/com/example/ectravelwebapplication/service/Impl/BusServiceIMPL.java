@@ -3,13 +3,7 @@ package com.example.ectravelwebapplication.service.Impl;
 
 import com.example.ectravelwebapplication.DTO.*;
 import com.example.ectravelwebapplication.entity.*;
-import com.example.ectravelwebapplication.repository.BusPickUpDropRepo;
-import com.example.ectravelwebapplication.repository.BusRepo;
-import com.example.ectravelwebapplication.repository.SeatRepo;
-import com.example.ectravelwebapplication.repository.service.BusPickUpDropRepoService;
-import com.example.ectravelwebapplication.repository.service.BusRepoService;
-import com.example.ectravelwebapplication.repository.service.SeatRepoService;
-import com.example.ectravelwebapplication.repository.service.UserRepoService;
+import com.example.ectravelwebapplication.repository.service.*;
 import com.example.ectravelwebapplication.service.BusService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,6 +24,12 @@ public class BusServiceIMPL implements BusService {
 
     @Autowired
     SeatRepoService seatRepoService;
+
+    @Autowired
+    PassengerRepoService passengerRepoService;
+
+    @Autowired
+    TripRepoService tripRepoService;
 
     @Override
     public ResponseEntity<String> addBus(AddBusDTO addBusDTO){
@@ -187,6 +187,47 @@ public class BusServiceIMPL implements BusService {
         return new ResponseEntity<>("Bus Updated Successfully",HttpStatus.OK);
         }
         return new ResponseEntity<>("Bus Update Failed",HttpStatus.BAD_REQUEST);
+    }
+
+    @Override
+    public ResponseEntity<String> busPayment(BusPaymentDTO busPaymentDTO){
+        if(!busPaymentDTO.isPaymentStatus()){
+            return new ResponseEntity<>("Payment Failed",HttpStatus.BAD_REQUEST);
+        }
+        Trip trip = new Trip(
+                busPaymentDTO.getTripDetails().getTripType(),
+                busPaymentDTO.getTripDetails().getFromPlace(),
+                busPaymentDTO.getTripDetails().getToPlace(),
+                busPaymentDTO.getTripDetails().getPickUpDate(),
+                busPaymentDTO.getTripDetails().getPickUpTime(),
+                busPaymentDTO.getTripDetails().getDropDate(),
+                busPaymentDTO.getTripDetails().getDropTime(),
+                busPaymentDTO.getTripDetails().getTripPrice(),
+                busPaymentDTO.isPaymentStatus(),
+                busPaymentDTO.getRazorpayPaymentId(),
+                busPaymentDTO.getUserId()
+        );
+        tripRepoService.saveTrip(trip);
+        for (BusPassengerDTO passengerDetails : busPaymentDTO.getPassengerList()){
+            Passenger passenger = new Passenger(
+                    passengerDetails.getName(),
+                    busPaymentDTO.getContactDetails().getEmailId(),
+                    busPaymentDTO.getContactDetails().getMobileNo(),
+                    null,
+                    passengerDetails.getAge(),
+                    trip.getTripId(),
+                    passengerDetails.getSeatId(),
+                    busPaymentDTO.getBusId(),
+                    busPaymentDTO.getUserId()
+            );
+            passengerRepoService.savePassenger(passenger);
+            Seat seat = seatRepoService.getSeatById(passengerDetails.getSeatId());
+            seat.setStatus(true);
+            seat.setPassengerId(passenger.getPassengerId());
+            seatRepoService.saveSeat(seat);
+        }
+
+        return new ResponseEntity<String>("Payment Successful",HttpStatus.OK);
     }
 
 }

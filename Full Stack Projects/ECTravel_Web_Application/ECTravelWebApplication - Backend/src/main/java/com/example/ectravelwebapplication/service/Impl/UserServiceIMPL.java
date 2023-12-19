@@ -2,9 +2,11 @@ package com.example.ectravelwebapplication.service.Impl;
 
 import com.example.ectravelwebapplication.DTO.*;
 import com.example.ectravelwebapplication.entity.Passenger;
+import com.example.ectravelwebapplication.entity.Seat;
 import com.example.ectravelwebapplication.entity.Trip;
 import com.example.ectravelwebapplication.entity.User;
 import com.example.ectravelwebapplication.repository.service.PassengerRepoService;
+import com.example.ectravelwebapplication.repository.service.SeatRepoService;
 import com.example.ectravelwebapplication.repository.service.TripRepoService;
 import com.example.ectravelwebapplication.repository.service.UserRepoService;
 import com.example.ectravelwebapplication.service.UserService;
@@ -21,9 +23,6 @@ public class UserServiceIMPL implements UserService {
 
     @Autowired
     TripRepoService tripRepoService;
-
-    @Autowired
-    PassengerRepoService passengerRepoService;
 
     @Override
     public String addUser(AddUserDTO addUserDTO){
@@ -88,38 +87,5 @@ public class UserServiceIMPL implements UserService {
         }
     }
 
-    @Override
-    public ResponseEntity<String> busPayment(BusPaymentDTO busPaymentDTO){
-        if(!busPaymentDTO.isPaymentStatus()){
-            return new ResponseEntity<>("Payment Failed",HttpStatus.BAD_REQUEST);
-        }
-        Trip trip = new Trip(
-                busPaymentDTO.getTripDetails().getTripType(),
-                busPaymentDTO.getTripDetails().getFromPlace(),
-                busPaymentDTO.getTripDetails().getToPlace(),
-                busPaymentDTO.getTripDetails().getPickUpDate(),
-                busPaymentDTO.getTripDetails().getPickUpTime(),
-                busPaymentDTO.getTripDetails().getDropDate(),
-                busPaymentDTO.getTripDetails().getDropTime(),
-                busPaymentDTO.getTripDetails().getTripPrice(),
-                busPaymentDTO.isPaymentStatus()
-                );
-        tripRepoService.saveTrip(trip);
-        for (BusPassengerDTO passengerDetails : busPaymentDTO.getPassengerList()){
-            Passenger passenger = new Passenger(
-                    passengerDetails.getName(),
-                    busPaymentDTO.getContactDetails().getEmailId(),
-                    busPaymentDTO.getContactDetails().getMobileNo(),
-                    null,
-                    passengerDetails.getAge(),
-                    trip.getTripId(),
-                    passengerDetails.getSeatId(),
-                    busPaymentDTO.getBusId(),
-                    busPaymentDTO.getUserId()
-            );
-            passengerRepoService.savePassenger(passenger);
-        }
 
-        return null;
-    }
 }

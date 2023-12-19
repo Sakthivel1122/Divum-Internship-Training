@@ -68,7 +68,7 @@ const ManageTrainBooking = () => {
                     <td>{train.train.fromPlace}</td>
                     <td>{train.train.toPlace}</td>
                     <td>{train.train.pickUpDate}</td>
-                    <td>{train.train.toPlace}</td>
+                    <td>{train.train.dropDate}</td>
                     <td>{train.train.rating}</td>
                     <td>
                       <button className="view-btn">view</button>

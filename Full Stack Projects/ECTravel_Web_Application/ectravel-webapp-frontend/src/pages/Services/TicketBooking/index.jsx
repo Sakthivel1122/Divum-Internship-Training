@@ -15,9 +15,9 @@ const TicketBooking = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [formData, setFormData] = useState({
     vehicle: "train",
-    fromPlace: "Nagapattinam",
+    fromPlace: "Chennai",
     toPlace: "Bangalore",
-    date: "2023-10-30",
+    date: "2023-12-14",
   });
 
   const navigate = useNavigate();
@@ -37,7 +37,7 @@ const TicketBooking = () => {
   };
 
   const handleSubmit = async () => {
-    let response,dataObj;
+    let response, dataObj;
     switch (formData.vehicle) {
       case "flight":
         dataObj = {

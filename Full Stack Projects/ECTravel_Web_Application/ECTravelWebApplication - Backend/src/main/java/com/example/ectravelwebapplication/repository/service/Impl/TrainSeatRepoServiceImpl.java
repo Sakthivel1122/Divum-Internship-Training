@@ -43,4 +43,19 @@ public class TrainSeatRepoServiceImpl implements TrainSeatRepoService {
     public List<TrainSeat> findByTrainDetails_TrainIdAndTrainSeatTypePriceDetails_SeatTypeDetails_SeatTypeId(int trainId, int seatTypeId){
         return trainSeatRepo.findByTrainDetails_TrainIdAndTrainSeatTypePriceDetails_SeatTypeDetails_SeatTypeId(trainId,seatTypeId);
     }
+
+    @Override
+    public List<TrainSeat> findByTrainDetails_TrainId(int trainId){
+        return trainSeatRepo.findByTrainDetails_TrainId(trainId);
+    }
+
+    @Override
+    public List<TrainSeat> findByTrainDetails_TrainIdAndTrainSeatTypePriceDetails_SeatTypeDetails_SeatTypeIdAndStatus(int trainId, int trainSeatTypeId, boolean status){
+        return trainSeatRepo.findByTrainDetails_TrainIdAndTrainSeatTypePriceDetails_SeatTypeDetails_SeatTypeIdAndStatus(trainId, trainSeatTypeId, status);
+    }
+
+    @Override
+    public TrainSeat findTrainSeatById(int trainSeatId){
+        return trainSeatRepo.findById(trainSeatId).orElse(null);
+    }
 }

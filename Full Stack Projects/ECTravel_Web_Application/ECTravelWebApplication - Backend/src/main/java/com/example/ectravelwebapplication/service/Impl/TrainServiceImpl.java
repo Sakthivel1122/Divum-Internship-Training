@@ -1,10 +1,7 @@
 package com.example.ectravelwebapplication.service.Impl;
 
 import com.example.ectravelwebapplication.DTO.*;
-import com.example.ectravelwebapplication.entity.Train;
-import com.example.ectravelwebapplication.entity.TrainSeat;
-import com.example.ectravelwebapplication.entity.TrainSeatTypePrice;
-import com.example.ectravelwebapplication.entity.TrainStation;
+import com.example.ectravelwebapplication.entity.*;
 import com.example.ectravelwebapplication.repository.TrainSeatTypePriceRepo;
 import com.example.ectravelwebapplication.repository.TrainStationRepo;
 import com.example.ectravelwebapplication.repository.service.*;
@@ -40,6 +37,12 @@ public class TrainServiceImpl implements TrainService {
 
     @Autowired
     TrainSeatTypePriceRepo trainSeatTypePriceRepo;
+
+    @Autowired
+    TripRepoService tripRepoService;
+
+    @Autowired
+    PassengerRepoService passengerRepoService;
 
     @Override
     public ResponseEntity<String> addTrain(AddTrainDTO addTrainDTO){
@@ -109,6 +112,16 @@ public class TrainServiceImpl implements TrainService {
     public ResponseEntity<String> updateTrain(UpdateTrainDTO updateTrainDTO){
 //        deleteTrain(updateTrainDTO.getTrainId());
 //        addTrain(updateTrainDTO.getTrainData());
+        Train train = trainRepoService.findTrainById(updateTrainDTO.getTrainId());
+        train.setTrainName(updateTrainDTO.getTrainData().getTrainName());
+        train.setFromPlace(updateTrainDTO.getTrainData().getFromPlace());
+        train.setToPlace(updateTrainDTO.getTrainData().getToPlace());
+        train.setRating(updateTrainDTO.getTrainData().getRating());
+        train.setPickUpDate(updateTrainDTO.getTrainData().getPickUpDate());
+        train.setPickUpTime(updateTrainDTO.getTrainData().getPickUpTime());
+        train.setDropDate(updateTrainDTO.getTrainData().getDropDate());
+        train.setDropTime(updateTrainDTO.getTrainData().getDropTime());
+        trainRepoService.saveTrain(train);
         return new ResponseEntity<>("Train Updated Successfully",HttpStatus.OK);
     }
 
@@ -154,5 +167,71 @@ public class TrainServiceImpl implements TrainService {
             allTrainList.add(getAllTrainResponseDTO);
         }
         return allTrainList;
+    }
+
+    @Override
+    public ResponseEntity<String> trainPayment(TrainPaymentDTO trainPaymentDTO){
+        if(!trainPaymentDTO.isPaymentStatus()){
+            return new ResponseEntity<>("Payment Failed",HttpStatus.BAD_REQUEST);
+        }
+        Trip trip = new Trip(
+                trainPaymentDTO.getTripDetails().getTripType(),
+                trainPaymentDTO.getTripDetails().getFromPlace(),
+                trainPaymentDTO.getTripDetails().getToPlace(),
+                trainPaymentDTO.getTripDetails().getPickUpDate(),
+                trainPaymentDTO.getTripDetails().getPickUpTime(),
+                trainPaymentDTO.getTripDetails().getDropDate(),
+                trainPaymentDTO.getTripDetails().getDropTime(),
+                trainPaymentDTO.getTripDetails().getTripPrice(),
+                trainPaymentDTO.isPaymentStatus(),
+                trainPaymentDTO.getRazorpayPaymentId(),
+                trainPaymentDTO.getUserId()
+        );
+        tripRepoService.saveTrip(trip);
+        int trainSeatTypeId;
+        switch (trainPaymentDTO.getSeatType()) {
+            case "1A":
+                trainSeatTypeId = 1;
+                break;
+            case "2A":
+                trainSeatTypeId = 2;
+                break;
+            case "3A":
+                trainSeatTypeId = 3;
+                break;
+            case "SL":
+                trainSeatTypeId = 4;
+                break;
+            case "2S":
+                trainSeatTypeId = 5;
+                break;
+            case "CC":
+                trainSeatTypeId = 6;
+                break;
+            default:
+                return new ResponseEntity<String>("Invalid Train Seat Type",HttpStatus.BAD_REQUEST);
+        }
+        for (TrainPassengerDTO passengerDetails : trainPaymentDTO.getPassengerList()){
+            Passenger passenger = new Passenger(
+                    passengerDetails.getName(),
+                    trainPaymentDTO.getContactDetails().getEmailId(),
+                    trainPaymentDTO.getContactDetails().getMobileNo(),
+                    passengerDetails.getPreference(),
+                    passengerDetails.getAge(),
+                    trip.getTripId(),
+                    null,
+                    trainPaymentDTO.getTrainId(),
+                    trainPaymentDTO.getUserId()
+            );
+            passengerRepoService.savePassenger(passenger);
+            List<TrainSeat> trainSeatList = trainSeatRepoService.findByTrainDetails_TrainIdAndTrainSeatTypePriceDetails_SeatTypeDetails_SeatTypeIdAndStatus(trainPaymentDTO.getTrainId(), trainSeatTypeId,false);
+            if(!trainSeatList.isEmpty()){
+                TrainSeat trainSeat =  trainSeatRepoService.findTrainSeatById(trainSeatList.get(0).getTrainSeatId());
+                trainSeat.setStatus(true);
+                trainSeat.setPassengerDetails(passenger);
+                trainSeatRepoService.saveTrainSeat(trainSeat);
+            }
+        }
+        return new ResponseEntity<String>("Train Payment Successful",HttpStatus.OK);
     }
 }

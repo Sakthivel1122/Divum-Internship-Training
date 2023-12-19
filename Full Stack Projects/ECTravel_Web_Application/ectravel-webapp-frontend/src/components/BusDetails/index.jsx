@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 import { useMain } from "../../contexts/MainContext";
 const BusDetails = ({
   key,
+  busId,
   busName,
   rating,
   price,
@@ -25,6 +26,7 @@ const BusDetails = ({
   dropList,
   fromPlace,
   toPlace,
+  date,
 }) => {
   const mainContext = useMain();
   const [visible, setVisible] = useState(false);
@@ -45,7 +47,10 @@ const BusDetails = ({
   const handleOnClick = () => {
     setVisible(!visible);
   };
-  const handleSelectSeat = (seat) => {
+  const handleSelectSeat = (seat, seatStatus) => {
+    if (seatStatus) {
+      return;
+    }
     let tempSelectSeat = selectSeat;
     if (tempSelectSeat.selectedSeatIdList.includes(seat.seatId)) {
       let tempDetailsList = tempSelectSeat.selectedSeatDetailsList.filter(
@@ -97,6 +102,7 @@ const BusDetails = ({
   const handleSubmit = () => {
     if (selectSeat.selectedSeatIdList.length > 0) {
       const data = {
+        busId: busId,
         busName: busName,
         rating: rating,
         price: price,
@@ -126,11 +132,13 @@ const BusDetails = ({
         dropPlace: selectPickUpDrop.drop.place,
         fromPlace,
         toPlace,
+        date,
       };
       navigate("/services/busBooking", { state: data });
     }
   };
   const sleeperSeatSlpit = handleSleeprtSeatSplit(seatList);
+  console.log("seatList -->", seatList);
   return (
     <div className={`BusDetails ${visible ? `active-bus` : ``}`} key={key}>
       <div
@@ -196,13 +204,15 @@ const BusDetails = ({
                         <>
                           <span
                             className={`material-symbols-outlined seat ${
-                              selectSeat.selectedSeatIdList.includes(
-                                seat.seatId
-                              )
+                              seat.status
+                                ? "booked-bus-seat"
+                                : selectSeat.selectedSeatIdList.includes(
+                                    seat.seatId
+                                  )
                                 ? `selected-seat`
                                 : ``
                             }`}
-                            onClick={() => handleSelectSeat(seat)}
+                            onClick={() => handleSelectSeat(seat, seat.status)}
                           >
                             weekend
                           </span>
@@ -217,13 +227,17 @@ const BusDetails = ({
                           <>
                             <span
                               className={`material-symbols-outlined seat ${
-                                selectSeat.selectedSeatIdList.includes(
-                                  seat.seatId
-                                )
+                                seat.status
+                                  ? "booked-bus-seat"
+                                  : selectSeat.selectedSeatIdList.includes(
+                                      seat.seatId
+                                    )
                                   ? `selected-seat`
                                   : ``
                               }`}
-                              onClick={() => handleSelectSeat(seat)}
+                              onClick={() =>
+                                handleSelectSeat(seat, seat.status)
+                              }
                             >
                               weekend
                             </span>
@@ -248,13 +262,15 @@ const BusDetails = ({
                         return (
                           <span
                             className={`sleeper-icon-layout ${
-                              selectSeat.selectedSeatIdList.includes(
-                                seat.seatId
-                              )
+                              seat.status
+                                ? "booked-bus-sleeper-seat "
+                                : selectSeat.selectedSeatIdList.includes(
+                                    seat?.seatId
+                                  )
                                 ? `selected-sleeper-seat`
                                 : ``
                             }`}
-                            onClick={() => handleSelectSeat(seat)}
+                            onClick={() => handleSelectSeat(seat, seat.status)}
                           >
                             <span></span>
                           </span>
@@ -266,13 +282,15 @@ const BusDetails = ({
                         return (
                           <span
                             className={`sleeper-icon-layout ${
-                              selectSeat.selectedSeatIdList.includes(
-                                seat.seatId
-                              )
+                              seat.status
+                                ? "booked-bus-sleeper-seat "
+                                : selectSeat.selectedSeatIdList.includes(
+                                    seat?.seatId
+                                  )
                                 ? `selected-sleeper-seat`
                                 : ``
                             }`}
-                            onClick={() => handleSelectSeat(seat)}
+                            onClick={() => handleSelectSeat(seat, seat.status)}
                           >
                             <span></span>
                           </span>
@@ -289,13 +307,15 @@ const BusDetails = ({
                         return (
                           <span
                             className={`sleeper-icon-layout ${
-                              selectSeat.selectedSeatIdList.includes(
-                                seat.seatId
-                              )
+                              seat.status
+                                ? "booked-bus-sleeper-seat "
+                                : selectSeat.selectedSeatIdList.includes(
+                                    seat?.seatId
+                                  )
                                 ? `selected-sleeper-seat`
                                 : ``
                             }`}
-                            onClick={() => handleSelectSeat(seat)}
+                            onClick={() => handleSelectSeat(seat, seat.status)}
                           >
                             <span></span>
                           </span>
@@ -307,13 +327,15 @@ const BusDetails = ({
                         return (
                           <span
                             className={`sleeper-icon-layout ${
-                              selectSeat.selectedSeatIdList.includes(
-                                seat.seatId
-                              )
+                              seat.status
+                                ? "booked-bus-sleeper-seat "
+                                : selectSeat.selectedSeatIdList.includes(
+                                    seat?.seatId
+                                  )
                                 ? `selected-sleeper-seat`
                                 : ``
                             }`}
-                            onClick={() => handleSelectSeat(seat)}
+                            onClick={() => handleSelectSeat(seat, seat.status)}
                           >
                             <span></span>
                           </span>

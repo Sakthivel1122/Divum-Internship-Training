@@ -17,4 +17,6 @@ public interface BusService {
     ResponseEntity<String> deleteBus(int busId);
 
     ResponseEntity<String> updateBus(UpdateBusDTO updateBusDTO);
+
+    ResponseEntity<String> busPayment(BusPaymentDTO busPaymentDTO);
 }

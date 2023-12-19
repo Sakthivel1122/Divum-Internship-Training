@@ -24,4 +24,7 @@ public interface BusApi {
 
     @PutMapping("/updateBus")
     ResponseEntity<String> updateBus(@RequestBody UpdateBusDTO updateBusDTO);
+
+    @PostMapping("busPayment")
+    ResponseEntity<String> busPayment(@RequestBody BusPaymentDTO busPaymentDTO);
 }

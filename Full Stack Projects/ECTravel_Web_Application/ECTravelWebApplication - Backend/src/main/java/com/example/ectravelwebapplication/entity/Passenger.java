@@ -26,13 +26,13 @@ public class Passenger {
 
     private int tripId;
 
-    private int seatId;
+    private Integer seatId;
 
     private int transportId;
 
     private int userId;
 
-    public Passenger(String passengerName, String passengerEmailId, String passengerMobileNo, String preference, int passengerAge, int tripId, int seatId, int transportId, int userId) {
+    public Passenger(String passengerName, String passengerEmailId, String passengerMobileNo, String preference, int passengerAge, int tripId, Integer seatId, int transportId, int userId) {
         this.passengerName = passengerName;
         this.passengerEmailId = passengerEmailId;
         this.passengerMobileNo = passengerMobileNo;

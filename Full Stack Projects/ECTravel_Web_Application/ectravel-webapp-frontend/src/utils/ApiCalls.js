@@ -1,6 +1,8 @@
 import axios from "axios";
 import API_LINKS from "../constants/ApiConstant";
 
+// ------------- BUS API CALLS ---------------------
+
 export const handleAddBusApiCall = async (dataObj) => {
   try {
     const response = await axios.post(API_LINKS.BUS_API_LINKS.ADD_BUS, dataObj);
@@ -80,7 +82,6 @@ export const handleGetAvailTrainApiCall = async (dataObj) => {
   }
 };
 
-
 // ----------- FLIGHT BOOKING -------------
 
 export const handleGetAvailFlightApiCall = async (dataObj) => {
@@ -92,6 +93,21 @@ export const handleGetAvailFlightApiCall = async (dataObj) => {
     return response;
   } catch (error) {
     console.log("GET AVAIL FLIGHT API ERROR >>", error);
+    return false;
+  }
+};
+
+// ----------- PAYMENT API CALLS ------------
+
+export const handleBusPaymentApiCall = async (dataObj) => {
+  try {
+    const response = await axios.post(
+      API_LINKS.BUS_API_LINKS.BUS_PAYMENT,
+      dataObj
+    );
+    return response;
+  } catch (error) {
+    console.log("BUS PAYMENT API ERROR >>", error);
     return false;
   }
 };

@@ -1,9 +1,6 @@
 package com.example.ectravelwebapplication.api;
 
-import com.example.ectravelwebapplication.DTO.AddTrainDTO;
-import com.example.ectravelwebapplication.DTO.GetAllTrainResponseDTO;
-import com.example.ectravelwebapplication.DTO.GetAvailTrainRequestDTO;
-import com.example.ectravelwebapplication.DTO.UpdateTrainDTO;
+import com.example.ectravelwebapplication.DTO.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -28,4 +25,6 @@ public interface TrainApi {
 
     @PutMapping("updateTrain")
     ResponseEntity<String> updateTrain(@RequestBody UpdateTrainDTO updateTrainDTO);
+
+    ResponseEntity<String> trainPayment(@RequestBody TrainPaymentDTO trainPaymentDTO);
 }

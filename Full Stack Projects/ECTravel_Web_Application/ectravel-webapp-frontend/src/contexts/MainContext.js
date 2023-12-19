@@ -5,7 +5,9 @@ const MainContext = createContext(null);
 export const MainProvider = ({ children }) => {
   const [loginDetails, setLogInDetails] = useState(() => {
     const localValue = JSON.parse(localStorage.getItem("loginDetails"));
-    return localValue ? localValue : { emailId: null, isLoggedIn: false };
+    return localValue
+      ? localValue
+      : { userId: null, emailId: null, isLoggedIn: false };
   });
   const [myAlertBox, setMyAlertBox] = useState({
     visible: false,
@@ -13,7 +15,7 @@ export const MainProvider = ({ children }) => {
     message: null,
     closeBtn: null,
   });
-  const [loadingSpinner,setLoadingSpinner] = useState(false);
+  const [loadingSpinner, setLoadingSpinner] = useState(false);
   const handleSetLogInDetails = (value) => {
     setLogInDetails(value);
   };
@@ -22,7 +24,7 @@ export const MainProvider = ({ children }) => {
   };
   const handleSetLoadingSpinner = (value) => {
     setLoadingSpinner(value);
-  }
+  };
   const handleOnLoad = () => {
     handleSetLoadingSpinner(false);
   };

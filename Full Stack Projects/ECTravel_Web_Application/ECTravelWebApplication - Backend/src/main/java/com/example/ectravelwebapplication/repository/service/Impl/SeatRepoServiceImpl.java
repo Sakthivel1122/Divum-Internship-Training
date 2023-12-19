@@ -28,4 +28,9 @@ public class SeatRepoServiceImpl implements SeatRepoService {
     public void deleteAllByBusId(int busId){
         seatRepo.deleteAllByBusId(busId);
     }
+
+    @Override
+    public Seat getSeatById(int seatId){
+        return seatRepo.findById(seatId).orElse(null);
+    }
 }

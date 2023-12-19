@@ -14,5 +14,4 @@ public interface UserService {
 
     String updateUser(UpdateUserDTO updateUserDTO);
 
-    ResponseEntity<String> busPayment(BusPaymentDTO busPaymentDTO);
 }

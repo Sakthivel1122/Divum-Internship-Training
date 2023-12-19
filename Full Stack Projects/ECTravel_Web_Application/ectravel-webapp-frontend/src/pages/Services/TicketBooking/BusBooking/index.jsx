@@ -1,18 +1,26 @@
 import React, { useEffect, useState } from "react";
 import "./BusBooking.scss";
-import { useLocation } from "react-router-dom";
+import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import { useMain } from "../../../../contexts/MainContext";
 import { handlePayment } from "../../../../utils/payment";
+import { TRANSPORT_TYPE } from "../../../../constants/stringConstants";
+import {
+  handleBusPaymentApiCall,
+  handleCheckAvailBusApiCall,
+} from "../../../../utils/ApiCalls";
 const BusBooking = () => {
   const location = useLocation();
   const mainContext = useMain();
+  const navigate = useNavigate();
+  console.log(">>> ",location.state);
   const setInitialTravellersDetails = () => {
     let objList = [];
-    location.state.selectSeat.selectedSeatDetailsList.map((seatNo) => {
+    location.state.selectSeat.selectedSeatDetailsList.map((seat) => {
       objList.push({
         name: "",
         age: "",
         gender: "",
+        seatId: seat.seatId,
       });
     });
     return objList;
@@ -60,8 +68,84 @@ const BusBooking = () => {
   };
 
   const handlePaymentCallBack = (response) => {
-    console.log(response.razorpay_payment_id);
+    // console.log(response.razorpay_payment_id);
+    const data = {
+      passengerList: bookingData.travellersDetails,
+      contactDetails: bookingData.contactDetails,
+      tripDetails: {
+        fromPlace: location.state.pickUpPlace,
+        toPlace: location.state.dropPlace,
+        pickUpDate: location.state.pickUpDate,
+        pickUpTime: location.state.pickUpTime,
+        dropDate: location.state.dropDate,
+        dropTime: location.state.dropTime,
+        tripType: TRANSPORT_TYPE.BUS,
+        tripPrice: location.state.totalPrice + 20,
+      },
+      busId: location.state.busId,
+      userId: mainContext.loginDetails.userId,
+      paymentStatus: true,
+      razorpayPaymentId: response.razorpay_payment_id,
+    };
+    const result = handleBusPaymentApiCall(data);
+    result
+      .then((res) => {
+        if (res) {
+          alert("Bus Booked Successfully");
+          // navigate("/services/ticketbooking");
+          const dataObj = {
+            vehicle: "bus",
+            fromPlace: location.state.fromPlace,
+            toPlace: location.state.toPlace,
+            date: location.state.date,
+          };
+          let response = handleCheckAvailBusApiCall(dataObj);
+          response.then((res) => {
+            const data = {
+              data: res.data,
+              fromPlace: dataObj.fromPlace,
+              toPlace: dataObj.toPlace,
+              date: dataObj.date,
+            };
+            navigate("/services/availBus", { state: data, replace: true });
+          });
+        }
+      })
+      .catch((res) => {
+        alert("Bus Booking Failed");
+      });
   };
+  const handleApiCall = () => {
+    const data = {
+      passengerList: bookingData.travellersDetails,
+      contactDetails: bookingData.contactDetails,
+      tripDetails: {
+        fromPlace: location.state.pickUpPlace,
+        toPlace: location.state.dropPlace,
+        pickUpDate: location.state.pickUpDate,
+        pickUpTime: location.state.pickUpTime,
+        dropDate: location.state.dropDate,
+        dropTime: location.state.dropTime,
+        tripType: TRANSPORT_TYPE.BUS,
+        tripPrice: location.state.totalPrice + 20,
+      },
+      busId: location.state.busId,
+      userId: mainContext.loginDetails.userId,
+      paymentStatus: true,
+      razorpayPaymentId: "test_payment_001",
+    };
+    const result = handleBusPaymentApiCall(data);
+    result
+      .then((res) => {
+        if (res) {
+          alert("Bus Booked Successfully");
+        }
+      })
+      .catch((res) => {
+        alert("Bus Booking Failed");
+      });
+  };
+  // console.log("state", mainContext.loginDetails.userId);
   return (
     <div className="BusBooking" onLoad={mainContext.handleOnLoad}>
       <nav className="bus-booking-navbar">
@@ -207,6 +291,7 @@ const BusBooking = () => {
                 handlePaymentCallBack
               );
             }}
+            // onClick={handleApiCall}
           >
             PAY NOW
           </button>

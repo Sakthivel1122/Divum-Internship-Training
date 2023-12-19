@@ -18,4 +18,10 @@ public interface TrainSeatRepoService {
     List<TrainSeat> findByStatusAndTrainDetails_TrainIdAndTrainSeatTypePriceDetails_SeatTypeDetails_SeatTypeId(boolean status, int trainId, int seatTypeId);
 
     List<TrainSeat> findByTrainDetails_TrainIdAndTrainSeatTypePriceDetails_SeatTypeDetails_SeatTypeId(int trainId, int seatTypeId);
+
+    List<TrainSeat> findByTrainDetails_TrainId(int trainId);
+
+    List<TrainSeat> findByTrainDetails_TrainIdAndTrainSeatTypePriceDetails_SeatTypeDetails_SeatTypeIdAndStatus(int trainId, int trainSeatTypeId, boolean status);
+
+    TrainSeat findTrainSeatById(int trainSeatId);
 }

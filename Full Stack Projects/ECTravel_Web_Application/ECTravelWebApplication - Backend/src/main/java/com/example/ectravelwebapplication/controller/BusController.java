@@ -45,4 +45,9 @@ public class BusController implements BusApi {
     public ResponseEntity<String> updateBus(@RequestBody UpdateBusDTO updateBusDTO){
         return busService.updateBus(updateBusDTO);
     }
+
+    @Override
+    public ResponseEntity<String> busPayment(@RequestBody BusPaymentDTO busPaymentDTO){
+        return busService.busPayment(busPaymentDTO);
+    }
 }

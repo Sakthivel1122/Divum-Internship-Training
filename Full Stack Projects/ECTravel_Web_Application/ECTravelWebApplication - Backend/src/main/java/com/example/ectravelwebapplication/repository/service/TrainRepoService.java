@@ -14,4 +14,6 @@ public interface TrainRepoService {
     List<Train> findAllByFromPlaceAndToPlaceAndPickUpDate(String fromPlace, String toPlace, String pickUpDate);
 
     void deleteById(int trainId);
+
+    Train findTrainById(int trainId);
 }

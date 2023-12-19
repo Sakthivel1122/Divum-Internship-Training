@@ -4,7 +4,6 @@ const COMMON_TRAIN_API_LINK = "http://localhost:8088/api/v1/train/";
 const COMMON_FLIGHT_API_LINK = "http://localhost:8088/api/v1/flight/";
 
 const API_LINKS = {
-  
   ADD_USER: COMMON_API_LINK + "adduser",
   USER_AUTHENTICATION: COMMON_API_LINK + "userauthentication",
   GET_USER_DETAILS: COMMON_API_LINK + "getuserdetails/",
@@ -13,6 +12,7 @@ const API_LINKS = {
   BUS_API_LINKS: {
     ADD_BUS: COMMON_BUS_API_LINK + "addBus",
     GET_AVAIL_BUSES: COMMON_BUS_API_LINK + "getAvailBus",
+    BUS_PAYMENT: COMMON_BUS_API_LINK + "busPayment",
   },
 
   TRAIN_API_LINKS: {

@@ -15,9 +15,7 @@ public interface UserApi {
     @GetMapping("getuserdetails/{emailId}")
     UserDetailsDTO getUserDetails(@PathVariable("emailId") String emailId);
 
-    @PutMapping("updateUser")
+    @PostMapping("updateUser")
     String UpdateUser(@RequestBody UpdateUserDTO updateUserDTO);
 
-    @PostMapping("busPayment")
-    ResponseEntity<String> busPayment(@RequestBody BusPaymentDTO busPaymentDTO);
 }

@@ -34,6 +34,7 @@ const AvailBus = () => {
       filteredOperators: operators,
     });
   }, []);
+  console.log("filteredBuses", filteredBuses);
   const handleClearAll = () => {
     setFilteredBuses(busList);
     setSelectedFilter([]);
@@ -158,6 +159,16 @@ const AvailBus = () => {
   useEffect(() => {
     filterBus();
   }, [selectedFilter, filters]);
+
+  // console.log("filteredBuses", filteredBuses);
+  const handleSortSeats = (seatList) => {
+    let tempSeatList = [...seatList];
+    tempSeatList.sort((a,b) => {
+      return a.seatId - b.seatId;
+    });
+    console.log("tempSeatList",tempSeatList);
+    return tempSeatList;
+  }
   return (
     <div className="AvailBus" onLoad={mainContext.handleOnLoad}>
       <div className="search-details-container">
@@ -243,9 +254,11 @@ const AvailBus = () => {
             {filteredBuses &&
               filteredBuses.length > 0 &&
               filteredBuses.map((bus) => {
+                console.log(bus);
                 return (
                   <BusDetails
-                    key={bus.busId}
+                    key={bus.bus.busId}
+                    busId={bus.bus.busId}
                     busName={bus.bus.busName}
                     rating={bus.bus.rating}
                     price={bus.bus.price}
@@ -254,12 +267,13 @@ const AvailBus = () => {
                     pickUpTime={bus.bus.pickUpTime}
                     dropDate={bus.bus.dropDate}
                     dropTime={bus.bus.dropTime}
-                    seatList={bus.seatList}
+                    seatList={handleSortSeats(bus.seatList)}
                     seatType={bus.bus.seatType}
                     pickUpList={bus.pickUpList}
                     dropList={bus.dropList}
                     fromPlace={location.state.fromPlace}
                     toPlace={location.state.toPlace}
+                    date={location.state.date}
                   />
                 );
               })}

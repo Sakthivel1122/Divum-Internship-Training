@@ -33,4 +33,9 @@ public class TrainRepoServiceImpl implements TrainRepoService {
     public void deleteById(int trainId){
         trainRepo.deleteById(trainId);
     }
+
+    @Override
+    public Train findTrainById(int trainId) {
+        return trainRepo.findById(trainId).orElse(null);
+    }
 }

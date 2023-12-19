@@ -19,7 +19,7 @@ public class Seat {
 
     @Getter
     @Setter
-    private String userEmail;
+    private Integer passengerId;
 
     @Getter
     @Setter
@@ -33,9 +33,9 @@ public class Seat {
     @Setter
     private int seatNo;
 
-    public Seat(int busId, String userEmail, boolean status, String type,int seatNo) {
+    public Seat(int busId, Integer passengerId, boolean status, String type,int seatNo) {
         this.busId = busId;
-        this.userEmail = userEmail;
+        this.passengerId = passengerId;
         this.status = status;
         this.type = type;
         this.seatNo = seatNo;
@@ -47,7 +47,7 @@ public class Seat {
         return "Seat{" +
                 "seatId=" + seatId +
                 ", busId=" + busId +
-                ", userEmail='" + userEmail + '\'' +
+                ", passengerId='" + passengerId + '\'' +
                 ", status=" + status +
                 ", type='" + type + '\'' +
                 ", seatNo='" + seatNo + '\'' +

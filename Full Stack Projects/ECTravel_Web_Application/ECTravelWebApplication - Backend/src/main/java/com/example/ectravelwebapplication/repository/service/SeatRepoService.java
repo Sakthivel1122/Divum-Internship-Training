@@ -12,4 +12,6 @@ public interface SeatRepoService {
     List<Seat> findAllByBusId(int busId);
 
     void deleteAllByBusId(int busId);
+
+    Seat getSeatById(int seatId);
 }

@@ -34,8 +34,4 @@ public class UserController implements UserApi {
         return userService.updateUser(updateUserDTO);
     }
 
-    @Override
-    public ResponseEntity<String> busPayment(@RequestBody BusPaymentDTO busPaymentDTO){
-        return null;
-    }
 }

@@ -5,33 +5,30 @@
   background-color: $active-color;
   //   background-color: $booking-navBar-bg;
   position: relative;
-  height: 8rem;
+  height: 12rem;
 
-  //   background: rgb(6, 176, 219);
-  background: linear-gradient(
-    90deg,
-    rgb(33, 232, 176) 0%,
-    rgb(21, 187, 228) 100%
-  );
+  background: rgb(106, 203, 228);
+  background: linear-gradient(90deg, #6acbe4 0%, #51d7b2 71%);
 }
 
 .background-color-container {
-  min-height: calc(100vh - (10rem + 4rem));
+  min-height: calc(100vh - (12rem + 5rem));
   background-color: $global-bg-color;
 }
 .my-trips-container {
   position: absolute;
-  top: 4rem;
+  top: 5rem;
   // border: 1px solid;
   width: 80%;
   left: 50%;
   transform: translateX(-50%);
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.1);
   .my-trip-content {
-    min-height: calc(100vh - (10rem + 4rem));
+    min-height: calc(100vh - (10rem + 5rem));
     // height: 100%;
     overflow-y: auto;
     background-color: white;
+    border-radius: 5px;
   }
 }
 
@@ -39,26 +36,31 @@
   list-style: none;
   display: flex;
   align-items: center;
-  gap: 2rem;
+  gap: 3rem;
   height: 4rem;
   background-color: white;
   // border: 1px solid red;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-  padding: 1rem;
+  padding: 3.4rem 0 3.5rem 2rem;
   border-top-right-radius: 5px;
   border-top-left-radius: 5px;
-  border-bottom: 1px solid;
-//   z-index: 20;
+  // border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  position: absolute;
+  width: 100%;
+  border-radius: 5px;
+  //   z-index: 20;
 
   .nav-item {
     cursor: pointer;
     position: relative;
   }
 
-  .nav-item:hover::after {
+  .nav-item:hover::after,
+  .nav-item.active::after {
     content: "";
     position: absolute;
-    top: calc(100% + 0.5rem);
+    top: calc(100% + 0.7rem);
     left: 0;
     height: 5px;
     width: 100%;
