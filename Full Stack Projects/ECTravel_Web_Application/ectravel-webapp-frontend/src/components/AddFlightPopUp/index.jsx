@@ -22,12 +22,14 @@ const AddFlightPopUp = () => {
     dropDateAndTime: "",
     isMealFree: true,
     price: "",
-    availCount: "",
+    businessAvailCount: "",
+    economyAvailCount: "",
     cabinBagLimit: "",
     checkInLimit: "",
     stoppingDateAndTime: "",
     stopping: "",
   });
+
   const handleStoppingOnClick = (e) => {
     const { id } = e.target;
     if (id === "yes") {
@@ -73,15 +75,21 @@ const AddFlightPopUp = () => {
       dropTime: "",
       stoppingDate: "",
       stoppingTime: "",
+      businessAvailCount: Number(formData.businessAvailCount),
+      economyAvailCount: Number(formData.economyAvailCount),
     };
+    // console.log("data",dataObj);
+    // return;
     if (formData.pickUpDateAndTime !== "") {
       dataObj.pickUpDate = formData.pickUpDateAndTime.split("T")[0];
       dataObj.pickUpTime = formData.pickUpDateAndTime.split("T")[1];
     }
+
     if (formData.dropDateAndTime !== "") {
       dataObj.dropDate = formData.dropDateAndTime.split("T")[0];
       dataObj.dropTime = formData.dropDateAndTime.split("T")[1];
     }
+
     if (formData.stoppingDateAndTime !== "") {
       dataObj.stoppingDate = formData.stoppingDateAndTime.split("T")[0];
       dataObj.stoppingTime = formData.stoppingDateAndTime.split("T")[1];
@@ -122,8 +130,11 @@ const AddFlightPopUp = () => {
       checkInLimit: "",
       stoppingDateAndTime: "",
       stopping: "",
+      businessAvailCount:"",
+      economyAvailCount:"",
     });
   };
+
   const handleClose = (e) => {
     const { className } = e.target;
     if (className === "AddFlightPopUp" || className.includes("close-icon")) {
@@ -135,6 +146,7 @@ const AddFlightPopUp = () => {
       resetForm();
     }
   };
+
   useEffect(() => {
     if (adminContext.flightPopUp.data !== null) {
       const data = adminContext.flightPopUp.data;
@@ -155,6 +167,8 @@ const AddFlightPopUp = () => {
             ? data.stoppingDate + "T" + data.stoppingTime
             : "",
         stopping: data.stopping,
+        businessAvailCount: data.businessAvailCount,
+        economyAvailCount: data.economyAvailCount,
       });
       setIsThereStopping(data.stopping !== "");
     }
@@ -163,7 +177,9 @@ const AddFlightPopUp = () => {
     <div className="AddFlightPopUp" onClick={handleClose}>
       <div className="form-container">
         <div className="form-header">
-          <h2>{adminContext.flightPopUp.data === null ? "Add" : "Update"} Flight</h2>
+          <h2>
+            {adminContext.flightPopUp.data === null ? "Add" : "Update"} Flight
+          </h2>
           <span className="material-symbols-outlined close-icon">close</span>
         </div>
         <form className="add-train-form">

@@ -9,11 +9,11 @@ const presistConfig = {
     version: 1,
     storage
 }
-const rootRouder = combineReducers({
+const rootReducer = combineReducers({
     train: travellerReducer,
 })
 
-const presistReducer = persistReducer(presistConfig,rootRouder);
+const presistReducer = persistReducer(presistConfig,rootReducer);
 export const trainBookingStore = configureStore({
     reducer: presistReducer,
     middleware: (getDefaultMiddleware) =>

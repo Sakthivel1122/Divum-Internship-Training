@@ -213,15 +213,16 @@ public class TrainServiceImpl implements TrainService {
         }
         for (TrainPassengerDTO passengerDetails : trainPaymentDTO.getPassengerList()){
             Passenger passenger = new Passenger(
-                    passengerDetails.getName(),
+                    passengerDetails.getTravellerName(),
                     trainPaymentDTO.getContactDetails().getEmailId(),
                     trainPaymentDTO.getContactDetails().getMobileNo(),
-                    passengerDetails.getPreference(),
+                    passengerDetails.getBerthPreference(),
                     passengerDetails.getAge(),
                     trip.getTripId(),
-                    null,
+                    -1,
                     trainPaymentDTO.getTrainId(),
-                    trainPaymentDTO.getUserId()
+                    trainPaymentDTO.getUserId(),
+                    passengerDetails.getGender()
             );
             passengerRepoService.savePassenger(passenger);
             List<TrainSeat> trainSeatList = trainSeatRepoService.findByTrainDetails_TrainIdAndTrainSeatTypePriceDetails_SeatTypeDetails_SeatTypeIdAndStatus(trainPaymentDTO.getTrainId(), trainSeatTypeId,false);

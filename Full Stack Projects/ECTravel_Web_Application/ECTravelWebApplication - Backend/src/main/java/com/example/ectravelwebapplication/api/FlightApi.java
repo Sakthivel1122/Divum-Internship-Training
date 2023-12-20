@@ -1,6 +1,7 @@
 package com.example.ectravelwebapplication.api;
 
 import com.example.ectravelwebapplication.DTO.AddFlightDTO;
+import com.example.ectravelwebapplication.DTO.FlightPaymentDTO;
 import com.example.ectravelwebapplication.DTO.GetAvailFlightDTO;
 import com.example.ectravelwebapplication.DTO.UpdateFlightDTO;
 import com.example.ectravelwebapplication.entity.Flight;
@@ -27,4 +28,8 @@ public interface FlightApi {
 
     @PostMapping("getAvailFlight")
     ResponseEntity<List<Flight>> getAvailFlight(@RequestBody GetAvailFlightDTO getAvailFlightDTO);
+
+    @PostMapping("flightPayment")
+    ResponseEntity<String> busPayment(@RequestBody FlightPaymentDTO flightPaymentDTO);
+
 }

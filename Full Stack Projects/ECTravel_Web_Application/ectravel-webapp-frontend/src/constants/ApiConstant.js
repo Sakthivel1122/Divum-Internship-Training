@@ -17,10 +17,12 @@ const API_LINKS = {
 
   TRAIN_API_LINKS: {
     GET_AVAIL_TRAINS: COMMON_TRAIN_API_LINK + "getAvailTrain",
+    TRAIN_PAYMENT: COMMON_TRAIN_API_LINK + "trainPayment",
   },
 
   FLIGHT_API_LINKS: {
     GET_AVAIL_FLIGHTS: COMMON_FLIGHT_API_LINK + "getAvailFlight",
+    FLIGHT_PAYMENT: COMMON_FLIGHT_API_LINK + "flightPayment",
   },
 
   ADMIN: {

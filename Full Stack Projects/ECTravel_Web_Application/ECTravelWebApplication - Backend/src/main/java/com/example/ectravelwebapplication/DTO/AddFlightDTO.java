@@ -23,7 +23,9 @@ public class AddFlightDTO {
 
     private String price;
 
-    private int availCount;
+    private int businessAvailCount;
+
+    private int economyAvailCount;
 
     private boolean isMealFree;
 

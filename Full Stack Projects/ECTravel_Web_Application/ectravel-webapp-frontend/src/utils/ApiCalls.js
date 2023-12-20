@@ -111,3 +111,29 @@ export const handleBusPaymentApiCall = async (dataObj) => {
     return false;
   }
 };
+
+export const handleTrainPaymentApiCall = async (dataObj) => {
+  try {
+    const response = await axios.post(
+      API_LINKS.TRAIN_API_LINKS.TRAIN_PAYMENT,
+      dataObj
+    );
+    return response;
+  } catch (error) {
+    console.log("TRAIN PAYMENT API ERROR >>", error);
+    return false;
+  }
+};
+
+export const handleFlightPaymentApiCall = async (dataObj) => {
+  try {
+    const response = await axios.post(
+      API_LINKS.FLIGHT_API_LINKS.FLIGHT_PAYMENT,
+      dataObj
+    );
+    return response;
+  } catch (error) {
+    console.log("FLIGHT PAYMENT API ERROR >>", error);
+    return false;
+  }
+};

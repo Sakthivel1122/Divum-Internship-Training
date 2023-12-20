@@ -1,6 +1,7 @@
 package com.example.ectravelwebapplication.service;
 
 import com.example.ectravelwebapplication.DTO.AddFlightDTO;
+import com.example.ectravelwebapplication.DTO.FlightPaymentDTO;
 import com.example.ectravelwebapplication.DTO.GetAvailFlightDTO;
 import com.example.ectravelwebapplication.DTO.UpdateFlightDTO;
 import com.example.ectravelwebapplication.entity.Flight;
@@ -20,4 +21,6 @@ public interface FlightService {
     ResponseEntity<String> updateFlight(UpdateFlightDTO updateFlightDTO);
 
     ResponseEntity<List<Flight>> getAvailFlight(GetAvailFlightDTO getAvailFlightDTO);
+
+    ResponseEntity<String> flightPayment(FlightPaymentDTO flightPaymentDTO);
 }

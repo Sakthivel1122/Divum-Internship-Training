@@ -12,10 +12,18 @@ import { removeTraveller } from "../../../../redux/features/TrainBooking/travell
 import { handlePayment } from "../../../../utils/payment";
 import BookingInputBox from "../../../../shared/BookingInputBox";
 import { contactDetailsForm } from "../../../../constants/formConstants";
+import { TRANSPORT_TYPE } from "../../../../constants/stringConstants";
+import { useMain } from "../../../../contexts/MainContext";
+import {
+  handleGetAvailTrainApiCall,
+  handleTrainPaymentApiCall,
+} from "../../../../utils/ApiCalls";
+
 const TrainBooking = () => {
   const location = useLocation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const mainContext = useMain();
   const [train, setTrain] = useState(location.state);
   const [selectedStation, setSelectedStation] = useState(
     train.train.trainStationList[0]
@@ -25,18 +33,22 @@ const TrainBooking = () => {
     data: null,
   });
   const travellersList = useSelector((state) => state.train.travellersList);
-  const [contactDetails,setContactDetails] = useState({
-    emailId:"",
-    mobileNo:"",
-  })
+  const [contactDetails, setContactDetails] = useState({
+    emailId: "",
+    mobileNo: "",
+  });
   const handleSetSelectedStation = (value) => {
     setSelectedStation(value);
   };
   const handleAddTravellerBtn = () => {
-    setPopUp({
-      ...popUp,
-      visible: true,
-    });
+    if (train.seat.availCount >= travellersList.length + 1) {
+      setPopUp({
+        ...popUp,
+        visible: true,
+      });
+    } else {
+      alert("Insufficient Availability");
+    }
   };
   const handleSetPopUp = (value) => {
     setPopUp(value);
@@ -56,17 +68,125 @@ const TrainBooking = () => {
     dispatch(removeTraveller(index));
   };
   const handlePaymentCallBack = (response) => {
-    console.log(response.razorpay_payment_id);
-    // navigate(-1);
+    let tempTravellersList = [...travellersList];
+    tempTravellersList = tempTravellersList.map((data) => {
+      return {
+        travellerName: data.travellerName,
+        age: Number(data.age),
+        gender: data.gender,
+        berthPreference: data.berthPreference,
+        nationality: data.nationality,
+      };
+    });
+    let dataObj = {
+      passengerList: tempTravellersList,
+      contactDetails: contactDetails,
+      tripDetails: {
+        fromPlace: selectedStation.stationName, // boarding train station
+        toPlace: location.state.toPlace,
+        pickUpDate: train.train.train.pickUpDate,
+        pickUpTime: selectedStation.stationTime,
+        dropDate: train.train.train.dropDate,
+        dropTime: train.train.train.dropTime,
+        tripType: TRANSPORT_TYPE.TRAIN,
+        tripPrice: Number(train.seat.price) + 20,
+      },
+      seatType: train.seat.seatName,
+      trainId: train.train.train.trainId,
+      userId: mainContext.loginDetails.userId,
+      paymentStatus: true,
+      razorpayPaymentId: response.razorpay_payment_id,
+    };
+    const result = handleTrainPaymentApiCall(dataObj);
+    result.then((res) => {
+      if (res) {
+        alert("Payment Successful");
+        dataObj = {
+          pickUpDate: location.state.train.train.pickUpDate,
+          fromPlace: location.state.fromPlace,
+          toPlace: location.state.toPlace,
+        };
+        const reply = handleGetAvailTrainApiCall(dataObj);
+        reply.then((res) => {
+          const data = {
+            data: res.data,
+            fromPlace: dataObj.fromPlace,
+            toPlace: dataObj.toPlace,
+            date: location.state.train.train.pickUpDate,
+          };
+          navigate("/services/availTrain", { state: data, replace: true });
+        });
+      } else {
+        alert("Payment Failed");
+      }
+    });
   };
 
   const handleContactDetailsOnChange = (e) => {
-    const {name,value} = e.target;
+    const { name, value } = e.target;
     setContactDetails({
       ...contactDetails,
-      [name]:value,
-    })
-  }
+      [name]: value,
+    });
+  };
+  // console.log("train",train.train.train.trainId);
+  const handleApiCalling = () => {
+    let tempTravellersList = [...travellersList];
+    tempTravellersList = tempTravellersList.map((data) => {
+      return {
+        travellerName: data.travellerName,
+        age: Number(data.age),
+        gender: data.gender,
+        berthPreference: data.berthPreference,
+        nationality: data.nationality,
+      };
+    });
+    let dataObj = {
+      passengerList: tempTravellersList,
+      contactDetails: contactDetails,
+      tripDetails: {
+        fromPlace: selectedStation.stationName, // boarding train station
+        toPlace: location.state.toPlace,
+        pickUpDate: train.train.train.pickUpDate,
+        pickUpTime: selectedStation.stationTime,
+        dropDate: train.train.train.dropDate,
+        dropTime: train.train.train.dropTime,
+        tripType: TRANSPORT_TYPE.TRAIN,
+        tripPrice: Number(train.seat.price) + 20,
+      },
+      seatType: train.seat.seatName,
+      trainId: train.train.train.trainId,
+      userId: mainContext.loginDetails.userId,
+      paymentStatus: true,
+      razorpayPaymentId: "train_payment_test_001",
+    };
+    const result = handleTrainPaymentApiCall(dataObj);
+    result.then((res) => {
+      console.log("1");
+      if (res) {
+        console.log("2");
+        dataObj = {
+          pickUpDate: location.state.train.train.pickUpDate,
+          fromPlace: location.state.fromPlace,
+          toPlace: location.state.toPlace,
+        };
+        console.log("Entered >>", dataObj);
+        alert("Payment Successful >>", dataObj);
+        const reply = handleGetAvailTrainApiCall(dataObj);
+        reply.then((res) => {
+          const data = {
+            data: res.data,
+            fromPlace: dataObj.fromPlace,
+            toPlace: dataObj.toPlace,
+            date: location.state.train.train.pickUpDate,
+          };
+          navigate("/services/availTrain", { state: data });
+        });
+      } else {
+        alert("Payment Failed");
+      }
+    });
+  };
   return (
     <>
       <div className="TrainBooking">
@@ -176,28 +296,27 @@ const TrainBooking = () => {
             </div>
             {/* --- */}
 
-
             <div className="flight-detail flight-detail-3">
-            <h2>Contact Details</h2>
+              <h2>Contact Details</h2>
 
-            <div className="traveller-form-wrapper">
-              {contactDetailsForm.map((inputBoxData) => {
-                return (
-                  <div className="input-box-wrapper" key={inputBoxData.id}>
-                    <label>{inputBoxData.label}</label>
-                    <BookingInputBox
-                      className=""
-                      name={inputBoxData.name}
-                      type={inputBoxData.type}
-                      placeHolder={inputBoxData.placeHolder}
-                      value={contactDetails[inputBoxData.name]}
-                      handleOnChange={handleContactDetailsOnChange}
-                    />
-                  </div>
-                );
-              })}
+              <div className="traveller-form-wrapper">
+                {contactDetailsForm.map((inputBoxData) => {
+                  return (
+                    <div className="input-box-wrapper" key={inputBoxData.id}>
+                      <label>{inputBoxData.label}</label>
+                      <BookingInputBox
+                        className=""
+                        name={inputBoxData.name}
+                        type={inputBoxData.type}
+                        placeHolder={inputBoxData.placeHolder}
+                        value={contactDetails[inputBoxData.name]}
+                        handleOnChange={handleContactDetailsOnChange}
+                      />
+                    </div>
+                  );
+                })}
+              </div>
             </div>
-          </div>
             {/* --- */}
           </div>
           <div className="train-booking-container-2">
@@ -224,6 +343,7 @@ const TrainBooking = () => {
                   handlePaymentCallBack
                 );
               }}
+              // onClick={handleApiCalling}
             >
               PAY & BOOK NOW
             </button>

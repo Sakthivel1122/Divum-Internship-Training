@@ -8,4 +8,5 @@ public class ContactDetailsDTO {
     private String emailId;
 
     private String mobileNo;
+
 }

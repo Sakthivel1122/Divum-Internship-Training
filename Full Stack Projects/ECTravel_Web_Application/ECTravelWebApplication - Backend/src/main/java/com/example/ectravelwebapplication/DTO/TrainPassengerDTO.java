@@ -5,12 +5,14 @@ import lombok.Data;
 @Data
 public class TrainPassengerDTO {
 
-    private String name;
+    private String travellerName;
 
     private int age;
 
     private String gender;
 
-    private String preference;
+    private String nationality;
+
+    private String berthPreference;
 
 }

@@ -31,7 +31,9 @@ public class Flight {
 
     private String price;
 
-    private int availCount;
+    private int businessAvailCount;
+
+    private int economyAvailCount;
 
     private boolean isMealFree;
 
@@ -43,7 +45,7 @@ public class Flight {
 
     private String stoppingTime;
 
-    public Flight(String flightName, String fromPlace, String toPlace, String pickUpDate, String pickUpTime, String dropDate, String dropTime, String stopping, String price, int availCount, boolean isMealFree, String cabinBagLimit, String checkInLimit,String stoppingDate,String stoppingTime) {
+    public Flight(String flightName, String fromPlace, String toPlace, String pickUpDate, String pickUpTime, String dropDate, String dropTime, String stopping, String price, int businessAvailCount, int economyAvailCount, boolean isMealFree, String cabinBagLimit, String checkInLimit, String stoppingDate, String stoppingTime) {
         this.flightName = flightName;
         this.fromPlace = fromPlace;
         this.toPlace = toPlace;
@@ -53,7 +55,8 @@ public class Flight {
         this.dropTime = dropTime;
         this.stopping = stopping;
         this.price = price;
-        this.availCount = availCount;
+        this.businessAvailCount = businessAvailCount;
+        this.economyAvailCount = economyAvailCount;
         this.isMealFree = isMealFree;
         this.cabinBagLimit = cabinBagLimit;
         this.checkInLimit = checkInLimit;

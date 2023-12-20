@@ -46,18 +46,24 @@ export const flightForm = [
   },
   {
     id: 8,
-    labelName: "Avail Count",
+    labelName: "Business Class Avail Count",
     type: TEXT,
-    name: "availCount",
+    name: "businessAvailCount",
   },
   {
     id: 9,
+    labelName: "Economy Class Avail Count",
+    type: TEXT,
+    name: "economyAvailCount",
+  },
+  {
+    id: 10,
     labelName: "Cabin Bag Limit",
     type: TEXT,
     name: "cabinBagLimit",
   },
   {
-    id: 10,
+    id: 11,
     labelName: "Check In Limit",
     type: TEXT,
     name: "checkInLimit",

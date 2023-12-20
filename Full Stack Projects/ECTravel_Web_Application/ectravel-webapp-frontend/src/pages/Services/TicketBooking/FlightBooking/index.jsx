@@ -43,6 +43,24 @@ const FlightBooking = () => {
   const handlePaymentCallBack = (response) => {
     console.log(response.razorpay_payment_id);
   };
+  const handleApiCall = () => {
+    let dataObj = {
+      passengerDetails: {
+        name: formData.name,
+        age: formData.age,
+        gender: formData.gender,
+      },
+      contactDetails: {
+        emailId: formData.emailId,
+        mobileNo: formData.phoneNo,
+      },
+      classType: "",
+      flightId: "",
+      userId: "",
+      paymentStatus: true,
+      razorpayPaymentId: "flight_payment_test_001",
+    };
+  };
   return (
     <div className="FlightBooking">
       <nav className="navbar">
@@ -201,12 +219,13 @@ const FlightBooking = () => {
           </div>
           <PaymentButton
             className="flight-pay-now-btn"
-            handleOnClick={() =>
-              handlePayment(
-                Number(flightData.price) + 700,
-                handlePaymentCallBack
-              )
-            }
+            // handleOnClick={() =>
+            //   handlePayment(
+            //     Number(flightData.price) + 700,
+            //     handlePaymentCallBack
+            //   )
+            // }
+            handleOnClick={handleApiCall}
           />
         </div>
       </div>

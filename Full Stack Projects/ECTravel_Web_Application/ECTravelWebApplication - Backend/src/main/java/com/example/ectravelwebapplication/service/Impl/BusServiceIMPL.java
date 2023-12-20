@@ -218,7 +218,8 @@ public class BusServiceIMPL implements BusService {
                     trip.getTripId(),
                     passengerDetails.getSeatId(),
                     busPaymentDTO.getBusId(),
-                    busPaymentDTO.getUserId()
+                    busPaymentDTO.getUserId(),
+                    passengerDetails.getGender()
             );
             passengerRepoService.savePassenger(passenger);
             Seat seat = seatRepoService.getSeatById(passengerDetails.getSeatId());

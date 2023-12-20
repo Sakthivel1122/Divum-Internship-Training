@@ -26,5 +26,6 @@ public interface TrainApi {
     @PutMapping("updateTrain")
     ResponseEntity<String> updateTrain(@RequestBody UpdateTrainDTO updateTrainDTO);
 
+    @PostMapping("trainPayment")
     ResponseEntity<String> trainPayment(@RequestBody TrainPaymentDTO trainPaymentDTO);
 }

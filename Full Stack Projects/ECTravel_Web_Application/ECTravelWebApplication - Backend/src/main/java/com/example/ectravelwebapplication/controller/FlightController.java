@@ -1,6 +1,7 @@
 package com.example.ectravelwebapplication.controller;
 
 import com.example.ectravelwebapplication.DTO.AddFlightDTO;
+import com.example.ectravelwebapplication.DTO.FlightPaymentDTO;
 import com.example.ectravelwebapplication.DTO.GetAvailFlightDTO;
 import com.example.ectravelwebapplication.DTO.UpdateFlightDTO;
 import com.example.ectravelwebapplication.api.FlightApi;
@@ -44,5 +45,10 @@ public class FlightController implements FlightApi {
     @Override
     public ResponseEntity<List<Flight>> getAvailFlight(@RequestBody GetAvailFlightDTO getAvailFlightDTO){
         return flightService.getAvailFlight(getAvailFlightDTO);
+    }
+
+    @Override
+    public ResponseEntity<String> busPayment(@RequestBody FlightPaymentDTO flightPaymentDTO){
+        return flightService.flightPayment(flightPaymentDTO);
     }
 }

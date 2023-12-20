@@ -15,7 +15,9 @@ public interface FlightRepoService {
 
     void deleteFlight(int flightId);
 
-    boolean updateFlight(UpdateFlightDTO updateFlightDTO);
+//    boolean updateFlight(UpdateFlightDTO updateFlightDTO);
 
     List<Flight> getAvailFlight(GetAvailFlightDTO getAvailFlightDTO);
+
+    Flight findFlightById(int flightId);
 }
