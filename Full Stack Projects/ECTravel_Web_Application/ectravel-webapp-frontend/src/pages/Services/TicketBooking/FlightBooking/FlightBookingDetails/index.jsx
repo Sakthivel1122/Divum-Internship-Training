@@ -28,11 +28,13 @@ const FlightBookingDetails = ({
                 " " +
                 monthNoToMonthStr(pickUpDate.split("-")[1])}
             </p>
-            <p>{dropTime +
+            <p>
+              {dropTime +
                 " · " +
                 dropDate.split("-")[2] +
                 " " +
-                monthNoToMonthStr(dropDate.split("-")[1])}</p>
+                monthNoToMonthStr(dropDate.split("-")[1])}
+            </p>
           </div>
           <div className="detail detail-2">
             <span className="circle" />

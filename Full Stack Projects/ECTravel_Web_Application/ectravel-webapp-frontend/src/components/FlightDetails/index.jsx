@@ -18,8 +18,8 @@ const FlightDetails = (props) => {
       fromPlace: fromPlace,
       toPlace: toPlace,
       date: date,
-    }
-    navigate("/services/flightBooking", {state: data});
+    };
+    navigate("/services/flightBooking", { state: data });
   };
   return (
     <div className="FlightDetails">
@@ -66,6 +66,10 @@ const FlightDetails = (props) => {
           </div>
         </div>
         <div className="flight-details-bottom">
+          <div className="avail-count-wrapper">
+            <p>Economy: {flightData.economyAvailCount}</p>
+            <p>Business: {flightData.businessAvailCount}</p>
+          </div>
           <p
             className={"view-details-text " + (detailsDropDown && "active")}
             onClick={handleViewDetailsOnClick}

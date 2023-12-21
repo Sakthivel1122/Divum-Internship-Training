@@ -2,27 +2,42 @@ import React, { useState } from "react";
 import "./FlightBooking.scss";
 import PaymentButton from "../../../../shared/PaymentButton";
 import FlightBookingDetails from "./FlightBookingDetails";
-import { FEMALE, MALE } from "../../../../constants/stringConstants";
+import {
+  FEMALE,
+  FLIGHT_CLASS_TYPE,
+  MALE,
+  TRANSPORT_TYPE,
+} from "../../../../constants/stringConstants";
 import {
   contactDetailsForm,
   travellerDetailsForm,
 } from "../../../../constants/formConstants";
 import BookingInputBox from "../../../../shared/BookingInputBox";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   calcDuration,
   monthNoToMonthStr,
 } from "../../../../utils/TicketBooking";
 import { handlePayment } from "../../../../utils/payment";
+import DropDown from "../../../../components/DropDown";
+import { useMain } from "../../../../contexts/MainContext";
+import {
+  handleFlightPaymentApiCall,
+  handleGetAvailFlightApiCall,
+} from "../../../../utils/ApiCalls";
 
 const FlightBooking = () => {
+  const mainContext = useMain();
+  const classList = ["Business", "Economy"];
   const location = useLocation();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
     age: "",
     gender: "",
     emailId: "",
-    phoneNo: "",
+    mobileNo: "",
+    selectedClass: classList[0],
   });
   const { flightData } = location.state;
   const handleSelectGenderOnClick = (clickedOption) => {
@@ -41,9 +56,11 @@ const FlightBooking = () => {
   console.log(location.state);
 
   const handlePaymentCallBack = (response) => {
-    console.log(response.razorpay_payment_id);
-  };
-  const handleApiCall = () => {
+    // console.log(response.razorpay_payment_id);
+    let seatClassName =
+      formData.selectedClass === "Business"
+        ? FLIGHT_CLASS_TYPE.BUSINESS_CLASS
+        : FLIGHT_CLASS_TYPE.ECONOMY_CLASS;
     let dataObj = {
       passengerDetails: {
         name: formData.name,
@@ -52,14 +69,114 @@ const FlightBooking = () => {
       },
       contactDetails: {
         emailId: formData.emailId,
-        mobileNo: formData.phoneNo,
+        mobileNo: formData.mobileNo,
       },
-      classType: "",
-      flightId: "",
-      userId: "",
+      tripDetails: {
+        fromPlace: location.state.fromPlace,
+        toPlace: location.state.toPlace,
+        pickUpDate: flightData.pickUpDate,
+        pickUpTime: flightData.pickUpTime,
+        dropDate: flightData.dropDate,
+        dropTime: flightData.dropTime,
+        tripType: TRANSPORT_TYPE.FLIGHT,
+        tripPrice: Number(flightData.price) + 700,
+      },
+      classType: seatClassName,
+      flightId: flightData.flightId,
+      userId: mainContext.loginDetails.userId,
+      paymentStatus: true,
+      razorpayPaymentId: response.razorpay_payment_id,
+    };
+    const result = handleFlightPaymentApiCall(dataObj);
+    result.then((res) => {
+      if (res) {
+        alert("Payment Successful");
+
+        let dataObj = {
+          fromPlace: location.state.fromPlace,
+          toPlace: location.state.toPlace,
+          pickUpDate: location.state.date,
+        };
+
+        let response = handleGetAvailFlightApiCall(dataObj);
+        response.then((res) => {
+          const data = {
+            fromPlace: dataObj.fromPlace,
+            toPlace: dataObj.toPlace,
+            date: dataObj.pickUpDate,
+            data: res.data,
+          };
+          navigate("/services/availFlight", { state: data });
+        });
+      } else {
+        alert("Payment Failed");
+      }
+    });
+  };
+
+  const handleApiCall = () => {
+    let seatClassName =
+      formData.selectedClass === "Business"
+        ? FLIGHT_CLASS_TYPE.BUSINESS_CLASS
+        : FLIGHT_CLASS_TYPE.ECONOMY_CLASS;
+    let dataObj = {
+      passengerDetails: {
+        name: formData.name,
+        age: formData.age,
+        gender: formData.gender,
+      },
+      contactDetails: {
+        emailId: formData.emailId,
+        mobileNo: formData.mobileNo,
+      },
+      tripDetails: {
+        fromPlace: location.state.fromPlace,
+        toPlace: location.state.toPlace,
+        pickUpDate: flightData.pickUpDate,
+        pickUpTime: flightData.pickUpTime,
+        dropDate: flightData.dropDate,
+        dropTime: flightData.dropTime,
+        tripType: TRANSPORT_TYPE.FLIGHT,
+        tripPrice: Number(flightData.price) + 700,
+      },
+      classType: seatClassName,
+      flightId: flightData.flightId,
+      userId: mainContext.loginDetails.userId,
       paymentStatus: true,
       razorpayPaymentId: "flight_payment_test_001",
     };
+    const result = handleFlightPaymentApiCall(dataObj);
+    result.then((res) => {
+      if (res) {
+        alert("Payment Successful");
+
+        let dataObj = {
+          fromPlace: location.state.fromPlace,
+          toPlace: location.state.toPlace,
+          pickUpDate: location.state.date,
+        };
+        let response = handleGetAvailFlightApiCall(dataObj);
+        response.then((res) => {
+          const data = {
+            fromPlace: dataObj.fromPlace,
+            toPlace: dataObj.toPlace,
+            date: dataObj.pickUpDate,
+            data: res.data,
+          };
+          // navigate("/services/availTrain", { state: data });
+          navigate("/services/availFlight", { state: data });
+        });
+      } else {
+        alert("Payment Failed");
+      }
+    });
+  };
+  // console.log("-->",location.state);
+  const handleSetClassType = (value) => {
+    setFormData({
+      ...formData,
+      selectedClass: value,
+    });
   };
   return (
     <div className="FlightBooking">
@@ -157,6 +274,16 @@ const FlightBooking = () => {
                   </div>
                 );
               })}
+              {/* <DropDown/> */}
+              <div className="input-box-wrapper">
+                <label>Class Type</label>
+                <DropDown
+                  className="classDropDown"
+                  state={formData?.selectedClass}
+                  setState={handleSetClassType}
+                  dropDownList={classList}
+                />
+              </div>
               <div className="input-box-wrapper">
                 <label>Gender</label>
                 <div className="gender-selector">
@@ -219,13 +346,13 @@ const FlightBooking = () => {
           </div>
           <PaymentButton
             className="flight-pay-now-btn"
-            // handleOnClick={() =>
-            //   handlePayment(
-            //     Number(flightData.price) + 700,
-            //     handlePaymentCallBack
-            //   )
-            // }
-            handleOnClick={handleApiCall}
+            handleOnClick={() =>
+              handlePayment(
+                Number(flightData.price) + 700,
+                handlePaymentCallBack
+              )
+            }
+            // handleOnClick={handleApiCall}
           />
         </div>
       </div>

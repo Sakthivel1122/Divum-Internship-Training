@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./DropDown.scss";
-const DropDown = ({ state, setState, dropDownList }) => {
+const DropDown = ({ className = "", state, setState, dropDownList }) => {
   const [isVisible, setIsVisible] = useState(false);
   const handleOnClick = () => {
     setIsVisible(!isVisible);
@@ -10,7 +10,7 @@ const DropDown = ({ state, setState, dropDownList }) => {
     handleOnClick();
   };
   return (
-    <div className="DropDown">
+    <div className={"DropDown " + className}>
       <div className="drop-down-content" onClick={handleOnClick}>
         <p>{state}</p>
         {!isVisible ? (

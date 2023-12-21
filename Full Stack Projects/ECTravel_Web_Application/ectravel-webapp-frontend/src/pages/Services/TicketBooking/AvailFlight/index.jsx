@@ -302,7 +302,7 @@ const AvailFlight = () => {
     return tempFlightList;
   };
 
-  console.log(location.state.data);
+  // console.log(location.state.data);
   return (
     <div className="AvailFlight">
       <div className="navbar-container">

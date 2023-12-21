@@ -132,11 +132,19 @@ public class FlightServiceIMPL implements FlightService {
         );
         passengerRepoService.savePassenger(passenger);
         Flight flight = flightRepoService.findFlightById(flightPaymentDTO.getFlightId());
-        if(flight.getBusinessAvailCount() == 0 || flight.getEconomyAvailCount() == 0){
-            return new ResponseEntity<String>("Fight Payment Faild",HttpStatus.BAD_REQUEST);
+        if(flightPaymentDTO.getClassType().equals("BUSINESS_CLASS")){
+            if(flight.getBusinessAvailCount() == 0){
+                return new ResponseEntity<String>("Fight Payment Failed",HttpStatus.BAD_REQUEST);
+            }
+            flight.setBusinessAvailCount(flight.getBusinessAvailCount() - 1);
+        } else if (flightPaymentDTO.getClassType().equals("ECONOMY_CLASS")) {
+            if(flight.getEconomyAvailCount() == 0){
+                return new ResponseEntity<String>("Fight Payment Failed",HttpStatus.BAD_REQUEST);
+            }
+            flight.setEconomyAvailCount(flight.getEconomyAvailCount() - 1);
+        } else {
+            return new ResponseEntity<String>("Invalid Class Type",HttpStatus.BAD_REQUEST);
         }
-        flight.setBusinessAvailCount(flight.getBusinessAvailCount() - 1);
-        flight.setEconomyAvailCount(flight.getEconomyAvailCount() - 1);
         flightRepoService.saveFlight(flight);
         return new ResponseEntity<String>("Flight Payment Successful",HttpStatus.OK);
     }

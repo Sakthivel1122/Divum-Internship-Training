@@ -20,4 +20,5 @@ public class FlightPaymentDTO {
     private boolean paymentStatus;
 
     private String razorpayPaymentId;
+
 }
