@@ -149,7 +149,6 @@ const FlightBooking = () => {
     result.then((res) => {
       if (res) {
         alert("Payment Successful");
-
         let dataObj = {
           fromPlace: location.state.fromPlace,
           toPlace: location.state.toPlace,

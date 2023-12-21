@@ -185,7 +185,10 @@ public class TrainServiceImpl implements TrainService {
                 trainPaymentDTO.getTripDetails().getTripPrice(),
                 trainPaymentDTO.isPaymentStatus(),
                 trainPaymentDTO.getRazorpayPaymentId(),
-                trainPaymentDTO.getUserId()
+                trainPaymentDTO.getUserId(),
+                trainPaymentDTO.getContactDetails().getEmailId(),
+                trainPaymentDTO.getContactDetails().getMobileNo(),
+                trainPaymentDTO.getTrainId()
         );
         tripRepoService.saveTrip(trip);
         int trainSeatTypeId;
@@ -214,13 +217,13 @@ public class TrainServiceImpl implements TrainService {
         for (TrainPassengerDTO passengerDetails : trainPaymentDTO.getPassengerList()){
             Passenger passenger = new Passenger(
                     passengerDetails.getTravellerName(),
-                    trainPaymentDTO.getContactDetails().getEmailId(),
-                    trainPaymentDTO.getContactDetails().getMobileNo(),
+//                    trainPaymentDTO.getContactDetails().getEmailId(),
+//                    trainPaymentDTO.getContactDetails().getMobileNo(),
                     passengerDetails.getBerthPreference(),
                     passengerDetails.getAge(),
                     trip.getTripId(),
                     -1,
-                    trainPaymentDTO.getTrainId(),
+//                    trainPaymentDTO.getTrainId(),
                     trainPaymentDTO.getUserId(),
                     passengerDetails.getGender()
             );

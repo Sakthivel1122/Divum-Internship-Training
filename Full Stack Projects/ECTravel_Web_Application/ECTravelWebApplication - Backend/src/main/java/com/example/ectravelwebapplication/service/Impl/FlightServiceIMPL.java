@@ -114,19 +114,22 @@ public class FlightServiceIMPL implements FlightService {
                 flightPaymentDTO.getTripDetails().getTripPrice(),
                 flightPaymentDTO.isPaymentStatus(),
                 flightPaymentDTO.getRazorpayPaymentId(),
-                flightPaymentDTO.getUserId()
+                flightPaymentDTO.getUserId(),
+                flightPaymentDTO.getContactDetails().getEmailId(),
+                flightPaymentDTO.getContactDetails().getMobileNo(),
+                flightPaymentDTO.getFlightId()
         );
         tripRepoService.saveTrip(trip);
 
         Passenger passenger = new Passenger(
                 flightPaymentDTO.getPassengerDetails().getName(),
-                flightPaymentDTO.getContactDetails().getEmailId(),
-                flightPaymentDTO.getContactDetails().getMobileNo(),
+//                flightPaymentDTO.getContactDetails().getEmailId(),
+//                flightPaymentDTO.getContactDetails().getMobileNo(),
                 flightPaymentDTO.getClassType(),
                 flightPaymentDTO.getPassengerDetails().getAge(),
                 trip.getTripId(),
                 -1,
-                flightPaymentDTO.getFlightId(),
+//                flightPaymentDTO.getFlightId(),
                 flightPaymentDTO.getUserId(),
                 flightPaymentDTO.getPassengerDetails().getGender()
         );

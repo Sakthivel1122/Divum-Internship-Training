@@ -16,9 +16,9 @@ public class Passenger {
 
     private String passengerName;
 
-    private String passengerEmailId;
+//    private String passengerEmailId;
 
-    private String passengerMobileNo;
+//    private String passengerMobileNo;
 
     private String preference;
 
@@ -29,21 +29,21 @@ public class Passenger {
     @Column(nullable = true)
     private Integer seatId;
 
-    private int transportId;
+//    private int transportId;
 
     private int userId;
 
     private String gender;
 
-    public Passenger(String passengerName, String passengerEmailId, String passengerMobileNo, String preference, int passengerAge, int tripId, Integer seatId, int transportId, int userId,String gender) {
+    public Passenger(String passengerName, String preference, int passengerAge, int tripId, Integer seatId, int userId,String gender) {
         this.passengerName = passengerName;
-        this.passengerEmailId = passengerEmailId;
-        this.passengerMobileNo = passengerMobileNo;
+//        this.passengerEmailId = passengerEmailId;
+//        this.passengerMobileNo = passengerMobileNo;
         this.preference = preference;
         this.passengerAge = passengerAge;
         this.tripId = tripId;
         this.seatId = seatId;
-        this.transportId = transportId;
+//        this.transportId = transportId;
         this.userId = userId;
         this.gender = gender;
     }

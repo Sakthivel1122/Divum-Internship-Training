@@ -205,19 +205,22 @@ public class BusServiceIMPL implements BusService {
                 busPaymentDTO.getTripDetails().getTripPrice(),
                 busPaymentDTO.isPaymentStatus(),
                 busPaymentDTO.getRazorpayPaymentId(),
-                busPaymentDTO.getUserId()
+                busPaymentDTO.getUserId(),
+                busPaymentDTO.getContactDetails().getEmailId(),
+                busPaymentDTO.getContactDetails().getMobileNo(),
+                busPaymentDTO.getBusId()
         );
         tripRepoService.saveTrip(trip);
         for (BusPassengerDTO passengerDetails : busPaymentDTO.getPassengerList()){
             Passenger passenger = new Passenger(
                     passengerDetails.getName(),
-                    busPaymentDTO.getContactDetails().getEmailId(),
-                    busPaymentDTO.getContactDetails().getMobileNo(),
+//                    busPaymentDTO.getContactDetails().getEmailId(),
+//                    busPaymentDTO.getContactDetails().getMobileNo(),
                     null,
                     passengerDetails.getAge(),
                     trip.getTripId(),
                     passengerDetails.getSeatId(),
-                    busPaymentDTO.getBusId(),
+//                    busPaymentDTO.getBusId(),
                     busPaymentDTO.getUserId(),
                     passengerDetails.getGender()
             );
