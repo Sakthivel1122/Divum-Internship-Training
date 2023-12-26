@@ -58,4 +58,9 @@ public class TrainSeatRepoServiceImpl implements TrainSeatRepoService {
     public TrainSeat findTrainSeatById(int trainSeatId){
         return trainSeatRepo.findById(trainSeatId).orElse(null);
     }
+
+    @Override
+    public TrainSeat findByPassengerDetails_PassengerId(int passengerId){
+        return trainSeatRepo.findByPassengerDetails_PassengerId(passengerId);
+    }
 }

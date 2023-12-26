@@ -4,6 +4,8 @@ import com.example.ectravelwebapplication.DTO.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public interface UserService {
     String addUser(AddUserDTO addUserDTO);
@@ -14,4 +16,5 @@ public interface UserService {
 
     String updateUser(UpdateUserDTO updateUserDTO);
 
+    ResponseEntity<List<MyTripResponseDTO>> getMyTrips(MyTripDTO myTripDTO);
 }

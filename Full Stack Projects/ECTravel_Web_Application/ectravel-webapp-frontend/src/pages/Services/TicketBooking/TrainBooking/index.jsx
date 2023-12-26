@@ -12,7 +12,7 @@ import { removeTraveller } from "../../../../redux/features/TrainBooking/travell
 import { handlePayment } from "../../../../utils/payment";
 import BookingInputBox from "../../../../shared/BookingInputBox";
 import { contactDetailsForm } from "../../../../constants/formConstants";
-import { TRANSPORT_TYPE } from "../../../../constants/stringConstants";
+import { FEMALE, MALE, TRANSPORT_TYPE } from "../../../../constants/stringConstants";
 import { useMain } from "../../../../contexts/MainContext";
 import {
   handleGetAvailTrainApiCall,
@@ -73,7 +73,7 @@ const TrainBooking = () => {
       return {
         travellerName: data.travellerName,
         age: Number(data.age),
-        gender: data.gender,
+        gender: data.gender === "Male" ? MALE : FEMALE,
         berthPreference: data.berthPreference,
         nationality: data.nationality,
       };

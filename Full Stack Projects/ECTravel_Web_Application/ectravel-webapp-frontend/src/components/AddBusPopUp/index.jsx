@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./AddBusPopUp.scss";
 import {
   handleGetAllBusApiCall,
@@ -184,6 +184,9 @@ const AddBusPopUp = () => {
       });
     }
   };
+  // const myRef = useRef();
+  // myRef.current
+  // console.log(Date());
   return (
     <div className="AddBusPopUp" onClick={handleClose}>
       <form>

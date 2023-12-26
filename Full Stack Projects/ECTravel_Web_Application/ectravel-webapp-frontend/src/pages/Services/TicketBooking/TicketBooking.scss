@@ -7,11 +7,7 @@
 .search-bg {
   padding-bottom: 8rem;
   background: rgb(106, 203, 228);
-  background: linear-gradient(
-    0deg,
-    #6acbe4 0%,
-    #51d7b2 71%
-  );
+  background: linear-gradient(0deg, #6acbe4 0%, #51d7b2 71%);
 
   /* background: rgb(42,195,233);
 background: linear-gradient(0deg, rgba(42,195,233,1) 0%, rgba(25,228,147,1) 100%); */
@@ -30,12 +26,12 @@ background: linear-gradient(0deg, rgba(42,195,233,1) 0%, rgba(25,228,147,1) 100%
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 10rem;
+  padding-top: 12rem;
 }
 
 .TicketBooking .search-container {
   width: 100%;
-  height: 18rem;
+  height: 20rem;
   background-color: white;
   position: relative;
   display: flex;
@@ -185,7 +181,7 @@ background: linear-gradient(0deg, rgba(42,195,233,1) 0%, rgba(25,228,147,1) 100%
   padding: 5px 10px;
   display: inline-block;
 }
-.offers .offers-slide-wrapper .offers-slides div:nth-child(1){
+.offers .offers-slide-wrapper .offers-slides div:nth-child(1) {
   display: flex;
   gap: 10px;
   align-items: center;

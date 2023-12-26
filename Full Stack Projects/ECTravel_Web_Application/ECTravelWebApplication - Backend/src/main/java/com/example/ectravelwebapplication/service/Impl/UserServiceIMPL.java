@@ -1,19 +1,16 @@
 package com.example.ectravelwebapplication.service.Impl;
 
 import com.example.ectravelwebapplication.DTO.*;
-import com.example.ectravelwebapplication.entity.Passenger;
-import com.example.ectravelwebapplication.entity.Seat;
-import com.example.ectravelwebapplication.entity.Trip;
-import com.example.ectravelwebapplication.entity.User;
-import com.example.ectravelwebapplication.repository.service.PassengerRepoService;
-import com.example.ectravelwebapplication.repository.service.SeatRepoService;
-import com.example.ectravelwebapplication.repository.service.TripRepoService;
-import com.example.ectravelwebapplication.repository.service.UserRepoService;
+import com.example.ectravelwebapplication.entity.*;
+import com.example.ectravelwebapplication.repository.service.*;
 import com.example.ectravelwebapplication.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class UserServiceIMPL implements UserService {
@@ -23,6 +20,21 @@ public class UserServiceIMPL implements UserService {
 
     @Autowired
     TripRepoService tripRepoService;
+
+    @Autowired
+    PassengerRepoService passengerRepoService;
+
+    @Autowired
+    BusRepoService busRepoService;
+
+    @Autowired
+    TrainRepoService trainRepoService;
+
+    @Autowired
+    TrainSeatRepoService trainSeatRepoService;
+
+    @Autowired
+    FlightRepoService flightRepoService;
 
     @Override
     public String addUser(AddUserDTO addUserDTO){
@@ -87,5 +99,93 @@ public class UserServiceIMPL implements UserService {
         }
     }
 
+    @Override
+    public ResponseEntity<List<MyTripResponseDTO>> getMyTrips(MyTripDTO myTripDTO){
+        System.out.println(myTripDTO.toString());
+        List<Trip> tripList = tripRepoService.findTripByUserId(myTripDTO.getUserId());
+        List<MyTripResponseDTO> completedTripList = new ArrayList<>();
+        System.out.println("Trip: " + tripList.size());
+        for(Trip trip : tripList){
+            if(myTripDTO.getType().equals("COMPLETED")){
+                if(trip.getPickUpDate().compareTo(myTripDTO.getCurrentDate()) >= 0){
+                continue;
+                }
+            } else {
+                if(trip.getPickUpDate().compareTo(myTripDTO.getCurrentDate()) < 0){
+                    continue;
+                }
+            }
+            List<Passenger> passengerList = passengerRepoService.findPassengerByTripId(trip.getTripId());
+            ContactDetailsDTO contactDetails = new ContactDetailsDTO(trip.getPassengerEmailId(),trip.getPassengerMobileNo());
+            MyTripTransportDTO myTripTransportDTO = null;
+            if(trip.getTripType().equals("BUS")){
+                Bus bus = busRepoService.findById(trip.getTransportId());
+                myTripTransportDTO = new MyTripTransportDTO(
+                        bus.getBusName(),
+                        trip.getTripType(),
+                        bus.getFromPlace(),
+                        bus.getToPlace(),
+                        bus.getPickUpDate(),
+                        bus.getPickUpTime(),
+                        bus.getDropDate(),
+                        bus.getDropTime(),
+                        bus.getPrice(),
+                        bus.getBusType(),
+                        bus.getSeatType(),
+                        bus.getRating()
+                );
+            } else if (trip.getTripType().equals("TRAIN")){
+                Train train = trainRepoService.findTrainById(trip.getTransportId());
+                TrainSeat trainSeat = trainSeatRepoService.findByPassengerDetails_PassengerId(passengerList.get(0).getPassengerId());
+//                String trainSeatType = trainSeat.getTrainSeatTypePriceDetails().getSeatTypeDetails().getSeatType();
+                String trainSeatPrice = trainSeat.getTrainSeatTypePriceDetails().getPrice();
+                myTripTransportDTO = new MyTripTransportDTO(
+                        train.getTrainName(),
+                        trip.getTripType(),
+                        train.getFromPlace(),
+                        train.getToPlace(),
+                        train.getPickUpDate(),
+                        train.getPickUpTime(),
+                        train.getDropDate(),
+                        train.getDropTime(),
+                        trainSeatPrice,
+                        null,
+                        null,
+                        train.getRating()
+                );
+            } else if (trip.getTripType().equals("FLIGHT")){
+                Flight flight = flightRepoService.findFlightById(trip.getTransportId());
+                myTripTransportDTO = new MyTripTransportDTO(
+                        flight.getFlightName(),
+                        trip.getTripType(),
+                        flight.getFromPlace(),
+                        flight.getToPlace(),
+                        flight.getPickUpDate(),
+                        flight.getPickUpTime(),
+                        flight.getDropDate(),
+                        flight.getDropTime(),
+                        flight.getPrice(),
+                        null,
+                        null,
+                        null
+                );
+            }
 
+
+            MyTripResponseDTO completedTrip = new MyTripResponseDTO(
+                    trip.getFromPlace(),
+                    trip.getPickUpDate(),
+                    trip.getPickUpTime(),
+                    trip.getToPlace(),
+                    trip.getDropDate(),
+                    trip.getDropTime(),
+                    passengerList,
+                    contactDetails,
+                    myTripTransportDTO
+                    );
+            completedTripList.add(completedTrip);
+        }
+        System.out.println("Res: " + completedTripList.size());
+        return new ResponseEntity<>(completedTripList, HttpStatus.OK);
+    }
 }

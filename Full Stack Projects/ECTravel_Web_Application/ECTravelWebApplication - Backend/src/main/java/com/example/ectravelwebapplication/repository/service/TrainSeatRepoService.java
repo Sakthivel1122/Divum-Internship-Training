@@ -24,4 +24,6 @@ public interface TrainSeatRepoService {
     List<TrainSeat> findByTrainDetails_TrainIdAndTrainSeatTypePriceDetails_SeatTypeDetails_SeatTypeIdAndStatus(int trainId, int trainSeatTypeId, boolean status);
 
     TrainSeat findTrainSeatById(int trainSeatId);
+
+    TrainSeat findByPassengerDetails_PassengerId(int passengerId);
 }

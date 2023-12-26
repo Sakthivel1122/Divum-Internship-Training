@@ -137,3 +137,18 @@ export const handleFlightPaymentApiCall = async (dataObj) => {
     return false;
   }
 };
+
+// --------------- MY TRIPS API CALL -------------------------
+
+export const handleGetMyTripsApiCall = async (dataObj) => {
+  try {
+    const response = await axios.post(
+      API_LINKS.GET_MY_TRIPS,
+      dataObj
+    );
+    return response;
+  } catch (error) {
+    console.log("GET MY TRIPS API ERROR >>", error);
+    return false;
+  }
+};

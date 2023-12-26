@@ -8,6 +8,7 @@ const API_LINKS = {
   USER_AUTHENTICATION: COMMON_API_LINK + "userauthentication",
   GET_USER_DETAILS: COMMON_API_LINK + "getuserdetails/",
   UPDATE_USER: COMMON_API_LINK + "updateUser",
+  GET_MY_TRIPS: COMMON_API_LINK + "getMyTrips",
 
   BUS_API_LINKS: {
     ADD_BUS: COMMON_BUS_API_LINK + "addBus",

@@ -6,6 +6,8 @@ import com.example.ectravelwebapplication.repository.service.PassengerRepoServic
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class PassengerRepoServiceImpl implements PassengerRepoService {
 
@@ -15,5 +17,15 @@ public class PassengerRepoServiceImpl implements PassengerRepoService {
     @Override
     public void savePassenger(Passenger passenger){
         passengerRepo.save(passenger);
+    }
+
+    @Override
+    public List<Passenger> findPassengerByTripId(int tripId){
+        return passengerRepo.findByTripId(tripId);
+    }
+
+    @Override
+    public Passenger findPassengerById(int passengerId){
+        return passengerRepo.findById(passengerId).orElse(null);
     }
 }

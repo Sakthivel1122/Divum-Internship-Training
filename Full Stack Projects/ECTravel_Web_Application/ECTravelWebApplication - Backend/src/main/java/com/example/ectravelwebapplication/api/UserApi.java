@@ -4,6 +4,8 @@ import com.example.ectravelwebapplication.DTO.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RequestMapping("api/v1/user")
 public interface UserApi {
     @PostMapping("/adduser")
@@ -18,4 +20,6 @@ public interface UserApi {
     @PostMapping("updateUser")
     String UpdateUser(@RequestBody UpdateUserDTO updateUserDTO);
 
+    @PostMapping("getMyTrips")
+    ResponseEntity<List<MyTripResponseDTO>> getMyTrips(@RequestBody MyTripDTO myTripDTO);
 }

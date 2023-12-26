@@ -1,0 +1,20 @@
+.DisplayTripDetails {
+    border: 1px solid black;
+    position: relative;
+    height: 10rem;
+    .icon-container {
+        position: absolute;
+        // border: 1px solid red;
+        height: 3rem;
+        width: 3rem;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        left: -1.5rem;
+        top: 50%;
+        transform: translateY(-50%);
+        background-color: white;
+        box-shadow: 0 0 5px rgba(0,0,0,0.5);
+    }
+}
