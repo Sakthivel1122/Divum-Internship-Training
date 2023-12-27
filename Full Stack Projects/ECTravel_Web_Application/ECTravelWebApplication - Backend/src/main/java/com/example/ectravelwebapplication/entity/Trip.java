@@ -43,7 +43,11 @@ public class Trip {
 
     private int transportId;
 
-    public Trip(String tripType, String fromPlace, String toPlace, String pickUpDate, String pickUpTime, String dropDate, String dropTime, int tripPrice, boolean paymentStatus,String razorpayPaymentId,int userId,String passengerEmailId,String passengerMobileNo,int transportId) {
+    private String bookedDate;
+
+    private String bookedTime;
+
+    public Trip(String tripType, String fromPlace, String toPlace, String pickUpDate, String pickUpTime, String dropDate, String dropTime, int tripPrice, boolean paymentStatus,String razorpayPaymentId,int userId,String passengerEmailId,String passengerMobileNo,int transportId,String bookedDate,String bookedTime) {
         this.tripType = tripType;
         this.fromPlace = fromPlace;
         this.toPlace = toPlace;
@@ -58,5 +62,7 @@ public class Trip {
         this.passengerEmailId = passengerEmailId;
         this.passengerMobileNo = passengerMobileNo;
         this.transportId = transportId;
+        this.bookedDate = bookedDate;
+        this.bookedTime = bookedTime;
     }
 }

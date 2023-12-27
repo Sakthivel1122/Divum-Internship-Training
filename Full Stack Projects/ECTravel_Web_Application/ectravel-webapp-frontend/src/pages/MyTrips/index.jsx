@@ -23,25 +23,43 @@ const MyTrips = () => {
     response.then((res) => {
       if (res) {
         setDisplayList(res.data);
+        console.log(res.data);
       }
     });
-  }, []);
+  }, [currentPage]);
 
   const getRequestType = (value) => {
     switch (value) {
       case 1:
-        return "COMPLETED";
+        return "UPCOMING";
       case 2:
         return "CANCELLED";
       case 3:
-        return "UPCOMING";
+        return "COMPLETED";
       default:
         return "";
     }
   };
+
+  const getBgClassName = (currentPage) => {
+    switch (currentPage) {
+      case 1:
+        return "upcoming-bg";
+      case 2:
+        return "cancelled-bg";
+      case 3:
+        return "completed-bg";
+      default:
+        return "";
+    }
+  };
+  const dateObj = new Date();
+
+  console.log(dateObj.toISOString().split("T")[0]);
+  console.log(dateObj.getHours() + ":" + dateObj.getMinutes());
   return (
     <>
-      <div className="MyTrips">
+      <div className={"MyTrips " + getBgClassName(currentPage)}>
         <div className="my-trips-container">
           <ul className="my-trips-navbar">
             <li
@@ -64,7 +82,17 @@ const MyTrips = () => {
             </li>
           </ul>
           <div className="my-trip-content">
-            <DisplayTripDetails/>
+            <div className="my-trip-content-wrapper">
+              {displayList &&
+                displayList.map((tripDetails) => {
+                  return (
+                    <DisplayTripDetails
+                      tripData={tripDetails}
+                      currentPage={currentPage}
+                    />
+                  );
+                })}
+            </div>
           </div>
         </div>
       </div>

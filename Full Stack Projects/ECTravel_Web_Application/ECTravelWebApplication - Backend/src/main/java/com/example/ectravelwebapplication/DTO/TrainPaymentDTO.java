@@ -23,4 +23,8 @@ public class TrainPaymentDTO {
 
     private String razorpayPaymentId;
 
+    private String bookedDate;
+
+    private String bookedTime;
+
 }

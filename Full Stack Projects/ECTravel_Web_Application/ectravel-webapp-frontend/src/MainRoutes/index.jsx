@@ -9,7 +9,6 @@ import TrackLocation from "../pages/Services/TrackLocation";
 import TicketBooking from "../pages/Services/TicketBooking";
 import SignUp from "../pages/SignUp";
 import LogIn from "../pages/LogIn";
-import AddBus from "../pages/AddBus";
 import Admin from "../pages/Admin";
 import ManageUser from "../pages/Admin/ManageUser";
 import AdminHome from "../pages/Admin/AdminHome";
@@ -25,8 +24,10 @@ import AvailFlight from "../pages/Services/TicketBooking/AvailFlight";
 import FlightBooking from "../pages/Services/TicketBooking/FlightBooking";
 import BusBooking from "../pages/Services/TicketBooking/BusBooking";
 import MyTrips from "../pages/MyTrips";
+import BookedTripDetails from "../pages/BookedTripDetails";
+import PopUp from "../pages/PopUp";
 
-const RoutingFile = () => {
+const MainRoutes = () => {
   return (
     <Routes>
       <Route path="/" element={<MainLayout />}>
@@ -34,17 +35,18 @@ const RoutingFile = () => {
         <Route path="about" element={<About />} />
         <Route path="profile" element={<Profile />} />
         <Route path="myTrips" element={<MyTrips />} />
+        <Route path="bookedTripDetails" element={<BookedTripDetails />} />
 
-          <Route path="services" element={<Services />}>
-            <Route index path="tracklocation" element={<TrackLocation />} />
-            <Route path="ticketbooking" element={<TicketBooking />} />
-            <Route path="availBus" element={<AvailBus />} />
-            <Route path="availTrain" element={<AvailTrain />} />
-            <Route path="availFlight" element={<AvailFlight />} />
-            <Route path="busBooking" element={<BusBooking />} />
-            <Route path="trainBooking" element={<TrainBooking />} />
-            <Route path="flightBooking" element={<FlightBooking />} />
-          </Route>
+        <Route path="services" element={<Services />}>
+          <Route index path="tracklocation" element={<TrackLocation />} />
+          <Route path="ticketbooking" element={<TicketBooking />} />
+          <Route path="availBus" element={<AvailBus />} />
+          <Route path="availTrain" element={<AvailTrain />} />
+          <Route path="availFlight" element={<AvailFlight />} />
+          <Route path="busBooking" element={<BusBooking />} />
+          <Route path="trainBooking" element={<TrainBooking />} />
+          <Route path="flightBooking" element={<FlightBooking />} />
+        </Route>
       </Route>
 
       <Route path="/admin" element={<Admin />}>
@@ -57,9 +59,9 @@ const RoutingFile = () => {
 
       <Route path="/signup" element={<SignUp />} />
       <Route path="/login" element={<LogIn />} />
-      {/* <Route path="/addBus" element={<AddBus />} /> */}
+      <Route path="/popup" element={<PopUp />} />
     </Routes>
   );
 };
 
-export default RoutingFile;
+export default MainRoutes;

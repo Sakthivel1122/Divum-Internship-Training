@@ -32,7 +32,7 @@ const LogIn = () => {
       } else {
         alert("Incorrect emailId or password!!!");
       }
-    })
+    });
   };
   const handleOnChange = (e) => {
     const { name, value } = e.target;
@@ -40,10 +40,11 @@ const LogIn = () => {
   };
   useEffect(() => {
     mainContext.handleSetLoadingSpinner(true);
-    setTimeout(()=>{
+    setTimeout(() => {
       mainContext.handleOnLoad();
-    },2000)
+    }, 2000);
   }, []);
+  
   return (
     <div className="LogIn">
       <form className="login-container">
@@ -84,6 +85,7 @@ const LogIn = () => {
         </div>
       </form>
     </div>
+    
   );
 };
 

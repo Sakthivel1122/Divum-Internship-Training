@@ -115,6 +115,7 @@ const FlightBooking = () => {
   };
 
   const handleApiCall = () => {
+    const dateObj = new Date();
     let seatClassName =
       formData.selectedClass === "Business"
         ? FLIGHT_CLASS_TYPE.BUSINESS_CLASS
@@ -144,6 +145,8 @@ const FlightBooking = () => {
       userId: mainContext.loginDetails.userId,
       paymentStatus: true,
       razorpayPaymentId: "flight_payment_test_001",
+      bookedDate: dateObj.toISOString().split("T")[0],
+      bookedTime: dateObj.getHours() + ":" + dateObj.getMinutes(),
     };
     const result = handleFlightPaymentApiCall(dataObj);
     result.then((res) => {

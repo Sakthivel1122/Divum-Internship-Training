@@ -12,6 +12,8 @@ import java.util.List;
 @AllArgsConstructor
 public class MyTripResponseDTO {
 
+    private int tripId;
+
     private String PickUpPlace;
 
     private String pickUpDate;
@@ -29,4 +31,8 @@ public class MyTripResponseDTO {
     private ContactDetailsDTO contactDetails;
 
     private MyTripTransportDTO myTripTransport;
+
+    private String bookedDate;
+
+    private String bookedTime;
 }

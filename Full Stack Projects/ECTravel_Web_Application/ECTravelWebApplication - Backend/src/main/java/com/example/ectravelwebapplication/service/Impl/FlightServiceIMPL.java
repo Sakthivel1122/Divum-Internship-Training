@@ -117,7 +117,9 @@ public class FlightServiceIMPL implements FlightService {
                 flightPaymentDTO.getUserId(),
                 flightPaymentDTO.getContactDetails().getEmailId(),
                 flightPaymentDTO.getContactDetails().getMobileNo(),
-                flightPaymentDTO.getFlightId()
+                flightPaymentDTO.getFlightId(),
+                flightPaymentDTO.getBookedDate(),
+                flightPaymentDTO.getBookedTime()
         );
         tripRepoService.saveTrip(trip);
 

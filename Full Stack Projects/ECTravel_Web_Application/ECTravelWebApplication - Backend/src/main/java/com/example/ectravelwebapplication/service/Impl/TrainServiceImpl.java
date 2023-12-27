@@ -188,7 +188,9 @@ public class TrainServiceImpl implements TrainService {
                 trainPaymentDTO.getUserId(),
                 trainPaymentDTO.getContactDetails().getEmailId(),
                 trainPaymentDTO.getContactDetails().getMobileNo(),
-                trainPaymentDTO.getTrainId()
+                trainPaymentDTO.getTrainId(),
+                trainPaymentDTO.getBookedDate(),
+                trainPaymentDTO.getBookedTime()
         );
         tripRepoService.saveTrip(trip);
         int trainSeatTypeId;

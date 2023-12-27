@@ -1,0 +1,45 @@
+.BookedTripDetails {
+  margin-top: 4rem;
+
+  .navbar-container {
+    height: 4rem;
+    display: flex;
+    align-items: end;
+    .navbar-content-wrapper {
+      width: 80%;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+    }
+
+    .bus-png-img {
+      height: 9.5rem;
+    }
+  }
+  .upcoming-bg {
+    background: rgb(121, 216, 232);
+    background: linear-gradient(
+      90deg,
+      rgba(121, 216, 232, 1) 0%,
+      rgba(74, 152, 228, 1) 46%
+    );
+  }
+  .cancelled-bg {
+    background: rgb(247, 255, 168);
+    background: linear-gradient(
+      90deg,
+      rgba(247, 255, 168, 1) 0%,
+      rgba(241, 213, 69, 1) 37%
+    );
+  }
+
+  .completed-bg {
+    background: rgb(156, 251, 244);
+    background: linear-gradient(
+      90deg,
+      rgba(156, 251, 244, 1) 0%,
+      rgba(84, 227, 187, 1) 35%
+    );
+  }
+}

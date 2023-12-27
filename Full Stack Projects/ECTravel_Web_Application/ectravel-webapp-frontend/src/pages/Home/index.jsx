@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useReducer, useRef } from "react";
 import "./Home.scss";
 import travelPic from "../../assets/images/home/travel-pic.jpg";
 import place1 from "../../assets/images/home/popular_places/pic-1.jpg";
@@ -12,6 +12,14 @@ const Home = () => {
   const parem = useParams();
   const mainContext = useMain();
   const location = useLocation();
+  const serviceDivRef = useRef();
+  const handleGetStatedOnClick = () => {
+    serviceDivRef.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "nearest", // 'start', 'center', 'end', or 'nearest'
+      // inline: "nearest", // 'start', 'center', 'end', or 'nearest'
+    });
+  };
   return (
     <>
       <div className="Home">
@@ -25,11 +33,11 @@ const Home = () => {
           <div className="travel-description">
             <h1>Your Journey Your Story</h1>
             <p>Choose your Favourite Destination</p>
-            <button>Get Started</button>
+            <button onClick={handleGetStatedOnClick}>Get Started</button>
           </div>
         </div>
         {/* Services */}
-        <div className="services container">
+        <div ref={serviceDivRef} className="services container">
           <h1 className="title">Services</h1>
           <div className="services-content">
             <div
@@ -41,7 +49,10 @@ const Home = () => {
               </span>
               <span className="service-name">Track Location</span>
             </div>
-            <div className="service">
+            <div
+              className="service"
+              onClick={() => navigate("/services/ticketBooking")}
+            >
               <span className="material-symbols-outlined service-icon">
                 airplane_ticket
               </span>
@@ -54,7 +65,9 @@ const Home = () => {
               <span className="service-name">Taxi Booking</span>
             </div>
             <div className="service">
-              <span className="material-symbols-outlined service-icon">hotel</span>
+              <span className="material-symbols-outlined service-icon">
+                hotel
+              </span>
               <span className="service-name">Hotel Booking</span>
             </div>
             <div className="service">
@@ -64,8 +77,10 @@ const Home = () => {
               <span className="service-name">Food Order</span>
             </div>
             <div className="service">
-              <span className="material-symbols-outlined service-icon">tour</span>
-              <span className="service-name">Ticket Booking</span>
+              <span className="material-symbols-outlined service-icon">
+                tour
+              </span>
+              <span className="service-name">Tour Planner</span>
             </div>
           </div>
         </div>

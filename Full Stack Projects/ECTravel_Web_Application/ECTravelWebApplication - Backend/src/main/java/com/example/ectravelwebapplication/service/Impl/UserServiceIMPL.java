@@ -68,6 +68,9 @@ public class UserServiceIMPL implements UserService {
     @Override
     public UserDetailsDTO getUserDetails(String emailId) {
         User user = userRepoService.findByEmailId(emailId);
+        if(user == null){
+            return null;
+        }
         UserDetailsDTO userDetailsDTO = new UserDetailsDTO(
                 user.getUserId(),
                 user.getFirstName(),
@@ -101,10 +104,8 @@ public class UserServiceIMPL implements UserService {
 
     @Override
     public ResponseEntity<List<MyTripResponseDTO>> getMyTrips(MyTripDTO myTripDTO){
-        System.out.println(myTripDTO.toString());
         List<Trip> tripList = tripRepoService.findTripByUserId(myTripDTO.getUserId());
         List<MyTripResponseDTO> completedTripList = new ArrayList<>();
-        System.out.println("Trip: " + tripList.size());
         for(Trip trip : tripList){
             if(myTripDTO.getType().equals("COMPLETED")){
                 if(trip.getPickUpDate().compareTo(myTripDTO.getCurrentDate()) >= 0){
@@ -137,7 +138,6 @@ public class UserServiceIMPL implements UserService {
             } else if (trip.getTripType().equals("TRAIN")){
                 Train train = trainRepoService.findTrainById(trip.getTransportId());
                 TrainSeat trainSeat = trainSeatRepoService.findByPassengerDetails_PassengerId(passengerList.get(0).getPassengerId());
-//                String trainSeatType = trainSeat.getTrainSeatTypePriceDetails().getSeatTypeDetails().getSeatType();
                 String trainSeatPrice = trainSeat.getTrainSeatTypePriceDetails().getPrice();
                 myTripTransportDTO = new MyTripTransportDTO(
                         train.getTrainName(),
@@ -173,6 +173,7 @@ public class UserServiceIMPL implements UserService {
 
 
             MyTripResponseDTO completedTrip = new MyTripResponseDTO(
+                    trip.getTripId(),
                     trip.getFromPlace(),
                     trip.getPickUpDate(),
                     trip.getPickUpTime(),
@@ -181,11 +182,12 @@ public class UserServiceIMPL implements UserService {
                     trip.getDropTime(),
                     passengerList,
                     contactDetails,
-                    myTripTransportDTO
+                    myTripTransportDTO,
+                    trip.getBookedDate(),
+                    trip.getBookedTime()
                     );
             completedTripList.add(completedTrip);
         }
-        System.out.println("Res: " + completedTripList.size());
         return new ResponseEntity<>(completedTripList, HttpStatus.OK);
     }
 }

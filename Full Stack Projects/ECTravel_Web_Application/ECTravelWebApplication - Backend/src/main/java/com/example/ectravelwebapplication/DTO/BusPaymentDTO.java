@@ -24,4 +24,8 @@ public class BusPaymentDTO {
     private boolean paymentStatus;
 
     private String razorpayPaymentId;
+
+    private String bookedDate;
+
+    private String bookedTime;
 }

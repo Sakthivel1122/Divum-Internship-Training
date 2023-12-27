@@ -12,7 +12,7 @@ const BusBooking = () => {
   const location = useLocation();
   const mainContext = useMain();
   const navigate = useNavigate();
-  console.log(">>> ",location.state);
+  console.log(">>> ", location.state);
   const setInitialTravellersDetails = () => {
     let objList = [];
     location.state.selectSeat.selectedSeatDetailsList.map((seat) => {
@@ -69,6 +69,7 @@ const BusBooking = () => {
 
   const handlePaymentCallBack = (response) => {
     // console.log(response.razorpay_payment_id);
+    const dateObj = new Date();
     const data = {
       passengerList: bookingData.travellersDetails,
       contactDetails: bookingData.contactDetails,
@@ -86,6 +87,8 @@ const BusBooking = () => {
       userId: mainContext.loginDetails.userId,
       paymentStatus: true,
       razorpayPaymentId: response.razorpay_payment_id,
+      bookedDate: dateObj.toISOString().split("T")[0],
+      bookedTime: dateObj.getHours() + ":" + dateObj.getMinutes(),
     };
     const result = handleBusPaymentApiCall(data);
     result
@@ -133,6 +136,8 @@ const BusBooking = () => {
       userId: mainContext.loginDetails.userId,
       paymentStatus: true,
       razorpayPaymentId: "test_payment_001",
+      bookedDate: "",
+      bookedTime: "",
     };
     const result = handleBusPaymentApiCall(data);
     result

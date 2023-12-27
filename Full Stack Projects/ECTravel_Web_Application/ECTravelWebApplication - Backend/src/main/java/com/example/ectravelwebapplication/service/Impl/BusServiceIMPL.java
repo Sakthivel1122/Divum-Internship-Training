@@ -208,7 +208,9 @@ public class BusServiceIMPL implements BusService {
                 busPaymentDTO.getUserId(),
                 busPaymentDTO.getContactDetails().getEmailId(),
                 busPaymentDTO.getContactDetails().getMobileNo(),
-                busPaymentDTO.getBusId()
+                busPaymentDTO.getBusId(),
+                busPaymentDTO.getBookedDate(),
+                busPaymentDTO.getBookedTime()
         );
         tripRepoService.saveTrip(trip);
         for (BusPassengerDTO passengerDetails : busPaymentDTO.getPassengerList()){

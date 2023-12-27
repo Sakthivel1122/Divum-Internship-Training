@@ -1,6 +1,5 @@
 import React from "react";
 import "./App.scss";
-import RoutingFile from "./RoutingFile";
 import { useMain } from "./contexts/MainContext";
 import Alert from "./components/Alert";
 import LoadingSpinner from "./components/LoadingSpinner";
@@ -9,6 +8,7 @@ import { Provider } from "react-redux";
 import { trainBookingStore } from "./redux/app/trainBookingStore";
 import { PersistGate } from "redux-persist/integration/react";
 import persistStore from "redux-persist/es/persistStore";
+import MainRoutes from "./MainRoutes";
 const App = () => {
   const mainContext = useMain();
   const persistor = persistStore(trainBookingStore);
@@ -17,7 +17,7 @@ const App = () => {
       <AdminProvider>
         <Provider store={trainBookingStore}>
           <PersistGate persistor={persistor}>
-            <RoutingFile />
+            <MainRoutes />
           </PersistGate>
         </Provider>
       </AdminProvider>

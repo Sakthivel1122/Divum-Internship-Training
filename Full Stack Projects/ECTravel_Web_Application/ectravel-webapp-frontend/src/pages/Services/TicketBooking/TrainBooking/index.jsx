@@ -12,7 +12,11 @@ import { removeTraveller } from "../../../../redux/features/TrainBooking/travell
 import { handlePayment } from "../../../../utils/payment";
 import BookingInputBox from "../../../../shared/BookingInputBox";
 import { contactDetailsForm } from "../../../../constants/formConstants";
-import { FEMALE, MALE, TRANSPORT_TYPE } from "../../../../constants/stringConstants";
+import {
+  FEMALE,
+  MALE,
+  TRANSPORT_TYPE,
+} from "../../../../constants/stringConstants";
 import { useMain } from "../../../../contexts/MainContext";
 import {
   handleGetAvailTrainApiCall,
@@ -68,6 +72,7 @@ const TrainBooking = () => {
     dispatch(removeTraveller(index));
   };
   const handlePaymentCallBack = (response) => {
+    const dateObj = new Date();
     let tempTravellersList = [...travellersList];
     tempTravellersList = tempTravellersList.map((data) => {
       return {
@@ -96,6 +101,8 @@ const TrainBooking = () => {
       userId: mainContext.loginDetails.userId,
       paymentStatus: true,
       razorpayPaymentId: response.razorpay_payment_id,
+      bookedDate: dateObj.toISOString().split("T")[0],
+      bookedTime: dateObj.getHours() + ":" + dateObj.getMinutes(),
     };
     const result = handleTrainPaymentApiCall(dataObj);
     result.then((res) => {
