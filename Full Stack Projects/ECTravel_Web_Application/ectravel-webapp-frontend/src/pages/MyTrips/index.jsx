@@ -53,10 +53,10 @@ const MyTrips = () => {
         return "";
     }
   };
-  const dateObj = new Date();
+  // const dateObj = new Date();
 
-  console.log(dateObj.toISOString().split("T")[0]);
-  console.log(dateObj.getHours() + ":" + dateObj.getMinutes());
+  // console.log(dateObj.toISOString().split("T")[0]);
+  // console.log(dateObj.getHours() + ":" + dateObj.getMinutes());
   return (
     <>
       <div className={"MyTrips " + getBgClassName(currentPage)}>

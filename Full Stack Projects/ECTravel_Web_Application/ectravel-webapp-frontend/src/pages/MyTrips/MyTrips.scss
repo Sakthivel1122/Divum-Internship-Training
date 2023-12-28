@@ -105,4 +105,9 @@
     background-color: $primary-color;
     border-radius: 3px;
   }
+
+  .nav-item:nth-child(1)::after,
+  .nav-item:nth-child(1).active::after {
+    
+  }
 }
