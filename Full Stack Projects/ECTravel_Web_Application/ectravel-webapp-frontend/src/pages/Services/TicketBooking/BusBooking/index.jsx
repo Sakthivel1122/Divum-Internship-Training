@@ -8,6 +8,7 @@ import {
   handleBusPaymentApiCall,
   handleCheckAvailBusApiCall,
 } from "../../../../utils/ApiCalls";
+import { BUS_TAX } from "../../../../constants/taxConstants";
 const BusBooking = () => {
   const location = useLocation();
   const mainContext = useMain();
@@ -81,7 +82,7 @@ const BusBooking = () => {
         dropDate: location.state.dropDate,
         dropTime: location.state.dropTime,
         tripType: TRANSPORT_TYPE.BUS,
-        tripPrice: location.state.totalPrice + 20,
+        tripPrice: location.state.totalPrice + BUS_TAX,
       },
       busId: location.state.busId,
       userId: mainContext.loginDetails.userId,
@@ -130,7 +131,7 @@ const BusBooking = () => {
         dropDate: location.state.dropDate,
         dropTime: location.state.dropTime,
         tripType: TRANSPORT_TYPE.BUS,
-        tripPrice: location.state.totalPrice + 20,
+        tripPrice: location.state.totalPrice + BUS_TAX,
       },
       busId: location.state.busId,
       userId: mainContext.loginDetails.userId,
@@ -282,17 +283,17 @@ const BusBooking = () => {
           </div>
           <div className="bus-booking-container-2-2">
             <label>Tax</label>
-            <p>Rs.20</p>
+            <p>Rs.{BUS_TAX}</p>
           </div>
           <div className="bus-booking-container-2-3">
             <label htmlFor="">Total Amount</label>
-            <p>Rs.{location.state.totalPrice + 20}</p>
+            <p>Rs.{location.state.totalPrice + BUS_TAX}</p>
           </div>
           <button
             className="continue-btn"
             onClick={() => {
               handlePayment(
-                location.state.totalPrice + 20,
+                location.state.totalPrice + BUS_TAX,
                 handlePaymentCallBack
               );
             }}

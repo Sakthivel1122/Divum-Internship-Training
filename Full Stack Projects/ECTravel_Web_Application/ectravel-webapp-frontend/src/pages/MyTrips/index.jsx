@@ -41,7 +41,20 @@ const MyTrips = () => {
     }
   };
 
-  const getBgClassName = (currentPage) => {
+  const getBgGradientClassName = (currentPage) => {
+    switch (currentPage) {
+      case 1:
+        return "upcoming-bg-gradient";
+      case 2:
+        return "cancelled-bg-gradient";
+      case 3:
+        return "completed-bg-gradient";
+      default:
+        return "";
+    }
+  };
+
+  const getBgColorClassName = (currentPage) => {
     switch (currentPage) {
       case 1:
         return "upcoming-bg";
@@ -59,23 +72,35 @@ const MyTrips = () => {
   // console.log(dateObj.getHours() + ":" + dateObj.getMinutes());
   return (
     <>
-      <div className={"MyTrips " + getBgClassName(currentPage)}>
+      <div className={"MyTrips " + getBgGradientClassName(currentPage)}>
         <div className="my-trips-container">
           <ul className="my-trips-navbar">
             <li
-              className={"nav-item " + (currentPage === 1 ? "active" : "")}
+              className={
+                "nav-item nav-item-1 " +
+                (currentPage === 1 ? "active " : "") +
+                getBgColorClassName(currentPage)
+              }
               onClick={() => handlePageChange(1)}
             >
               UPCOMING
             </li>
             <li
-              className={"nav-item " + (currentPage === 2 ? "active" : "")}
+              className={
+                "nav-item nav-item-2 " +
+                (currentPage === 2 ? "active " : "") +
+                getBgColorClassName(currentPage)
+              }
               onClick={() => handlePageChange(2)}
             >
               CANCELLED
             </li>
             <li
-              className={"nav-item " + (currentPage === 3 ? "active" : "")}
+              className={
+                "nav-item nav-item-3 " +
+                (currentPage === 3 ? "active " : "") +
+                getBgColorClassName(currentPage)
+              }
               onClick={() => handlePageChange(3)}
             >
               COMPLETED
@@ -89,6 +114,7 @@ const MyTrips = () => {
                     <DisplayTripDetails
                       tripData={tripDetails}
                       currentPage={currentPage}
+                      bgGradientClassName={getBgGradientClassName(currentPage)}
                     />
                   );
                 })}

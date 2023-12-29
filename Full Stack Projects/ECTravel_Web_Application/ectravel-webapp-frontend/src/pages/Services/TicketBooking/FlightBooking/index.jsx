@@ -25,6 +25,7 @@ import {
   handleFlightPaymentApiCall,
   handleGetAvailFlightApiCall,
 } from "../../../../utils/ApiCalls";
+import { FLIGHT_TAX } from "../../../../constants/taxConstants";
 
 const FlightBooking = () => {
   const mainContext = useMain();
@@ -57,6 +58,7 @@ const FlightBooking = () => {
 
   const handlePaymentCallBack = (response) => {
     // console.log(response.razorpay_payment_id);
+    const dateObj = new Date();
     let seatClassName =
       formData.selectedClass === "Business"
         ? FLIGHT_CLASS_TYPE.BUSINESS_CLASS
@@ -79,13 +81,15 @@ const FlightBooking = () => {
         dropDate: flightData.dropDate,
         dropTime: flightData.dropTime,
         tripType: TRANSPORT_TYPE.FLIGHT,
-        tripPrice: Number(flightData.price) + 700,
+        tripPrice: Number(flightData.price) + FLIGHT_TAX,
       },
       classType: seatClassName,
       flightId: flightData.flightId,
       userId: mainContext.loginDetails.userId,
       paymentStatus: true,
       razorpayPaymentId: response.razorpay_payment_id,
+      bookedDate: dateObj.toISOString().split("T")[0],
+      bookedTime: dateObj.getHours() + ":" + dateObj.getMinutes(),
     };
     const result = handleFlightPaymentApiCall(dataObj);
     result.then((res) => {
@@ -138,7 +142,7 @@ const FlightBooking = () => {
         dropDate: flightData.dropDate,
         dropTime: flightData.dropTime,
         tripType: TRANSPORT_TYPE.FLIGHT,
-        tripPrice: Number(flightData.price) + 700,
+        tripPrice: Number(flightData.price) + FLIGHT_TAX,
       },
       classType: seatClassName,
       flightId: flightData.flightId,
@@ -340,17 +344,19 @@ const FlightBooking = () => {
           </div>
           <div className="price-detail price-detail-3">
             <p className="price-label">Taxes and Surcharges</p>
-            <p className="price-text">Rs.700</p>
+            <p className="price-text">Rs.{FLIGHT_TAX}</p>
           </div>
           <div className="price-detail price-detail-4">
             <p className="price-label">Total Amount</p>
-            <p className="price-text">Rs.{Number(flightData.price) + 700}</p>
+            <p className="price-text">
+              Rs.{Number(flightData.price) + FLIGHT_TAX}
+            </p>
           </div>
           <PaymentButton
             className="flight-pay-now-btn"
             handleOnClick={() =>
               handlePayment(
-                Number(flightData.price) + 700,
+                Number(flightData.price) + FLIGHT_TAX,
                 handlePaymentCallBack
               )
             }

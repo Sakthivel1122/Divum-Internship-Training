@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Flight {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int flightId;
 
     private String flightName;
@@ -45,7 +45,11 @@ public class Flight {
 
     private String stoppingTime;
 
-    public Flight(String flightName, String fromPlace, String toPlace, String pickUpDate, String pickUpTime, String dropDate, String dropTime, String stopping, String price, int businessAvailCount, int economyAvailCount, boolean isMealFree, String cabinBagLimit, String checkInLimit, String stoppingDate, String stoppingTime) {
+    private int initialBusinessCount;
+
+    private int initialEconomyCount;
+
+    public Flight(String flightName, String fromPlace, String toPlace, String pickUpDate, String pickUpTime, String dropDate, String dropTime, String stopping, String price, int businessAvailCount, int economyAvailCount, boolean isMealFree, String cabinBagLimit, String checkInLimit, String stoppingDate, String stoppingTime,int initialBusinessCount,int initialEconomyCount) {
         this.flightName = flightName;
         this.fromPlace = fromPlace;
         this.toPlace = toPlace;
@@ -62,5 +66,7 @@ public class Flight {
         this.checkInLimit = checkInLimit;
         this.stoppingDate = stoppingDate;
         this.stoppingTime = stoppingTime;
+        this.initialBusinessCount = initialBusinessCount;
+        this.initialEconomyCount = initialEconomyCount;
     }
 }

@@ -66,6 +66,7 @@ public class TrainServiceImpl implements TrainService {
             );
             trainStationRepoService.saveTrainStation(trainStation);
         }
+        int seatNo = 1;
         for (int i = 0; i < 6; i++) {
             TrainSeatTypePrice trainSeatTypePrice = new TrainSeatTypePrice(
                     train,
@@ -74,7 +75,8 @@ public class TrainServiceImpl implements TrainService {
             );
             trainSeatTypePriceRepoService.saveTrainSeatTypePrice(trainSeatTypePrice);
             for (int j = 0; j < 10; j++) {
-                TrainSeat trainSeat = new TrainSeat(train, null,trainSeatTypePrice,false);
+                TrainSeat trainSeat = new TrainSeat(train, null,trainSeatTypePrice,false,seatNo);
+                seatNo++;
                 trainSeatRepoService.saveTrainSeat(trainSeat);
             }
         }
@@ -217,6 +219,7 @@ public class TrainServiceImpl implements TrainService {
                 return new ResponseEntity<String>("Invalid Train Seat Type",HttpStatus.BAD_REQUEST);
         }
         for (TrainPassengerDTO passengerDetails : trainPaymentDTO.getPassengerList()){
+            List<TrainSeat> trainSeatList = trainSeatRepoService.findByTrainDetails_TrainIdAndTrainSeatTypePriceDetails_SeatTypeDetails_SeatTypeIdAndStatus(trainPaymentDTO.getTrainId(), trainSeatTypeId,false);
             Passenger passenger = new Passenger(
                     passengerDetails.getTravellerName(),
 //                    trainPaymentDTO.getContactDetails().getEmailId(),
@@ -224,13 +227,12 @@ public class TrainServiceImpl implements TrainService {
                     passengerDetails.getBerthPreference(),
                     passengerDetails.getAge(),
                     trip.getTripId(),
-                    -1,
+                    trainSeatList.get(0).getTrainSeatId(),
 //                    trainPaymentDTO.getTrainId(),
                     trainPaymentDTO.getUserId(),
                     passengerDetails.getGender()
             );
             passengerRepoService.savePassenger(passenger);
-            List<TrainSeat> trainSeatList = trainSeatRepoService.findByTrainDetails_TrainIdAndTrainSeatTypePriceDetails_SeatTypeDetails_SeatTypeIdAndStatus(trainPaymentDTO.getTrainId(), trainSeatTypeId,false);
             if(!trainSeatList.isEmpty()){
                 TrainSeat trainSeat =  trainSeatRepoService.findTrainSeatById(trainSeatList.get(0).getTrainSeatId());
                 trainSeat.setStatus(true);

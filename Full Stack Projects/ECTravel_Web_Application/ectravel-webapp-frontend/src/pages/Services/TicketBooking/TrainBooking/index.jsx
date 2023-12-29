@@ -22,6 +22,7 @@ import {
   handleGetAvailTrainApiCall,
   handleTrainPaymentApiCall,
 } from "../../../../utils/ApiCalls";
+import { TRAIN_TAX } from "../../../../constants/taxConstants";
 
 const TrainBooking = () => {
   const location = useLocation();
@@ -94,7 +95,7 @@ const TrainBooking = () => {
         dropDate: train.train.train.dropDate,
         dropTime: train.train.train.dropTime,
         tripType: TRANSPORT_TYPE.TRAIN,
-        tripPrice: Number(train.seat.price) + 20,
+        tripPrice: Number(train.seat.price) + TRAIN_TAX,
       },
       seatType: train.seat.seatName,
       trainId: train.train.train.trainId,
@@ -159,7 +160,7 @@ const TrainBooking = () => {
         dropDate: train.train.train.dropDate,
         dropTime: train.train.train.dropTime,
         tripType: TRANSPORT_TYPE.TRAIN,
-        tripPrice: Number(train.seat.price) + 20,
+        tripPrice: Number(train.seat.price) + TRAIN_TAX,
       },
       seatType: train.seat.seatName,
       trainId: train.train.train.trainId,
@@ -335,18 +336,18 @@ const TrainBooking = () => {
               </div>
               <div className="details-wrapper">
                 <p>Reservation Charge</p>
-                <p>Rs.20</p>
+                <p>Rs.{TRAIN_TAX}</p>
               </div>
               <div className="details-wrapper">
                 <p>Total price per adult</p>
-                <p>Rs.{Number(train.seat.price) + 20}</p>
+                <p>Rs.{Number(train.seat.price) + TRAIN_TAX}</p>
               </div>
             </div>
             <button
               className="payment-btn"
               onClick={() => {
                 handlePayment(
-                  Number(train.seat.price) + 20,
+                  Number(train.seat.price) + TRAIN_TAX,
                   handlePaymentCallBack
                 );
               }}

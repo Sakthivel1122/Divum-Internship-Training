@@ -4,12 +4,8 @@ import com.example.ectravelwebapplication.DTO.AddFlightDTO;
 import com.example.ectravelwebapplication.DTO.FlightPaymentDTO;
 import com.example.ectravelwebapplication.DTO.GetAvailFlightDTO;
 import com.example.ectravelwebapplication.DTO.UpdateFlightDTO;
-import com.example.ectravelwebapplication.entity.Flight;
-import com.example.ectravelwebapplication.entity.Passenger;
-import com.example.ectravelwebapplication.entity.Trip;
-import com.example.ectravelwebapplication.repository.service.FlightRepoService;
-import com.example.ectravelwebapplication.repository.service.PassengerRepoService;
-import com.example.ectravelwebapplication.repository.service.TripRepoService;
+import com.example.ectravelwebapplication.entity.*;
+import com.example.ectravelwebapplication.repository.service.*;
 import com.example.ectravelwebapplication.service.FlightService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,8 +26,14 @@ public class FlightServiceIMPL implements FlightService {
     @Autowired
     PassengerRepoService passengerRepoService;
 
+    @Autowired
+    FlightBusinessSeatRepoService flightBusinessSeatRepoService;
+
+    @Autowired
+    FlightEconomySeatRepoService flightEconomySeatRepoService;
+
     @Override
-    public ResponseEntity<String> addFlight(AddFlightDTO addFlightDTO){
+    public ResponseEntity<String> addFlight(AddFlightDTO addFlightDTO) {
         Flight flight = new Flight(
                 addFlightDTO.getFlightName(),
                 addFlightDTO.getFromPlace(),
@@ -48,15 +50,28 @@ public class FlightServiceIMPL implements FlightService {
                 addFlightDTO.getCabinBagLimit(),
                 addFlightDTO.getCheckInLimit(),
                 addFlightDTO.getStoppingDate(),
-                addFlightDTO.getStoppingTime()
+                addFlightDTO.getStoppingTime(),
+                addFlightDTO.getBusinessAvailCount(),
+                addFlightDTO.getEconomyAvailCount()
         );
         flightRepoService.saveFlight(flight);
-        return new ResponseEntity<>("Train Added Successfully", HttpStatus.OK);
+        int seatNo = 1;
+        for (int i = 0; i < addFlightDTO.getBusinessAvailCount(); i++) {
+            FlightBusinessSeat flightBusinessSeat = new FlightBusinessSeat(null, null, seatNo, false);
+            seatNo++;
+            flightBusinessSeatRepoService.saveFlightBusinessSeat(flightBusinessSeat);
+        }
+        for (int i = 0; i < addFlightDTO.getEconomyAvailCount(); i++) {
+            FlightEconomySeat flightEconomySeat = new FlightEconomySeat(null, null, seatNo, false);
+            seatNo++;
+            flightEconomySeatRepoService.saveFlightEconomySeat(flightEconomySeat);
+        }
+        return new ResponseEntity<>("Flight Added Successfully", HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<List<Flight>> getAllFlights() {
-        return new ResponseEntity<List<Flight>>(flightRepoService.getAllFlights(),HttpStatus.OK);
+        return new ResponseEntity<List<Flight>>(flightRepoService.getAllFlights(), HttpStatus.OK);
     }
 
     @Override
@@ -68,9 +83,9 @@ public class FlightServiceIMPL implements FlightService {
     @Override
     public ResponseEntity<String> updateFlight(UpdateFlightDTO updateFlightDTO) {
 //        boolean result = flightRepoService.updateFlight(updateFlightDTO);
-        System.out.println(updateFlightDTO.toString());
+//        System.out.println(updateFlightDTO.toString());
         Flight flight = flightRepoService.findFlightById(updateFlightDTO.getFlightId());
-        if(flight != null){
+        if (flight != null) {
             flight.setFlightName(updateFlightDTO.getFlightName());
             flight.setFromPlace((updateFlightDTO.getFromPlace()));
             flight.setToPlace(updateFlightDTO.getToPlace());
@@ -94,14 +109,14 @@ public class FlightServiceIMPL implements FlightService {
     }
 
     @Override
-    public ResponseEntity<List<Flight>> getAvailFlight(GetAvailFlightDTO getAvailFlightDTO){
-        return new ResponseEntity<List<Flight>>(flightRepoService.getAvailFlight(getAvailFlightDTO),HttpStatus.OK);
+    public ResponseEntity<List<Flight>> getAvailFlight(GetAvailFlightDTO getAvailFlightDTO) {
+        return new ResponseEntity<List<Flight>>(flightRepoService.getAvailFlight(getAvailFlightDTO), HttpStatus.OK);
     }
 
     @Override
-    public ResponseEntity<String> flightPayment(FlightPaymentDTO flightPaymentDTO){
-        if(!flightPaymentDTO.isPaymentStatus()){
-            return new ResponseEntity<>("Payment Failed",HttpStatus.BAD_REQUEST);
+    public ResponseEntity<String> flightPayment(FlightPaymentDTO flightPaymentDTO) {
+        if (!flightPaymentDTO.isPaymentStatus()) {
+            return new ResponseEntity<>("Payment Failed", HttpStatus.BAD_REQUEST);
         }
         Trip trip = new Trip(
                 flightPaymentDTO.getTripDetails().getTripType(),
@@ -137,20 +152,21 @@ public class FlightServiceIMPL implements FlightService {
         );
         passengerRepoService.savePassenger(passenger);
         Flight flight = flightRepoService.findFlightById(flightPaymentDTO.getFlightId());
-        if(flightPaymentDTO.getClassType().equals("BUSINESS_CLASS")){
-            if(flight.getBusinessAvailCount() == 0){
-                return new ResponseEntity<String>("Fight Payment Failed",HttpStatus.BAD_REQUEST);
+        if (flightPaymentDTO.getClassType().equals("BUSINESS_CLASS")) {
+            if (flight.getBusinessAvailCount() == 0) {
+                return new ResponseEntity<String>("Fight Payment Failed", HttpStatus.BAD_REQUEST);
             }
             flight.setBusinessAvailCount(flight.getBusinessAvailCount() - 1);
+
         } else if (flightPaymentDTO.getClassType().equals("ECONOMY_CLASS")) {
-            if(flight.getEconomyAvailCount() == 0){
-                return new ResponseEntity<String>("Fight Payment Failed",HttpStatus.BAD_REQUEST);
+            if (flight.getEconomyAvailCount() == 0) {
+                return new ResponseEntity<String>("Fight Payment Failed", HttpStatus.BAD_REQUEST);
             }
             flight.setEconomyAvailCount(flight.getEconomyAvailCount() - 1);
         } else {
-            return new ResponseEntity<String>("Invalid Class Type",HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<String>("Invalid Class Type", HttpStatus.BAD_REQUEST);
         }
         flightRepoService.saveFlight(flight);
-        return new ResponseEntity<String>("Flight Payment Successful",HttpStatus.OK);
+        return new ResponseEntity<String>("Flight Payment Successful", HttpStatus.OK);
     }
 }

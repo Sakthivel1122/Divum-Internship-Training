@@ -11,16 +11,18 @@
   // background: linear-gradient(90deg, #6acbe4 0%, #51d7b2 71%);
 }
 
-.upcoming-bg {
+.upcoming-bg-gradient {
   background: rgb(121, 216, 232);
   background: linear-gradient(
     90deg,
     rgba(121, 216, 232, 1) 0%,
     rgba(74, 152, 228, 1) 46%
   );
+
+  
 }
 
-.cancelled-bg {
+.cancelled-bg-gradient {
   background: rgb(247, 255, 168);
   background: linear-gradient(
     90deg,
@@ -29,7 +31,7 @@
   );
 }
 
-.completed-bg {
+.completed-bg-gradient {
   background: rgb(156, 251, 244);
   background: linear-gradient(
     90deg,
@@ -66,6 +68,20 @@
       min-height: calc(100vh - (10rem + 9rem));
       max-height: calc(100vh - (12rem + 12rem));
     }
+
+    .my-trip-content-wrapper::-webkit-scrollbar {
+      width: 0.5rem;
+    }
+    .my-trip-content-wrapper::-webkit-scrollbar-track {
+      background-color: #f1f1f1;
+    }
+    .my-trip-content-wrapper::-webkit-scrollbar-thumb {
+      background-color: #c3c1c1;
+      // border-radius: .25rem;
+    }
+    .my-trip-content-wrapper::-webkit-scrollbar-thumb:hover {
+      background-color: #aaa7a7;
+    }
   }
 }
 
@@ -77,17 +93,14 @@
   height: 4rem;
   background-color: white;
   z-index: 5;
-  // border: 1px solid red;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
   padding: 3.4rem 0 3.5rem 2rem;
   border-top-right-radius: 5px;
   border-top-left-radius: 5px;
-  // border-bottom: 1px solid rgba(0, 0, 0, 0.5);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   position: absolute;
   width: 100%;
   border-radius: 5px;
-  //   z-index: 20;
 
   .nav-item {
     cursor: pointer;
@@ -106,8 +119,24 @@
     border-radius: 3px;
   }
 
-  .nav-item:nth-child(1)::after,
-  .nav-item:nth-child(1).active::after {
-    
+  .nav-item-1.active::after {
+    background-color: rgba(74, 152, 228, 1);
+  }
+  .nav-item-2.active::after {
+    background-color: rgba(241, 213, 69, 1);
+  }
+  .nav-item-3.active::after {
+    background-color: $primary-color;
+  }
+  .nav-item.upcoming-bg:hover::after {
+    background-color: rgba(74, 152, 228, 1);
+  }
+
+  .nav-item.cancelled-bg:hover::after {
+    background-color: rgba(241, 213, 69, 1);
+  }
+
+  .nav-item.completed-bg:hover::after {
+    background-color: $primary-color;
   }
 }

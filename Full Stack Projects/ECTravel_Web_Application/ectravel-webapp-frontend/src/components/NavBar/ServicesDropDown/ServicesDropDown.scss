@@ -1,3 +1,5 @@
+@import "../../../assets/styles/globalConstants";
+
 .ServicesDropDown {
   position: absolute;
   top: 2rem;
@@ -28,12 +30,12 @@
   color: black;
 }
 .dropdown-content .service-wrapper .service-link:hover {
-  background-color: #00b894;
+  background-color: $hover-color;
   color: white;
 }
 
 .active-service {
-  background-color: #00b894;
+  background-color: $primary-color;
   color: white;
 }
 

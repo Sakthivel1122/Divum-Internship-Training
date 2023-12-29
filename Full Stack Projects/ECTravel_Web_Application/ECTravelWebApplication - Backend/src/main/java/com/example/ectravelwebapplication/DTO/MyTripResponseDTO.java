@@ -26,7 +26,7 @@ public class MyTripResponseDTO {
 
     private String dropTime;
 
-    private List<Passenger> passengerList;
+    private List<MyTripPassengerDTO> passengerList;
 
     private ContactDetailsDTO contactDetails;
 

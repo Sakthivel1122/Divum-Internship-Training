@@ -28,10 +28,13 @@ public class TrainSeat {
 
     private boolean status;
 
-    public TrainSeat(Train trainDetails, Passenger passengerDetails, TrainSeatTypePrice trainSeatTypePriceDetails,boolean statue) {
+    private int seatNo;
+
+    public TrainSeat(Train trainDetails, Passenger passengerDetails, TrainSeatTypePrice trainSeatTypePriceDetails,boolean status,int seatNo) {
         this.trainDetails = trainDetails;
         this.passengerDetails = passengerDetails;
         this.trainSeatTypePriceDetails = trainSeatTypePriceDetails;
-        this.status = statue;
+        this.status = status;
+        this.seatNo = seatNo;
     }
 }

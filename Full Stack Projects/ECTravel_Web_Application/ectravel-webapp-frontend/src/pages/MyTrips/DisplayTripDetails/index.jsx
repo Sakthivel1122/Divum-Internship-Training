@@ -4,7 +4,7 @@ import { TRANSPORT_TYPE } from "../../../constants/stringConstants";
 import { monthNoToMonthStr } from "../../../utils/TicketBooking";
 import { useNavigate } from "react-router-dom";
 
-const DisplayTripDetails = ({ tripData, currentPage }) => {
+const DisplayTripDetails = ({ tripData, currentPage, bgGradientClassName }) => {
   const navigate = useNavigate();
 
   const getIconText = (transportType) => {
@@ -46,17 +46,40 @@ const DisplayTripDetails = ({ tripData, currentPage }) => {
     }
   };
 
+  const getBgColorClassName = (currentPage) => {
+    switch (currentPage) {
+      case 1:
+        return "upcoming-bg";
+      case 2:
+        return "cancelled-bg";
+      case 3:
+        return "completed-bg";
+      default:
+        return "";
+    }
+  };
+
   const handleViewBookingBtnOnClick = () => {
-    navigate("/bookedTripDetails");
+    navigate("/bookedTripDetails", {
+      state: {
+        tripData: tripData,
+        bgGradientClassName: bgGradientClassName,
+        tripStatus: getTripStatus(currentPage),
+        iconText: getIconText(tripData.myTripTransport.transportType),
+        // bgGratientClassName: getBgColorClassName(currentPage),
+      },
+    });
   };
   return (
     <div className="DisplayTripDetails">
       <div className="container-1">
         <div className="content-1">
           <p className="from-to-title">{`${tripData.myTripTransport.fromPlace} → ${tripData.myTripTransport.toPlace}`}</p>
-          <p>{`${getTripStatus(currentPage)} · ${getTransportText(
-            tripData.myTripTransport.transportType
-          )} · Booking ID - BKID${tripData.tripId}`}</p>
+          <p>
+            {`${getTripStatus(currentPage)} · ${getTransportText(
+              tripData.myTripTransport.transportType
+            )} · Booking ID - BKID${tripData.tripId}`}
+          </p>
         </div>
         <button
           className="view-booking-btn"
