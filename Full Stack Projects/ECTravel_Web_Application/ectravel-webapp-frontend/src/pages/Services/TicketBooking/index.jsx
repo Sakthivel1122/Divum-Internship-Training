@@ -17,7 +17,7 @@ const TicketBooking = () => {
     vehicle: "train",
     fromPlace: "Chennai",
     toPlace: "Bangalore",
-    date: "2023-12-14",
+    date: "2024-01-01",
   });
 
   const navigate = useNavigate();

@@ -57,12 +57,12 @@ public class FlightServiceIMPL implements FlightService {
         flightRepoService.saveFlight(flight);
         int seatNo = 1;
         for (int i = 0; i < addFlightDTO.getBusinessAvailCount(); i++) {
-            FlightBusinessSeat flightBusinessSeat = new FlightBusinessSeat(null, null, seatNo, false);
+            FlightBusinessSeat flightBusinessSeat = new FlightBusinessSeat(flight, null, seatNo, false);
             seatNo++;
             flightBusinessSeatRepoService.saveFlightBusinessSeat(flightBusinessSeat);
         }
         for (int i = 0; i < addFlightDTO.getEconomyAvailCount(); i++) {
-            FlightEconomySeat flightEconomySeat = new FlightEconomySeat(null, null, seatNo, false);
+            FlightEconomySeat flightEconomySeat = new FlightEconomySeat(flight, null, seatNo, false);
             seatNo++;
             flightEconomySeatRepoService.saveFlightEconomySeat(flightEconomySeat);
         }
@@ -138,31 +138,49 @@ public class FlightServiceIMPL implements FlightService {
         );
         tripRepoService.saveTrip(trip);
 
-        Passenger passenger = new Passenger(
-                flightPaymentDTO.getPassengerDetails().getName(),
-//                flightPaymentDTO.getContactDetails().getEmailId(),
-//                flightPaymentDTO.getContactDetails().getMobileNo(),
-                flightPaymentDTO.getClassType(),
-                flightPaymentDTO.getPassengerDetails().getAge(),
-                trip.getTripId(),
-                -1,
-//                flightPaymentDTO.getFlightId(),
-                flightPaymentDTO.getUserId(),
-                flightPaymentDTO.getPassengerDetails().getGender()
-        );
-        passengerRepoService.savePassenger(passenger);
         Flight flight = flightRepoService.findFlightById(flightPaymentDTO.getFlightId());
         if (flightPaymentDTO.getClassType().equals("BUSINESS_CLASS")) {
             if (flight.getBusinessAvailCount() == 0) {
                 return new ResponseEntity<String>("Fight Payment Failed", HttpStatus.BAD_REQUEST);
             }
             flight.setBusinessAvailCount(flight.getBusinessAvailCount() - 1);
+            List<FlightBusinessSeat> flightBusinessSeatList = flightBusinessSeatRepoService.findByFlightDetails_FlightIdAndStatus(flight.getFlightId(),false);
+            FlightBusinessSeat flightBusinessSeat = flightBusinessSeatList.get(0);
+            flightBusinessSeat.setStatus(true);
 
+            Passenger passenger = new Passenger(
+                    flightPaymentDTO.getPassengerDetails().getName(),
+                    flightPaymentDTO.getClassType(),
+                    flightPaymentDTO.getPassengerDetails().getAge(),
+                    trip.getTripId(),
+                    flightBusinessSeat.getFlightBusinessSeatId(),
+                    flightPaymentDTO.getUserId(),
+                    flightPaymentDTO.getPassengerDetails().getGender()
+            );
+            passengerRepoService.savePassenger(passenger);
+            flightBusinessSeat.setPassengerDetails(passenger);
+            flightBusinessSeatRepoService.saveFlightBusinessSeat(flightBusinessSeat);
         } else if (flightPaymentDTO.getClassType().equals("ECONOMY_CLASS")) {
             if (flight.getEconomyAvailCount() == 0) {
                 return new ResponseEntity<String>("Fight Payment Failed", HttpStatus.BAD_REQUEST);
             }
             flight.setEconomyAvailCount(flight.getEconomyAvailCount() - 1);
+            List<FlightEconomySeat> flightBusinessSeatList = flightEconomySeatRepoService.findByFlightDetails_FlightIdAndStatus(flight.getFlightId(),false);
+            FlightEconomySeat flightEconomySeat = flightBusinessSeatList.get(0);
+            flightEconomySeat.setStatus(true);
+
+            Passenger passenger = new Passenger(
+                    flightPaymentDTO.getPassengerDetails().getName(),
+                    flightPaymentDTO.getClassType(),
+                    flightPaymentDTO.getPassengerDetails().getAge(),
+                    trip.getTripId(),
+                    flightEconomySeat.getFlightEconomySeatId(),
+                    flightPaymentDTO.getUserId(),
+                    flightPaymentDTO.getPassengerDetails().getGender()
+            );
+            passengerRepoService.savePassenger(passenger);
+            flightEconomySeat.setPassengerDetails(passenger);
+            flightEconomySeatRepoService.saveFlightEconomySeat(flightEconomySeat);
         } else {
             return new ResponseEntity<String>("Invalid Class Type", HttpStatus.BAD_REQUEST);
         }

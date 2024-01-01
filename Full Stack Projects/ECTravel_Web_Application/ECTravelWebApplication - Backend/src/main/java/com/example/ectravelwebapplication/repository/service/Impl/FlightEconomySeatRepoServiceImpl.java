@@ -6,6 +6,8 @@ import com.example.ectravelwebapplication.repository.service.FlightEconomySeatRe
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class FlightEconomySeatRepoServiceImpl implements FlightEconomySeatRepoService {
 
@@ -15,5 +17,15 @@ public class FlightEconomySeatRepoServiceImpl implements FlightEconomySeatRepoSe
     @Override
     public void saveFlightEconomySeat(FlightEconomySeat flightEconomySeat){
         flightEconomySeatRepo.save(flightEconomySeat);
+    }
+
+    @Override
+    public List<FlightEconomySeat> findByFlightDetails_FlightIdAndStatus(int flightId, boolean status){
+        return flightEconomySeatRepo.findByFlightDetails_FlightIdAndStatus(flightId, status);
+    }
+
+    @Override
+    public FlightEconomySeat findFlightEconomySeatById(int flightEconomySeatId){
+        return flightEconomySeatRepo.findById(flightEconomySeatId).orElse(null);
     }
 }

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./BookedTripDetails.scss";
 import bus_img from "../../assets/images/TicketBooking/bus_img.png";
 import { useLocation } from "react-router-dom";
@@ -39,6 +39,18 @@ const BookedTripDetails = () => {
     }
   };
 
+  useEffect(() => {
+    // const element = array[index];
+    Notification.requestPermission().then((perm) => {
+      if (perm === "granted") {
+        new Notification(`Notification`, {
+          body: "More Data about the notofication",
+          tag: "tag1",
+        });
+      }
+    });
+  }, []);
+
   return (
     <div className="BookedTripDetails">
       <nav className={"navbar-container " + tripData?.bgGradientClassName}>
@@ -61,7 +73,7 @@ const BookedTripDetails = () => {
               </p>
             </div>
           </div>
-          <p className="navbar-right-content nav-text">
+          <p className="navbar-right-content nv-text">
             <span className="label-text">Booked On</span>{" "}
             {tripData?.tripData?.bookedDate?.split("-")[2] +
               " " +
@@ -179,7 +191,7 @@ const BookedTripDetails = () => {
                       passengerData.gender === MALE ? "Male" : "Female"
                     }`}</p>
                   </div>
-                  <p>Seat 2</p>
+                  <p>{`Seat ${passengerData.seatNo}`}</p>
                 </div>
               );
             })}

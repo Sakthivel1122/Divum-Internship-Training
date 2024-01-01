@@ -39,6 +39,12 @@ public class UserServiceIMPL implements UserService {
     @Autowired
     SeatRepoService seatRepoService;
 
+    @Autowired
+    FlightBusinessSeatRepoService flightBusinessSeatRepoService;
+
+    @Autowired
+    FlightEconomySeatRepoService flightEconomySeatRepoService;
+
     @Override
     public String addUser(AddUserDTO addUserDTO){
         User user = new User(
@@ -154,6 +160,21 @@ public class UserServiceIMPL implements UserService {
                     passengerList.add(myTripPassengerDTO);
                 }
             } else if (trip.getTripType().equals("TRAIN")){
+                for(Passenger passenger: passengers){
+                    MyTripPassengerDTO myTripPassengerDTO = new MyTripPassengerDTO(
+                            passenger.getPassengerId(),
+                            passenger.getPassengerName(),
+                            passenger.getPreference(),
+                            passenger.getPassengerAge(),
+                            passenger.getTripId(),
+                            passenger.getSeatId(),
+                            passenger.getUserId(),
+                            passenger.getGender(),
+                            trainSeatRepoService.findTrainSeatById(passenger.getSeatId()).getSeatNo()
+                    );
+                    passengerList.add(myTripPassengerDTO);
+                }
+
                 Train train = trainRepoService.findTrainById(trip.getTransportId());
                 TrainSeat trainSeat = trainSeatRepoService.findByPassengerDetails_PassengerId(passengerList.get(0).getPassengerId());
                 String trainSeatPrice = trainSeat.getTrainSeatTypePriceDetails().getPrice();
@@ -211,9 +232,9 @@ public class UserServiceIMPL implements UserService {
                             passenger.getSeatId(),
                             passenger.getUserId(),
                             passenger.getGender(),
-                            (passenger.getPreference().equals("BUSINESS_CLASS")
-                                    ? ((flight.getInitialBusinessCount() - flight.getBusinessAvailCount()) + 1)
-                                    : ((flight.getInitialEconomyCount() - flight.getEconomyAvailCount()) + 1))
+                            passenger.getPreference().equals("BUSINESS_CLASS")
+                                    ? flightBusinessSeatRepoService.findFlightBusinessSeatById(passenger.getSeatId()).getSeatNo()
+                                    : flightEconomySeatRepoService.findFlightEconomySeatById(passenger.getSeatId()).getSeatNo()
                     );
                     passengerList.add(myTripPassengerDTO);
                 }
