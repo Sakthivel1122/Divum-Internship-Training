@@ -1,0 +1,19 @@
+.TopBar {
+  border: 1px solid black;
+  max-height: 4rem;
+  height: 100%;
+  max-width: 100%;
+  margin: 1rem;
+  background-color: #1b2130;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem .7rem;
+  .back-icon {
+    color: white;
+    rotate:180deg;
+    font-size: 2rem;
+    cursor: pointer;
+  }
+}

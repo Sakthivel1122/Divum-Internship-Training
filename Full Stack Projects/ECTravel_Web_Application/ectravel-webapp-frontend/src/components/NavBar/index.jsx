@@ -20,8 +20,7 @@ const NavBar = () => {
   const handleSignUpBtn = () => {
     navigate("/signup");
   };
-  const click = () => {
-  };
+  const click = () => {};
   return (
     <div className="NavBar">
       <div className="nav-content container">
@@ -50,7 +49,12 @@ const NavBar = () => {
               onMouseEnter={() => setProfileDropDown(true)}
               onMouseLeave={() => setProfileDropDown(false)}
             >
-              <img className="profile-pic" loading="lazy" src={profile_pic} alt="profile" />
+              <img
+                className="profile-pic"
+                loading="lazy"
+                src={profile_pic}
+                alt="profile"
+              />
               {profileDropDown && <ProfileDropDown />}
             </li>
           )}

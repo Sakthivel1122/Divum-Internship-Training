@@ -1,0 +1,18 @@
+.Proctor {
+  .updating-img {
+    display: none;
+  }
+
+  .live-img {
+    height: fit-content;
+    width: 25rem;
+  }
+
+  .red-border {
+    border: 3px solid red;
+  }
+
+  .green-border {
+    border: 3px solid green;
+  }
+}
